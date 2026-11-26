@@ -7819,6 +7819,10 @@ extension	Live	සජීවී
 #, machine
 extension	Looking for downloads...	බාගැනීම් සොයමින්...
 #. text in the browser extension
+#. in the menu that opens from the download button over a video, while the app finds which qualities (resolutions, formats) the video can be downloaded in
+#, machine
+extension	Looking up the qualities…	ගුණාංග සොයා බලමින්…
+#. text in the browser extension
 #. in the menu under the download button over a video: the app took more than a minute to find the video's qualities, so the menu stopped waiting
 #, machine
 extension	Looking up took too long	සොයා බැලීමට වැඩි වේලාවක් ගත විය
