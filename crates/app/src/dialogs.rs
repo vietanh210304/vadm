@@ -477,6 +477,35 @@ pub(crate) fn window<T>(
     )
 }
 
+/// A [`window`] that belongs to the main window, as a dialog to its program (the first start's
+/// setup, #1839): on Linux under X11 (XWayland too) it is the main window's transient
+/// (WM_TRANSIENT_FOR, a dialog's type), so the window manager keeps it over the main window,
+/// centred on it, out of the taskbar and the window switcher, as Windows does with the dialogs
+/// the main window owns (`owned_by_main`). KDE Plasma had shown the first start's windows as
+/// programs of their own, each with its taskbar button. Wayland gives a program no say (winit
+/// has no parent for a window there); macOS and Windows: [`window`].
+pub(crate) fn window_of_main<T>(
+    ctx: &egui::Context,
+    id: &str,
+    title: &str,
+    client: [f32; 2],
+    minimize: bool,
+    bg: egui::Color32,
+    body: impl FnMut(&mut Ui, Pos2) -> Outcome<T>,
+) -> Outcome<T> {
+    dialog_window(
+        ctx,
+        id,
+        title,
+        client,
+        minimize,
+        bg,
+        Kind::OfMain,
+        Nth::FIRST,
+        body,
+    )
+}
+
 /// [`window`] number `nth` of its kind (#1741): its id and title numbered, a cascade step
 /// further than the one before ([`Nth`]).
 #[allow(clippy::too_many_arguments)]
@@ -580,6 +609,8 @@ pub(crate) fn notice_seen(ctx: &egui::Context, id: &str) -> bool {
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Kind {
     Plain,
+    /// A plain window that belongs to the main window ([`window_of_main`]).
+    OfMain,
     /// Above the app's windows, taking the focus when it opens (`question`).
     Question,
     /// Never takes the focus by itself; above every program's windows while `on_top` (`notice`).
@@ -738,6 +769,35 @@ fn dialog_window<T>(
             }
         }
     }
+    // The main window's own (Linux, X11): said while the window is still hidden for its theme
+    // (keep_theme shows it on a later pass) when the main window is already shown, else as soon
+    // as it is (the first start's first passes come before it is mapped). Asked again on later
+    // passes until done, for a few seconds' worth of them at most (a main window in the
+    // notification area stays hidden).
+    #[cfg(target_os = "linux")]
+    if kind == Kind::OfMain && matches!(out, Outcome::Open) && !crate::offscreen() {
+        const TRIES: u32 = 120;
+        let told = key.with("of-main");
+        let tries = key.with("of-main-tries");
+        if ctx.data(|d| d.get_temp::<bool>(told)).is_none() {
+            let n = ctx.data(|d| d.get_temp::<u32>(tries).unwrap_or(0));
+            match crate::unix::belong_to_main(title) {
+                Some(done) => {
+                    ctx.data_mut(|d| d.insert_temp(told, done));
+                }
+                None if n + 1 >= TRIES => {
+                    tracing::info!(
+                        "window {title:?}: the main window isn't shown, left on its own"
+                    );
+                    ctx.data_mut(|d| d.insert_temp(told, false));
+                }
+                None => {
+                    ctx.data_mut(|d| d.insert_temp(tries, n + 1));
+                    ctx.request_repaint_after(std::time::Duration::from_millis(50));
+                }
+            }
+        }
+    }
     let activate = dialog_activates_on_open(kind);
     keep_theme(
         ctx,
@@ -794,6 +854,8 @@ fn forget_window(ctx: &egui::Context, vid: ViewportId, key: egui::Id) {
         let n = d.get_temp::<u64>(opened).unwrap_or(0);
         d.insert_temp(opened, n + 1);
         d.remove::<bool>(key.with("focus-sent"));
+        d.remove::<bool>(key.with("of-main"));
+        d.remove::<u32>(key.with("of-main-tries"));
     });
     forget_place(ctx, key);
     #[cfg(windows)]

@@ -569,6 +569,11 @@ Bug fixes from the first days of 0.5.0, a Safari extension, and more file types.
 
 These ship in the next version.
 
+- ✅ The first start's setup in one window: the language, the video helpers (each with its own
+  Install button and progress) and the browser extension as steps with Back and Next; the
+  language switches the window at once, steps not needed are left out, any can be passed, and it
+  doesn't come back once done. On Linux under X11 the window belongs to the main window
+  ([#1839](https://github.com/anefzaoui/misterdownloadmanager/issues/1839))
 - ✅ CodeQL no longer reads the windows' control names as salts or passwords: the shared drawing
   helpers call a control's name `id` and a box that hides its text `masked`; nothing changes on
   screen
