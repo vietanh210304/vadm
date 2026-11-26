@@ -569,6 +569,9 @@ Bug fixes from the first days of 0.5.0, a Safari extension, and more file types.
 
 These ship in the next version.
 
+- ✅ CodeQL no longer reads the windows' control names as salts or passwords: the shared drawing
+  helpers call a control's name `id` and a box that hides its text `masked`; nothing changes on
+  screen
 - ✅ Windows: a graphics driver reset no longer keeps MDM off Direct3D 12 for a month: a start
   just after it that finds no graphics card yet isn't remembered, and the next start draws on the
   card again ([#1974](https://github.com/anefzaoui/misterdownloadmanager/issues/1974))
