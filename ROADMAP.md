@@ -569,6 +569,12 @@ Bug fixes from the first days of 0.5.0, a Safari extension, and more file types.
 
 These ship in the next version.
 
+- ✅ Fast downloads started while the disk is already busy no longer freeze on their first
+  progress save: when writing the download's initial resume state takes seconds and hundreds of
+  megabytes have piled up meanwhile, that first save counts both how long the initial state wait
+  took and the buffered bytes at a hard disk's speed instead of no time at all, and is skipped when
+  it wouldn't fit in memory
+  ([#1633](https://github.com/anefzaoui/misterdownloadmanager/issues/1633))
 - ✅ Windows: a crash inside the graphics driver while OpenGL draws (Intel's and AMD's OpenGL
   drivers, NVIDIA's Direct3D 11 thread on laptops with two graphics chips) moves MDM off OpenGL
   from the next start, as a freeze there does: Direct3D 12, on WARP when the card can't, and
