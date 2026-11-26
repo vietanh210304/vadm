@@ -569,6 +569,8 @@ Bug fixes from the first days of 0.5.0, a Safari extension, and more file types.
 
 These ship in the next version.
 
+- ✅ The browser add-on's **Download video** button can be scaled (**80%**, **100%**, **120%**) beside **Button size** in **Options → General → Download panels**, keeps free interior positions when dragged anywhere over the player, offers **Hide the download button in full screen** directly in its menu, and respects DOM full-screen hiding inside embedded frames
+  ([#1923](https://github.com/anefzaoui/misterdownloadmanager/issues/1923))
 - ✅ The first start's setup in one window: the language, the video helpers (each with its own
   Install button and progress) and the browser extension as steps with Back and Next; the
   language switches the window at once, steps not needed are left out, any can be passed, and it

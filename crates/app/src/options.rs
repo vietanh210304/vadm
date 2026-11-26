@@ -67,9 +67,9 @@ enum Sub {
     Login(Option<usize>, String, String, String),
     /// Connection → New / Edit exception: (row, server, number).
     Exception(Option<usize>, String, String),
-    /// General → Download panels → Edit...: (the button over videos on, its size (#1278), the
-    /// sites it stays off, what Export / Import said).
-    Panels(bool, PanelSize, String, String),
+    /// General → Download panels → Edit...: (the button over videos on, its size (#1278), its
+    /// scale in percent (#1923), the sites it stays off, what Export / Import said).
+    Panels(bool, PanelSize, u16, String, String),
     /// General → Keys...: (also take the files the browser would open).
     Keys(bool),
     /// Downloads → Customize "Download progress" dialog → Edit... (#1041): (show it when a
@@ -420,6 +420,7 @@ impl OptionsDialog {
         self.sub = Some(Sub::Panels(
             self.s.video_panel,
             PanelSize::of(&self.s),
+            mdm_ipc::capture::clean_video_panel_scale(self.s.video_panel_scale),
             self.s.video_panel_sites.clone(),
             String::new(),
         ));
@@ -1077,6 +1078,7 @@ impl OptionsDialog {
             self.sub = Some(Sub::Panels(
                 self.s.video_panel,
                 PanelSize::of(&self.s),
+                mdm_ipc::capture::clean_video_panel_scale(self.s.video_panel_scale),
                 self.s.video_panel_sites.clone(),
                 String::new(),
             ));
@@ -4429,7 +4431,7 @@ impl OptionsDialog {
                     Outcome::Closed => {}
                 }
             }
-            Sub::Panels(mut on, mut size, mut sites, mut said) => {
+            Sub::Panels(mut on, mut size, mut scale, mut sites, mut said) => {
                 // The rows under the size's choices, moved down by their row (#1735's feedback).
                 const DY: f32 = 24.0;
                 let out = window(
@@ -4449,15 +4451,49 @@ impl OptionsDialog {
                             "Show a download button over videos in browsers",
                             true,
                         );
-                        // Its size (#1278): Automatic, the round button in a feed and over a small
-                        // player, its words over a big one (the default); Full, its words wherever
-                        // they fit; Compact, the round button over every video. The choices on a
-                        // row of their own, under their label: three after it ran past the window
-                        // in German.
+                        // Its size (#1278) and scale (#1923): Automatic, the round button in a feed
+                        // and over a small player, its words over a big one (the default); Full, its
+                        // words wherever they fit; Compact, the round button over every video; and
+                        // 80%, 100% or 120% beside the label.
                         let shade = if on { LIGHT_TEXT() } else { LIGHT_DISABLED() };
                         // i18n: Options → Download panels: the size of the download button over videos, chosen under it (Automatic / Full / Compact)
                         let size_label = crate::i18n::t("Button size:");
-                        winui::text_in_window(ui, &p, o.x + 30.0, o.y + 52.0, size_label, shade);
+                        let scale_items = mdm_ipc::capture::VIDEO_PANEL_SCALES
+                            .map(|s| crate::i18n::percent(f64::from(s) / 100.0, 0));
+                        let scale_refs: [&str; 3] = [
+                            scale_items[0].as_str(),
+                            scale_items[1].as_str(),
+                            scale_items[2].as_str(),
+                        ];
+                        let scale_w = winui::combo_fit_width(&p, &scale_refs, 68.0, 96.0);
+                        let scale_x = (30.0 + winui::text_width(&p, size_label) + 10.0)
+                            .clamp(110.0, 366.0 - scale_w);
+                        let (size_rc, size_cut) = winui::label_into(
+                            &p,
+                            o.x + 30.0,
+                            o.y + 52.0,
+                            size_label,
+                            shade,
+                            o.x + scale_x,
+                            o.x + 14.0,
+                        );
+                        if size_cut {
+                            winui::full_on_hover(ui, size_rc, "opt-panels-size", size_label);
+                        }
+                        let scale_at = mdm_ipc::capture::VIDEO_PANEL_SCALES
+                            .iter()
+                            .position(|&s| s == scale)
+                            .unwrap_or(1);
+                        if let Some(i) = winui::combo_light(
+                            ui,
+                            r(o, scale_x, 39.0, scale_w, 21.0),
+                            &scale_refs,
+                            scale_at,
+                            on,
+                            "opt-panel-scale",
+                        ) {
+                            scale = mdm_ipc::capture::VIDEO_PANEL_SCALES[i];
+                        }
                         let captions = [
                             // i18n: Options → Download panels → Button size: the round button in a feed and over a small video, the button with its words over a big one (the default)
                             crate::i18n::mark("Automatic"),
@@ -4613,10 +4649,11 @@ impl OptionsDialog {
                     },
                 );
                 match out {
-                    Outcome::Open => self.sub = Some(Sub::Panels(on, size, sites, said)),
+                    Outcome::Open => self.sub = Some(Sub::Panels(on, size, scale, sites, said)),
                     Outcome::Done(()) => {
                         self.s.video_panel = on;
                         size.set(&mut self.s);
+                        self.s.video_panel_scale = scale;
                         self.s.video_panel_sites =
                             sites.split_whitespace().collect::<Vec<_>>().join(" ");
                     }

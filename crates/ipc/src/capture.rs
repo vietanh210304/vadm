@@ -62,12 +62,27 @@ pub struct CaptureRules {
     /// player, the words over a big one. Told with the answer to `panel`.
     pub video_panel_compact: bool,
     pub video_panel_full: bool,
+    /// Its scale (#1923), percent: one of [`VIDEO_PANEL_SCALES`] (80, 100 or 120; anything else
+    /// reads as 100). Told with the answer to `panel`.
+    pub video_panel_scale: u16,
     /// Options → General: also take the listed types the browser would open itself (a PDF in
     /// its viewer, an MP3 in its player), not only what it downloads.
     pub capture_opened: bool,
     /// Options → File types: files smaller than this (KB) stay with the browser (a receipt, an
     /// icon); 0 takes any size. Only when the browser knows the size.
     pub capture_min_kb: u64,
+}
+
+/// Options → Download panels → Button size's scale steps (#1923), in percent.
+pub const VIDEO_PANEL_SCALES: [u16; 3] = [80, 100, 120];
+
+/// `scale` when it is one of [`VIDEO_PANEL_SCALES`], else `100`.
+pub fn clean_video_panel_scale(scale: u16) -> u16 {
+    if VIDEO_PANEL_SCALES.contains(&scale) {
+        scale
+    } else {
+        100
+    }
 }
 
 impl Default for CaptureRules {
@@ -82,6 +97,7 @@ impl Default for CaptureRules {
             video_panel_sites: String::new(),
             video_panel_compact: false,
             video_panel_full: false,
+            video_panel_scale: 100,
             capture_opened: true,
             capture_min_kb: 0,
         }
