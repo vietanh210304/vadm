@@ -373,23 +373,12 @@ jobs:
               "the first? Give them a go and tell us how it went in an " +
               "[issue](https://github.com/${{ github.repository }}/issues).`n`n"
           }
-          # Last, "Thanks to": everyone who opened a pull request or an issue, or commented, on
-          # GitHub since the previous release (by version) was published, with their avatars and
-          # @-mentions (tools/contributors.py thanks; the maintainer, Claude and bots aren't
-          # counted). Nobody, or GitHub not answering, leaves it out; it never stops the release.
-          $thanks = ""
-          try {
-            $thanks = (python3 tools/contributors.py thanks "$tag" | Out-String).Trim()
-          } catch {
-            Write-Warning "The contributors couldn't be listed: $_"
-          }
-          if ($thanks) { $thanks = "`n`n" + $thanks }
           $all = (Get-ChildItem dist -File).FullName
           if ($m.Success -and $m.Groups[1].Value.Trim()) {
             # Links into the repository (docs/x.md) would resolve against the release's page:
             # point them at the tagged files.
             $notes = $m.Groups[1].Value.Trim() -replace '\]\((?![a-z]+:|#)([^)\s]+)\)', "](https://github.com/${{ github.repository }}/blob/$tag/`$1)"
-            Set-Content -Encoding utf8 notes.md ($stores + $invite + $notes + $thanks)
+            Set-Content -Encoding utf8 notes.md ($stores + $invite + $notes)
             gh release create "$tag" --latest --title $title --notes-file notes.md $all
           } else {
             # Fallback when CHANGELOG.md lacks this version: build a clear commit list since the previous tag.
@@ -401,6 +390,6 @@ jobs:
             } else {
               "## What's Changed`n`n- Maintenance and build updates.`n"
             }
-            Set-Content -Encoding utf8 notes.md ($stores + $invite + $changesBlock + $thanks)
+            Set-Content -Encoding utf8 notes.md ($stores + $invite + $changesBlock)
             gh release create "$tag" --latest --title $title --notes-file notes.md --generate-notes $all
           }
