@@ -283,7 +283,6 @@ jobs:
   publish:
     permissions:
       contents: write # the release
-      actions: write # rebuilding the website
       issues: read # the release notes' Thanks to (tools/contributors.py)
       pull-requests: read
       id-token: write # build provenance: signs the attestation (Sigstore, keyless)
@@ -396,5 +395,3 @@ jobs:
             Set-Content -Encoding utf8 notes.md ($stores + $invite + $thanks.Trim())
             gh release create "$tag" --latest --title $title --notes-file notes.md --generate-notes $all
           }
-          # Optional website rebuild (skip cleanly on forks without GitHub Pages configured).
-          try { gh workflow run pages.yml --ref main 2>$null } catch { }
