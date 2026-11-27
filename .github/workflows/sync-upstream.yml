@@ -8,10 +8,18 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  actions: write
+
+env:
+  CARGO_TERM_COLOR: always
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    outputs:
+      action: ${{ steps.sync.outputs.action }}
+      branch: ${{ steps.sync.outputs.branch }}
+      base_version: ${{ steps.sync.outputs.base_version }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
@@ -27,24 +35,34 @@ jobs:
       - name: Filter and cherry-pick non-torrent commits
         id: sync
         run: |
+          BASE_VER=$(python3 -c 'import re,pathlib; print(re.search(r"(?m)^version\s*=\s*\"([^\"]+)\"", pathlib.Path("Cargo.toml").read_text()).group(1))')
+          echo "base_version=$BASE_VER" >> "$GITHUB_OUTPUT"
           STAMP=$(date -u +%Y%m%d-%H%M%S)
           BRANCH="sync/upstream-$STAMP"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
           git checkout -b "$BRANCH"
           python3 tools/release/sync_upstream.py upstream/main
-          if git diff --quiet && git diff --cached --quiet && [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
+
+      - name: Record marker-only sync on main
+        if: steps.sync.outputs.action == 'marker_only'
+        run: |
+          git add .github/upstream-sync-sha
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: advance upstream sync marker (torrent-only commits skipped)"
+            git push origin HEAD:main
           fi
+
+      - name: Push sync branch for verification or PR
+        if: steps.sync.outputs.action == 'auto_verify' || steps.sync.outputs.action == 'pr'
+        run: |
           git add .github/upstream-sync-sha
           if ! git diff --cached --quiet; then
             git commit -m "chore: update upstream sync marker"
           fi
-          git push -u origin "$BRANCH"
-          echo "changed=true" >> "$GITHUB_OUTPUT"
-          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+          git push -u origin "${{ steps.sync.outputs.branch }}"
 
-      - name: Open pull request
-        if: steps.sync.outputs.changed == 'true'
+      - name: Open pull request when conflicts need review
+        if: steps.sync.outputs.action == 'pr'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -58,3 +76,97 @@ jobs:
             --head "${{ steps.sync.outputs.branch }}" \
             --title "chore: sync non-torrent updates from upstream MDM" \
             --body "$BODY"
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: steps.sync.outputs.action == 'auto_verify'
+        with:
+          name: sync-summary
+          path: SYNC_SUMMARY.md
+          retention-days: 3
+
+  verify:
+    needs: sync
+    if: needs.sync.outputs.action == 'auto_verify'
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ needs.sync.outputs.branch }}
+          persist-credentials: false
+
+      - name: Toolchain
+        run: |
+          rustup show active-toolchain || rustup toolchain install
+          rustup target add x86_64-pc-windows-msvc
+
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: release-${{ runner.os }}-x86_64-pc-windows-msvc-cargo-${{ hashFiles('Cargo.lock') }}
+          restore-keys: release-${{ runner.os }}-x86_64-pc-windows-msvc-cargo-
+
+      - name: NASM
+        uses: ./.github/actions/nasm
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+
+      - name: Extension tests
+        run: node tools/extension/test.mjs
+
+      - name: Workspace tests
+        run: cargo test --workspace --target x86_64-pc-windows-msvc -- --test-threads=4
+
+  auto_release:
+    needs: [sync, verify]
+    if: needs.sync.outputs.action == 'auto_verify' && needs.verify.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Merge clean upstream sync, bump version, tag, and trigger release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "vadm-sync-bot"
+          git config user.email "vadm-sync-bot@users.noreply.github.com"
+          git fetch origin "${{ needs.sync.outputs.branch }}"
+          git merge --ff-only "origin/${{ needs.sync.outputs.branch }}"
+          python3 tools/release/sync_upstream.py --bump-version "${{ needs.sync.outputs.base_version }}"
+          TAG=$(python3 -c 'import re,pathlib; print("v" + re.search(r"(?m)^version\s*=\s*\"([^\"]+)\"", pathlib.Path("Cargo.toml").read_text()).group(1))')
+          git add Cargo.toml Cargo.lock tools/installer/vadm.iss
+          git commit -m "chore: release $TAG (auto-synced non-torrent updates)"
+          git push origin main
+          git tag "$TAG"
+          git push origin "refs/tags/$TAG"
+          git push origin --delete "${{ needs.sync.outputs.branch }}" || true
+          gh workflow run release.yml --repo "${{ github.repository }}" --ref main -f "release_tag=$TAG"
+
+  fallback_pr:
+    needs: [sync, verify]
+    if: always() && needs.sync.outputs.action == 'auto_verify' && needs.verify.result != 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sync-summary
+      - name: Open PR after verification failure
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          SUMMARY=""
+          if [ -f SYNC_SUMMARY.md ]; then SUMMARY="$(cat SYNC_SUMMARY.md)"; fi
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --base main \
+            --head "${{ needs.sync.outputs.branch }}" \
+            --title "chore: sync non-torrent updates (verify failed — review needed)" \
+            --body "Automated verification failed on \`verify\` job before auto-merge. Please review and fix before releasing.\n\n$SUMMARY"
