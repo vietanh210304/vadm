@@ -53,6 +53,7 @@ jobs:
             BODY="$(cat SYNC_SUMMARY.md)"
           fi
           gh pr create \
+            --repo "${{ github.repository }}" \
             --base main \
             --head "${{ steps.sync.outputs.branch }}" \
             --title "chore: sync non-torrent updates from upstream MDM" \
