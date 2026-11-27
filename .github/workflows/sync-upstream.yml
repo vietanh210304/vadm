@@ -93,6 +93,13 @@ jobs:
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
+          persist-credentials: false
+
+      - name: NASM
+        uses: ./.github/actions/nasm
+
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
           ref: ${{ needs.sync.outputs.branch }}
           persist-credentials: false
 
@@ -100,9 +107,6 @@ jobs:
         run: |
           rustup show active-toolchain || rustup toolchain install
           rustup target add x86_64-pc-windows-msvc
-
-      - name: NASM
-        uses: ./.github/actions/nasm
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
