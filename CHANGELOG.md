@@ -460,6 +460,24 @@ Each release's notes on GitHub come from its section here (`## [X.Y.Z]`, see
 - A download started in the browser (a video's download button, a link, a magnet or .torrent) now opens only its dialog when the main window is hidden or minimized, instead of always bringing the full window up.
 
 
+## [0.6.0] - 2026-11-27
+
+### Added & Changed (VADM)
+
+- **Capture `.torrent` files cleanly without a built-in torrent engine:** Browser integration hands `.torrent` file links to VADM as ordinary file downloads, and **Options → Downloads → Automatically open `.torrent` files after download** (`auto_open_torrent`) opens them automatically in your external torrent client.
+- **Improved floating browser video button:** Separated the drag handle (`.grip`) from the click-to-download button (`.go`) in `extension/video.js` so repositioning the button never triggers an accidental download.
+- **VADM release signing & automated non-torrent sync:** Signed release checksums and helper manifests (`SHA256SUMS.txt.sig`, `ffmpeg-builds.txt.sig`) with VADM's Ed25519 release key for in-app updates, and added automated daily non-torrent upstream sync & verification workflows.
+
+### Synced from upstream MDM (Non-Torrent)
+
+- **Status icons & drawn checkmarks:** Added small status icons in the download list and tray download panel, crisp vector check/cross marks in browser/helper status rows, and a role icon for `gallery-dl`.
+- **Browser logos:** Displayed each browser's logo beside its name in **Catch downloads from your browser**, first-start setup, and **Options → General**.
+- **Video button scale, free interior drag & fullscreen menu toggle:** Added **80% / 100% / 120%** button scaling in **Options → General → Download panels**, free placement inside players away from edges, and **Hide the download button in full screen** directly in the button menu.
+- **Unified first-start setup:** Combined language selection, video helpers, and browser extension setup into a single **Welcome** wizard window.
+- **Browser add-on fixes:** Fixed **Download all links** / **Download selected links** forwarding to paired remote servers, and shipped Sinhala (`si`) translations.
+- **Rendering, performance & Windows fixes:** Recovered Direct3D 12 after transient GPU driver resets (#1974), improved first-flush disk speed estimation to avoid stalls on busy drives (#1633), restored main window focus after closing modal dialogs on Windows (#1852), created off-screen winit event-loop windows cleanly (#2020), improved Sinhala UI translations, and polished accessibility announcements.
+
+
 ## [0.5.2] - 2026-11-09
 
 A big fixes release: YouTube and video downloads, crashes and freezes, downloads on slow disks, the Mac helper, plus a Safari extension, far more file types and a few new columns and options.

@@ -131,6 +131,10 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: sync-summary
+
       - name: Merge clean upstream sync, bump version, tag, and trigger release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -141,7 +145,8 @@ jobs:
           git merge --ff-only "origin/${{ needs.sync.outputs.branch }}"
           python3 tools/release/sync_upstream.py --bump-version "${{ needs.sync.outputs.base_version }}"
           TAG=$(python3 -c 'import re,pathlib; print("v" + re.search(r"(?m)^version\s*=\s*\"([^\"]+)\"", pathlib.Path("Cargo.toml").read_text()).group(1))')
-          git add Cargo.toml Cargo.lock tools/installer/vadm.iss
+          git add Cargo.toml Cargo.lock tools/installer/vadm.iss CHANGELOG.md
+          rm -f SYNC_SUMMARY.md
           git commit -m "chore: release $TAG (auto-synced non-torrent updates)"
           git push origin main
           git tag "$TAG"

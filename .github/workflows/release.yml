@@ -392,6 +392,15 @@ jobs:
             Set-Content -Encoding utf8 notes.md ($stores + $invite + $notes + $thanks)
             gh release create "$tag" --latest --title $title --notes-file notes.md $all
           } else {
-            Set-Content -Encoding utf8 notes.md ($stores + $invite + $thanks.Trim())
+            # Fallback when CHANGELOG.md lacks this version: build a clear commit list since the previous tag.
+            $prevTag = (git tag --sort=-v:refname | Where-Object { $_ -ne $tag -and $_ -match '^v\d+\.\d+\.\d+' } | Select-Object -First 1)
+            $range = if ($prevTag) { "$prevTag..HEAD" } else { "HEAD" }
+            $commits = @(git log --no-merges --format="- %s (%h)" $range 2>$null | Where-Object { $_ -and $_ -notmatch '^- chore: release ' })
+            $changesBlock = if ($commits.Count -gt 0) {
+              "## What's Changed`n`n" + ($commits -join "`n") + "`n"
+            } else {
+              "## What's Changed`n`n- Maintenance and build updates.`n"
+            }
+            Set-Content -Encoding utf8 notes.md ($stores + $invite + $changesBlock + $thanks)
             gh release create "$tag" --latest --title $title --notes-file notes.md --generate-notes $all
           }

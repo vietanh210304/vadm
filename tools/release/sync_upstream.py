@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import datetime as dt
 import os
 import pathlib
 import re
@@ -11,6 +12,7 @@ import sys
 
 STATE_FILE = pathlib.Path(".github/upstream-sync-sha")
 SUMMARY_FILE = pathlib.Path("SYNC_SUMMARY.md")
+CHANGELOG_FILE = pathlib.Path("CHANGELOG.md")
 CARGO_TOML = pathlib.Path("Cargo.toml")
 CARGO_LOCK = pathlib.Path("Cargo.lock")
 VADM_ISS = pathlib.Path("tools/installer/vadm.iss")
@@ -108,9 +110,50 @@ def bump_version(previous_version: str | None = None) -> int:
         )
         VADM_ISS.write_text(new_iss, encoding="utf-8", newline="\n")
 
+    update_changelog_for_release(next_ver)
+
     set_github_output({"version": next_ver, "tag": f"v{next_ver}"})
     print(f"Bumped version -> {next_ver} (tag v{next_ver})")
     return 0
+
+
+def update_changelog_for_release(
+    next_ver: str,
+    summary_path: pathlib.Path = SUMMARY_FILE,
+    changelog_path: pathlib.Path = CHANGELOG_FILE,
+) -> None:
+    """Insert a `## [X.Y.Z] - YYYY-MM-DD` section into CHANGELOG.md from SYNC_SUMMARY.md."""
+    if not changelog_path.is_file():
+        return
+    text = changelog_path.read_text(encoding="utf-8")
+    if re.search(rf"(?m)^## \[{re.escape(next_ver)}\]", text):
+        return
+
+    bullets: list[str] = []
+    if summary_path.is_file():
+        in_applied = False
+        for line in summary_path.read_text(encoding="utf-8").splitlines():
+            if line.startswith("### Applied non-torrent commits"):
+                in_applied = True
+                continue
+            if in_applied and line.startswith("### "):
+                break
+            if in_applied and line.startswith("- ") and line != "- None":
+                bullets.append(line)
+
+    if not bullets:
+        bullets = ["- Automated non-torrent upstream sync and maintenance updates."]
+
+    today = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d")
+    section = f"## [{next_ver}] - {today}\n\n### Synced Changes (Non-Torrent)\n\n" + "\n".join(bullets) + "\n\n\n"
+
+    # Insert right before the first versioned heading (preserving `## [Unreleased]` for clean cherry-picks).
+    m = re.search(r"(?m)^## \[\d+\.\d+\.\d+\]", text)
+    if m:
+        updated = text[: m.start()] + section + text[m.start() :]
+    else:
+        updated = text.rstrip() + "\n\n" + section
+    changelog_path.write_text(updated, encoding="utf-8", newline="\n")
 
 
 def sync_upstream(upstream_ref: str) -> int:
