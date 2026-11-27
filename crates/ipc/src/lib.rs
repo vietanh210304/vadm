@@ -487,12 +487,7 @@ pub fn data_dir() -> Option<PathBuf> {
         if let Some(dir) = portable_dir() {
             return Some(dir);
         }
-        let base = dirs::data_dir()?;
-        let dir = base.join("misterdownloadmanager");
-        let legacy = base.join("idmnext");
-        if !dir.exists() && legacy.is_dir() {
-            let _ = std::fs::rename(&legacy, &dir);
-        }
+        let dir = dirs::data_dir()?.join("vadm");
         Some(dir)
     })
 }

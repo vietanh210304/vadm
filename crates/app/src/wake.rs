@@ -188,12 +188,12 @@ impl Awake<'_> {
         match self {
             Awake::Queue(queue) => crate::i18n::fmt(
                 // i18n: why the computer isn't going to sleep, in the system's list of programs that keep it awake; {queue} = the queue's name
-                crate::i18n::t("Mister Download Manager is running the queue \"{queue}\""),
+                crate::i18n::t("VADM is running the queue \"{queue}\""),
                 &[("queue", crate::i18n::t(queue))],
             ),
             Awake::Downloads => {
                 // i18n: why the computer isn't going to sleep, in the system's list of programs that keep it awake (Windows' power requests, Linux's inhibitors)
-                crate::i18n::t("Mister Download Manager is downloading").to_owned()
+                crate::i18n::t("VADM is downloading").to_owned()
             }
         }
     }
@@ -725,7 +725,7 @@ mod tests {
             ..Waker::default()
         };
         // The translations are read once, on the first text (the app has read them long before).
-        let _ = crate::i18n::t("Mister Download Manager is running the queue \"{queue}\"");
+        let _ = crate::i18n::t("VADM is running the queue \"{queue}\"");
         let system = System {
             calls: calls_rx,
             answers: answers_tx,
@@ -882,10 +882,10 @@ mod tests {
         queues[1].schedule.wake = true;
         assert_eq!(why_awake(&queues, false), Some(Awake::Queue(QUEUE)));
         assert_eq!(why_awake(&queues, true), Some(Awake::Queue(QUEUE)));
-        let _ = crate::i18n::t("Mister Download Manager is downloading");
+        let _ = crate::i18n::t("VADM is downloading");
         assert_eq!(
             Awake::Downloads.reason(),
-            "Mister Download Manager is downloading"
+            "VADM is downloading"
         );
     }
 
@@ -902,7 +902,7 @@ mod tests {
         w.keep_awake(Some(Awake::Downloads));
         assert_eq!(
             sys.next().as_deref(),
-            Some("Mister Download Manager is downloading")
+            Some("VADM is downloading")
         );
         sys.answer(true);
         tick_until(&mut w, Some(Awake::Downloads), |w| !w.holder.asking());

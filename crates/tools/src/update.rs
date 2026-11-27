@@ -148,7 +148,7 @@ impl Install {
             (_, Arch::Arm64) if linux => ("linux-arm64".to_owned(), self.linux_ext()),
             _ => return Vec::new(),
         };
-        let name = |tail: &str| format!("MisterDownloadManager-{version}-{tail}{ext}");
+        let name = |tail: &str| format!("VADM-{version}-{tail}{ext}");
         match (self, arch) {
             (Install::Installer | Install::PortableZip | Install::PlainZip, _) => vec![name(&tail)],
             // Linux on ARM came after "-experimental" went: it has no older name.
@@ -481,15 +481,15 @@ Connection: close
         let x64 = Some(Arch::X64);
         assert_eq!(
             Install::Installer.assets_on(x64, "0.2.2"),
-            ["MisterDownloadManager-0.2.2-setup.exe"]
+            ["VADM-0.2.2-setup.exe"]
         );
         assert_eq!(
             Install::PortableZip.assets_on(x64, "0.2.2"),
-            ["MisterDownloadManager-0.2.2-portable.zip"]
+            ["VADM-0.2.2-portable.zip"]
         );
         assert_eq!(
             Install::PlainZip.assets_on(x64, "0.2.2"),
-            ["MisterDownloadManager-0.2.2-x64.zip"]
+            ["VADM-0.2.2-x64.zip"]
         );
         // Linux and macOS: the plain name first, then the one up to 0.2.x.
         for (install, ext) in [
@@ -501,8 +501,8 @@ Connection: close
             assert_eq!(
                 install.assets_on(x64, "1.0.0"),
                 [
-                    format!("MisterDownloadManager-1.0.0-linux-x86_64{ext}"),
-                    format!("MisterDownloadManager-1.0.0-linux-x86_64-experimental{ext}"),
+                    format!("VADM-1.0.0-linux-x86_64{ext}"),
+                    format!("VADM-1.0.0-linux-x86_64-experimental{ext}"),
                 ]
             );
         }
@@ -511,8 +511,8 @@ Connection: close
             assert_eq!(
                 Install::Dmg.assets_on(Some(arch), "1.0.0"),
                 [
-                    format!("MisterDownloadManager-1.0.0-macos-{name}.dmg"),
-                    format!("MisterDownloadManager-1.0.0-macos-{name}-experimental.dmg"),
+                    format!("VADM-1.0.0-macos-{name}.dmg"),
+                    format!("VADM-1.0.0-macos-{name}-experimental.dmg"),
                 ]
             );
         }
@@ -533,27 +533,27 @@ Connection: close
         let (arm, x86) = (Some(Arch::Arm64), Some(Arch::X86));
         assert_eq!(
             Install::Installer.assets_on(arm, "1.0.0"),
-            ["MisterDownloadManager-1.0.0-setup-arm64.exe"]
+            ["VADM-1.0.0-setup-arm64.exe"]
         );
         assert_eq!(
             Install::PortableZip.assets_on(arm, "1.0.0"),
-            ["MisterDownloadManager-1.0.0-portable-arm64.zip"]
+            ["VADM-1.0.0-portable-arm64.zip"]
         );
         assert_eq!(
             Install::PlainZip.assets_on(arm, "1.0.0"),
-            ["MisterDownloadManager-1.0.0-arm64.zip"]
+            ["VADM-1.0.0-arm64.zip"]
         );
         assert_eq!(
             Install::Installer.assets_on(x86, "1.0.0"),
-            ["MisterDownloadManager-1.0.0-setup-x86.exe"]
+            ["VADM-1.0.0-setup-x86.exe"]
         );
         assert_eq!(
             Install::PortableZip.assets_on(x86, "1.0.0"),
-            ["MisterDownloadManager-1.0.0-portable-x86.zip"]
+            ["VADM-1.0.0-portable-x86.zip"]
         );
         assert_eq!(
             Install::PlainZip.assets_on(x86, "1.0.0"),
-            ["MisterDownloadManager-1.0.0-x86.zip"]
+            ["VADM-1.0.0-x86.zip"]
         );
         for (install, ext) in [
             (Install::TarGz, ".tar.gz"),
@@ -564,12 +564,12 @@ Connection: close
             // Linux on ARM came after "-experimental" went.
             assert_eq!(
                 install.assets_on(arm, "1.0.0"),
-                [format!("MisterDownloadManager-1.0.0-linux-arm64{ext}")]
+                [format!("VADM-1.0.0-linux-arm64{ext}")]
             );
             assert!(install.assets_on(x86, "1.0.0").is_empty());
         }
         assert!(Install::Dmg.assets_on(x86, "1.0.0").is_empty());
-        // A processor MDM publishes nothing for never updates itself.
+        // A processor VADM publishes nothing for never updates itself.
         for install in Install::ALL {
             assert!(install.assets_on(None, "1.0.0").is_empty());
         }
@@ -586,19 +586,19 @@ Connection: close
         }
     }
 
-    /// The Windows names are build.ps1's and mdm.iss's: x64's as before, the others with their
+    /// The Windows names are build.ps1's and vadm.iss's: x64's as before, the others with their
     /// processor.
     #[test]
     fn the_windows_names_are_build_ps1_s() {
         let script = include_str!("../../../tools/installer/build.ps1").replace("\r\n", "\n");
         assert!(script.contains(
-            "\nNew-Zip \"MisterDownloadManager-$version-portable$suffix\" $true\nNew-Zip \"MisterDownloadManager-$version-$Arch\" $false\n"
+            "\nNew-Zip \"VADM-$version-portable$suffix\" $true\nNew-Zip \"VADM-$version-$Arch\" $false\n"
         ));
         assert!(script.contains("$suffix = if ($Arch -eq \"x64\") { \"\" } else { \"-$Arch\" }"));
         assert!(script.contains("[ValidateSet(\"x64\", \"arm64\", \"x86\")]"));
-        let iss = include_str!("../../../tools/installer/mdm.iss").replace("\r\n", "\n");
+        let iss = include_str!("../../../tools/installer/vadm.iss").replace("\r\n", "\n");
         assert!(iss.contains(
-            "#if Arch == \"x64\"\nOutputBaseFilename=MisterDownloadManager-{#AppVersion}-setup\n#else\nOutputBaseFilename=MisterDownloadManager-{#AppVersion}-setup-{#Arch}\n#endif"
+            "#if Arch == \"x64\"\nOutputBaseFilename=VADM-{#AppVersion}-setup\n#else\nOutputBaseFilename=VADM-{#AppVersion}-setup-{#Arch}\n#endif"
         ));
         for arch in [Arch::X64, Arch::Arm64, Arch::X86] {
             let (a, suffix) = match arch {
@@ -607,15 +607,15 @@ Connection: close
             };
             assert_eq!(
                 Install::Installer.assets_on(Some(arch), "1.0.0"),
-                [format!("MisterDownloadManager-1.0.0-setup{suffix}.exe")]
+                [format!("VADM-1.0.0-setup{suffix}.exe")]
             );
             assert_eq!(
                 Install::PortableZip.assets_on(Some(arch), "1.0.0"),
-                [format!("MisterDownloadManager-1.0.0-portable{suffix}.zip")]
+                [format!("VADM-1.0.0-portable{suffix}.zip")]
             );
             assert_eq!(
                 Install::PlainZip.assets_on(Some(arch), "1.0.0"),
-                [format!("MisterDownloadManager-1.0.0-{a}.zip")]
+                [format!("VADM-1.0.0-{a}.zip")]
             );
         }
     }
@@ -626,7 +626,7 @@ Connection: close
     fn the_linux_names_are_build_linux_sh_s() {
         let script = include_str!("../../../tools/installer/build-linux.sh").replace("\r\n", "\n");
         assert!(
-            script.contains("\nname=\"MisterDownloadManager-$version-linux-$arch\"\n"),
+            script.contains("\nname=\"VADM-$version-linux-$arch\"\n"),
             "build-linux.sh names its files differently"
         );
         // Its processors, as the names say them.
@@ -648,11 +648,11 @@ Connection: close
             );
             assert_eq!(
                 install.assets_on(Some(Arch::X64), "1.0.0")[0],
-                format!("MisterDownloadManager-1.0.0-linux-x86_64{ext}")
+                format!("VADM-1.0.0-linux-x86_64{ext}")
             );
             assert_eq!(
                 install.assets_on(Some(Arch::Arm64), "1.0.0")[0],
-                format!("MisterDownloadManager-1.0.0-linux-arm64{ext}")
+                format!("VADM-1.0.0-linux-arm64{ext}")
             );
         }
     }
@@ -662,47 +662,47 @@ Connection: close
     fn a_linux_copy_knows_its_package_manager() {
         let owner = |who: &'static str| {
             move |tool: &str, args: &[&str]| {
-                assert_eq!(args.last(), Some(&"/usr/bin/misterdownloadmanager"));
+                assert_eq!(args.last(), Some(&"/usr/bin/vadm"));
                 tool == who
             }
         };
-        let exe = Path::new("/usr/bin/misterdownloadmanager");
+        let exe = Path::new("/usr/bin/vadm");
         assert_eq!(linux_package(exe, &owner("dpkg-query")), Install::Deb);
         assert_eq!(linux_package(exe, &owner("rpm")), Install::Rpm);
-        // An Arch package (pacman), or in /usr/bin with no package manager MDM knows: the
+        // An Arch package (pacman), or in /usr/bin with no package manager VADM knows: the
         // system's.
         assert_eq!(linux_package(exe, &owner("pacman")), Install::System);
         assert_eq!(linux_package(exe, &owner("none")), Install::System);
         // On Debian with rpm's tools installed too: still the .deb's.
         let both = |tool: &str, _: &[&str]| tool == "dpkg-query" || tool == "rpm";
         assert_eq!(linux_package(exe, &both), Install::Deb);
-        // The .tar.gz unpacked in the home folder, /opt or /usr/local: MDM's own to replace.
+        // The .tar.gz unpacked in the home folder, /opt or /usr/local: VADM's own to replace.
         let nobody = |_: &str, _: &[&str]| false;
-        let home = Path::new("/home/me/MisterDownloadManager/misterdownloadmanager");
+        let home = Path::new("/home/me/VADM/vadm");
         assert_eq!(linux_package(home, &nobody), Install::TarGz);
         assert_eq!(
-            linux_package(Path::new("/opt/mdm/misterdownloadmanager"), &nobody),
+            linux_package(Path::new("/opt/vadm/vadm"), &nobody),
             Install::TarGz
         );
         assert_eq!(
-            linux_package(Path::new("/usr/local/bin/misterdownloadmanager"), &nobody),
+            linux_package(Path::new("/usr/local/bin/vadm"), &nobody),
             Install::TarGz
         );
-        // MDM updates neither another package manager's copy nor a build of its own.
+        // VADM updates neither another package manager's copy nor a build of its own.
         assert!(Install::System.assets("1.0.0").is_empty());
     }
 
     #[test]
     fn bundles_on_a_mac() {
         let exe = Path::new(
-            "/Applications/Mister Download Manager.app/Contents/MacOS/misterdownloadmanager",
+            "/Applications/VADM.app/Contents/MacOS/vadm",
         );
         assert_eq!(
             app_bundle(exe).as_deref(),
-            Some(Path::new("/Applications/Mister Download Manager.app"))
+            Some(Path::new("/Applications/VADM.app"))
         );
         assert_eq!(
-            app_bundle(Path::new("/usr/bin/misterdownloadmanager")),
+            app_bundle(Path::new("/usr/bin/vadm")),
             None
         );
     }
@@ -713,18 +713,18 @@ Connection: close
         let (new, target) = (root.path().join("new"), root.path().join("app"));
         std::fs::create_dir_all(new.join("extension")).unwrap();
         std::fs::create_dir_all(target.join("data")).unwrap();
-        std::fs::write(new.join("mdm.exe"), "new").unwrap();
+        std::fs::write(new.join("vadm.exe"), "new").unwrap();
         std::fs::write(new.join("extension").join("manifest.json"), "new").unwrap();
         std::fs::write(new.join("data"), "must not land").unwrap();
-        std::fs::write(target.join("mdm.exe"), "old").unwrap();
+        std::fs::write(target.join("vadm.exe"), "old").unwrap();
         std::fs::write(target.join("data").join("downloads.json"), "mine").unwrap();
         replace_files(&new, &target, &["data"]).unwrap();
         assert_eq!(
-            std::fs::read_to_string(target.join("mdm.exe")).unwrap(),
+            std::fs::read_to_string(target.join("vadm.exe")).unwrap(),
             "new"
         );
         assert_eq!(
-            std::fs::read_to_string(target.join("mdm.exe.old")).unwrap(),
+            std::fs::read_to_string(target.join("vadm.exe.old")).unwrap(),
             "old"
         );
         assert_eq!(
@@ -736,8 +736,8 @@ Connection: close
             "mine"
         );
         remove_old(&target);
-        assert!(!target.join("mdm.exe.old").exists());
-        assert!(target.join("mdm.exe").exists());
+        assert!(!target.join("vadm.exe.old").exists());
+        assert!(target.join("vadm.exe").exists());
     }
 
     #[test]
@@ -747,7 +747,7 @@ Connection: close
         let zip_path = root.path().join("r.zip");
         let mut w = zip::ZipWriter::new(std::fs::File::create(&zip_path).unwrap());
         let opts = zip::write::SimpleFileOptions::default();
-        w.start_file("MisterDownloadManager-9.9.9-x64/mdm.exe", opts)
+        w.start_file("VADM-9.9.9-x64/vadm.exe", opts)
             .unwrap();
         w.write_all(b"exe").unwrap();
         w.start_file("../escape.txt", opts).unwrap();
@@ -756,7 +756,7 @@ Connection: close
         let out = root.path().join("out");
         unzip(&zip_path, &out).unwrap();
         let folder = single_folder(&out);
-        assert_eq!(std::fs::read(folder.join("mdm.exe")).unwrap(), b"exe");
+        assert_eq!(std::fs::read(folder.join("vadm.exe")).unwrap(), b"exe");
         assert!(!root.path().join("escape.txt").exists());
     }
 }

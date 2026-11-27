@@ -344,7 +344,7 @@ fn draw(ui: &mut egui::Ui, p: &egui::Painter, o: Pos2, rows: &[Row], events: &mu
         y += NOTE;
     }
     // i18n: the notification-area icon's panel (#1365): its button that opens the main window (also the tray menu's first item)
-    let open = crate::i18n::mark("Open Mister Download Manager");
+    let open = crate::i18n::mark("Open VADM");
     let rc = winui::button_rect_for(
         p,
         r(o, W - 12.0 - 200.0, y + 11.0, 200.0, 23.0),

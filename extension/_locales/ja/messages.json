@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "ブラウザーから Mister Download Manager にダウンロードを渡します。"
+    "message": "ブラウザーから VADM にダウンロードを渡します。"
   },
   "menu": {
-    "message": "Mister Download Manager でダウンロード"
+    "message": "VADM でダウンロード"
   },
   "video_download": {
     "message": "動画をダウンロード"
@@ -30,19 +30,19 @@
     "message": "ボタンの設定..."
   },
   "video_sent": {
-    "message": "Mister Download Manager に送信済み"
+    "message": "VADM に送信済み"
   },
   "menu_selected": {
-    "message": "Mister Download Manager で選択したリンクをダウンロード"
+    "message": "VADM で選択したリンクをダウンロード"
   },
   "menu_all": {
-    "message": "Mister Download Manager で全リンクをダウンロード"
+    "message": "VADM で全リンクをダウンロード"
   },
   "status_connected": {
-    "message": "Mister Download Manager に接続済み"
+    "message": "VADM に接続済み"
   },
   "status_connected_version": {
-    "message": "Mister Download Manager $version$ に接続済み",
+    "message": "VADM $version$ に接続済み",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "一時停止: ダウンロードはブラウザーに残ります"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager がインストールされていないか、ブラウザー統合が設定されていません"
+    "message": "VADM がインストールされていないか、ブラウザー統合が設定されていません"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager はこの拡張機能のコピーを受け入れません"
+    "message": "VADM はこの拡張機能のコピーを受け入れません"
   },
   "status_not_running": {
-    "message": "Mister Download Manager が時間内に起動しませんでした"
+    "message": "VADM が時間内に起動しませんでした"
   },
   "status_host_failed": {
-    "message": "Mister Download Manager への接続に失敗しました"
+    "message": "VADM への接続に失敗しました"
   },
   "status_too_large": {
     "message": "このダウンロードの詳細は大きすぎて引き渡せませんでした"
   },
   "status_update_app": {
-    "message": "この拡張機能のすべての機能を使用するには、Mister Download Manager を更新してください"
+    "message": "この拡張機能のすべての機能を使用するには、VADM を更新してください"
   },
   "popup_take": {
     "message": "このブラウザーからのダウンロードを取得する"
@@ -78,10 +78,10 @@
     "message": "このブラウザーのプロキシまたは VPN 拡張機能経由でダウンロードを送信する"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager は、このブラウザーと同じプロキシ経由でダウンロードします。ブラウザーは一度だけ許可を求めます。これをオフにすると、その許可は取り消されます。"
+    "message": "VADM は、このブラウザーと同じプロキシ経由でダウンロードします。ブラウザーは一度だけ許可を求めます。これをオフにすると、その許可は取り消されます。"
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager は、このブラウザーと同じプロキシ経由でダウンロードします。これがオフの場合、拡張機能はブラウザーのプロキシを読み取りません。"
+    "message": "VADM は、このブラウザーと同じプロキシ経由でダウンロードします。これがオフの場合、拡張機能はブラウザーのプロキシを読み取りません。"
   },
   "popup_exclude_site": {
     "message": "$site$ からのダウンロードは今後取得しない",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Mister Download Manager を開く"
+    "message": "VADM を開く"
   },
   "popup_options": {
     "message": "オプション..."
@@ -111,7 +111,7 @@
     "message": "ヘルプ"
   },
   "popup_support": {
-    "message": "MDM をサポート"
+    "message": "VADM をサポート"
   },
   "popup_fix": {
     "message": "修正方法"
@@ -201,16 +201,16 @@
     "message": "ここにはダウンロードできる動画がありません"
   },
   "video_playlist": {
-    "message": "動画の一覧: Mister Download Manager で選択してください"
+    "message": "動画の一覧: VADM で選択してください"
   },
   "video_no_ytdlp": {
-    "message": "この動画には Mister Download Manager に yt-dlp が必要です"
+    "message": "この動画には VADM に yt-dlp が必要です"
   },
   "video_too_long": {
     "message": "検索に時間がかかりすぎました"
   },
   "video_busy": {
-    "message": "Mister Download Manager は他の動画の処理中です"
+    "message": "VADM は他の動画の処理中です"
   },
   "video_queued": {
     "message": "キューに追加しました"
@@ -234,7 +234,7 @@
     "message": "このコンピューター"
   },
   "popup_send_remote": {
-    "message": "別の Mister Download Manager (サーバー)"
+    "message": "別の VADM (サーバー)"
   },
   "popup_remote_code": {
     "message": "ペアリング コード"
@@ -246,7 +246,7 @@
     "message": "ペアリング"
   },
   "popup_remote_help": {
-    "message": "一度アドレスを開いて証明書を承認し、そのオプション、リモート、デバイスのペアリング (または misterdownloadmanager-cli pair) からコードを入力してください。"
+    "message": "一度アドレスを開いて証明書を承認し、そのオプション、リモート、デバイスのペアリング (または vadm-cli pair) からコードを入力してください。"
   },
   "status_remote": {
     "message": "ダウンロードは $address$ に送信されます",
@@ -361,19 +361,19 @@
     "message": "最高品質をダウンロード"
   },
   "video_sending": {
-    "message": "MDM に送信しています..."
+    "message": "VADM に送信しています..."
   },
   "video_added": {
-    "message": "MDM に追加済み"
+    "message": "VADM に追加済み"
   },
   "video_show": {
     "message": "表示"
   },
   "video_no_answer": {
-    "message": "MDM が応答しません"
+    "message": "VADM が応答しません"
   },
   "video_get_mdm": {
-    "message": "MDM を入手"
+    "message": "VADM を入手"
   },
   "video_retry": {
     "message": "再試行"
@@ -391,7 +391,7 @@
     "message": "ここから一部をダウンロード..."
   },
   "video_failed": {
-    "message": "Mister Download Manager がインストールされていないか、起動していません"
+    "message": "VADM がインストールされていないか、起動していません"
   },
   "video_download_best": {
     "message": "最高画質をダウンロード"
@@ -412,7 +412,7 @@
     "message": "削除"
   },
   "popup_gear": {
-    "message": "Mister Download Manager のオプション"
+    "message": "VADM のオプション"
   },
   "popup_tabs": {
     "message": "ポップアップ セクション"
@@ -445,7 +445,7 @@
     "message": "一時停止"
   },
   "popup_conn_update": {
-    "message": "Mister Download Manager を更新"
+    "message": "VADM を更新"
   },
   "popup_conn_remote": {
     "message": "$server$ に送信中",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "これらは $server$ にある Mister Download Manager のダウンロードです。ファイルはそちらで開いてください。",
+    "message": "これらは $server$ にある VADM のダウンロードです。ファイルはそちらで開いてください。",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "$total$ 件中 $shown$ 件の最新のダウンロード。すべて Mister Download Manager に一覧表示されます。",
+    "message": "$total$ 件中 $shown$ 件の最新のダウンロード。すべて VADM に一覧表示されます。",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "まだダウンロードはありません"
   },
   "popup_dl_none_text": {
-    "message": "Mister Download Manager でダウンロードしたものがここに表示されます。"
+    "message": "VADM でダウンロードしたものがここに表示されます。"
   },
   "popup_dl_no_match": {
     "message": "一致するものはありません"
@@ -594,28 +594,28 @@
     "message": "すべてのダウンロードを表示"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager は実行されていません"
+    "message": "VADM は実行されていません"
   },
   "popup_list_off_text": {
     "message": "ここでダウンロードを確認するには、アプリを起動してください。"
   },
   "popup_list_start": {
-    "message": "Mister Download Manager を起動"
+    "message": "VADM を起動"
   },
   "popup_list_old": {
-    "message": "Mister Download Manager を更新"
+    "message": "VADM を更新"
   },
   "popup_list_old_text": {
     "message": "このバージョンでは、まだダウンロードをここに一覧表示できません。"
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager は応答していません。再試行しています..."
+    "message": "VADM は応答していません。再試行しています..."
   },
   "popup_list_unreached": {
-    "message": "Mister Download Manager に到達できません"
+    "message": "VADM に到達できません"
   },
   "popup_list_remote_unreachable": {
-    "message": "$server$ の Mister Download Manager に到達できません",
+    "message": "$server$ の VADM に到達できません",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "このシステムでは実行できません。"
   },
   "popup_act_off": {
-    "message": "Mister Download Manager は実行されていません。"
+    "message": "VADM は実行されていません。"
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager から時間内に応答がありませんでした。もう一度お試しください。"
+    "message": "VADM から時間内に応答がありませんでした。もう一度お試しください。"
   },
   "popup_act_failed": {
     "message": "失敗しました。もう一度お試しください。"

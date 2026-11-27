@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Georgian: tools/installer/languages.py
+﻿; VADM's installer in Georgian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1-ის დეინსტალაცი�
 
 [CustomMessages]
 TaskBrowser=დააყენეთ &ბრაუზერის ინტეგრაცია (Chrome, Edge, Brave, Firefox)
-TaskStartup=Mister Download Manager-ის გაშვება &Windows-ის გაშვებისას
+TaskStartup=VADM-ის გაშვება &Windows-ის გაშვებისას
 TaskGroupOther=სხვა:
-Launch=გაუშვით Mister Download Manager
+Launch=გაუშვით VADM
 KeepData=ასევე წაიშალოს თქვენი ჩამოტვირთვების სია და პარამეტრები?%n%nთქვენს ჩამოტვირთულ ფაილებს არ შეეხება არც ერთი გზით.

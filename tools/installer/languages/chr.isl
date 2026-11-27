@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Cherokee: tools/installer/languages.py
+﻿; VADM's installer in Cherokee: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=ᎤᏕᎳᎰᏒᎢ %1.
 
 [CustomMessages]
 TaskBrowser=ᎤᏓᎷᎪᏗ &ᏗᏟᎶᏍᏗ (Chrome, Edge, Brave, Firefox) ᏕᎪᏢᎾ
-TaskStartup=&Windows ᎤᎴᏅᎲᎯ Mister Download Manager ᎤᎴᏅᏗ
+TaskStartup=&Windows ᎤᎴᏅᎲᎯ VADM ᎤᎴᏅᏗ
 TaskGroupOther=ᎤᏟᏍᏗ:
-Launch=Mister Download Manager ᎤᎴᏅᏗ
+Launch=VADM ᎤᎴᏅᏗ
 KeepData=ᎠᎴᏬ ᏕᏣᏓᎴᏔᏅᏍᎪᎢ ᏗᏟᎶᏍᏗ ᏗᏓᎴᏔᏅᏍᏗ ᎠᎴ ᏗᏟᎶᏍᏗ?%n%nᏗᏟᎶᏍᏗ ᏗᏓᎴᏔᏅᏍᏗ ᎥᏝ ᏱᏗᏓᎴᏔᏅᏍᎦ.

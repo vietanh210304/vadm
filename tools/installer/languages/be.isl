@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Belarusian: tools/installer/languages.py
+﻿; VADM's installer in Belarusian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Выдаленне %1.
 
 [CustomMessages]
 TaskBrowser=Наладзіць інтэграцыю з &браўзерам (Chrome, Edge, Brave, Firefox)
-TaskStartup=Запускаць Mister Download Manager пры запуску &Windows
+TaskStartup=Запускаць VADM пры запуску &Windows
 TaskGroupOther=Іншае:
-Launch=Запусціць Mister Download Manager
+Launch=Запусціць VADM
 KeepData=Выдаліць таксама спіс загрузак і налады?%n%nВашы загружаныя файлы не будуць закрануты ў любым выпадку.

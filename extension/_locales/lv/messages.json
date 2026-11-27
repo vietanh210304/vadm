@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Nodod lejupielādes no pārlūkprogrammas uz Mister Download Manager."
+    "message": "Nodod lejupielādes no pārlūkprogrammas uz VADM."
   },
   "menu": {
-    "message": "Lejupielādēt ar Mister Download Manager"
+    "message": "Lejupielādēt ar VADM"
   },
   "video_download": {
     "message": "Lejupielādēt video"
@@ -30,19 +30,19 @@
     "message": "Pogas iestatījumi..."
   },
   "video_sent": {
-    "message": "Nosūtīts uz Mister Download Manager"
+    "message": "Nosūtīts uz VADM"
   },
   "menu_selected": {
-    "message": "Lejupielādēt atlasītās saites ar Mister Download Manager"
+    "message": "Lejupielādēt atlasītās saites ar VADM"
   },
   "menu_all": {
-    "message": "Lejupielādēt visas saites ar Mister Download Manager"
+    "message": "Lejupielādēt visas saites ar VADM"
   },
   "status_connected": {
-    "message": "Savienots ar Mister Download Manager"
+    "message": "Savienots ar VADM"
   },
   "status_connected_version": {
-    "message": "Savienots ar Mister Download Manager $version$",
+    "message": "Savienots ar VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Apturēts: lejupielādes paliek pārlūkprogrammā"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager nav instalēts vai tā pārlūkprogrammas integrācija nav iestatīta"
+    "message": "VADM nav instalēts vai tā pārlūkprogrammas integrācija nav iestatīta"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager nepieņem šo paplašinājuma kopiju"
+    "message": "VADM nepieņem šo paplašinājuma kopiju"
   },
   "status_not_running": {
-    "message": "Mister Download Manager nesāka darboties laikā"
+    "message": "VADM nesāka darboties laikā"
   },
   "status_host_failed": {
-    "message": "Savienojums ar Mister Download Manager neizdevās"
+    "message": "Savienojums ar VADM neizdevās"
   },
   "status_too_large": {
     "message": "Šīs lejupielādes detaļas bija pārāk lielas, lai tās nodotu"
   },
   "status_update_app": {
-    "message": "Atjauniniet Mister Download Manager, lai izmantotu visu, ko piedāvā šis paplašinājums"
+    "message": "Atjauniniet VADM, lai izmantotu visu, ko piedāvā šis paplašinājums"
   },
   "popup_take": {
     "message": "Pārņemt lejupielādes no šīs pārlūkprogrammas"
@@ -78,10 +78,10 @@
     "message": "Sūtīt lejupielādes, izmantojot šīs pārlūkprogrammas starpniekservera vai VPN paplašinājumu"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager pēc tam lejupielādē, izmantojot to pašu starpniekserveri, ko izmanto šī pārlūkprogramma. Pārlūkprogramma vienreiz lūgs jums to atļaut; izslēdzot šo opciju, atļauja tiks atsaukta."
+    "message": "VADM pēc tam lejupielādē, izmantojot to pašu starpniekserveri, ko izmanto šī pārlūkprogramma. Pārlūkprogramma vienreiz lūgs jums to atļaut; izslēdzot šo opciju, atļauja tiks atsaukta."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager pēc tam lejupielādē, izmantojot to pašu starpniekserveri, ko izmanto šī pārlūkprogramma. Kad šī opcija ir izslēgta, paplašinājums nenolasa pārlūkprogrammas starpniekservera iestatījumus."
+    "message": "VADM pēc tam lejupielādē, izmantojot to pašu starpniekserveri, ko izmanto šī pārlūkprogramma. Kad šī opcija ir izslēgta, paplašinājums nenolasa pārlūkprogrammas starpniekservera iestatījumus."
   },
   "popup_exclude_site": {
     "message": "Nekad nepārņemt lejupielādes no $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Atvērt Mister Download Manager"
+    "message": "Atvērt VADM"
   },
   "popup_options": {
     "message": "Opcijas..."
@@ -111,7 +111,7 @@
     "message": "Palīdzība"
   },
   "popup_support": {
-    "message": "Atbalstīt MDM"
+    "message": "Atbalstīt VADM"
   },
   "popup_fix": {
     "message": "Kā to labot"
@@ -201,16 +201,16 @@
     "message": "Šeit nav lejupielādējama video"
   },
   "video_playlist": {
-    "message": "Video saraksts: izvēlieties tos programmā Mister Download Manager"
+    "message": "Video saraksts: izvēlieties tos programmā VADM"
   },
   "video_no_ytdlp": {
-    "message": "Programmai Mister Download Manager šim video ir nepieciešams yt-dlp"
+    "message": "Programmai VADM šim video ir nepieciešams yt-dlp"
   },
   "video_too_long": {
     "message": "Meklēšana ilga pārāk ilgi"
   },
   "video_busy": {
-    "message": "Mister Download Manager ir aizņemts ar citiem video"
+    "message": "VADM ir aizņemts ar citiem video"
   },
   "video_queued": {
     "message": "Pievienots rindai"
@@ -234,7 +234,7 @@
     "message": "Šis dators"
   },
   "popup_send_remote": {
-    "message": "Cits Mister Download Manager (serveris)"
+    "message": "Cits VADM (serveris)"
   },
   "popup_remote_code": {
     "message": "Savienošanas kods"
@@ -246,7 +246,7 @@
     "message": "Savienot"
   },
   "popup_remote_help": {
-    "message": "Vienreiz atveriet tā adresi un pieņemiet tā sertifikātu, pēc tam ievadiet kodu no tā Iespējas, Attālināti, Savienot ierīci (vai misterdownloadmanager-cli pair)."
+    "message": "Vienreiz atveriet tā adresi un pieņemiet tā sertifikātu, pēc tam ievadiet kodu no tā Iespējas, Attālināti, Savienot ierīci (vai vadm-cli pair)."
   },
   "status_remote": {
     "message": "Lejupielādes tiek sūtītas uz $address$",
@@ -361,19 +361,19 @@
     "message": "Lejupielādēt labāko kvalitāti"
   },
   "video_sending": {
-    "message": "Sūta uz MDM..."
+    "message": "Sūta uz VADM..."
   },
   "video_added": {
-    "message": "Pievienots MDM"
+    "message": "Pievienots VADM"
   },
   "video_show": {
     "message": "Rādīt"
   },
   "video_no_answer": {
-    "message": "MDM neatbildēja"
+    "message": "VADM neatbildēja"
   },
   "video_get_mdm": {
-    "message": "Iegūt MDM"
+    "message": "Iegūt VADM"
   },
   "video_retry": {
     "message": "Mēģināt vēlreiz"
@@ -391,7 +391,7 @@
     "message": "Lejupielādēt daļu, sākot no šejienes..."
   },
   "video_failed": {
-    "message": "Mister Download Manager nav instalēts vai nav palaists"
+    "message": "VADM nav instalēts vai nav palaists"
   },
   "video_download_best": {
     "message": "Lejupielādēt labāko kvalitāti"
@@ -412,7 +412,7 @@
     "message": "Aizmirst"
   },
   "popup_gear": {
-    "message": "Opcijas programmā Mister Download Manager"
+    "message": "Opcijas programmā VADM"
   },
   "popup_tabs": {
     "message": "Uznirstošā loga sadaļas"
@@ -445,7 +445,7 @@
     "message": "Pauzēta"
   },
   "popup_conn_update": {
-    "message": "Atjaunināt Mister Download Manager"
+    "message": "Atjaunināt VADM"
   },
   "popup_conn_remote": {
     "message": "Sūta uz $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Šīs ir Mister Download Manager lejupielādes serverī $server$. Atveriet to failus tur.",
+    "message": "Šīs ir VADM lejupielādes serverī $server$. Atveriet to failus tur.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Jaunākās $shown$ no $total$. Mister Download Manager uzskaita tās visas.",
+    "message": "Jaunākās $shown$ no $total$. VADM uzskaita tās visas.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Vēl nav lejupielāžu"
   },
   "popup_dl_none_text": {
-    "message": "Šeit parādās tas, ko lejupielādējat ar Mister Download Manager."
+    "message": "Šeit parādās tas, ko lejupielādējat ar VADM."
   },
   "popup_dl_no_match": {
     "message": "Nekas neatbilst"
@@ -594,28 +594,28 @@
     "message": "Rādīt visas lejupielādes"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager nedarbojas"
+    "message": "VADM nedarbojas"
   },
   "popup_list_off_text": {
     "message": "Palaidiet to, lai šeit redzētu savas lejupielādes."
   },
   "popup_list_start": {
-    "message": "Palaist Mister Download Manager"
+    "message": "Palaist VADM"
   },
   "popup_list_old": {
-    "message": "Atjaunināt Mister Download Manager"
+    "message": "Atjaunināt VADM"
   },
   "popup_list_old_text": {
     "message": "Šī versija vēl nevar uzskaitīt savas lejupielādes šeit."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager ir aizņemts. Mēģina vēlreiz..."
+    "message": "VADM ir aizņemts. Mēģina vēlreiz..."
   },
   "popup_list_unreached": {
-    "message": "Nevar sasniegt Mister Download Manager"
+    "message": "Nevar sasniegt VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Nevar sasniegt Mister Download Manager serverī $server$",
+    "message": "Nevar sasniegt VADM serverī $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Šī sistēma to nevar izdarīt."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager nedarbojas."
+    "message": "VADM nedarbojas."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager neatbildēja laikā. Mēģiniet vēlreiz."
+    "message": "VADM neatbildēja laikā. Mēģiniet vēlreiz."
   },
   "popup_act_failed": {
     "message": "Neizdevās. Mēģiniet vēlreiz."

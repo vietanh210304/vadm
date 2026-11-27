@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Azerbaijani: tools/installer/languages.py
+﻿; VADM's installer in Azerbaijani: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 silinir.
 
 [CustomMessages]
 TaskBrowser=Brauzer inteqrasiyasını quraşdırın (&Chrome, Edge, Brave, Firefox)
-TaskStartup=&Windows işə düşəndə Mister Download Manager proqramını başladın
+TaskStartup=&Windows işə düşəndə VADM proqramını başladın
 TaskGroupOther=Digər:
-Launch=Mister Download Manager işə salınsın
+Launch=VADM işə salınsın
 KeepData=Yükləmə siyahınızı və parametrlərinizi də silmək istəyirsiniz?%n%nYüklənmiş fayllarınıza hər iki halda toxunulmayacaq.

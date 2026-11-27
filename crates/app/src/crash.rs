@@ -1205,7 +1205,7 @@ mod watchdog_tests {
         let t = mdm_crash::report::text(&input, None);
         assert!(t.contains("Its thread ran 0.1 of 8.0 s."), "{t}");
         assert!(
-            t.contains("812 page-ins during the freeze (pages of MDM read from disk"),
+            t.contains("812 page-ins during the freeze (pages of VADM read from disk"),
             "{t}"
         );
         // A reading without them (Windows, Linux) leaves them unknown, not 0.

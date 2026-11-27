@@ -63,7 +63,7 @@ struct Mcp {
 
 impl Mcp {
     fn start(data: &std::path::Path) -> Self {
-        let mut child = Command::new(env!("CARGO_BIN_EXE_misterdownloadmanager-mcp"))
+        let mut child = Command::new(env!("CARGO_BIN_EXE_vadm-mcp"))
             .env("MDM_DATA_DIR", data)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
@@ -85,7 +85,7 @@ impl Mcp {
                 "clientInfo": { "name": "test", "version": "1" },
             }),
         );
-        assert_eq!(init["serverInfo"]["name"], "misterdownloadmanager");
+        assert_eq!(init["serverInfo"]["name"], "vadm");
         assert!(init["instructions"].as_str().unwrap().contains("api on"));
         mcp.send(json!({ "jsonrpc": "2.0", "method": "notifications/initialized" }));
         mcp

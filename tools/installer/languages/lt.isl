@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Lithuanian: tools/installer/languages.py
+﻿; VADM's installer in Lithuanian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Šalinama %1.
 
 [CustomMessages]
 TaskBrowser=Nustatyti naršyklės integravimą (&Chrome, Edge, Brave, Firefox)
-TaskStartup=Paleisti „Mister Download Manager“, kai paleidžiama „&Windows“
+TaskStartup=Paleisti „VADM“, kai paleidžiama „&Windows“
 TaskGroupOther=Kita:
-Launch=Paleisti „Mister Download Manager“
+Launch=Paleisti „VADM“
 KeepData=Ar taip pat ištrinti atsisiuntimų sąrašą ir nustatymus?%n%nJūsų atsisiųsti failai nebus paliesti.

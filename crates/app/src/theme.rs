@@ -2359,7 +2359,7 @@ mod font_file_tests {
         }
 
         let mut fonts = Fonts::new(TextOptions::default(), defs);
-        assert!(fonts.has_glyphs(&FontId::proportional(13.0), "Mister Download Manager"));
+        assert!(fonts.has_glyphs(&FontId::proportional(13.0), "VADM"));
         assert!(fonts.has_glyphs(&FontId::monospace(13.0), "0123456789"));
     }
 

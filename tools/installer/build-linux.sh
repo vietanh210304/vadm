@@ -2,11 +2,11 @@
 # Builds the Linux release for this machine's processor into target/dist/ (up to 0.2.4, each
 # name ended in "-experimental"), <arch> being x86_64 on a 64-bit Intel or AMD machine and arm64
 # on a 64-bit ARM one:
-#   MisterDownloadManager-<version>-linux-<arch>.AppImage        runs on most distros
-#   MisterDownloadManager-<version>-linux-<arch>.AppImage.zsync  its updates (AppImage tools)
-#   MisterDownloadManager-<version>-linux-<arch>.tar.gz          the plain programs
-#   MisterDownloadManager-<version>-linux-<arch>.deb             Debian, Ubuntu, Mint
-#   MisterDownloadManager-<version>-linux-<arch>.rpm             Fedora, RHEL, openSUSE
+#   VADM-<version>-linux-<arch>.AppImage        runs on most distros
+#   VADM-<version>-linux-<arch>.AppImage.zsync  its updates (AppImage tools)
+#   VADM-<version>-linux-<arch>.tar.gz          the plain programs
+#   VADM-<version>-linux-<arch>.deb             Debian, Ubuntu, Mint
+#   VADM-<version>-linux-<arch>.rpm             Fedora, RHEL, openSUSE
 # Update now (crates/tools/src/update.rs), the website (tools/website/build.py) and the docs
 # look for these names, and still for the "-experimental" ones of older releases.
 # Needs: cargo, pwsh (the extension), python3 with Pillow (the icon), dpkg-deb, rpmbuild, network access (appimagetool is fetched),
@@ -26,8 +26,8 @@ case "$(uname -m)" in
   aarch64) arch=arm64 deb_arch=arm64 pkg_arch=aarch64 ;;
   *) echo "no Linux release is built for $(uname -m)" >&2; exit 1 ;;
 esac
-name="MisterDownloadManager-$version-linux-$arch"
-programs=(misterdownloadmanager misterdownloadmanager-nmhost misterdownloadmanager-cli misterdownloadmanager-mcp)
+name="VADM-$version-linux-$arch"
+programs=(vadm vadm-nmhost vadm-cli vadm-mcp)
 
 if [ "${1:-}" != "--no-build" ]; then
   # The build machine's paths out of the programs (#25): panic locations and debug info say
@@ -46,8 +46,8 @@ mkdir -p "$stage"
 # One tree in the usual Linux layout; every package is made from it.
 tree="$stage/tree"
 mkdir -p "$tree/usr/bin" "$tree/usr/share/applications" \
-  "$tree/usr/share/icons/hicolor/256x256/apps" "$tree/usr/share/misterdownloadmanager" \
-  "$tree/usr/share/doc/misterdownloadmanager"
+  "$tree/usr/share/icons/hicolor/256x256/apps" "$tree/usr/share/vadm" \
+  "$tree/usr/share/doc/vadm"
 for p in "${programs[@]}"; do install -m 755 "$bin/$p" "$tree/usr/bin/$p"; done
 # Crash reports: the release's symbols from the programs' debug info (the -symbols zip), then the
 # programs without it or their symbol table (#25; the build id that matches them to the symbols,
@@ -61,27 +61,27 @@ glibc=$(for p in "${programs[@]}"; do objdump -T "$tree/usr/bin/$p"; done \
   | grep -o 'GLIBC_[0-9][0-9.]*' | sed 's/GLIBC_//' | sort -V | tail -1)
 [ -n "$glibc" ] || { echo "no glibc version found in the programs" >&2; exit 1; }
 echo "the programs need glibc $glibc or newer"
-cp -r "$root/target/extension/chromium" "$tree/usr/share/misterdownloadmanager/extension-chromium"
-cp "$root/target/extension/mdm-firefox.xpi" "$tree/usr/share/misterdownloadmanager/"
-cp "$root/LICENSE" "$root/ATTRIBUTION.md" "$tree/usr/share/doc/misterdownloadmanager/"
+cp -r "$root/target/extension/chromium" "$tree/usr/share/vadm/extension-chromium"
+cp "$root/target/extension/vadm-firefox.xpi" "$tree/usr/share/vadm/"
+cp "$root/LICENSE" "$root/ATTRIBUTION.md" "$tree/usr/share/doc/vadm/"
 python3 - "$root/art/Mister Download Manager.png" \
-  "$tree/usr/share/icons/hicolor/256x256/apps/misterdownloadmanager.png" <<'EOF'
+  "$tree/usr/share/icons/hicolor/256x256/apps/vadm.png" <<'EOF'
 import sys
 from PIL import Image
 Image.open(sys.argv[1]).convert("RGBA").resize((256, 256), Image.LANCZOS).save(sys.argv[2])
 EOF
 # StartupWMClass: the class every window of MDM carries (lib.rs APP_ID), so a window pinned to
 # the taskbar or the dock is this entry's, whatever name an AppImage manager gives the entry (#940).
-cat > "$tree/usr/share/applications/misterdownloadmanager.desktop" <<EOF
+cat > "$tree/usr/share/applications/vadm.desktop" <<EOF
 [Desktop Entry]
 Type=Application
-Name=Mister Download Manager
+Name=VADM
 Comment=Download manager
-Exec=misterdownloadmanager %U
-Icon=misterdownloadmanager
+Exec=vadm %U
+Icon=vadm
 Terminal=false
 Categories=Network;FileTransfer;
-StartupWMClass=misterdownloadmanager
+StartupWMClass=vadm
 Keywords=mdm;idm;download manager;
 EOF
 
@@ -89,8 +89,8 @@ EOF
 plain="$stage/$name"
 mkdir -p "$plain"
 for p in "${programs[@]}"; do cp "$tree/usr/bin/$p" "$plain/"; done
-cp -r "$tree/usr/share/misterdownloadmanager/extension-chromium" "$plain/extension-chromium"
-cp "$tree/usr/share/misterdownloadmanager/mdm-firefox.xpi" "$plain/"
+cp -r "$tree/usr/share/vadm/extension-chromium" "$plain/extension-chromium"
+cp "$tree/usr/share/vadm/vadm-firefox.xpi" "$plain/"
 cp "$root/LICENSE" "$root/ATTRIBUTION.md" "$plain/"
 tar -C "$stage" -czf "$dist/$name.tar.gz" "$name"
 
@@ -100,11 +100,11 @@ tar -C "$stage" -czf "$dist/$name.tar.gz" "$name"
 # starts, HTTP ones too ("No CA certificates were loaded from the system"). GTK pulls in the rest.
 # The browsers' host manifests for everyone (#266), in the .deb and .rpm only: each folder the
 # browsers read them from (/etc/opt/chrome, /etc/chromium, /etc/opt/edge, /usr/lib/mozilla and
-# /usr/lib64/mozilla), naming /usr/bin/misterdownloadmanager-nmhost. The package owns them, so
+# /usr/lib64/mozilla), naming /usr/bin/vadm-nmhost. The package owns them, so
 # uninstalling it removes them (not conffiles: `apt remove` takes them too), and MDM writes none
 # in the home folder for a browser that reads them. The AppImage and the tar.gz register per user.
 system="$stage/system"
-"$tree/usr/bin/misterdownloadmanager-nmhost" --package-manifests "$system"
+"$tree/usr/bin/vadm-nmhost" --package-manifests "$system"
 deb="$stage/deb"
 cp -r "$tree" "$deb"
 # Debian and Ubuntu's Firefox reads /usr/lib/mozilla; lib64's is Fedora's and openSUSE's.
@@ -112,14 +112,14 @@ cp -r "$system/." "$deb/"
 rm -rf "$deb/usr/lib64"
 mkdir -p "$deb/DEBIAN"
 cat > "$deb/DEBIAN/control" <<EOF
-Package: misterdownloadmanager
+Package: vadm
 Version: $version
 Architecture: $deb_arch
-Maintainer: Mister Download Manager <https://github.com/anefzaoui/misterdownloadmanager>
+Maintainer: VADM <https://github.com/vietanh210304/vadm>
 Depends: libc6 (>= $glibc), libgtk-3-0, libgl1, libegl1, libxkbcommon0, libxkbcommon-x11-0, ca-certificates
 Section: net
 Priority: optional
-Homepage: https://github.com/anefzaoui/misterdownloadmanager
+Homepage: https://github.com/vietanh210304/vadm
 Description: Download manager
  Speeds up downloads with several connections at once, resumes them, catches them from the
  browser, and downloads videos.
@@ -130,12 +130,12 @@ dpkg-deb --root-owner-group --build "$deb" "$dist/$name.deb"
 rpm="$stage/rpm"
 mkdir -p "$rpm"/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 cat > "$rpm/SPECS/mdm.spec" <<EOF
-Name: misterdownloadmanager
+Name: vadm
 Version: $version
 Release: 1
 Summary: Download manager
 License: GPL-3.0-or-later
-URL: https://github.com/anefzaoui/misterdownloadmanager
+URL: https://github.com/vietanh210304/vadm
 Requires: glibc >= $glibc, gtk3, mesa-libGL, mesa-libEGL, libxkbcommon, libxkbcommon-x11, ca-certificates
 AutoReqProv: no
 
@@ -148,14 +148,14 @@ cp -a "$tree/." %{buildroot}/
 cp -a "$system/." %{buildroot}/
 
 %files
-/usr/bin/misterdownloadmanager
-/usr/bin/misterdownloadmanager-nmhost
-/usr/bin/misterdownloadmanager-cli
-/usr/bin/misterdownloadmanager-mcp
-/usr/share/applications/misterdownloadmanager.desktop
-/usr/share/icons/hicolor/256x256/apps/misterdownloadmanager.png
-/usr/share/misterdownloadmanager
-/usr/share/doc/misterdownloadmanager
+/usr/bin/vadm
+/usr/bin/vadm-nmhost
+/usr/bin/vadm-cli
+/usr/bin/vadm-mcp
+/usr/share/applications/vadm.desktop
+/usr/share/icons/hicolor/256x256/apps/vadm.png
+/usr/share/vadm
+/usr/share/doc/vadm
 $(cd "$system" && find . -mindepth 1 -type d | sed 's|^\.||' | grep -Ev '^/(etc|etc/opt|usr|usr/lib|usr/lib64)$' | sort | sed 's|^|%dir |')
 $(cd "$system" && find . -type f | sed 's|^\.||' | sort)
 EOF
@@ -166,8 +166,8 @@ cp "$rpm"/RPMS/$pkg_arch/*.rpm "$dist/$name.rpm"
 appdir="$stage/AppDir"
 cp -r "$tree" "$appdir"
 ln -s usr/bin/misterdownloadmanager "$appdir/AppRun"
-cp "$tree/usr/share/applications/misterdownloadmanager.desktop" "$appdir/"
-cp "$tree/usr/share/icons/hicolor/256x256/apps/misterdownloadmanager.png" "$appdir/"
+cp "$tree/usr/share/applications/vadm.desktop" "$appdir/"
+cp "$tree/usr/share/icons/hicolor/256x256/apps/vadm.png" "$appdir/"
 # appimagetool and the runtime it puts at the front of every AppImage, each at a fixed release and
 # checked by its sha256: their `continuous` tags move with every upstream commit, so the same MDM
 # tag could otherwise be packaged with a different tool. A new version is a new pair of hashes here
@@ -192,7 +192,7 @@ chmod +x "$tool"
 # Update information (#24): AppImageLauncher, Gear Lever and AppImageUpdate read it from the
 # AppImage, find the latest release's .zsync and download only the parts that changed. MDM's own
 # Update now doesn't need it. The pattern also matches the names up to 0.2.4, with "-experimental".
-update="gh-releases-zsync|anefzaoui|misterdownloadmanager|latest|MisterDownloadManager-*-linux-$arch*.AppImage.zsync"
+update="gh-releases-zsync|vietanh210304|vadm|latest|VADM-*-linux-$arch*.AppImage.zsync"
 # No FUSE on CI runners: the tool runs from its own extracted copy.
 # zstd at its strongest level (#25; unpacking is as fast): the tool's 128K blocks stay, as 1M
 # blocks make the AppImage start slower (AppImage/appimagetool#64).

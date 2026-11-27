@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Siirtää lataukset selaimesta Mister Download Manageriin."
+    "message": "Siirtää lataukset selaimesta VADMiin."
   },
   "menu": {
-    "message": "Lataa Mister Download Managerilla"
+    "message": "Lataa VADMilla"
   },
   "video_download": {
     "message": "Lataa video"
@@ -30,19 +30,19 @@
     "message": "Painikkeen asetukset..."
   },
   "video_sent": {
-    "message": "Lähetetty Mister Download Manager:lle"
+    "message": "Lähetetty VADM:lle"
   },
   "menu_selected": {
-    "message": "Lataa valitut linkit sovelluksella Mister Download Manager"
+    "message": "Lataa valitut linkit sovelluksella VADM"
   },
   "menu_all": {
-    "message": "Lataa kaikki linkit sovelluksella Mister Download Manager"
+    "message": "Lataa kaikki linkit sovelluksella VADM"
   },
   "status_connected": {
-    "message": "Yhdistetty sovellukseen Mister Download Manager"
+    "message": "Yhdistetty sovellukseen VADM"
   },
   "status_connected_version": {
-    "message": "Yhdistetty sovellukseen Mister Download Manager $version$",
+    "message": "Yhdistetty sovellukseen VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Ei käytössä: lataukset jäävät selaimeen"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager ei ole asennettu, tai sen selainintegrointia ei ole määritetty"
+    "message": "VADM ei ole asennettu, tai sen selainintegrointia ei ole määritetty"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager ei hyväksy tätä laajennuksen kopiota"
+    "message": "VADM ei hyväksy tätä laajennuksen kopiota"
   },
   "status_not_running": {
-    "message": "Mister Download Manager ei käynnistynyt ajoissa"
+    "message": "VADM ei käynnistynyt ajoissa"
   },
   "status_host_failed": {
-    "message": "Yhteyden muodostaminen sovellukseen Mister Download Manager epäonnistui"
+    "message": "Yhteyden muodostaminen sovellukseen VADM epäonnistui"
   },
   "status_too_large": {
     "message": "Tämän latauksen tiedot olivat liian suuria siirrettäviksi"
   },
   "status_update_app": {
-    "message": "Päivitä Mister Download Manager, jotta voit käyttää kaikkia tämän laajennuksen tarjoamia ominaisuuksia"
+    "message": "Päivitä VADM, jotta voit käyttää kaikkia tämän laajennuksen tarjoamia ominaisuuksia"
   },
   "popup_take": {
     "message": "Latausten siirtäminen tästä selaimesta"
@@ -78,10 +78,10 @@
     "message": "Lähetä lataukset tämän selaimen välityspalvelimen tai VPN-laajennuksen kautta"
   },
   "popup_proxy_title": {
-    "message": "Tällöin Mister Download Manager lataa saman välityspalvelimen kautta kuin tämä selain. Selain pyytää kerran lupaa; tämän poistaminen käytöstä peruuttaa luvan."
+    "message": "Tällöin VADM lataa saman välityspalvelimen kautta kuin tämä selain. Selain pyytää kerran lupaa; tämän poistaminen käytöstä peruuttaa luvan."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager lataa tiedostot sitten tämän selaimen käyttämän välityspalvelimen kautta. Kun tämä asetus on pois päältä, laajennus ei lue selaimen välityspalvelimen asetuksia."
+    "message": "VADM lataa tiedostot sitten tämän selaimen käyttämän välityspalvelimen kautta. Kun tämä asetus on pois päältä, laajennus ei lue selaimen välityspalvelimen asetuksia."
   },
   "popup_exclude_site": {
     "message": "Älä koskaan ota latauksia sivustolta $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Avaa Mister Download Manager"
+    "message": "Avaa VADM"
   },
   "popup_options": {
     "message": "Asetukset..."
@@ -111,7 +111,7 @@
     "message": "Ohje"
   },
   "popup_support": {
-    "message": "Tue MDM:ää"
+    "message": "Tue VADM:ää"
   },
   "popup_fix": {
     "message": "Miten korjata"
@@ -201,16 +201,16 @@
     "message": "Täällä ei ole ladattavaa videota"
   },
   "video_playlist": {
-    "message": "Videoluettelo: valitse videot sovelluksessa Mister Download Manager"
+    "message": "Videoluettelo: valitse videot sovelluksessa VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager tarvitsee yt-dlp:n tätä videota varten"
+    "message": "VADM tarvitsee yt-dlp:n tätä videota varten"
   },
   "video_too_long": {
     "message": "Haku kesti liian kauan"
   },
   "video_busy": {
-    "message": "Mister Download Manager on varattu muiden videoiden takia"
+    "message": "VADM on varattu muiden videoiden takia"
   },
   "video_queued": {
     "message": "Lisätty jonoon"
@@ -234,7 +234,7 @@
     "message": "Tämä tietokone"
   },
   "popup_send_remote": {
-    "message": "Toinen Mister Download Manager (palvelin)"
+    "message": "Toinen VADM (palvelin)"
   },
   "popup_remote_code": {
     "message": "Pariliitoskoodi"
@@ -246,7 +246,7 @@
     "message": "Laita pariksi"
   },
   "popup_remote_help": {
-    "message": "Avaa sen osoite kerran ja hyväksy sen varmenne, anna sitten koodi sen Asetukset, Etä, Laita laite pariksi -kohdasta (tai misterdownloadmanager-cli pair)."
+    "message": "Avaa sen osoite kerran ja hyväksy sen varmenne, anna sitten koodi sen Asetukset, Etä, Laita laite pariksi -kohdasta (tai vadm-cli pair)."
   },
   "status_remote": {
     "message": "Lataukset menevät osoitteeseen $address$",
@@ -361,19 +361,19 @@
     "message": "Lataa paras laatu"
   },
   "video_sending": {
-    "message": "Lähetetään MDM:ään..."
+    "message": "Lähetetään VADM:ään..."
   },
   "video_added": {
-    "message": "Lisätty MDM:ään"
+    "message": "Lisätty VADM:ään"
   },
   "video_show": {
     "message": "Näytä"
   },
   "video_no_answer": {
-    "message": "MDM ei vastannut"
+    "message": "VADM ei vastannut"
   },
   "video_get_mdm": {
-    "message": "Hanki MDM"
+    "message": "Hanki VADM"
   },
   "video_retry": {
     "message": "Yritä uudelleen"
@@ -391,7 +391,7 @@
     "message": "Lataa osa tästä..."
   },
   "video_failed": {
-    "message": "Mister Download Manager ei ole asennettu tai sitä ei käynnistetty"
+    "message": "VADM ei ole asennettu tai sitä ei käynnistetty"
   },
   "video_download_best": {
     "message": "Lataa paras"
@@ -412,7 +412,7 @@
     "message": "Unohda"
   },
   "popup_gear": {
-    "message": "Asetukset ohjelmassa Mister Download Manager"
+    "message": "Asetukset ohjelmassa VADM"
   },
   "popup_tabs": {
     "message": "Ponnahdusikkunan osat"
@@ -445,7 +445,7 @@
     "message": "Keskeytetty"
   },
   "popup_conn_update": {
-    "message": "Päivitä Mister Download Manager"
+    "message": "Päivitä VADM"
   },
   "popup_conn_remote": {
     "message": "Lähetetään kohteeseen $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Nämä ovat Mister Download Manager-sovelluksen latauksia osoitteessa $server$. Avaa niiden tiedostot sieltä.",
+    "message": "Nämä ovat VADM-sovelluksen latauksia osoitteessa $server$. Avaa niiden tiedostot sieltä.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Uusimmat $shown$/$total$ latausta. Mister Download Manager näyttää ne kaikki.",
+    "message": "Uusimmat $shown$/$total$ latausta. VADM näyttää ne kaikki.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Ei latauksia vielä"
   },
   "popup_dl_none_text": {
-    "message": "Mister Download Managerilla (Mister Download Manager) lataamasi näkyvät täällä."
+    "message": "VADMilla (VADM) lataamasi näkyvät täällä."
   },
   "popup_dl_no_match": {
     "message": "Mikään ei vastaa"
@@ -594,28 +594,28 @@
     "message": "Näytä kaikki lataukset"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager ei ole käynnissä"
+    "message": "VADM ei ole käynnissä"
   },
   "popup_list_off_text": {
     "message": "Käynnistä sovellus, niin näet latauksesi täällä."
   },
   "popup_list_start": {
-    "message": "Käynnistä Mister Download Manager"
+    "message": "Käynnistä VADM"
   },
   "popup_list_old": {
-    "message": "Päivitä Mister Download Manager"
+    "message": "Päivitä VADM"
   },
   "popup_list_old_text": {
     "message": "Tämä versio ei voi vielä luetteloida latauksiaan täällä."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager on varattu. Yritetään uudelleen..."
+    "message": "VADM on varattu. Yritetään uudelleen..."
   },
   "popup_list_unreached": {
-    "message": "Ei yhteyttä sovellukseen Mister Download Manager"
+    "message": "Ei yhteyttä sovellukseen VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Ei yhteyttä sovellukseen Mister Download Manager osoitteessa $server$",
+    "message": "Ei yhteyttä sovellukseen VADM osoitteessa $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Tämä järjestelmä ei voi tehdä sitä."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager ei ole käynnissä."
+    "message": "VADM ei ole käynnissä."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager ei vastannut ajoissa. Yritä uudelleen."
+    "message": "VADM ei vastannut ajoissa. Yritä uudelleen."
   },
   "popup_act_failed": {
     "message": "Toiminto epäonnistui. Yritä uudelleen."

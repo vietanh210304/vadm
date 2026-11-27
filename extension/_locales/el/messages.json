@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Παραδίδει λήψεις από το πρόγραμμα περιήγησης στο Mister Download Manager."
+    "message": "Παραδίδει λήψεις από το πρόγραμμα περιήγησης στο VADM."
   },
   "menu": {
-    "message": "Λήψη με το Mister Download Manager"
+    "message": "Λήψη με το VADM"
   },
   "video_download": {
     "message": "Λήψη βίντεο"
@@ -30,19 +30,19 @@
     "message": "Ρυθμίσεις κουμπιού..."
   },
   "video_sent": {
-    "message": "Στάλθηκε στο Mister Download Manager"
+    "message": "Στάλθηκε στο VADM"
   },
   "menu_selected": {
-    "message": "Λήψη επιλεγμένων συνδέσμων με το Mister Download Manager"
+    "message": "Λήψη επιλεγμένων συνδέσμων με το VADM"
   },
   "menu_all": {
-    "message": "Λήψη όλων των συνδέσμων με το Mister Download Manager"
+    "message": "Λήψη όλων των συνδέσμων με το VADM"
   },
   "status_connected": {
-    "message": "Συνδεδεμένο στο Mister Download Manager"
+    "message": "Συνδεδεμένο στο VADM"
   },
   "status_connected_version": {
-    "message": "Συνδεδεμένο στο Mister Download Manager $version$",
+    "message": "Συνδεδεμένο στο VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Σε παύση: οι λήψεις παραμένουν στο πρόγραμμα περιήγησης"
   },
   "status_not_installed": {
-    "message": "Το Mister Download Manager δεν είναι εγκατεστημένο ή η ενσωμάτωση του προγράμματος περιήγησης δεν έχει ρυθμιστεί"
+    "message": "Το VADM δεν είναι εγκατεστημένο ή η ενσωμάτωση του προγράμματος περιήγησης δεν έχει ρυθμιστεί"
   },
   "status_forbidden": {
-    "message": "Το Mister Download Manager δεν δέχεται αυτό το αντίγραφο της επέκτασης"
+    "message": "Το VADM δεν δέχεται αυτό το αντίγραφο της επέκτασης"
   },
   "status_not_running": {
-    "message": "Το Mister Download Manager δεν ξεκίνησε εγκαίρως"
+    "message": "Το VADM δεν ξεκίνησε εγκαίρως"
   },
   "status_host_failed": {
-    "message": "Η σύνδεση με το Mister Download Manager απέτυχε"
+    "message": "Η σύνδεση με το VADM απέτυχε"
   },
   "status_too_large": {
     "message": "Οι λεπτομέρειες αυτής της λήψης ήταν πολύ μεγάλες για να παραδοθούν"
   },
   "status_update_app": {
-    "message": "Ενημερώστε το Mister Download Manager για να χρησιμοποιήσετε όλα όσα προσφέρει αυτή η επέκταση"
+    "message": "Ενημερώστε το VADM για να χρησιμοποιήσετε όλα όσα προσφέρει αυτή η επέκταση"
   },
   "popup_take": {
     "message": "Λήψη λήψεων από αυτό το πρόγραμμα περιήγησης"
@@ -78,10 +78,10 @@
     "message": "Αποστολή λήψεων μέσω του διακομιστή μεσολάβησης ή της επέκτασης VPN αυτού του προγράμματος περιήγησης"
   },
   "popup_proxy_title": {
-    "message": "Στη συνέχεια, το Mister Download Manager πραγματοποιεί λήψεις μέσω του ίδιου διακομιστή μεσολάβησης με αυτό το πρόγραμμα περιήγησης. Το πρόγραμμα περιήγησης θα σας ζητήσει μία φορά να το επιτρέψετε. Η απενεργοποίηση αυτής της ρύθμισης ανακαλεί την άδεια."
+    "message": "Στη συνέχεια, το VADM πραγματοποιεί λήψεις μέσω του ίδιου διακομιστή μεσολάβησης με αυτό το πρόγραμμα περιήγησης. Το πρόγραμμα περιήγησης θα σας ζητήσει μία φορά να το επιτρέψετε. Η απενεργοποίηση αυτής της ρύθμισης ανακαλεί την άδεια."
   },
   "popup_proxy_title_chromium": {
-    "message": "Στη συνέχεια, το Mister Download Manager πραγματοποιεί λήψεις μέσω του ίδιου διακομιστή μεσολάβησης με αυτό το πρόγραμμα περιήγησης. Όταν αυτή η επιλογή είναι απενεργοποιημένη, η επέκταση δεν διαβάζει τον διακομιστή μεσολάβησης του προγράμματος περιήγησης."
+    "message": "Στη συνέχεια, το VADM πραγματοποιεί λήψεις μέσω του ίδιου διακομιστή μεσολάβησης με αυτό το πρόγραμμα περιήγησης. Όταν αυτή η επιλογή είναι απενεργοποιημένη, η επέκταση δεν διαβάζει τον διακομιστή μεσολάβησης του προγράμματος περιήγησης."
   },
   "popup_exclude_site": {
     "message": "Να μην λαμβάνονται ποτέ λήψεις από το $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Άνοιγμα Mister Download Manager"
+    "message": "Άνοιγμα VADM"
   },
   "popup_options": {
     "message": "Επιλογές..."
@@ -111,7 +111,7 @@
     "message": "Βοήθεια"
   },
   "popup_support": {
-    "message": "Υποστηρίξτε το MDM"
+    "message": "Υποστηρίξτε το VADM"
   },
   "popup_fix": {
     "message": "Πώς να το διορθώσετε"
@@ -201,16 +201,16 @@
     "message": "Δεν υπάρχει βίντεο για λήψη εδώ"
   },
   "video_playlist": {
-    "message": "Μια λίστα βίντεο: επιλέξτε τα στο Mister Download Manager"
+    "message": "Μια λίστα βίντεο: επιλέξτε τα στο VADM"
   },
   "video_no_ytdlp": {
-    "message": "Το Mister Download Manager χρειάζεται το yt-dlp για αυτό το βίντεο"
+    "message": "Το VADM χρειάζεται το yt-dlp για αυτό το βίντεο"
   },
   "video_too_long": {
     "message": "Η αναζήτηση άργησε υπερβολικά"
   },
   "video_busy": {
-    "message": "Το Mister Download Manager είναι απασχολημένο με άλλα βίντεο"
+    "message": "Το VADM είναι απασχολημένο με άλλα βίντεο"
   },
   "video_queued": {
     "message": "Προστέθηκε στην ουρά"
@@ -234,7 +234,7 @@
     "message": "Αυτός ο υπολογιστής"
   },
   "popup_send_remote": {
-    "message": "Άλλο Mister Download Manager (διακομιστής)"
+    "message": "Άλλο VADM (διακομιστής)"
   },
   "popup_remote_code": {
     "message": "Κωδικός σύζευξης"
@@ -246,7 +246,7 @@
     "message": "Σύζευξη"
   },
   "popup_remote_help": {
-    "message": "Ανοίξτε τη διεύθυνσή του μία φορά και αποδεχτείτε το πιστοποιητικό του, μετά εισαγάγετε έναν κωδικό από τις επιλογές του, Απομακρυσμένη, Σύζευξη συσκευής (ή misterdownloadmanager-cli pair)."
+    "message": "Ανοίξτε τη διεύθυνσή του μία φορά και αποδεχτείτε το πιστοποιητικό του, μετά εισαγάγετε έναν κωδικό από τις επιλογές του, Απομακρυσμένη, Σύζευξη συσκευής (ή vadm-cli pair)."
   },
   "status_remote": {
     "message": "Οι λήψεις μεταβαίνουν στη διεύθυνση $address$",
@@ -361,19 +361,19 @@
     "message": "Λήψη της καλύτερης ποιότητας"
   },
   "video_sending": {
-    "message": "Αποστολή στο MDM..."
+    "message": "Αποστολή στο VADM..."
   },
   "video_added": {
-    "message": "Προστέθηκε στο MDM"
+    "message": "Προστέθηκε στο VADM"
   },
   "video_show": {
     "message": "Εμφάνιση"
   },
   "video_no_answer": {
-    "message": "Το MDM δεν απάντησε"
+    "message": "Το VADM δεν απάντησε"
   },
   "video_get_mdm": {
-    "message": "Λήψη MDM"
+    "message": "Λήψη VADM"
   },
   "video_retry": {
     "message": "Επανάληψη"
@@ -391,7 +391,7 @@
     "message": "Λήψη ενός τμήματος από εδώ..."
   },
   "video_failed": {
-    "message": "Το Mister Download Manager δεν είναι εγκατεστημένο ή δεν ξεκίνησε"
+    "message": "Το VADM δεν είναι εγκατεστημένο ή δεν ξεκίνησε"
   },
   "video_download_best": {
     "message": "Λήψη καλύτερης"
@@ -412,7 +412,7 @@
     "message": "Ξεχάστε"
   },
   "popup_gear": {
-    "message": "Επιλογές στο Mister Download Manager"
+    "message": "Επιλογές στο VADM"
   },
   "popup_tabs": {
     "message": "Ενότητες αναδυόμενου παραθύρου"
@@ -445,7 +445,7 @@
     "message": "Σε παύση"
   },
   "popup_conn_update": {
-    "message": "Ενημέρωση Mister Download Manager"
+    "message": "Ενημέρωση VADM"
   },
   "popup_conn_remote": {
     "message": "Αποστολή σε $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Αυτές είναι οι λήψεις του Mister Download Manager στο $server$. Ανοίξτε τα αρχεία τους εκεί.",
+    "message": "Αυτές είναι οι λήψεις του VADM στο $server$. Ανοίξτε τα αρχεία τους εκεί.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Οι νεότερες $shown$ από $total$. Το Mister Download Manager τις παραθέτει όλες.",
+    "message": "Οι νεότερες $shown$ από $total$. Το VADM τις παραθέτει όλες.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Δεν υπάρχουν λήψεις ακόμα"
   },
   "popup_dl_none_text": {
-    "message": "Ό,τι κατεβάζετε με το Mister Download Manager εμφανίζεται εδώ."
+    "message": "Ό,τι κατεβάζετε με το VADM εμφανίζεται εδώ."
   },
   "popup_dl_no_match": {
     "message": "Τίποτα δεν ταιριάζει"
@@ -594,28 +594,28 @@
     "message": "Εμφάνιση όλων των λήψεων"
   },
   "popup_list_off": {
-    "message": "Το Mister Download Manager δεν εκτελείται"
+    "message": "Το VADM δεν εκτελείται"
   },
   "popup_list_off_text": {
     "message": "Εκκινήστε το για να δείτε τις λήψεις σας εδώ."
   },
   "popup_list_start": {
-    "message": "Εκκίνηση Mister Download Manager"
+    "message": "Εκκίνηση VADM"
   },
   "popup_list_old": {
-    "message": "Ενημέρωση Mister Download Manager"
+    "message": "Ενημέρωση VADM"
   },
   "popup_list_old_text": {
     "message": "Αυτή η έκδοση δεν μπορεί να παραθέσει τις λήψεις της εδώ ακόμα."
   },
   "popup_list_busy": {
-    "message": "Το Mister Download Manager είναι απασχολημένο. Γίνεται νέα προσπάθεια..."
+    "message": "Το VADM είναι απασχολημένο. Γίνεται νέα προσπάθεια..."
   },
   "popup_list_unreached": {
-    "message": "Δεν είναι δυνατή η σύνδεση με το Mister Download Manager"
+    "message": "Δεν είναι δυνατή η σύνδεση με το VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Δεν είναι δυνατή η σύνδεση με το Mister Download Manager στον διακομιστή $server$",
+    "message": "Δεν είναι δυνατή η σύνδεση με το VADM στον διακομιστή $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Αυτό το σύστημα δεν μπορεί να το κάνει."
   },
   "popup_act_off": {
-    "message": "Το Mister Download Manager δεν εκτελείται."
+    "message": "Το VADM δεν εκτελείται."
   },
   "popup_act_busy": {
-    "message": "Το Mister Download Manager δεν απάντησε εγκαίρως. Δοκιμάστε ξανά."
+    "message": "Το VADM δεν απάντησε εγκαίρως. Δοκιμάστε ξανά."
   },
   "popup_act_failed": {
     "message": "Αυτό δεν λειτούργησε. Δοκιμάστε ξανά."

@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Vietnamese: tools/installer/languages.py
+﻿; VADM's installer in Vietnamese: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Đang gỡ cài đặt %1.
 
 [CustomMessages]
 TaskBrowser=Thiết lập tích hợp &trình duyệt (Chrome, Edge, Brave, Firefox)
-TaskStartup=Khởi động Mister Download Manager khi &Windows khởi động
+TaskStartup=Khởi động VADM khi &Windows khởi động
 TaskGroupOther=Khác:
-Launch=Khởi động Mister Download Manager
+Launch=Khởi động VADM
 KeepData=Bạn cũng muốn xóa danh sách tải xuống và cài đặt của mình không?%n%nCác tệp đã tải xuống của bạn sẽ không bị ảnh hưởng.

@@ -18,20 +18,20 @@ pub type Ask = Arc<dyn Fn(&Command) -> Result<String, String> + Send + Sync>;
 /// Downloads listed when the assistant doesn't say how many.
 const DEFAULT_LIMIT: usize = 100;
 
-const NOT_RUNNING: &str = "Mister Download Manager isn't running. Ask the user to start it, then \
+const NOT_RUNNING: &str = "VADM isn't running. Ask the user to start it, then \
                            try again.";
-const API_OFF: &str = "Mister Download Manager's automation API is off. Ask the user to turn it \
-                       on once with `misterdownloadmanager-cli api on` (it stays on), then try \
+const API_OFF: &str = "VADM's automation API is off. Ask the user to turn it \
+                       on once with `vadm-cli api on` (it stays on), then try \
                        again.";
 
-const INSTRUCTIONS: &str = "Controls Mister Download Manager, the download manager running on \
+const INSTRUCTIONS: &str = "Controls VADM, the download manager running on \
     this computer. list_downloads shows its downloads with their ids (and optional id, status, \
     category, queue, or search filtering); pause_downloads, resume_downloads and \
     remove_downloads act on those ids; add_download adds an address (http, https, ftp, or ftps); \
     start_queue starts a download queue (the main queue by default, or \
     by name); stop_queue stops a download queue (the main queue by default, or by name). \
     Listing and acting on downloads, stopping a queue, and starting a named queue need \
-    the app's automation API, which the user turns on with `misterdownloadmanager-cli api on`. \
+    the app's automation API, which the user turns on with `vadm-cli api on`. \
     Sizes, free space and speeds are in bytes and bytes per second.";
 
 #[derive(Deserialize, JsonSchema, Default)]
@@ -144,7 +144,7 @@ impl Server {
 #[tool_router]
 impl Server {
     #[tool(
-        description = "Lists Mister Download Manager's downloads, newest first: id, file, url, \
+        description = "Lists VADM's downloads, newest first: id, file, url, \
                        path, status (Queued, Downloading, Stopped, Complete or Error), category, \
                        size and downloaded (bytes; size null while unknown), speed (bytes per \
                        second), when it was added and, for a failed one, why (error); with the \
@@ -166,7 +166,7 @@ impl Server {
     }
 
     #[tool(
-        description = "Adds a download to Mister Download Manager and starts it (or only queues \
+        description = "Adds a download to VADM and starts it (or only queues \
                        it, with later). If the list already has the address, the app asks the \
                        user what to do.",
         annotations(
@@ -179,7 +179,7 @@ impl Server {
         let url = args.url.trim().to_owned();
         if !addable(&url) {
             return Err(format!(
-                "{url:?} isn't an address Mister Download Manager downloads: it takes http, \
+                "{url:?} isn't an address VADM downloads: it takes http, \
                  https, ftp and ftps addresses."
             ));
         }
@@ -248,7 +248,7 @@ impl Server {
     }
 
     #[tool(
-        description = "Removes downloads from Mister Download Manager's list by id, keeping \
+        description = "Removes downloads from VADM's list by id, keeping \
                        their files, or deleting them from the disk too with delete_files. A \
                        running download must be paused first. Answers {\"done\": [ids], \
                        \"skipped\": [{\"id\", \"why\"}]}.",
@@ -271,7 +271,7 @@ impl Server {
     }
 
     #[tool(
-        description = "Starts Mister Download Manager's download queue (starts the main queue \
+        description = "Starts VADM's download queue (starts the main queue \
                        if omitted, or a queue by name).",
         annotations(
             read_only_hint = false,
@@ -303,7 +303,7 @@ impl Server {
     }
 
     #[tool(
-        description = "Stops Mister Download Manager's download queue (stops the main queue \
+        description = "Stops VADM's download queue (stops the main queue \
                        if omitted, or a queue by name).",
         annotations(
             read_only_hint = false,
@@ -335,7 +335,7 @@ impl ServerHandler for Server {
                 .build(),
         )
         .with_server_info(rmcp::model::Implementation::new(
-            "misterdownloadmanager",
+            "vadm",
             env!("CARGO_PKG_VERSION"),
         ))
         .with_instructions(INSTRUCTIONS)
@@ -349,30 +349,30 @@ fn explain(answer: Result<String, String>) -> Result<String, String> {
     match answer.as_str() {
         "timeout" => {
             return Err(
-                "Mister Download Manager didn't answer in time (a dialog may be open \
+                "VADM didn't answer in time (a dialog may be open \
                         in it); try again."
                     .into(),
             );
         }
         "denied" => {
             return Err(
-                "Mister Download Manager refused the request: its channel file \
+                "VADM refused the request: its channel file \
                         (ipc.json) is from another start. Ask the user to restart the app."
                     .into(),
             );
         }
         "gone" => {
             return Err(
-                "Mister Download Manager is closing; try again once it has started.".into(),
+                "VADM is closing; try again once it has started.".into(),
             );
         }
         // The channel itself, not an answer: more connections than it takes at once, or a
         // request over its line limit. Neither is a success.
         "busy" => {
-            return Err("Mister Download Manager is busy with other requests; try again.".into());
+            return Err("VADM is busy with other requests; try again.".into());
         }
         "too-large" => {
-            return Err("Mister Download Manager didn't take the request: it is too large.".into());
+            return Err("VADM didn't take the request: it is too large.".into());
         }
         _ => {}
     }
@@ -380,7 +380,7 @@ fn explain(answer: Result<String, String>) -> Result<String, String> {
         return Err(if e.code.as_deref() == Some(API_OFF_CODE) {
             API_OFF.into()
         } else {
-            format!("Mister Download Manager: {}", e.error)
+            format!("VADM: {}", e.error)
         });
     }
     Ok(answer)

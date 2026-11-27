@@ -11,7 +11,7 @@
 // (the rules, the status, the pause) is kept in storage, not in memory.
 
 const ext = globalThis.browser ?? globalThis.chrome;
-const HOST = "com.misterdownloadmanager.host";
+const HOST = "com.vadm.host";
 const VERSION = ext.runtime.getManifest().version;
 const HELP = "https://misterdownloadmanager.com/help/browser-help.html";
 const action = ext.action ?? ext.browserAction;
@@ -3754,7 +3754,7 @@ async function videoPick(m, sender) {
 
 const isWeb = (u) => typeof u === "string" && /^https?:\/\//i.test(u);
 // Where the button's "Get MDM" goes.
-const GET_MDM = "https://misterdownloadmanager.com/download";
+const GET_MDM = "https://github.com/vietanh210304/vadm/releases/latest";
 // A new tab next to `tab`, opened from it.
 const beside = (tab) => ({
   ...(Number.isInteger(tab.id) ? { openerTabId: tab.id } : {}),

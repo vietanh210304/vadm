@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Afrikaans: tools/installer/languages.py
+﻿; VADM's installer in Afrikaans: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Deïnstalleer %1.
 
 [CustomMessages]
 TaskBrowser=Stel &blaaierintegrasie op (Chrome, Edge, Brave, Firefox)
-TaskStartup=Begin Mister Download Manager wanneer &Windows begin
+TaskStartup=Begin VADM wanneer &Windows begin
 TaskGroupOther=Ander:
-Launch=Begin Mister Download Manager
+Launch=Begin VADM
 KeepData=Vee ook jou aflaailys en instellings uit?%n%nJou afgelaaide lêers word in elk geval nie aangeraak nie.

@@ -85,16 +85,16 @@ jobs:
         id: build
         run: |
           cargo build -p mdm-app -p mdm-cli -p mdm-nmhost -p mdm-labserver
-          bash tools/lab/macos/bundle.sh target/debug "$RUNNER_TEMP/Mister Download Manager.app"
+          bash tools/lab/macos/bundle.sh target/debug "$RUNNER_TEMP/VADM.app"
 
       - name: Verify (a download to its end, the API, the windows, /exit)
         if: inputs.jobs != 'showcase'
-        run: bash tools/lab/macos/verify.sh "$RUNNER_TEMP/Mister Download Manager.app" target/debug/labserver "$RUNNER_TEMP/out/verify"
+        run: bash tools/lab/macos/verify.sh "$RUNNER_TEMP/VADM.app" target/debug/labserver "$RUNNER_TEMP/out/verify"
 
       - name: Showcase (light and dark, themes, the menu bar item, a recording)
         if: ${{ !cancelled() && steps.build.outcome == 'success' && inputs.jobs != 'verify' }}
         timeout-minutes: 30
-        run: bash tools/lab/macos/showcase.sh "$RUNNER_TEMP/Mister Download Manager.app" target/debug/labserver "$RUNNER_TEMP/out/showcase"
+        run: bash tools/lab/macos/showcase.sh "$RUNNER_TEMP/VADM.app" target/debug/labserver "$RUNNER_TEMP/out/showcase"
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()

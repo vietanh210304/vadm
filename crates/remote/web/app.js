@@ -13,7 +13,7 @@ let timer = null;
 let failures = 0;
 const rows = new Map();
 
-try { token = localStorage.getItem('mdm-token'); } catch (e) { token = null; }
+try { token = localStorage.getItem('vadm-token'); } catch (e) { token = null; }
 
 function T(s) { return TX[s] || s; }
 function F(s, args) { return T(s).replace(/\{(\w+)\}/g, (m, k) => (k in args ? String(args[k]) : m)); }
@@ -102,7 +102,7 @@ function showPair() {
 
 function signedOut() {
   token = null;
-  try { localStorage.removeItem('mdm-token'); } catch (e) { /* nothing kept */ }
+  try { localStorage.removeItem('vadm-token'); } catch (e) { /* nothing kept */ }
   showPair();
 }
 
@@ -113,15 +113,15 @@ $('pair-form').addEventListener('submit', async (ev) => {
   try {
     const j = await api('pair', { json: { code: $('code').value, name: $('name').value } });
     token = j.token;
-    try { localStorage.setItem('mdm-token', token); } catch (e) { /* this visit only */ }
+    try { localStorage.setItem('vadm-token', token); } catch (e) { /* this visit only */ }
     $('code').value = '';
     showMain();
   } catch (e) {
     if (e.code === 'wrong-code' && e.body && e.body.left > 0) err.textContent = F('Wrong code. Tries left: {n}', { n: e.body.left });
-    else if (e.code === 'wrong-code') err.textContent = T('Wrong code. Show a new code in MDM and try again.');
-    else if (e.code === 'no-code') err.textContent = T('MDM shows no code now. Click Pair a device there first.');
+    else if (e.code === 'wrong-code') err.textContent = T('Wrong code. Show a new code in VADM and try again.');
+    else if (e.code === 'no-code') err.textContent = T('VADM shows no code now. Click Pair a device there first.');
     else if (e.code === 'too-soon') err.textContent = T('Wait a moment, then try again.');
-    else err.textContent = T('MDM does not answer. Check that it is running and on the same network.');
+    else err.textContent = T('VADM does not answer. Check that it is running and on the same network.');
   }
 });
 
@@ -152,7 +152,7 @@ async function refresh() {
   } catch (e) {
     if (e.code === 'not-paired') return;
     failures++;
-    $('offline').textContent = T('MDM does not answer. Trying again...');
+    $('offline').textContent = T('VADM does not answer. Trying again...');
     $('offline').hidden = false;
   }
   schedule();
@@ -255,7 +255,7 @@ async function toggle(id) {
   if (!x) return;
   try {
     await act(x.status === 'Downloading' ? 'pause' : 'start', [x.id]);
-  } catch (e) { toast(T('MDM could not do it.'), true); }
+  } catch (e) { toast(T('VADM could not do it.'), true); }
   refresh();
 }
 
@@ -276,13 +276,13 @@ $('confirm').addEventListener('close', async () => {
   try {
     if (x.status === 'Downloading') await act('pause', [x.id]);
     const j = await act($('confirm-file').checked ? 'delete' : 'remove', [x.id]);
-    if (j.skipped && j.skipped.length) toast(T('MDM could not do it.'), true);
-  } catch (e) { toast(T('MDM could not do it.'), true); }
+    if (j.skipped && j.skipped.length) toast(T('VADM could not do it.'), true);
+  } catch (e) { toast(T('VADM could not do it.'), true); }
   refresh();
 });
 
 async function queueAction(name, start) {
-  try { await api('queue', { json: { name, start } }); } catch (e) { toast(T('MDM could not do it.'), true); }
+  try { await api('queue', { json: { name, start } }); } catch (e) { toast(T('VADM could not do it.'), true); }
   refresh();
 }
 
@@ -310,8 +310,8 @@ $('add').addEventListener('submit', async (ev) => {
     toast(T('Added.'));
     $('url').value = '';
   } catch (e) {
-    if (e.code === 'unsupported') toast(T('MDM cannot download this address.'), true);
-    else if (e.code !== 'not-paired') toast(T('MDM could not add it.'), true);
+    if (e.code === 'unsupported') toast(T('VADM cannot download this address.'), true);
+    else if (e.code !== 'not-paired') toast(T('VADM could not add it.'), true);
   } finally {
     button.disabled = false;
   }

@@ -8,7 +8,7 @@ use serde_json::Value;
 
 /// The app's program, which runs misterdownloadmanager-cli's commands when its launcher
 /// (crates/cli) starts it with `--cli`.
-const APP: &str = env!("CARGO_BIN_EXE_misterdownloadmanager");
+const APP: &str = env!("CARGO_BIN_EXE_vadm");
 
 fn lines(out: &[u8]) -> Vec<Value> {
     String::from_utf8_lossy(out)
@@ -75,7 +75,7 @@ fn failures_are_json_with_a_failing_exit_code() {
     let out = Command::new(APP)
         .arg(mdm_cli::FLAG)
         .args(["--json", "resume"])
-        .arg(dir.path().join("missing.mdm.json"))
+        .arg(dir.path().join("missing.vadm.json"))
         .output()
         .unwrap();
     assert!(!out.status.success());

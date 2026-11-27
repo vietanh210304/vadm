@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Marathi: tools/installer/languages.py
+﻿; VADM's installer in Marathi: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 अनइंस्टॉल करत आ�
 
 [CustomMessages]
 TaskBrowser=ब्राउझर इंटिग्रेशन सेट अप करा (&B) (Chrome, Edge, Brave, Firefox)
-TaskStartup=जेव्हा &Windows सुरू होते तेव्हा Mister Download Manager सुरू करा
+TaskStartup=जेव्हा &Windows सुरू होते तेव्हा VADM सुरू करा
 TaskGroupOther=इतर:
-Launch=Mister Download Manager सुरू करा
+Launch=VADM सुरू करा
 KeepData=तुमची डाउनलोड सूची आणि सेटिंग्ज देखील हटवायची आहेत का?%n%nतुमच्या डाउनलोड केलेल्या फाइल्सला काहीही होणार नाही.

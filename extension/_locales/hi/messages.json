@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "ब्राउज़र से Mister Download Manager पर डाउनलोड भेजता है।"
+    "message": "ब्राउज़र से VADM पर डाउनलोड भेजता है।"
   },
   "menu": {
-    "message": "Mister Download Manager से डाउनलोड करें"
+    "message": "VADM से डाउनलोड करें"
   },
   "video_download": {
     "message": "वीडियो डाउनलोड करें"
@@ -30,19 +30,19 @@
     "message": "बटन सेटिंग्स..."
   },
   "video_sent": {
-    "message": "Mister Download Manager को भेजा गया"
+    "message": "VADM को भेजा गया"
   },
   "menu_selected": {
-    "message": "Mister Download Manager के साथ चयनित लिंक डाउनलोड करें"
+    "message": "VADM के साथ चयनित लिंक डाउनलोड करें"
   },
   "menu_all": {
-    "message": "Mister Download Manager के साथ सभी लिंक डाउनलोड करें"
+    "message": "VADM के साथ सभी लिंक डाउनलोड करें"
   },
   "status_connected": {
-    "message": "Mister Download Manager से कनेक्ट है"
+    "message": "VADM से कनेक्ट है"
   },
   "status_connected_version": {
-    "message": "Mister Download Manager $version$ से कनेक्ट है",
+    "message": "VADM $version$ से कनेक्ट है",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "रोका गया: डाउनलोड ब्राउज़र के साथ रहते हैं"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager स्थापित नहीं है, या इसका ब्राउज़र एकीकरण सेट अप नहीं है"
+    "message": "VADM स्थापित नहीं है, या इसका ब्राउज़र एकीकरण सेट अप नहीं है"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager एक्सटेंशन की इस कॉपी को स्वीकार नहीं करता है"
+    "message": "VADM एक्सटेंशन की इस कॉपी को स्वीकार नहीं करता है"
   },
   "status_not_running": {
-    "message": "Mister Download Manager समय पर शुरू नहीं हुआ"
+    "message": "VADM समय पर शुरू नहीं हुआ"
   },
   "status_host_failed": {
-    "message": "Mister Download Manager से कनेक्शन विफल रहा"
+    "message": "VADM से कनेक्शन विफल रहा"
   },
   "status_too_large": {
     "message": "इस डाउनलोड का विवरण सौंपने के लिए बहुत बड़ा था"
   },
   "status_update_app": {
-    "message": "इस एक्सटेंशन द्वारा प्रदान की जाने वाली सभी चीज़ों का उपयोग करने के लिए Mister Download Manager को अपडेट करें"
+    "message": "इस एक्सटेंशन द्वारा प्रदान की जाने वाली सभी चीज़ों का उपयोग करने के लिए VADM को अपडेट करें"
   },
   "popup_take": {
     "message": "इस ब्राउज़र से डाउनलोड लें"
@@ -78,10 +78,10 @@
     "message": "इस ब्राउज़र के प्रॉक्सी या VPN एक्सटेंशन के ज़रिए डाउनलोड भेजें"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager तब इसी ब्राउज़र के प्रॉक्सी के ज़रिए डाउनलोड करता है। ब्राउज़र एक बार इसकी अनुमति माँगता है; इसे बंद करने से वह अनुमति वापस ले ली जाती है।"
+    "message": "VADM तब इसी ब्राउज़र के प्रॉक्सी के ज़रिए डाउनलोड करता है। ब्राउज़र एक बार इसकी अनुमति माँगता है; इसे बंद करने से वह अनुमति वापस ले ली जाती है।"
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager फिर इसी ब्राउज़र के प्रॉक्सी के माध्यम से डाउनलोड करता है। जब यह बंद होता है, तो एक्सटेंशन ब्राउज़र के प्रॉक्सी को नहीं पढ़ता है।"
+    "message": "VADM फिर इसी ब्राउज़र के प्रॉक्सी के माध्यम से डाउनलोड करता है। जब यह बंद होता है, तो एक्सटेंशन ब्राउज़र के प्रॉक्सी को नहीं पढ़ता है।"
   },
   "popup_exclude_site": {
     "message": "$site$ से डाउनलोड कभी न लें",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Mister Download Manager खोलें"
+    "message": "VADM खोलें"
   },
   "popup_options": {
     "message": "विकल्प..."
@@ -111,7 +111,7 @@
     "message": "सहायता"
   },
   "popup_support": {
-    "message": "MDM का समर्थन करें"
+    "message": "VADM का समर्थन करें"
   },
   "popup_fix": {
     "message": "इसे कैसे ठीक करें"
@@ -201,16 +201,16 @@
     "message": "यहाँ डाउनलोड करने के लिए कोई वीडियो नहीं है"
   },
   "video_playlist": {
-    "message": "वीडियो की सूची: उन्हें Mister Download Manager में चुनें"
+    "message": "वीडियो की सूची: उन्हें VADM में चुनें"
   },
   "video_no_ytdlp": {
-    "message": "इस वीडियो के लिए Mister Download Manager को yt-dlp की आवश्यकता है"
+    "message": "इस वीडियो के लिए VADM को yt-dlp की आवश्यकता है"
   },
   "video_too_long": {
     "message": "खोजने में बहुत समय लगा"
   },
   "video_busy": {
-    "message": "Mister Download Manager अन्य वीडियो में व्यस्त है"
+    "message": "VADM अन्य वीडियो में व्यस्त है"
   },
   "video_queued": {
     "message": "कतार में जोड़ा गया"
@@ -234,7 +234,7 @@
     "message": "यह कंप्यूटर"
   },
   "popup_send_remote": {
-    "message": "कोई अन्य Mister Download Manager (एक सर्वर)"
+    "message": "कोई अन्य VADM (एक सर्वर)"
   },
   "popup_remote_code": {
     "message": "युग्मन कोड"
@@ -246,7 +246,7 @@
     "message": "युग्मित करें"
   },
   "popup_remote_help": {
-    "message": "इसका पता एक बार खोलें और इसके प्रमाणपत्र को स्वीकार करें, फिर इसके विकल्प, रिमोट, एक डिवाइस युग्मित करें (या misterdownloadmanager-cli pair) से एक कोड दर्ज करें।"
+    "message": "इसका पता एक बार खोलें और इसके प्रमाणपत्र को स्वीकार करें, फिर इसके विकल्प, रिमोट, एक डिवाइस युग्मित करें (या vadm-cli pair) से एक कोड दर्ज करें।"
   },
   "status_remote": {
     "message": "डाउनलोड $address$ पर जाते हैं",
@@ -361,19 +361,19 @@
     "message": "सर्वश्रेष्ठ गुणवत्ता डाउनलोड करें"
   },
   "video_sending": {
-    "message": "MDM को भेजा जा रहा है..."
+    "message": "VADM को भेजा जा रहा है..."
   },
   "video_added": {
-    "message": "MDM में जोड़ा गया"
+    "message": "VADM में जोड़ा गया"
   },
   "video_show": {
     "message": "दिखाएँ"
   },
   "video_no_answer": {
-    "message": "MDM ने जवाब नहीं दिया"
+    "message": "VADM ने जवाब नहीं दिया"
   },
   "video_get_mdm": {
-    "message": "MDM प्राप्त करें"
+    "message": "VADM प्राप्त करें"
   },
   "video_retry": {
     "message": "पुनः प्रयास करें"
@@ -391,7 +391,7 @@
     "message": "यहां से एक भाग डाउनलोड करें..."
   },
   "video_failed": {
-    "message": "Mister Download Manager स्थापित नहीं है या शुरू नहीं हुआ"
+    "message": "VADM स्थापित नहीं है या शुरू नहीं हुआ"
   },
   "video_download_best": {
     "message": "सर्वश्रेष्ठ डाउनलोड करें"
@@ -412,7 +412,7 @@
     "message": "भूलें"
   },
   "popup_gear": {
-    "message": "Mister Download Manager के विकल्प"
+    "message": "VADM के विकल्प"
   },
   "popup_tabs": {
     "message": "पॉपअप अनुभाग"
@@ -445,7 +445,7 @@
     "message": "रोका गया"
   },
   "popup_conn_update": {
-    "message": "Mister Download Manager अपडेट करें"
+    "message": "VADM अपडेट करें"
   },
   "popup_conn_remote": {
     "message": "$server$ पर भेजा जा रहा है",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "ये $server$ पर मौजूद Mister Download Manager के डाउनलोड हैं। उनकी फ़ाइलें वहीं खोलें।",
+    "message": "ये $server$ पर मौजूद VADM के डाउनलोड हैं। उनकी फ़ाइलें वहीं खोलें।",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "$total$ में से सबसे नए $shown$। Mister Download Manager उन सभी को सूचीबद्ध करता है।",
+    "message": "$total$ में से सबसे नए $shown$। VADM उन सभी को सूचीबद्ध करता है।",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "अभी तक कोई डाउनलोड नहीं"
   },
   "popup_dl_none_text": {
-    "message": "आप Mister Download Manager के साथ जो डाउनलोड करते हैं वह यहाँ दिखाई देता है।"
+    "message": "आप VADM के साथ जो डाउनलोड करते हैं वह यहाँ दिखाई देता है।"
   },
   "popup_dl_no_match": {
     "message": "कुछ भी मेल नहीं खाता"
@@ -594,28 +594,28 @@
     "message": "सभी डाउनलोड दिखाएँ"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager नहीं चल रहा है"
+    "message": "VADM नहीं चल रहा है"
   },
   "popup_list_off_text": {
     "message": "अपने डाउनलोड यहाँ देखने के लिए इसे प्रारंभ करें।"
   },
   "popup_list_start": {
-    "message": "Mister Download Manager प्रारंभ करें"
+    "message": "VADM प्रारंभ करें"
   },
   "popup_list_old": {
-    "message": "Mister Download Manager अपडेट करें"
+    "message": "VADM अपडेट करें"
   },
   "popup_list_old_text": {
     "message": "यह संस्करण अभी तक अपने डाउनलोड यहाँ सूचीबद्ध नहीं कर सकता।"
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager व्यस्त है। पुनः प्रयास कर रहा है..."
+    "message": "VADM व्यस्त है। पुनः प्रयास कर रहा है..."
   },
   "popup_list_unreached": {
-    "message": "Mister Download Manager तक नहीं पहुँच सकते"
+    "message": "VADM तक नहीं पहुँच सकते"
   },
   "popup_list_remote_unreachable": {
-    "message": "$server$ पर Mister Download Manager तक नहीं पहुँच सकते",
+    "message": "$server$ पर VADM तक नहीं पहुँच सकते",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "यह सिस्टम ऐसा नहीं कर सकता।"
   },
   "popup_act_off": {
-    "message": "Mister Download Manager नहीं चल रहा है।"
+    "message": "VADM नहीं चल रहा है।"
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager ने समय पर जवाब नहीं दिया। फिर से कोशिश करें।"
+    "message": "VADM ने समय पर जवाब नहीं दिया। फिर से कोशिश करें।"
   },
   "popup_act_failed": {
     "message": "यह काम नहीं हुआ। फिर से प्रयास करें।"

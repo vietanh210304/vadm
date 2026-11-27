@@ -614,23 +614,23 @@ pub fn is_format_char(c: char) -> bool {
 }
 
 /// Longest file name [`sanitize`] makes, in the system's units ([`Limits`]): a name may have
-/// 255, the part file adds ".mdm.part" (9) and a duplicate may add " (NNN)" (6). The extension
+/// 255, the part file adds ".vadm.part" (10) and a duplicate may add " (NNN)" (6). The extension
 /// is kept.
 const MAX_NAME: usize = 230;
-/// What our files add to a destination: ".mdm.part" / ".mdm.json".
-const SIDECAR: usize = 9;
+/// What our files add to a destination: ".vadm.part" / ".vadm.json".
+const SIDECAR: usize = 10;
 /// What a duplicate's number adds: " (NNN)".
 const DUPLICATE: usize = 6;
 /// Shortest name worth making when a deep folder leaves little room.
 const MIN_NAME: usize = 20;
-/// The most a video's files add to its stem (#1102), MDM's engine's and yt-dlp's alike: a
-/// stream's pieces, `<stem>.f<id>.<ext>.mdm.pieces/000123.mdm.part` (2 + a format id of up to
-/// 32 + 1 + an extension of up to 5 + 11 + 1 + 15), longer than yt-dlp's own
+/// The most a video's files add to its stem (#1102), VADM's engine's and yt-dlp's alike: a
+/// stream's pieces, `<stem>.f<id>.<ext>.vadm.pieces/000123.vadm.part` (2 + a format id of up to
+/// 32 + 1 + an extension of up to 5 + 12 + 1 + 16), longer than yt-dlp's own
 /// `<stem>.f<id>.<ext>.part`, `.ytdl` and `.part-Frag<N>.part`, its merge's `<stem>.temp.<ext>`,
-/// the subtitles' `<stem>.<lang>.srt` and the engine's `<stem>.f<id>.<ext>.mdm.part`. A longer
+/// the subtitles' `<stem>.<lang>.srt` and the engine's `<stem>.f<id>.<ext>.vadm.part`. A longer
 /// format id (rare) ends in yt-dlp's error, which then names the path that was too long
 /// (`mdm_tools::video::too_long`).
-pub const HELPER_FILES: usize = 67;
+pub const HELPER_FILES: usize = 69;
 /// A path's most on Windows with long paths on: the `\\?\` form's 32,767 UTF-16 units, with
 /// room for its prefix.
 const LONG_PATH: usize = 32_000;
@@ -979,7 +979,7 @@ fn cut(s: &str, max: usize, limits: Limits) -> String {
 /// The part file a download is written to before it is complete.
 pub fn part_path(dest: &Path) -> PathBuf {
     let mut s = dest.as_os_str().to_owned();
-    s.push(".mdm.part");
+    s.push(".vadm.part");
     PathBuf::from(s)
 }
 
@@ -2040,11 +2040,11 @@ mod tests {
                 ".part",
                 ".ytdl",
                 ".part-Frag123456.part",
-                ".mdm.part",
-                ".mdm.json",
-                ".mdm.pieces",
-                ".mdm.pieces/000123",
-                ".mdm.pieces/000123.mdm.part",
+                ".vadm.part",
+                ".vadm.json",
+                ".vadm.pieces",
+                ".vadm.pieces/000123",
+                ".vadm.pieces/000123.vadm.part",
             ] {
                 all.push(format!("{stream}{after}"));
             }
@@ -2121,7 +2121,7 @@ mod tests {
         );
         // The longest file, numbered ` (999)`, ends at 259 exactly.
         let longest = format!(
-            "{}\\{exact} (999).f{}.mhtml.mdm.pieces\\000123.mdm.part",
+            "{}\\{exact} (999).f{}.mhtml.vadm.pieces\\000123.vadm.part",
             dir.display(),
             "x".repeat(32)
         );

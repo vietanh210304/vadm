@@ -305,10 +305,10 @@ pub enum Target {
     Files(Vec<PathBuf>),
 }
 
-/// Where a stream's pieces wait until they are joined: `<file>.mdm.pieces`.
+/// Where a stream's pieces wait until they are joined: `<file>.vadm.pieces`.
 pub fn folder(path: &Path) -> PathBuf {
     let mut s = path.as_os_str().to_owned();
-    s.push(".mdm.pieces");
+    s.push(".vadm.pieces");
     PathBuf::from(s)
 }
 
@@ -1051,7 +1051,7 @@ async fn fetch_piece(run: &Run, c: usize, i: usize, piece: &Piece) -> Result<(),
     let file = run.file(i);
     let part = {
         let mut s = file.as_os_str().to_owned();
-        s.push(".mdm.part");
+        s.push(".vadm.part");
         PathBuf::from(s)
     };
     let size = data.len() as u64;

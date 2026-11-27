@@ -1,9 +1,9 @@
-﻿; Mister Download Manager's installer in Thai: tools/installer/languages.py
+﻿; VADM's installer in Thai: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [CustomMessages]
 TaskBrowser=ตั้งค่าการรวมกับ &เบราว์เซอร์ (Chrome, Edge, Brave, Firefox)
-TaskStartup=เริ่ม Mister Download Manager เมื่อ &Windows เริ่มทำงาน
+TaskStartup=เริ่ม VADM เมื่อ &Windows เริ่มทำงาน
 TaskGroupOther=อื่น ๆ:
-Launch=เริ่ม Mister Download Manager
+Launch=เริ่ม VADM
 KeepData=ลบรายการดาวน์โหลดและการตั้งค่าของคุณด้วยหรือไม่%n%nไฟล์ที่ดาวน์โหลดของคุณจะไม่ถูกแตะต้องไม่ว่าจะเลือกหรือไม่เลือกก็ตาม

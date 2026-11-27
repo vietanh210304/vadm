@@ -212,7 +212,7 @@ mod tests {
             .collect()
     }
 
-    const EXE: &str = "/usr/bin/misterdownloadmanager";
+    const EXE: &str = "/usr/bin/vadm";
     const LIBC: &str = "/usr/lib64/libc.so.6";
 
     /// MDM 0.5.0's layout (#661): the header's mapping, a page unmapped, then the code with the

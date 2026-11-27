@@ -317,16 +317,16 @@ mod tests {
                 .collect()
         };
         let full = a(&[
-            "MisterDownloadManager-0.2.2-setup.exe",
+            "VADM-0.2.2-setup.exe",
             "SHA256SUMS.txt",
             "SHA256SUMS.txt.sig",
         ]);
         assert_eq!(
             asset_on(Install::Installer, X64, "0.2.2", &full).as_deref(),
-            Some("MisterDownloadManager-0.2.2-setup.exe")
+            Some("VADM-0.2.2-setup.exe")
         );
         // An unsigned release, another kind's file, a build from source: no.
-        let unsigned = a(&["MisterDownloadManager-0.2.2-setup.exe", "SHA256SUMS.txt"]);
+        let unsigned = a(&["VADM-0.2.2-setup.exe", "SHA256SUMS.txt"]);
         assert_eq!(asset_on(Install::Installer, X64, "0.2.2", &unsigned), None);
         assert_eq!(asset_on(Install::PortableZip, X64, "0.2.2", &full), None);
         assert_eq!(asset_on(Install::Source, X64, "0.2.2", &full), None);
@@ -343,9 +343,9 @@ mod tests {
                 .map(|n| (n.to_string(), format!("https://x/{n}")))
                 .collect()
         };
-        let old = "MisterDownloadManager-0.3.0-linux-x86_64-experimental.AppImage";
-        let new = "MisterDownloadManager-0.3.0-linux-x86_64.AppImage";
-        let deb = "MisterDownloadManager-0.3.0-linux-x86_64.deb";
+        let old = "VADM-0.3.0-linux-x86_64-experimental.AppImage";
+        let new = "VADM-0.3.0-linux-x86_64.AppImage";
+        let deb = "VADM-0.3.0-linux-x86_64.deb";
         for (assets, want) in [
             (release(&[old]), Some(old)),
             (release(&[new, deb]), Some(new)),
@@ -372,19 +372,19 @@ mod tests {
     #[test]
     fn each_processor_takes_its_own_file() {
         let names = [
-            "MisterDownloadManager-1.0.0-setup.exe",
-            "MisterDownloadManager-1.0.0-setup-arm64.exe",
-            "MisterDownloadManager-1.0.0-setup-x86.exe",
-            "MisterDownloadManager-1.0.0-portable.zip",
-            "MisterDownloadManager-1.0.0-portable-arm64.zip",
-            "MisterDownloadManager-1.0.0-portable-x86.zip",
-            "MisterDownloadManager-1.0.0-x64.zip",
-            "MisterDownloadManager-1.0.0-arm64.zip",
-            "MisterDownloadManager-1.0.0-x86.zip",
-            "MisterDownloadManager-1.0.0-linux-x86_64.AppImage",
-            "MisterDownloadManager-1.0.0-linux-arm64.AppImage",
-            "MisterDownloadManager-1.0.0-linux-x86_64.deb",
-            "MisterDownloadManager-1.0.0-linux-arm64.deb",
+            "VADM-1.0.0-setup.exe",
+            "VADM-1.0.0-setup-arm64.exe",
+            "VADM-1.0.0-setup-x86.exe",
+            "VADM-1.0.0-portable.zip",
+            "VADM-1.0.0-portable-arm64.zip",
+            "VADM-1.0.0-portable-x86.zip",
+            "VADM-1.0.0-x64.zip",
+            "VADM-1.0.0-arm64.zip",
+            "VADM-1.0.0-x86.zip",
+            "VADM-1.0.0-linux-x86_64.AppImage",
+            "VADM-1.0.0-linux-arm64.AppImage",
+            "VADM-1.0.0-linux-x86_64.deb",
+            "VADM-1.0.0-linux-arm64.deb",
             "SHA256SUMS.txt",
             "SHA256SUMS.txt.sig",
         ];
@@ -409,7 +409,7 @@ mod tests {
         ] {
             assert_eq!(
                 asset_on(install, arch, "1.0.0", &assets).as_deref(),
-                Some(format!("MisterDownloadManager-1.0.0-{want}").as_str()),
+                Some(format!("VADM-1.0.0-{want}").as_str()),
                 "{install:?} {arch:?}"
             );
         }

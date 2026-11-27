@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Croatian: tools/installer/languages.py
+﻿; VADM's installer in Croatian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Deinstaliranje programa %1.
 
 [CustomMessages]
 TaskBrowser=Postavi integraciju &preglednika (Chrome, Edge, Brave, Firefox)
-TaskStartup=Pokrenite Mister Download Manager kada se pokrene &Windows
+TaskStartup=Pokrenite VADM kada se pokrene &Windows
 TaskGroupOther=Ostalo:
-Launch=Pokreni Mister Download Manager
+Launch=Pokreni VADM
 KeepData=Želite li izbrisati i popis preuzimanja i postavke?%n%nPreuzete datoteke neće biti dirane u svakom slučaju.

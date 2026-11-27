@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Greek: tools/installer/languages.py
+﻿; VADM's installer in Greek: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Απεγκατάσταση %1.
 
 [CustomMessages]
 TaskBrowser=Ρύθμιση ενσωμάτωσης &προγράμματος περιήγησης (Chrome, Edge, Brave, Firefox)
-TaskStartup=Εκκίνηση του Mister Download Manager όταν ξεκινά το &Windows
+TaskStartup=Εκκίνηση του VADM όταν ξεκινά το &Windows
 TaskGroupOther=Άλλα:
-Launch=Εκκίνηση του Mister Download Manager
+Launch=Εκκίνηση του VADM
 KeepData=Να διαγραφεί επίσης η λίστα λήψεων και οι ρυθμίσεις σας;%n%nΤα αρχεία που έχετε κατεβάσει δεν επηρεάζονται σε καμία περίπτωση.

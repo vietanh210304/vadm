@@ -22,7 +22,7 @@ use crate::{Error, Installed, mark_downloaded, newer};
 /// MDM's signed list of the ffmpeg builds it installs, a file of its latest release; its
 /// signature is the same address with `.sig`.
 const LIST: &str =
-    "https://github.com/anefzaoui/misterdownloadmanager/releases/latest/download/ffmpeg-builds.txt";
+    "https://github.com/vietanh210304/vadm/releases/latest/download/ffmpeg-builds.txt";
 /// The list's first line: what it is, and its format.
 const FORMAT: &str = "mdm-ffmpeg-builds 1";
 /// The newest list's sequence number this copy of MDM has seen, in `tools/ffmpeg/`.
@@ -34,8 +34,8 @@ pub enum ListError {
     /// It couldn't be fetched (why).
     #[error("it couldn't be downloaded ({0})")]
     Unavailable(Box<Error>),
-    /// Its signature isn't by MDM's release key, or it has none.
-    #[error("it isn't signed by MDM's release key")]
+    /// Its signature isn't by VADM's release key, or it has none.
+    #[error("it isn't signed by VADM's release key")]
     Unsigned,
     /// An older list than one already seen: never gone back to.
     #[error("it is older than one already seen (number {got}, {seen} before)")]
@@ -123,7 +123,7 @@ fn parse(text: &str) -> Result<List, ListError> {
         .filter(|l| !l.is_empty() && !l.starts_with('#'));
     let head = lines.next().unwrap_or_default();
     if head.split_whitespace().ne(FORMAT.split_whitespace()) {
-        return Err(bad("not a list of ffmpeg builds this MDM reads".into()));
+        return Err(bad("not a list of ffmpeg builds this VADM reads".into()));
     }
     let mut sequence = None;
     let mut builds: Vec<Build> = Vec::new();
@@ -379,7 +379,7 @@ async fn install_from(
     let res = unpack(&zip_path, &root, &version, &build.url);
     let _ = std::fs::remove_file(&zip_path);
     let exe = res?;
-    tracing::info!("ffmpeg {version} verified against MDM's signed list and installed");
+    tracing::info!("ffmpeg {version} verified against VADM's signed list and installed");
     let settled = Some(crate::autoupdate::settle(
         &root,
         Installed {

@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "מעביר הורדות מהדפדפן אל Mister Download Manager."
+    "message": "מעביר הורדות מהדפדפן אל VADM."
   },
   "menu": {
-    "message": "הורד באמצעות Mister Download Manager"
+    "message": "הורד באמצעות VADM"
   },
   "video_download": {
     "message": "הורד סרטון"
@@ -30,19 +30,19 @@
     "message": "הגדרות לחצן..."
   },
   "video_sent": {
-    "message": "נשלח אל Mister Download Manager"
+    "message": "נשלח אל VADM"
   },
   "menu_selected": {
-    "message": "הורד את הקישורים שנבחרו באמצעות Mister Download Manager"
+    "message": "הורד את הקישורים שנבחרו באמצעות VADM"
   },
   "menu_all": {
-    "message": "הורד את כל הקישורים באמצעות Mister Download Manager"
+    "message": "הורד את כל הקישורים באמצעות VADM"
   },
   "status_connected": {
-    "message": "מחובר אל Mister Download Manager"
+    "message": "מחובר אל VADM"
   },
   "status_connected_version": {
-    "message": "מחובר אל Mister Download Manager $version$",
+    "message": "מחובר אל VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "מושהה: ההורדות נשארות בדפדפן"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager אינו מותקן, או ששילוב הדפדפן שלו אינו מוגדר"
+    "message": "VADM אינו מותקן, או ששילוב הדפדפן שלו אינו מוגדר"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager אינו מקבל עותק זה של ההרחבה"
+    "message": "VADM אינו מקבל עותק זה של ההרחבה"
   },
   "status_not_running": {
-    "message": "Mister Download Manager לא הופעל בזמן"
+    "message": "VADM לא הופעל בזמן"
   },
   "status_host_failed": {
-    "message": "החיבור ל- Mister Download Manager נכשל"
+    "message": "החיבור ל- VADM נכשל"
   },
   "status_too_large": {
     "message": "פרטי ההורדה הזו היו גדולים מדי למסירה"
   },
   "status_update_app": {
-    "message": "עדכן את Mister Download Manager כדי להשתמש בכל מה שתוסף זה מציע"
+    "message": "עדכן את VADM כדי להשתמש בכל מה שתוסף זה מציע"
   },
   "popup_take": {
     "message": "קבל הורדות מדפדפן זה"
@@ -78,10 +78,10 @@
     "message": "שלח הורדות דרך שרת ה-Proxy או הרחבת ה-VPN של דפדפן זה"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager מוריד אז דרך אותו שרת Proxy כמו הדפדפן הזה. הדפדפן יבקש ממך פעם אחת לאפשר זאת; כיבוי אפשרות זו מבטל זאת."
+    "message": "VADM מוריד אז דרך אותו שרת Proxy כמו הדפדפן הזה. הדפדפן יבקש ממך פעם אחת לאפשר זאת; כיבוי אפשרות זו מבטל זאת."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager יוריד אז דרך אותו שרת proxy שבו משתמש הדפדפן הזה. כשהאפשרות הזו כבויה, התוסף לא קורא את שרת ה-proxy של הדפדפן."
+    "message": "VADM יוריד אז דרך אותו שרת proxy שבו משתמש הדפדפן הזה. כשהאפשרות הזו כבויה, התוסף לא קורא את שרת ה-proxy של הדפדפן."
   },
   "popup_exclude_site": {
     "message": "לעולם אל תיקח הורדות מ־$site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "פתח את Mister Download Manager"
+    "message": "פתח את VADM"
   },
   "popup_options": {
     "message": "אפשרויות..."
@@ -111,7 +111,7 @@
     "message": "עזרה"
   },
   "popup_support": {
-    "message": "תמוך ב-MDM"
+    "message": "תמוך ב-VADM"
   },
   "popup_fix": {
     "message": "איך לתקן זאת"
@@ -201,16 +201,16 @@
     "message": "אין כאן סרטון להורדה"
   },
   "video_playlist": {
-    "message": "רשימת סרטונים: בחר אותם ב-Mister Download Manager"
+    "message": "רשימת סרטונים: בחר אותם ב-VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager זקוק ל-yt-dlp עבור סרטון זה"
+    "message": "VADM זקוק ל-yt-dlp עבור סרטון זה"
   },
   "video_too_long": {
     "message": "החיפוש ארך זמן רב מדי"
   },
   "video_busy": {
-    "message": "Mister Download Manager עסוק בסרטונים אחרים"
+    "message": "VADM עסוק בסרטונים אחרים"
   },
   "video_queued": {
     "message": "נוסף לתור"
@@ -234,7 +234,7 @@
     "message": "מחשב זה"
   },
   "popup_send_remote": {
-    "message": "Mister Download Manager אחר (שרת)"
+    "message": "VADM אחר (שרת)"
   },
   "popup_remote_code": {
     "message": "קוד צימוד"
@@ -246,7 +246,7 @@
     "message": "צמד"
   },
   "popup_remote_help": {
-    "message": "פתח את הכתובת שלו פעם אחת וקבל את האישור שלו, ואז הזן קוד מ'אפשרויות', 'מרוחק', 'צמד התקן' (או misterdownloadmanager-cli pair)."
+    "message": "פתח את הכתובת שלו פעם אחת וקבל את האישור שלו, ואז הזן קוד מ'אפשרויות', 'מרוחק', 'צמד התקן' (או vadm-cli pair)."
   },
   "status_remote": {
     "message": "ההורדות עוברות אל $address$",
@@ -361,19 +361,19 @@
     "message": "הורד את האיכות הטובה ביותר"
   },
   "video_sending": {
-    "message": "שולח ל-MDM..."
+    "message": "שולח ל-VADM..."
   },
   "video_added": {
-    "message": "נוסף ל-MDM"
+    "message": "נוסף ל-VADM"
   },
   "video_show": {
     "message": "הצג"
   },
   "video_no_answer": {
-    "message": "MDM לא הגיב"
+    "message": "VADM לא הגיב"
   },
   "video_get_mdm": {
-    "message": "קבל את MDM"
+    "message": "קבל את VADM"
   },
   "video_retry": {
     "message": "נסה שוב"
@@ -391,7 +391,7 @@
     "message": "הורד חלק מכאן..."
   },
   "video_failed": {
-    "message": "Mister Download Manager אינו מותקן או לא הופעל"
+    "message": "VADM אינו מותקן או לא הופעל"
   },
   "video_download_best": {
     "message": "הורד את האיכות הטובה ביותר"
@@ -412,7 +412,7 @@
     "message": "שכח"
   },
   "popup_gear": {
-    "message": "אפשרויות ב- Mister Download Manager"
+    "message": "אפשרויות ב- VADM"
   },
   "popup_tabs": {
     "message": "מקטעי חלון קופץ"
@@ -445,7 +445,7 @@
     "message": "מושהה"
   },
   "popup_conn_update": {
-    "message": "עדכן את Mister Download Manager"
+    "message": "עדכן את VADM"
   },
   "popup_conn_remote": {
     "message": "שולח אל $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "אלה ההורדות של Mister Download Manager ב- $server$. פתח את הקבצים שלהן שם.",
+    "message": "אלה ההורדות של VADM ב- $server$. פתח את הקבצים שלהן שם.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "$shown$ החדשות ביותר מתוך $total$. Mister Download Manager מפרט את כולן.",
+    "message": "$shown$ החדשות ביותר מתוך $total$. VADM מפרט את כולן.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "אין עדיין הורדות"
   },
   "popup_dl_none_text": {
-    "message": "מה שתוריד באמצעות Mister Download Manager יופיע כאן."
+    "message": "מה שתוריד באמצעות VADM יופיע כאן."
   },
   "popup_dl_no_match": {
     "message": "לא נמצאו התאמות"
@@ -594,28 +594,28 @@
     "message": "הצג את כל ההורדות"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager אינו פועל"
+    "message": "VADM אינו פועל"
   },
   "popup_list_off_text": {
     "message": "הפעל אותו כדי לראות את ההורדות שלך כאן."
   },
   "popup_list_start": {
-    "message": "הפעל את Mister Download Manager"
+    "message": "הפעל את VADM"
   },
   "popup_list_old": {
-    "message": "עדכן את Mister Download Manager"
+    "message": "עדכן את VADM"
   },
   "popup_list_old_text": {
     "message": "גרסה זו לא יכולה לפרט את ההורדות שלה כאן עדיין."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager עסוק. מנסה שוב..."
+    "message": "VADM עסוק. מנסה שוב..."
   },
   "popup_list_unreached": {
-    "message": "לא ניתן להגיע אל Mister Download Manager"
+    "message": "לא ניתן להגיע אל VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "לא ניתן להגיע אל Mister Download Manager בכתובת $server$",
+    "message": "לא ניתן להגיע אל VADM בכתובת $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "המערכת הזו לא יכולה לעשות זאת."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager אינו פועל."
+    "message": "VADM אינו פועל."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager לא ענה בזמן. נסה שוב."
+    "message": "VADM לא ענה בזמן. נסה שוב."
   },
   "popup_act_failed": {
     "message": "זה לא עבד. נסה שוב."

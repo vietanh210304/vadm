@@ -29,7 +29,7 @@ use crate::win32 as os;
 
 /// The keychain's name for MDM's entries (Credential Manager's targets start with it; Secret
 /// Service's `service` attribute; the macOS keychain's service).
-pub const SERVICE: &str = "Mister Download Manager";
+pub const SERVICE: &str = "VADM";
 /// What the settings hold in a secret's place.
 pub const REF: &str = "keychain:";
 

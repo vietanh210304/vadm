@@ -65,7 +65,7 @@ const PAGE: &[&str] = &[
     // i18n: remote control page (on a phone): menu command: unpair this phone or computer from MDM
     crate::i18n::mark("Forget this device"),
     // i18n: remote control page (on a phone): title of the pairing screen
-    crate::i18n::mark("Pair with Mister Download Manager"),
+    crate::i18n::mark("Pair with VADM"),
     // i18n: remote control page (on a phone): how to pair; "Options", "Remote" and "Pair a device" are MDM's dialog, tab and button
     crate::i18n::mark(
         "On the computer, open Options, then Remote, and click Pair a device. Enter the code it shows.",
@@ -100,15 +100,15 @@ const PAGE: &[&str] = &[
     // i18n: remote control page (on a phone): pairing failed; {n} = how many more codes may be tried
     crate::i18n::mark("Wrong code. Tries left: {n}"),
     // i18n: remote control page (on a phone): pairing failed and the code is void now
-    crate::i18n::mark("Wrong code. Show a new code in MDM and try again."),
+    crate::i18n::mark("Wrong code. Show a new code in VADM and try again."),
     // i18n: remote control page (on a phone): no pairing code is shown in MDM; "Pair a device" is MDM's button
-    crate::i18n::mark("MDM shows no code now. Click Pair a device there first."),
+    crate::i18n::mark("VADM shows no code now. Click Pair a device there first."),
     // i18n: remote control page (on a phone): codes were tried too fast
     crate::i18n::mark("Wait a moment, then try again."),
     // i18n: remote control page (on a phone): MDM can't be reached while pairing
-    crate::i18n::mark("MDM does not answer. Check that it is running and on the same network."),
+    crate::i18n::mark("VADM does not answer. Check that it is running and on the same network."),
     // i18n: remote control page (on a phone): MDM can't be reached now; the page keeps trying by itself
-    crate::i18n::mark("MDM does not answer. Trying again..."),
+    crate::i18n::mark("VADM does not answer. Trying again..."),
     // i18n: remote control page (on a phone): free disk space on the computer; {size} e.g. "120 GB"
     crate::i18n::mark("{size} free"),
     // i18n: remote control page (on a phone): category choice: the category follows the file's type
@@ -126,15 +126,15 @@ const PAGE: &[&str] = &[
     // i18n: remote control page (on a phone): progress; {done} and {size} are sizes ("1.2 MB of 7.5 MB")
     crate::i18n::mark("{done} of {size}"),
     // i18n: remote control page (on a phone): an action failed
-    crate::i18n::mark("MDM could not do it."),
+    crate::i18n::mark("VADM could not do it."),
     // i18n: remote control page (on a phone): question before removing a download; {name} its file name
     crate::i18n::mark("Remove {name} from the list?"),
     // i18n: remote control page (on a phone): a download was added
     crate::i18n::mark("Added."),
     // i18n: remote control page (on a phone): the address typed isn't one MDM downloads (not http, https or ftp)
-    crate::i18n::mark("MDM cannot download this address."),
+    crate::i18n::mark("VADM cannot download this address."),
     // i18n: remote control page (on a phone): adding a download failed
-    crate::i18n::mark("MDM could not add it."),
+    crate::i18n::mark("VADM could not add it."),
     // i18n: remote control page (on a phone): question before unpairing this phone
     crate::i18n::mark("Forget this device? It needs a new code to connect again."),
     // i18n: remote control page (on a phone): a download's state: added, waiting to start

@@ -110,7 +110,7 @@ pub fn monitor_main(m: MonitorArgs) -> eframe::Result {
     let builder = crate::quiet(
         crate::window_builder()
             .with_title(crate::i18n::os_text(crate::i18n::t(
-                "Mister Download Manager crash report",
+                "VADM crash report",
             )))
             .with_inner_size([CLIENT[0] * zoom, CLIENT[1] * zoom])
             .with_resizable(false)
@@ -140,7 +140,7 @@ pub fn monitor_main(m: MonitorArgs) -> eframe::Result {
     plan.watch.clear();
     plan.gl_checked = false;
     let data = m.data.clone();
-    crate::renderer::run("misterdownloadmanager-crash", &plan, options, move |cc| {
+    crate::renderer::run("vadm-crash", &plan, options, move |cc| {
         crate::scale::start(&cc.egui_ctx, zoom);
         crate::theme::select(&crate::theme::startup_id(&settings.theme), &cc.egui_ctx);
         crate::theme::apply(&cc.egui_ctx);
@@ -281,7 +281,7 @@ fn prepare(job: &Job, shared: Arc<Mutex<Shared>>, ctx: egui::Context) {
         // The certificates MDM's own connections trust (the system's, Mozilla's where it lacks a
         // root: mdm_engine::tls, #1546).
         let Ok(http) = mdm_engine::tls::configure(reqwest::Client::builder())
-            .user_agent(concat!("MisterDownloadManager/", env!("CARGO_PKG_VERSION")))
+            .user_agent(concat!("VADM/", env!("CARGO_PKG_VERSION")))
             .timeout(Duration::from_secs(120))
             .build()
         else {
@@ -427,7 +427,7 @@ impl eframe::App for ReportWindow {
         #[cfg(windows)]
         if !self.caption_dwm {
             self.caption_dwm = crate::win32::caption_dark(
-                crate::i18n::t("Mister Download Manager crash report"),
+                crate::i18n::t("VADM crash report"),
                 crate::theme::dark_surface(),
             );
         }
@@ -438,7 +438,7 @@ impl eframe::App for ReportWindow {
         }
         // MDM's state is checked now and then (a frozen one may recover or be ended).
         ui.ctx().request_repaint_after(Duration::from_secs(1));
-        winui::name_window(ui, crate::i18n::t("Mister Download Manager crash report"));
+        winui::name_window(ui, crate::i18n::t("VADM crash report"));
         egui::CentralPanel::no_frame()
             .frame(egui::Frame::new().fill(winui::BG()))
             .show(ui, |ui| {
@@ -456,14 +456,14 @@ impl ReportWindow {
         match self.job.kind {
             // i18n: crash report window heading: the window of MDM stopped answering, then answered again
             Kind::Freeze if self.recovered => {
-                crate::i18n::t("Mister Download Manager stopped responding for a while")
+                crate::i18n::t("VADM stopped responding for a while")
             }
             // i18n: crash report window heading: MDM's window doesn't answer (frozen)
-            Kind::Freeze => crate::i18n::t("Mister Download Manager stopped responding"),
+            Kind::Freeze => crate::i18n::t("VADM stopped responding"),
             // i18n: crash report window heading: an internal error, MDM still running
-            Kind::Panic if alive => crate::i18n::t("Mister Download Manager hit an internal error"),
+            Kind::Panic if alive => crate::i18n::t("VADM hit an internal error"),
             // i18n: crash report window heading: MDM crashed and is gone
-            _ => crate::i18n::t("Mister Download Manager closed unexpectedly"),
+            _ => crate::i18n::t("VADM closed unexpectedly"),
         }
     }
 
@@ -633,10 +633,10 @@ impl ReportWindow {
         let frozen = self.job.kind == Kind::Freeze && alive && !self.recovered;
         let restart_label = if frozen {
             // i18n: crash report window button: end the frozen MDM and start it again
-            "End and restart MDM"
+            "End and restart VADM"
         } else {
             // i18n: crash report window button: start MDM again
-            "Restart MDM"
+            "Restart VADM"
         };
         let [send_at, copy_at, folder_at, restart_at, close_at] = winui::button_row(
             &p,
@@ -861,7 +861,7 @@ mod tests {
     /// then; MDM's own crash doesn't, unless a test copy's crash stands for the driver's.
     #[test]
     fn a_crash_inside_the_opengl_driver_is_noted() {
-        let mdm = "misterdownloadmanager.exe";
+        let mdm = "vadm.exe";
         let crashed = |m: &str| Some(GlFailure::Crashed(m.to_owned()));
         // #1205, #1939: NVIDIA's Direct3D 11 thread under OpenGL.
         let d3d11 = report(Kind::Crash, NVIDIA_GL, &["d3d11.dll", "?"]);
@@ -925,7 +925,7 @@ mod tests {
     /// #847: a freeze inside OpenGL's driver, as before; Direct3D 11 counts for a crash only.
     #[test]
     fn a_freeze_inside_the_opengl_driver_is_noted() {
-        let mdm = "misterdownloadmanager.exe";
+        let mdm = "vadm.exe";
         let froze = report(Kind::Freeze, NVIDIA_GL, &["ntdll.dll", "nvoglv64.dll", mdm]);
         assert_eq!(
             gl_failure(&froze, false, false),

@@ -18,8 +18,8 @@ use serde_json::json;
 #[derive(Parser)]
 #[command(
     version,
-    about = "Mister Download Manager command line",
-    long_about = "Mister Download Manager command line: downloads and videos without the \
+    about = "VADM command line",
+    long_about = "VADM command line: downloads and videos without the \
                   window, and the running app's automation API. Guide: \
                   https://misterdownloadmanager.com/help/command-line.html"
 )]
@@ -411,9 +411,9 @@ enum Cmd {
         #[arg(value_parser = ["on", "off"])]
         state: String,
     },
-    /// Continue a paused or interrupted download from its `.mdm.json` state file.
+    /// Continue a paused or interrupted download from its `.vadm.json` state file.
     Resume {
-        /// The `<file>.mdm.json` next to the unfinished download.
+        /// The `<file>.vadm.json` next to the unfinished download.
         state: PathBuf,
         /// Maximum connections (1 to 128). Default: the app's exception for the address's site
         /// (Options → Connection, #1778), else 8.
@@ -537,7 +537,7 @@ async fn update_helpers(json: bool) -> anyhow::Result<()> {
                 "not-ours",
                 None,
                 format!(
-                    "{name}: not MDM's own copy (yours or the system's to update, or not installed)"
+                    "{name}: not VADM's own copy (yours or the system's to update, or not installed)"
                 ),
             ),
             Ok(Checked::UpToDate { now, .. }) => (
@@ -612,7 +612,7 @@ impl std::error::Error for Reported {}
 /// `{"error"}` answer fails the command.
 fn ask(cmd: mdm_ipc::Command) -> anyhow::Result<()> {
     let answer = mdm_ipc::request(&cmd)
-        .map_err(|e| anyhow::anyhow!("Mister Download Manager isn't running ({e})"))?;
+        .map_err(|e| anyhow::anyhow!("VADM isn't running ({e})"))?;
     println!("{answer}");
     if serde_json::from_str::<mdm_ipc::api::ErrorAnswer>(&answer).is_ok() {
         return Err(Reported.into());
@@ -632,7 +632,7 @@ fn status_command(
         query: Some("list".into()),
         ..Default::default()
     })
-    .map_err(|e| anyhow::anyhow!("Mister Download Manager isn't running ({e})"))?;
+    .map_err(|e| anyhow::anyhow!("VADM isn't running ({e})"))?;
 
     if serde_json::from_str::<mdm_ipc::api::ErrorAnswer>(&answer).is_ok() {
         println!("{answer}");
@@ -767,7 +767,7 @@ fn pair(json: bool) -> anyhow::Result<()> {
         pair: true,
         ..Default::default()
     })
-    .map_err(|e| anyhow::anyhow!("Mister Download Manager isn't running ({e})"))?;
+    .map_err(|e| anyhow::anyhow!("VADM isn't running ({e})"))?;
     match mdm_ipc::api::parse::<mdm_ipc::api::PairAnswer>(&answer).map_err(anyhow::Error::msg)? {
         Ok(a) => {
             println!("{}", a.qr);
@@ -813,7 +813,7 @@ fn js_runtime_note() -> String {
 }
 
 /// The launcher's name, which the commands' help and messages show.
-pub const NAME: &str = "misterdownloadmanager-cli";
+pub const NAME: &str = "vadm-cli";
 
 /// The app's program, started for the command line.
 pub struct Launch {
@@ -1252,21 +1252,21 @@ async fn run(cmd: Cmd, json: bool, accounts: Option<&dyn Accounts>) -> anyhow::R
             // A gallery-dl of the person's too old for MDM is passed over (#236), said plainly.
             let old = mdm_tools::gallery::chosen_too_old(&dir).map(|old| {
                 format!(
-                    "your gallery-dl {} ({}) is too old: MDM needs {} or newer",
+                    "your gallery-dl {} ({}) is too old: VADM needs {} or newer",
                     old.version,
                     old.exe.display(),
                     mdm_tools::gallery::OLDEST
                 )
             });
             let tool = mdm_tools::gallery::installed(&dir).ok_or_else(|| match &old {
-                Some(why) => anyhow::anyhow!("{why}; run install-gallery-dl for MDM's own copy"),
+                Some(why) => anyhow::anyhow!("{why}; run install-gallery-dl for VADM's own copy"),
                 None => anyhow::anyhow!("gallery-dl is not installed: run install-gallery-dl"),
             })?;
             if let Some(why) = &old {
                 if tool.is_system() {
                     eprintln!("{why}: using the system's, {}", tool.exe.display());
                 } else {
-                    eprintln!("{why}: using MDM's own copy, {}", tool.version);
+                    eprintln!("{why}: using VADM's own copy, {}", tool.version);
                 }
             }
             if !mdm_tools::gallery::handles(&tool, &url)? {
@@ -2456,7 +2456,7 @@ mod tests {
             "{:?}",
             c.route
         );
-        let c = Conn::of(&cmd(&["resume", "file.mdm.json"]), &net);
+        let c = Conn::of(&cmd(&["resume", "file.vadm.json"]), &net);
         assert_eq!(
             (c.proxy, c.dns, c.route),
             (net.proxy.clone(), net.dns.clone(), mdm_engine::Route::Any)
@@ -2464,7 +2464,7 @@ mod tests {
         let c = Conn::of(
             &cmd(&[
                 "resume",
-                "file.mdm.json",
+                "file.vadm.json",
                 "--proxy",
                 "none",
                 "--dns",
@@ -2479,7 +2479,7 @@ mod tests {
         let c = Conn::of(
             &cmd(&[
                 "resume",
-                "file.mdm.json",
+                "file.vadm.json",
                 "--adapter",
                 "no-such-adapter-1556",
             ]),
@@ -2603,7 +2603,7 @@ mod tests {
             "get",
             "https://example.test/a.zip"
         ])));
-        assert!(downloads(&args(&["resume", "a.zip.mdm.json"])));
+        assert!(downloads(&args(&["resume", "a.zip.vadm.json"])));
         assert!(!downloads(&args(&["start-queue"])));
         assert!(!downloads(&args(&["stop-queue"])));
         assert!(!downloads(&args(&["add", "https://example.test/a.zip"])));
@@ -3021,7 +3021,7 @@ mod tests {
         let cli = Cli::try_parse_from([
             NAME,
             "resume",
-            "test.mdm.json",
+            "test.vadm.json",
             "-r",
             "https://example.test/source",
             "--user-agent",
@@ -3051,7 +3051,7 @@ mod tests {
         let cli = Cli::try_parse_from([
             NAME,
             "resume",
-            "test.mdm.json",
+            "test.vadm.json",
             "--checksum",
             sha256_str,
             "--dns",
@@ -3235,12 +3235,12 @@ mod tests {
 
     #[test]
     fn pair_command_parses() {
-        let cli = Cli::try_parse_from(["misterdownloadmanager-cli", "pair"]).unwrap();
+        let cli = Cli::try_parse_from(["vadm-cli", "pair"]).unwrap();
         assert!(matches!(cli.cmd, Cmd::Pair));
         assert!(!cli.json);
 
         let cli_json =
-            Cli::try_parse_from(["misterdownloadmanager-cli", "--json", "pair"]).unwrap();
+            Cli::try_parse_from(["vadm-cli", "--json", "pair"]).unwrap();
         assert!(matches!(cli_json.cmd, Cmd::Pair));
         assert!(cli_json.json);
     }
@@ -3251,17 +3251,17 @@ mod tests {
 
     #[test]
     fn the_launcher_flag_starts_the_command_line() {
-        let l = launched(args(&["mdm", "--cli", "get", "x"])).unwrap();
+        let l = launched(args(&["vadm", "--cli", "get", "x"])).unwrap();
         assert_eq!((l.launcher, l.args), (None, args(&["get", "x"])));
-        let l = launched(args(&["mdm", "--cli=42", "status"])).unwrap();
+        let l = launched(args(&["vadm", "--cli=42", "status"])).unwrap();
         assert_eq!((l.launcher, l.args), (Some(42), args(&["status"])));
         // The app's own command line, and look-alikes, start the app.
-        assert!(launched(args(&["mdm"])).is_none());
-        assert!(launched(args(&["mdm", "/d", "--cli"])).is_none());
-        assert!(launched(args(&["mdm", "--cli=x"])).is_none());
-        assert!(launched(args(&["mdm", "--client"])).is_none());
+        assert!(launched(args(&["vadm"])).is_none());
+        assert!(launched(args(&["vadm", "/d", "--cli"])).is_none());
+        assert!(launched(args(&["vadm", "--cli=x"])).is_none());
+        assert!(launched(args(&["vadm", "--client"])).is_none());
         // A link named as the launcher (Linux and macOS).
-        let named = launched(args(&["/usr/bin/misterdownloadmanager-cli", "status"]));
+        let named = launched(args(&["/usr/bin/vadm-cli", "status"]));
         assert_eq!(named.is_some(), cfg!(unix));
     }
 }

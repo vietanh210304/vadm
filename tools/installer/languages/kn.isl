@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Kannada: tools/installer/languages.py
+﻿; VADM's installer in Kannada: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 ಅನ್ನು ಅನ್‌ಇನ್‌�
 
 [CustomMessages]
 TaskBrowser=ಬ್ರೌಸರ್ ಇಂಟಿಗ್ರೇಶನ್ ಅನ್ನು ಹೊಂದಿಸಿ (&b) (Chrome, Edge, Brave, Firefox)
-TaskStartup=Windows ಪ್ರಾರಂಭವಾದಾಗ Mister Download Manager ಅನ್ನು &ಪ್ರಾರಂಭಿಸಿ
+TaskStartup=Windows ಪ್ರಾರಂಭವಾದಾಗ VADM ಅನ್ನು &ಪ್ರಾರಂಭಿಸಿ
 TaskGroupOther=ಇತರೆ:
-Launch=Mister Download Manager ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ
+Launch=VADM ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ
 KeepData=ನಿಮ್ಮ ಡೌನ್‌ಲೋಡ್ ಪಟ್ಟಿ ಮತ್ತು ಸೆಟ್ಟಿಂಗ್‌ಗಳನ್ನು ಸಹ ಅಳಿಸುವುದೇ?%n%nನಿಮ್ಮ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿದ ಫೈಲ್‌ಗಳನ್ನು ಯಾವುದೇ ರೀತಿಯಲ್ಲಿ ಸ್ಪರ್ಶಿಸಲಾಗುವುದಿಲ್ಲ.

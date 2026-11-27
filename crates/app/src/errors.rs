@@ -64,7 +64,7 @@ pub fn describe(e: &Error) -> String {
         Error::PathTooLong(path) => path_too_long(path),
         // i18n: why a download failed (#701): a file host answered with its own web page (a countdown before the link, a captcha, a sign-in) where the file was expected. The browser gets past it; MDM's browser extension then hands the real file back to MDM
         Error::GotWebPage => t(
-            "the site sent a web page instead of the file (a waiting page, a captcha or a sign-in): open the link in your browser, finish there, and the download comes back to MDM",
+            "the site sent a web page instead of the file (a waiting page, a captcha or a sign-in): open the link in your browser, finish there, and the download comes back to VADM",
         )
         .to_owned(),
         Error::NotTheFile { size, sent } => fmt(
@@ -129,7 +129,7 @@ pub fn zip_problem(p: &mdm_engine::remotezip::Problem) -> String {
         // i18n: Zip preview (#1775): the server doesn't send parts of a file (HTTP ranges), so MDM can't fetch only some files from inside a ZIP; the whole archive still downloads
         P::NoRanges => t("the server can't send parts of the ZIP, so its files can't be downloaded one by one: download the whole archive").to_owned(),
         // i18n: Zip preview (#1775): the address isn't a ZIP archive whose list of files MDM can read on the server
-        P::NotZip => t("this isn't a ZIP archive MDM can look inside on the server: download the whole file").to_owned(),
+        P::NotZip => t("this isn't a ZIP archive VADM can look inside on the server: download the whole file").to_owned(),
         // i18n: Zip preview (#1775): a ZIP split over several files (volumes): its files can't be fetched one by one
         P::Spanned => t("this ZIP is split over several files, so its files can't be downloaded one by one: download every part").to_owned(),
         // i18n: Zip preview (#1775): the ZIP's list of files (its table of contents) is larger than MDM reads from a server
@@ -142,7 +142,7 @@ pub fn zip_problem(p: &mdm_engine::remotezip::Problem) -> String {
         P::Encrypted => t("this file is encrypted in the ZIP: download the whole archive and open it with its password").to_owned(),
         P::Method(m) => fmt(
             // i18n: why a file can't be taken out of a ZIP on its server (#1775): it is compressed with a method MDM doesn't unpack there; {method} is the method's name (BZIP2, LZMA, Deflate64…)
-            t("this file is packed in a way MDM can't unpack from the server ({method}): download the whole archive"),
+            t("this file is packed in a way VADM can't unpack from the server ({method}): download the whole archive"),
             &[("method", &ltr(&mdm_engine::remotezip::method_name(*m)))],
         ),
         // i18n: why a file can't be taken out of a ZIP on its server (#1775): the ZIP no longer holds it
@@ -193,7 +193,7 @@ fn certificate(problem: CertProblem) -> &'static str {
     match problem {
         // i18n: why a download failed: the site's security certificate (what proves a secure, HTTPS, site is the one it says) is past its end date. Browsers warn about the same site
         CertProblem::Expired => t(
-            "the site's security certificate has expired, so MDM can't be sure it's the real site (your browser warns about it too)",
+            "the site's security certificate has expired, so VADM can't be sure it's the real site (your browser warns about it too)",
         ),
         // i18n: why a download failed: the site's security certificate's validity hasn't begun; usually this computer's date or time is wrong
         CertProblem::NotYetValid => t(
@@ -201,23 +201,23 @@ fn certificate(problem: CertProblem) -> &'static str {
         ),
         // i18n: why a download failed: the site's security certificate was signed by the site itself or by an issuer this computer doesn't trust. Browsers warn about the same site
         CertProblem::Untrusted => t(
-            "the site's security certificate isn't trusted (it's self-signed or from an unknown issuer), so MDM can't be sure it's the real site (your browser warns about it too)",
+            "the site's security certificate isn't trusted (it's self-signed or from an unknown issuer), so VADM can't be sure it's the real site (your browser warns about it too)",
         ),
         // i18n: why a download failed: the site's security certificate was made for other site names than the one in the address
         CertProblem::WrongName => t(
-            "the site's security certificate is for another site name, so MDM can't be sure it's the real site (your browser warns about it too)",
+            "the site's security certificate is for another site name, so VADM can't be sure it's the real site (your browser warns about it too)",
         ),
         CertProblem::Revoked => {
             // i18n: why a download failed: the issuer of the site's security certificate took it back
-            t("the site's security certificate was revoked by its issuer, so MDM won't trust it")
+            t("the site's security certificate was revoked by its issuer, so VADM won't trust it")
         }
         // i18n: why a download failed: the site's security certificate is made for other uses than a website (its "extended key usage" leaves out web servers)
         CertProblem::NotForWebsites => t(
-            "the site's security certificate isn't made for websites, so MDM can't be sure it's the real site",
+            "the site's security certificate isn't made for websites, so VADM can't be sure it's the real site",
         ),
         // i18n: why a download failed: the site's security certificate was refused for another reason (a bad signature, a broken certificate)
         CertProblem::Other => t(
-            "the site's security certificate was refused, so MDM can't be sure it's the real site",
+            "the site's security certificate was refused, so VADM can't be sure it's the real site",
         ),
     }
 }
@@ -237,13 +237,13 @@ pub fn service(service: &str, fault: &mdm_engine::ServiceFault) -> String {
         F::NotPremium => t("{service}: this needs a premium account"),
         // i18n: a debrid service's error: it can't reach the file's host now; MDM retries later
         F::HostDown => {
-            t("{service} can't reach this file host right now; MDM will try again later")
+            t("{service} can't reach this file host right now; VADM will try again later")
         }
         // i18n: a debrid service's error: the account's limit (traffic) for this host is used up
         F::LimitReached => t("{service}: your limit for this file host is used up for now"),
         // i18n: a debrid service's error: too many downloads at once through the account
         F::TooManyActive => {
-            t("{service}: too many downloads at once through your account; MDM will try again")
+            t("{service}: too many downloads at once through your account; VADM will try again")
         }
         // i18n: a debrid service's error: it refuses this computer's address (a VPN or a server address)
         F::IpRefused => t("{service} refuses this connection (a VPN or server address?)"),
@@ -254,7 +254,7 @@ pub fn service(service: &str, fault: &mdm_engine::ServiceFault) -> String {
         // i18n: a debrid service's error: the file has a password
         F::PasswordNeeded => t("{service}: this file is password-protected"),
         // i18n: a debrid service's error: too many requests; MDM waits and retries
-        F::TooManyRequests(_) => t("{service} asks to slow down; MDM will try again in a minute"),
+        F::TooManyRequests(_) => t("{service} asks to slow down; VADM will try again in a minute"),
         // i18n: a debrid service's error: it isn't answering
         F::ServiceDown => t("{service} is not responding; try again later"),
         F::Other(message) => {
@@ -376,7 +376,7 @@ pub fn tools(e: &mdm_tools::Error) -> String {
             oldest,
         } => fmt(
             // i18n: error: a program chosen as a helper is too old; {name} = gallery-dl, {version} = its version, {oldest} = the oldest one MDM can use
-            t("{name} {version} is too old: MDM needs {oldest} or newer"),
+            t("{name} {version} is too old: VADM needs {oldest} or newer"),
             &[("name", name), ("version", version), ("oldest", oldest)],
         ),
         E::Busy(name) => fmt(
@@ -394,29 +394,29 @@ fn ffmpeg_list(why: &mdm_tools::ffmpeg::ListError) -> String {
     match why {
         L::Unavailable(e) => fmt(
             // i18n: error installing ffmpeg: MDM installs only builds named in a list it publishes, signed with its key, and that list couldn't be downloaded; {error} = why
-            t("MDM's list of checked ffmpeg builds could not be downloaded: {error}"),
+            t("VADM's list of checked ffmpeg builds could not be downloaded: {error}"),
             &[("error", &tools(e))],
         ),
         L::Unsigned => t(
             // i18n: error installing ffmpeg: the list of builds MDM accepts doesn't carry MDM's own signature
-            "MDM's list of checked ffmpeg builds isn't signed by MDM's key, so ffmpeg wasn't installed",
+            "VADM's list of checked ffmpeg builds isn't signed by VADM's key, so ffmpeg wasn't installed",
         )
         .to_owned(),
         L::Older { .. } => t(
             // i18n: error installing ffmpeg: the list of builds MDM accepts is older than one this copy of MDM already used (it never goes back to an older list)
-            "MDM's list of checked ffmpeg builds is older than one already used, so ffmpeg wasn't installed",
+            "VADM's list of checked ffmpeg builds is older than one already used, so ffmpeg wasn't installed",
         )
         .to_owned(),
         L::Unreadable(detail) => fmt(
             // i18n: error installing ffmpeg: the list of builds MDM accepts couldn't be read; {detail} = the technical detail, in English
-            t("MDM's list of checked ffmpeg builds can't be read ({detail})"),
+            t("VADM's list of checked ffmpeg builds can't be read ({detail})"),
             &[("detail", detail)],
         ),
         // i18n: error installing ffmpeg: the list of builds MDM accepts has none for this computer's system and processor
-        L::NoBuild(_) => t("MDM's list of checked ffmpeg builds has none for this computer").to_owned(),
+        L::NoBuild(_) => t("VADM's list of checked ffmpeg builds has none for this computer").to_owned(),
         L::NotListed => t(
             // i18n: error installing ffmpeg: the file downloaded isn't the build named in the list of builds MDM accepts (its checksum differs), so it was thrown away
-            "the downloaded ffmpeg isn't the build MDM's list of checked builds names, so it wasn't installed",
+            "the downloaded ffmpeg isn't the build VADM's list of checked builds names, so it wasn't installed",
         )
         .to_owned(),
     }
@@ -717,14 +717,14 @@ mod tests {
         })));
         let text = tools(&gone);
         assert!(
-            text.starts_with("MDM's list of checked ffmpeg builds could not be downloaded")
+            text.starts_with("VADM's list of checked ffmpeg builds could not be downloaded")
                 && text.contains("github.com")
                 && text.contains("404"),
             "the list's download failure isn't worded as expected"
         );
         assert!(tools_advice(&gone, "ffmpeg").unwrap().contains("ffmpeg"));
         for (why, says) in [
-            (L::Unsigned, "isn't signed by MDM's key"),
+            (L::Unsigned, "isn't signed by VADM's key"),
             (
                 L::Older { got: 4, seen: 5 },
                 "is older than one already used",

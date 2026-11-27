@@ -486,7 +486,7 @@ pub fn apply_all_staged(dir: &Path) {
 pub fn go_back(dir: &Path, tool: Tool) -> Result<Settled, Error> {
     let root = tool.root(dir);
     let current =
-        own(dir, tool).ok_or_else(|| Error::Missing(format!("{} of MDM's own", tool.name())))?;
+        own(dir, tool).ok_or_else(|| Error::Missing(format!("{} of VADM's own", tool.name())))?;
     let previous = previous_in(&root)
         .filter(|p| newer(&current.version, &p.version))
         .ok_or_else(|| Error::Missing("an earlier version to go back to".into()))?;
@@ -894,7 +894,7 @@ pub async fn install_own_with(
     let got = match install(dir, net, Some(progress.as_ref()), None).await {
         Ok(got) => got,
         Err(e) => {
-            tracing::warn!("{}: installing MDM's own copy failed: {e}", tool.name());
+            tracing::warn!("{}: installing VADM's own copy failed: {e}", tool.name());
             return Err(e);
         }
     };
@@ -1161,7 +1161,7 @@ mod tests {
             crate::jsruntime::own(d).unwrap().kind,
             crate::jsruntime::Kind::Node
         );
-        assert!(!deno_root.exists(), "MDM's own Deno removed");
+        assert!(!deno_root.exists(), "VADM's own Deno removed");
         assert_eq!(std::fs::read(&their_deno).unwrap(), b"theirs");
         assert_eq!(own(d, Tool::Node).unwrap().version, "26.13.1");
     }

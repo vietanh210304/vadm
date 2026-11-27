@@ -635,7 +635,7 @@ fn yt_dlp_leftover(rest: &str, outputs: bool) -> bool {
     let working = match parts.as_slice() {
         ["temp", ext] => media(ext),
         [f, ext] if format(f) => media(ext),
-        [f, ext, "mdm", "part" | "json"] if format(f) => media(ext),
+        [f, ext, "vadm", "part" | "json"] if format(f) => media(ext),
         [f, tail @ ..] if format(f) => unfinished(tail),
         p => unfinished(p),
     };
@@ -764,7 +764,7 @@ fn recordings(dir: &Path, stem: &str) -> Vec<PathBuf> {
                 .file_name()
                 .map(|n| n.to_string_lossy().to_lowercase())
                 .unwrap_or_default();
-            name.ends_with(".part") && !name.ends_with(".mdm.part") && !name.contains(".part-frag")
+            name.ends_with(".part") && !name.ends_with(".vadm.part") && !name.contains(".part-frag")
         })
         .collect();
     parts.sort();
@@ -1705,7 +1705,7 @@ fn info_file() -> PathBuf {
     use std::sync::atomic::{AtomicU64, Ordering};
     static N: AtomicU64 = AtomicU64::new(0);
     crate::workdir::temp_dir().join(format!(
-        "mdm-video-{}-{}.json",
+        "vadm-video-{}-{}.json",
         std::process::id(),
         N.fetch_add(1, Ordering::Relaxed)
     ))
@@ -4042,9 +4042,9 @@ mod tests {
             "Clip.fdash-1.m4a.part",
             "Clip.fhttp-480p.mp4",
             "clip.temp.mp4",
-            "Clip.f137.mp4.mdm.part",
-            "Clip.f137.mp4.mdm.json",
-            "Clip.f251.webm.mdm.part",
+            "Clip.f137.mp4.vadm.part",
+            "Clip.f137.mp4.vadm.json",
+            "Clip.f251.webm.vadm.part",
         ];
         let finished = [
             "Clip.mp4",
@@ -4060,11 +4060,11 @@ mod tests {
             "Clip.f1.jpg",
             "Clip.fhls-video.mp4",
             "Clip.v2.mp4.part",
-            "Clip.pdf.mdm.part",
-            "Clip.v2.zip.mdm.part",
-            "Clip.mp4.mdm.part",
-            "Clip.f137.mp4.mdm.zip",
-            "Clip.f1.jpg.mdm.part",
+            "Clip.pdf.vadm.part",
+            "Clip.v2.zip.vadm.part",
+            "Clip.mp4.vadm.part",
+            "Clip.f137.mp4.vadm.zip",
+            "Clip.f1.jpg.vadm.part",
             "Clip.zip",
             "Clip.notes.txt",
             "Clip.final cut.mp4",
@@ -5291,7 +5291,7 @@ mod tests {
         write("Talk.f2.m4a.part", b"");
         write("Talk.f2.m4a.part-Frag0", b"x");
         write("Talk.f3.m4a.part", &ts(500));
-        write("Talk.mp4.mdm.part", b"");
+        write("Talk.mp4.vadm.part", b"");
         write("Other.mp4.part", b"");
         assert_eq!(set_aside_recordings(&ours, &progress), Ok(()));
         // Only the empty `Talk.mp4.part` went; the one holding something was kept aside (the
@@ -5305,7 +5305,7 @@ mod tests {
                 "Talk.f1.mp4.ytdl",
                 "Talk.f2.m4a.part",
                 "Talk.f2.m4a.part-Frag0",
-                "Talk.mp4.mdm.part"
+                "Talk.mp4.vadm.part"
             ]
         );
         assert_eq!(
@@ -5348,7 +5348,7 @@ mod tests {
         std::fs::write(d.join("Talk.f137.mp4.part"), vec![1u8; 1000]).unwrap();
         std::fs::write(d.join("Talk.f1.mp4.part"), ts(1000)).unwrap();
         std::fs::write(d.join("Talk.f1.mp4.ytdl"), b"{}").unwrap();
-        std::fs::write(d.join("Talk.f140.m4a.mdm.part"), ts(1000)).unwrap();
+        std::fs::write(d.join("Talk.f140.m4a.vadm.part"), ts(1000)).unwrap();
         std::fs::write(d.join("Talk.mkv.part"), vec![1u8; 1000]).unwrap();
         std::fs::write(d.join("Talk.webm.part"), b"").unwrap();
         let before = listed(d);

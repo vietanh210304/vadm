@@ -1,6 +1,6 @@
 [package]
 name = "mdm-nmhost"
-description = "Browser native messaging host: hands captured downloads to MDM"
+description = "Browser native messaging host: hands captured downloads to VADM"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -9,7 +9,7 @@ authors.workspace = true
 publish.workspace = true
 
 [[bin]]
-name = "misterdownloadmanager-nmhost"
+name = "vadm-nmhost"
 path = "src/main.rs"
 
 [dependencies]

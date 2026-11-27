@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Albanian: tools/installer/languages.py
+﻿; VADM's installer in Albanian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Po çinstalohet %1.
 
 [CustomMessages]
 TaskBrowser=Konfiguro integrimin e &shfletuesit (Chrome, Edge, Brave, Firefox)
-TaskStartup=Nisni Mister Download Manager kur niset &Windows
+TaskStartup=Nisni VADM kur niset &Windows
 TaskGroupOther=Të tjera:
-Launch=Nisni Mister Download Manager
+Launch=Nisni VADM
 KeepData=Të fshihet edhe lista e shkarkimeve dhe cilësimet?%n%nSkedarët tuaj të shkarkuar nuk preken në asnjë mënyrë.

@@ -13,7 +13,7 @@ fn main() {
     let Some(program) = program() else {
         fail(
             json,
-            "the app's program (misterdownloadmanager) isn't next to misterdownloadmanager-cli",
+            "the app's program (vadm) isn't next to vadm-cli",
         )
     };
     let e = run(&program, args);
@@ -24,7 +24,7 @@ fn main() {
 /// /usr/bin, a Mac app's Contents/MacOS); started through a link, in the folder it points into.
 fn program() -> Option<PathBuf> {
     let exe = std::env::current_exe().ok()?;
-    let name = format!("misterdownloadmanager{}", std::env::consts::EXE_SUFFIX);
+    let name = format!("vadm{}", std::env::consts::EXE_SUFFIX);
     [Some(exe.clone()), std::fs::canonicalize(&exe).ok()]
         .into_iter()
         .flatten()

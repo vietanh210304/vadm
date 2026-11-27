@@ -1,9 +1,9 @@
-﻿; Mister Download Manager's installer in Finnish: tools/installer/languages.py
+﻿; VADM's installer in Finnish: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [CustomMessages]
 TaskBrowser=Määritä selaimen integrointi (&B) (Chrome, Edge, Brave, Firefox)
-TaskStartup=Käynnistä Mister Download Manager &Windowsin käynnistyessä
+TaskStartup=Käynnistä VADM &Windowsin käynnistyessä
 TaskGroupOther=Muut:
-Launch=Käynnistä Mister Download Manager
+Launch=Käynnistä VADM
 KeepData=Poistetaanko myös latausluettelosi ja asetuksesi?%n%nLadattuja tiedostojasi ei kosketa kummassakaan tapauksessa.

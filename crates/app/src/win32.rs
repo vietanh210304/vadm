@@ -1086,7 +1086,7 @@ fn settled_message() -> u32 {
     use windows_sys::Win32::UI::WindowsAndMessaging::RegisterWindowMessageW;
     static ID: std::sync::OnceLock<u32> = std::sync::OnceLock::new();
     *ID.get_or_init(|| {
-        let name: Vec<u16> = "MDM.caption-less.settled\0".encode_utf16().collect();
+        let name: Vec<u16> = "VADM.caption-less.settled\0".encode_utf16().collect();
         // SAFETY: a NUL-terminated string read during the call.
         unsafe { RegisterWindowMessageW(name.as_ptr()) }
     })
@@ -5521,7 +5521,7 @@ fn reg_string(key: &str, name: &str) -> Option<String> {
 /// names have `_` for `-`.
 pub fn take_install_language() -> Option<String> {
     use windows_sys::Win32::System::Registry::{HKEY_CURRENT_USER, RegDeleteKeyValueW};
-    const KEY: &str = r"Software\MisterDownloadManager";
+    const KEY: &str = r"Software\VADM";
     const NAME: &str = "InstallLanguage";
     let value = reg_string(KEY, NAME)?;
     let w = |s: &str| -> Vec<u16> { s.encode_utf16().chain(Some(0)).collect() };
@@ -5865,9 +5865,9 @@ fn run_value() -> Option<String> {
     if crate::offscreen() {
         return std::env::var("MDM_TEST_RUN_VALUE")
             .ok()
-            .filter(|v| v.starts_with("MisterDownloadManagerTest"));
+            .filter(|v| v.starts_with("VADMTest"));
     }
-    Some("MisterDownloadManager".to_owned())
+    Some("VADM".to_owned())
 }
 
 const RUN_KEY: &str = r"Software\Microsoft\Windows\CurrentVersion\Run";
@@ -5977,7 +5977,7 @@ mod startup_tests {
     use super::{startup_command, startup_outdated};
     use std::path::Path;
 
-    const EXE: &str = r"C:\Program Files\Mister Download Manager\misterdownloadmanager.exe";
+    const EXE: &str = r"C:\Program Files\VADM\vadm.exe";
 
     /// The entry Options and the installer write (#226): the program, quoted, then `/startup`.
     #[test]
@@ -6002,7 +6002,7 @@ mod startup_tests {
         assert!(startup_outdated(&format!("\"{EXE}\""), exe));
         // Written by hand: unquoted, in another case, with other slashes.
         assert!(startup_outdated(
-            r"c:\program files\mister download manager\MISTERDOWNLOADMANAGER.EXE",
+            r"c:\program files\vadm\VADM.EXE",
             exe
         ));
         assert!(startup_outdated(
@@ -6015,7 +6015,7 @@ mod startup_tests {
         assert!(!startup_outdated(&format!("\"{EXE}\" /STARTUP"), exe));
         // Another copy's (a portable one, a build elsewhere).
         assert!(!startup_outdated(
-            r#""D:\mdm\misterdownloadmanager.exe""#,
+            r#""D:\vadm\vadm.exe""#,
             exe
         ));
         assert!(!startup_outdated("", exe));
@@ -6024,9 +6024,9 @@ mod startup_tests {
     /// The installer's "Start when Windows starts" writes the entry Options writes.
     #[test]
     fn the_installer_writes_the_same_entry() {
-        let iss = include_str!("../../../tools/installer/mdm.iss");
+        let iss = include_str!("../../../tools/installer/vadm.iss");
         assert!(iss.contains(
-            r#"ValueName: "MisterDownloadManager"; ValueData: """{app}\{#AppExe}"" /startup""#
+            r#"ValueName: "VADM"; ValueData: """{app}\{#AppExe}"" /startup""#
         ));
     }
 }
@@ -6933,7 +6933,7 @@ pub mod ole {
 /// with the process.
 pub fn mark_running() {
     use windows_sys::Win32::System::Threading::CreateMutexW;
-    let name: Vec<u16> = "MisterDownloadManager.Running\0".encode_utf16().collect();
+    let name: Vec<u16> = "VADM.Running\0".encode_utf16().collect();
     // SAFETY: NUL-terminated name; the handle is deliberately kept for the process's life.
     unsafe {
         CreateMutexW(std::ptr::null(), 0, name.as_ptr());
@@ -7752,7 +7752,7 @@ pub fn repair_browsers() {
                 .map_err(|e| e.to_string())
                 .and_then(|exe| {
                     crate::extension::run_host(
-                        &exe.with_file_name("misterdownloadmanager-nmhost.exe"),
+                        &exe.with_file_name("vadm-nmhost.exe"),
                         "--repair",
                         crate::extension::SET_UP_LIMIT,
                     )
@@ -9498,7 +9498,7 @@ impl ShareAnchor {
             RegisterClassW, SW_SHOW, SetLayeredWindowAttributes, ShowWindow, WNDCLASSW,
             WS_EX_LAYERED, WS_EX_TOPMOST, WS_POPUP,
         };
-        let class: Vec<u16> = "MDM share sheet".encode_utf16().chain(Some(0)).collect();
+        let class: Vec<u16> = "VADM share sheet".encode_utf16().chain(Some(0)).collect();
         // SAFETY: a window class of plain defaults, registered once per process (a second
         // registration fails harmlessly); the window is ours, checked before use.
         unsafe {

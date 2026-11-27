@@ -1,9 +1,9 @@
-﻿; Mister Download Manager's installer in Spanish (Spain): tools/installer/languages.py
+﻿; VADM's installer in Spanish (Spain): tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [CustomMessages]
 TaskBrowser=Configurar integración con el &navegador (Chrome, Edge, Brave, Firefox)
-TaskStartup=Iniciar Mister Download Manager cuando se inicie &Windows
+TaskStartup=Iniciar VADM cuando se inicie &Windows
 TaskGroupOther=Otros:
-Launch=Iniciar Mister Download Manager
+Launch=Iniciar VADM
 KeepData=¿Eliminar también la lista de descargas y la configuración?%n%nLos archivos descargados no se modificarán en ningún caso.

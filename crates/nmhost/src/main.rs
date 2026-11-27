@@ -372,7 +372,7 @@ fn links_command(m: &Message) -> Result<mdm_ipc::Command, (&'static str, &'stati
     // A part goes to the app even with nothing in it MDM downloads: the list is complete only
     // with all its parts.
     if links.is_empty() && m.links_part.is_none() {
-        return Err(("refused", "no link MDM downloads"));
+        return Err(("refused", "no link VADM downloads"));
     }
     // The pictures on the page among the links handed over, each once.
     let listed: std::collections::HashSet<&str> = links.iter().map(String::as_str).collect();
@@ -629,7 +629,7 @@ fn log_line(message: &str) {
     if let Ok(mut f) = std::fs::OpenOptions::new()
         .create(true)
         .append(true)
-        .open(dir.join("mdm.log"))
+        .open(dir.join("vadm.log"))
     {
         let _ = f.write_all(line.as_bytes());
     }
@@ -1233,9 +1233,9 @@ fn deliver(cmd: &mdm_ipc::Command) -> Result<(), Undelivered> {
     let app = match std::fs::read_to_string(dir.join("app-path")) {
         Ok(path) if !path.trim().is_empty() => PathBuf::from(path.trim()),
         _ => dir.join(if cfg!(windows) {
-            "misterdownloadmanager.exe"
+            "vadm.exe"
         } else {
-            "misterdownloadmanager"
+            "vadm"
         }),
     };
     let safari = SAFARI.load(std::sync::atomic::Ordering::Relaxed);
@@ -1277,7 +1277,7 @@ fn deliver(cmd: &mdm_ipc::Command) -> Result<(), Undelivered> {
         }
     }
     Err(Undelivered::NotRunning(
-        "Mister Download Manager did not start".into(),
+        "VADM did not start".into(),
     ))
 }
 
@@ -1374,7 +1374,7 @@ fn this_program() -> Result<PathBuf, String> {
 fn chromium_manifest(program: &std::path::Path) -> serde_json::Value {
     serde_json::json!({
         "name": HOST_NAME,
-        "description": "Mister Download Manager",
+        "description": "VADM",
         "path": program,
         "type": "stdio",
         "allowed_origins": chromium_ids().into_iter().map(origin).collect::<Vec<_>>(),
@@ -1385,7 +1385,7 @@ fn chromium_manifest(program: &std::path::Path) -> serde_json::Value {
 fn firefox_manifest(program: &std::path::Path) -> serde_json::Value {
     serde_json::json!({
         "name": HOST_NAME,
-        "description": "Mister Download Manager",
+        "description": "VADM",
         "path": program,
         "type": "stdio",
         "allowed_extensions": [FIREFOX_ID],
@@ -1404,7 +1404,7 @@ fn portable_refused() -> Result<(), String> {
     if mdm_ipc::portable_dir().is_some() {
         return Err(
             "portable mode: browser integration is not registered (nothing is written outside \
-             its folder); install Mister Download Manager to use it"
+             its folder); install VADM to use it"
                 .into(),
         );
     }
@@ -1420,7 +1420,7 @@ fn temporary_refused() -> Result<(), String> {
     if mdm_ipc::browsers::in_temporary_folder(&program) {
         return Err(format!(
             "{} is a temporary folder, deleted once it quits (an archive run without extracting \
-             it first): browser integration is not registered. Extract Mister Download Manager \
+             it first): browser integration is not registered. Extract VADM \
              to a folder of its own and run it from there",
             program.parent().unwrap_or(&program).display()
         ));
@@ -1745,7 +1745,7 @@ fn unregister(all_users: bool) -> Result<(), String> {
 
 /// Linux: where the .deb and .rpm install this program, which their manifests name.
 #[cfg(target_os = "linux")]
-const PACKAGED_HOST: &str = "/usr/bin/misterdownloadmanager-nmhost";
+const PACKAGED_HOST: &str = "/usr/bin/vadm-nmhost";
 
 /// Linux (the .deb and .rpm build, tools/installer/build-linux.sh): the manifests for everyone,
 /// in each folder the browsers read them from (`mdm_ipc::browsers::LINUX_SYSTEM_HOST_DIRS`),
@@ -1794,11 +1794,11 @@ fn main() {
         // manifests' allowed_origins / allowed_extensions say the same; this is a second check).
         _ if our_caller(&args) => serve().map_err(|e| e.to_string()),
         _ => Err(format!(
-            "refusing caller {args:?}: not the Mister Download Manager extension"
+            "refusing caller {args:?}: not the VADM extension"
         )),
     };
     if let Err(e) = result {
-        eprintln!("misterdownloadmanager-nmhost: {e}");
+        eprintln!("vadm-nmhost: {e}");
         std::process::exit(1);
     }
 }
@@ -1913,11 +1913,11 @@ mod tests {
     #[test]
     fn safari_helper_finds_its_app() {
         let exe = std::path::Path::new(
-            "/Applications/Mister Download Manager.app/Contents/PlugIns/Mister Download Manager.appex/Contents/MacOS/misterdownloadmanager-nmhost",
+            "/Applications/VADM.app/Contents/PlugIns/VADM.appex/Contents/MacOS/vadm-nmhost",
         );
         assert_eq!(
             bundle_of(exe),
-            Some(PathBuf::from("/Applications/Mister Download Manager.app"))
+            Some(PathBuf::from("/Applications/VADM.app"))
         );
         assert_eq!(bundle_of(std::path::Path::new("/usr/bin/nmhost")), None);
     }
@@ -3046,7 +3046,7 @@ mod tests {
         assert_eq!(c.user_agent.as_deref(), Some("UA"));
         assert_eq!(
             c.name, None,
-            "empty filename means: let Mister Download Manager decide"
+            "empty filename means: let VADM decide"
         );
         assert!(!c.later && !c.silent);
         assert_eq!((c.proxy, c.proxy_pac, c.proxy_login), (None, None, false));

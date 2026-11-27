@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Luxembourgish: tools/installer/languages.py
+﻿; VADM's installer in Luxembourgish: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Deinstalléieren %1.
 
 [CustomMessages]
 TaskBrowser=Browserintegratioun ariichten (&B) (Chrome, Edge, Brave, Firefox)
-TaskStartup=Start Mister Download Manager, wann &Windows start
+TaskStartup=Start VADM, wann &Windows start
 TaskGroupOther=Aneres:
-Launch=Start Mister Download Manager
+Launch=Start VADM
 KeepData=Och Är Downloadlëscht an Astellunge läschen?%n%nÄr erofgeluede Fichiere ginn souwisou net beréiert.

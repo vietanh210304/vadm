@@ -140,7 +140,7 @@ async fn refused_as_a_browser_it_gets_through_under_its_own_name() {
     assert!(
         events
             .iter()
-            .any(|e| e.contains("asking once more as Mister Download Manager itself")),
+            .any(|e| e.contains("asking once more as VADM itself")),
         "{events:?}"
     );
 }
@@ -163,7 +163,7 @@ async fn refused_under_every_name_it_tells_the_bot_check() {
     assert!(
         events
             .iter()
-            .any(|e| e.contains("asked as Mister Download Manager")),
+            .any(|e| e.contains("asked as VADM")),
         "{events:?}"
     );
 }

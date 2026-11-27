@@ -173,7 +173,7 @@ jobs:
           GH_TOKEN: ${{ github.token }} # downloads the build's helpers signed in (fetch_release.py)
         run: |
           $v = [regex]::Match((Get-Content Cargo.toml -Raw), '(?m)^version\s*=\s*"([^"]+)"').Groups[1].Value
-          $exes = "misterdownloadmanager", "misterdownloadmanager-nmhost", "misterdownloadmanager-cli", "misterdownloadmanager-mcp" |
+          $exes = "vadm", "vadm-nmhost", "vadm-cli", "vadm-mcp" |
             ForEach-Object { "target/${{ matrix.target }}/release/$_.exe" }
           python tools/installer/symbols.py windows-${{ matrix.arch }} $v target/dist @exes
           if ($LASTEXITCODE) { throw "symbols failed" }
@@ -220,11 +220,11 @@ jobs:
           node tools/extension/check-pack.mjs
           $v = [regex]::Match((Get-Content Cargo.toml -Raw), '(?m)^version\s*=\s*"([^"]+)"').Groups[1].Value
           New-Item -ItemType Directory -Force target/dist | Out-Null
-          Copy-Item target/extension/mdm-chromium.zip "target/dist/MisterDownloadManager-$v-extension-chromium.zip"
+          Copy-Item target/extension/vadm-chromium.zip "target/dist/VADM-$v-extension-chromium.zip"
           # For the Chrome Web Store (the next step, or its dashboard by hand): kept with the
           # build, not the release.
           New-Item -ItemType Directory -Force target/store | Out-Null
-          Copy-Item target/extension/mdm-chrome-store.zip "target/store/MisterDownloadManager-$v-chrome-web-store.zip"
+          Copy-Item target/extension/vadm-chrome-store.zip "target/store/VADM-$v-chrome-web-store.zip"
 
       # The stores' tools, at the exact versions and hashes of tools/release/package-lock.json.
       - name: Store tools
@@ -267,7 +267,7 @@ jobs:
           REFRESH_TOKEN: ${{ secrets.CWS_REFRESH_TOKEN }}
           PUBLISHER_ID: ${{ secrets.CWS_PUBLISHER_ID }}
           EXTENSION_ID: ejoleppdfgjdndddcjoehopknmlglojp
-        run: ./tools/release/node_modules/.bin/chrome-webstore-upload --source target/extension/mdm-chrome-store.zip
+        run: ./tools/release/node_modules/.bin/chrome-webstore-upload --source target/extension/vadm-chrome-store.zip
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -426,7 +426,7 @@ jobs:
       # (Windows, Linux, macOS and the extension: everything the release ships but the checksums.)
       - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
         with:
-          subject-path: dist/MisterDownloadManager-*
+          subject-path: dist/VADM-*
 
       - name: Publish release
         env:
@@ -437,7 +437,7 @@ jobs:
           # The release waits for x64 Windows (the names every copy before had): its files or none.
           $v = "${{ github.ref_name }}".TrimStart("v")
           foreach ($f in "setup.exe", "portable.zip", "x64.zip") {
-            if (-not (Test-Path "dist/MisterDownloadManager-$v-$f")) { throw "x64 Windows' $f isn't there: no release" }
+            if (-not (Test-Path "dist/VADM-$v-$f")) { throw "x64 Windows' $f isn't there: no release" }
           }
           # One SHA256SUMS.txt for every file (each build wrote its own).
           Remove-Item dist/SHA256SUMS*.txt -ErrorAction SilentlyContinue
@@ -478,7 +478,7 @@ jobs:
           $v = "${{ github.ref_name }}".TrimStart("v")
           $log = Get-Content CHANGELOG.md -Raw -ErrorAction SilentlyContinue
           $m = [regex]::Match("$log", "(?ms)^## \[$([regex]::Escape($v))\][^\n]*\n(.*?)(?=^## |\z)")
-          $title = "Mister Download Manager ${{ github.ref_name }}"
+          $title = "VADM ${{ github.ref_name }}"
           $stores = "**The browser add-on:** [Add to Firefox](https://addons.mozilla.org/firefox/addon/mister-download-manager/) " +
             "(Zen, LibreWolf too) · [Add to Chrome, Edge, Brave, Opera, Vivaldi](https://chromewebstore.google.com/detail/mister-download-manager/ejoleppdfgjdndddcjoehopknmlglojp). " +
             "The stores' copy updates itself; ``-extension-chromium.zip`` is only for a Chromium browser that can't use its store.`n`n"

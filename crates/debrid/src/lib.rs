@@ -355,7 +355,7 @@ impl Http {
     ) -> Result<T, Fault> {
         if (200..300).contains(&status) {
             return serde_json::from_slice(&body).map_err(|_| {
-                Fault::Service(ServiceFault::Other("an answer MDM can't read".into()))
+                Fault::Service(ServiceFault::Other("an answer VADM can't read".into()))
             });
         }
         let f = fault(status, &body, retry_after);
@@ -364,7 +364,7 @@ impl Http {
     }
 }
 
-const USER_AGENT: &str = concat!("MisterDownloadManager/", env!("CARGO_PKG_VERSION"));
+const USER_AGENT: &str = concat!("VADM/", env!("CARGO_PKG_VERSION"));
 
 /// One account, signed in: its access token in memory (Real-Debrid's device flow gives tokens
 /// that expire; Mega-Debrid's sign-in one that lasts until the next sign-in; a pasted token
@@ -1106,7 +1106,7 @@ pub mod signin {
             assert!(
                 own_page(
                     tb,
-                    "https://torbox.app/oauth/device?app=MisterDownloadManager"
+                    "https://torbox.app/oauth/device?app=VADM"
                 )
                 .is_ok()
             );

@@ -1257,7 +1257,7 @@ impl PrivateMark {
             PrivateMark::Kept => crate::i18n::t("From a private window: kept in the list"),
             // i18n: tooltip of the mark (a mask) before a download's status in the list: it came from a browser's private (incognito) window, and it is in memory only, gone from the list when MDM closes
             PrivateMark::MemoryOnly => crate::i18n::t(
-                "From a private window: in memory only, gone from the list when MDM closes",
+                "From a private window: in memory only, gone from the list when VADM closes",
             ),
         }
     }

@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Valencian: tools/installer/languages.py
+﻿; VADM's installer in Valencian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Desinstal·lant %1.
 
 [CustomMessages]
 TaskBrowser=Configura la integració del &navegador (Chrome, Edge, Brave, Firefox)
-TaskStartup=Inicia Mister Download Manager quan s'inicia &Windows
+TaskStartup=Inicia VADM quan s'inicia &Windows
 TaskGroupOther=Altres:
-Launch=Inicia Mister Download Manager
+Launch=Inicia VADM
 KeepData=Vols esborrar també la llista de descàrregues i la configuració?%n%nEls fitxers descarregats no es toquen de cap manera.

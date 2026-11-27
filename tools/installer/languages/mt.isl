@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Maltese: tools/installer/languages.py
+﻿; VADM's installer in Maltese: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Qed tiddiżinstalla %1.
 
 [CustomMessages]
 TaskBrowser=Issettja l-integrazzjoni tal-&brawżer (Chrome, Edge, Brave, Firefox)
-TaskStartup=Ibda Mister Download Manager meta tibda l-&Windows
+TaskStartup=Ibda VADM meta tibda l-&Windows
 TaskGroupOther=Oħrajn:
-Launch=Ibda Mister Download Manager
+Launch=Ibda VADM
 KeepData=Tħassar ukoll il-lista tat-tniżżil u s-settings tiegħek?%n%nIl-fajls imniżżla tiegħek ma jintmessux fi kwalunkwe każ.

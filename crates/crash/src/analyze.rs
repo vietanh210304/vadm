@@ -291,11 +291,11 @@ mod tests {
     fn a_module_without_its_name_finds_its_symbols_by_id() {
         let store = tempfile::tempdir().unwrap();
         let id = "DE257B5D861C3C3788B9A77E9E4B137A0";
-        let dir = store.path().join("misterdownloadmanager").join(id);
+        let dir = store.path().join("vadm").join(id);
         std::fs::create_dir_all(&dir).unwrap();
         std::fs::write(
-            dir.join("misterdownloadmanager.sym"),
-            format!("MODULE Mac arm64 {id} misterdownloadmanager\nFUNC 24220 6c 0 torrent_tick\n"),
+            dir.join("vadm.sym"),
+            format!("MODULE Mac arm64 {id} vadm\nFUNC 24220 6c 0 torrent_tick\n"),
         )
         .unwrap();
         let module = breakpad_symbols::SimpleModule::new("<Unknown>", id.parse().unwrap());
@@ -316,7 +316,7 @@ mod tests {
 
     #[test]
     fn file_names_from_either_kind_of_path() {
-        assert_eq!(super::file_name(r"C:\Program Files\MDM\mdm.exe"), "mdm.exe");
+        assert_eq!(super::file_name(r"C:\Program Files\VADM\vadm.exe"), "vadm.exe");
         assert_eq!(super::file_name("/usr/lib/libc.so.6"), "libc.so.6");
         assert_eq!(super::file_name("plain"), "plain");
     }

@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Lao: tools/installer/languages.py
+﻿; VADM's installer in Lao: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=ກຳລັງຖອນການຕິດຕ
 
 [CustomMessages]
 TaskBrowser=ຕັ້ງຄ່າການເຊື່ອມໂຍງກັບໂປຣແກຣມທ່ອງເວັບ (&browser integration) (Chrome, Edge, Brave, Firefox)
-TaskStartup=ເລີ່ມ Mister Download Manager ເມື່ອ &Windows ເລີ່ມຕົ້ນ
+TaskStartup=ເລີ່ມ VADM ເມື່ອ &Windows ເລີ່ມຕົ້ນ
 TaskGroupOther=ອື່ນໆ:
-Launch=ເລີ່ມ Mister Download Manager
+Launch=ເລີ່ມ VADM
 KeepData=ລຶບລາຍການດາວໂຫຼດ ແລະການຕັ້ງຄ່າຂອງທ່ານນຳບໍ່?%n%nໄຟລ໌ທີ່ດາວໂຫຼດແລ້ວຂອງທ່ານຈະບໍ່ຖືກແຕະຕ້ອງບໍ່ວ່າທາງໃດກໍຕາມ.

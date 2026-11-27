@@ -2403,7 +2403,7 @@ async fn run_fresh(
             let own = own_agent(&opts, &asked).filter(|_| unlocked.is_none());
             if let Some(own) = own.clone().filter(|_| crate::agent::own_for(&target)) {
                 shared.event(format!(
-                    "{}: its bot check let only Mister Download Manager's own name through \
+                    "{}: its bot check let only VADM's own name through \
                      earlier; asking so",
                     target.host_str().unwrap_or("?"),
                 ));
@@ -2969,7 +2969,7 @@ async fn run_resume(
         && let Some(own) = own_agent(&opts, &headers)
     {
         shared.event(
-            "Going on under Mister Download Manager's own name, as the site's bot check asked",
+            "Going on under VADM's own name, as the site's bot check asked",
         );
         opts = speaking_own(&opts, own);
     }
@@ -3888,7 +3888,7 @@ impl FirstAsk<'_> {
                 // #372: the rest of the download goes as MDM too.
                 opts.user_agent = opts.agent_fallback.take().unwrap_or_default();
                 shared.event(
-                    "The server refused the browser's User-Agent; asking as Mister Download Manager",
+                    "The server refused the browser's User-Agent; asking as VADM",
                 );
                 let client1 = client(opts, url, self.as_get, self.seen)?;
                 let (first, by) = noting_refuser(first_get(
@@ -3962,8 +3962,8 @@ impl FirstAsk<'_> {
         let (shared, cancel) = (self.shared, self.cancel);
         let host = url.host_str().unwrap_or("?");
         shared.event(format!(
-            "{host}: refused the way a browser connects too; asking once more as Mister \
-             Download Manager itself ({own})"
+            "{host}: refused the way a browser connects too; asking once more as VADM \
+             itself ({own})"
         ));
         let opts = speaking_own(opts, own);
         let client = client(&opts, url, self.as_get, self.seen)?;
@@ -3971,14 +3971,14 @@ impl FirstAsk<'_> {
             Ok(answer) => {
                 crate::agent::remember_own(url);
                 shared.event(format!(
-                    "{host}: let Mister Download Manager through under its own name; \
+                    "{host}: let VADM through under its own name; \
                      downloading so (remembered for this session)"
                 ));
                 Ok((opts, client, answer))
             }
             Err(e @ (Error::Cancelled | Error::Adapter(_))) => Err(e),
             Err(e) => {
-                shared.event(format!("{host}, asked as Mister Download Manager: {e}"));
+                shared.event(format!("{host}, asked as VADM: {e}"));
                 Err(refused)
             }
         }
@@ -4102,7 +4102,7 @@ async fn browser_at_once(
         Err(e @ (Error::Cancelled | Error::Adapter(_))) => Err(e),
         Err(e) => {
             event(format!(
-                "{host}, asked the way a browser connects as its site rule says: {e}; asking on                  Mister Download Manager's own connection"
+                "{host}, asked the way a browser connects as its site rule says: {e}; asking on VADM's own connection"
             ));
             Ok(None)
         }

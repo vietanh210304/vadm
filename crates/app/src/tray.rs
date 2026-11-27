@@ -470,7 +470,7 @@ impl Native {
         };
         add(
             &menu,
-            crate::i18n::mark("Open Mister Download Manager"),
+            crate::i18n::mark("Open VADM"),
             TrayCmd::Show,
         );
         menu.append(&PredefinedMenuItem::separator()).ok();

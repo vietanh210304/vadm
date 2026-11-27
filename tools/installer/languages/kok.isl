@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Konkani: tools/installer/languages.py
+﻿; VADM's installer in Konkani: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 अनइंस्टॉल करता.
 
 [CustomMessages]
 TaskBrowser=ब्रावझर एकीकरण सेट करा (&B) (Chrome, Edge, Brave, Firefox)
-TaskStartup=जेन्ना &Windows सुरू जाता तेन्ना Mister Download Manager सुरू करात
+TaskStartup=जेन्ना &Windows सुरू जाता तेन्ना VADM सुरू करात
 TaskGroupOther=हेर:
-Launch=Mister Download Manager सुरू करात
+Launch=VADM सुरू करात
 KeepData=तुमची डाउनलोड वळेरी आनी सेटिंग्स लेगीत काडून उडोवची?%n%nतुमच्यो डाउनलोड केल्ल्यो फायली खंयच्याच पद्दतीन हात लावच्यो न्हय.

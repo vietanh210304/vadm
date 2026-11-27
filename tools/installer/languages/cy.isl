@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Welsh: tools/installer/languages.py
+﻿; VADM's installer in Welsh: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Yn dad-osod %1.
 
 [CustomMessages]
 TaskBrowser=Sefydlu integreiddio porwr (&browser integration) (Chrome, Edge, Brave, Firefox)
-TaskStartup=Dechrau Mister Download Manager pan fydd &Windows yn cychwyn
+TaskStartup=Dechrau VADM pan fydd &Windows yn cychwyn
 TaskGroupOther=Arall:
-Launch=Dechrau Mister Download Manager
+Launch=Dechrau VADM
 KeepData=Dileu eich rhestr lawrlwytho a'ch gosodiadau hefyd?%n%nNi chyffyrddir â'ch ffeiliau sydd wedi'u lawrlwytho beth bynnag.

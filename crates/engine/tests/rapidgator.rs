@@ -201,7 +201,7 @@ async fn a_download_resumed_after_its_link_expired_goes_on() {
     let state = std::fs::read_dir(dir.path())
         .unwrap()
         .map(|e| e.unwrap().path())
-        .find(|p| p.to_string_lossy().ends_with(".mdm.json"))
+        .find(|p| p.to_string_lossy().ends_with(".vadm.json"))
         .expect("a resume state");
     let saved = mdm_engine::state::ResumeState::load(&state).unwrap();
     let kept = saved.downloaded();
