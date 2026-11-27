@@ -93,7 +93,7 @@ static PAGE: &str = include_str!("../web/index.html");
 static SCRIPT: &str = include_str!("../web/app.js");
 static STYLE: &str = include_str!("../web/app.css");
 /// The app's icon (art/), for the page's tab and a phone's home screen.
-static ICON: &[u8] = include_bytes!("../../app/assets/icons/app/mdm-256.png");
+static ICON: &[u8] = include_bytes!("../../app/assets/icons/app/vadm-256.png");
 static MANIFEST: &str = include_str!("../web/manifest.webmanifest");
 
 fn asset(kind: &'static str, body: &'static str) -> Response {

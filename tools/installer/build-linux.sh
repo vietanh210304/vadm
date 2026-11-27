@@ -64,7 +64,7 @@ echo "the programs need glibc $glibc or newer"
 cp -r "$root/target/extension/chromium" "$tree/usr/share/vadm/extension-chromium"
 cp "$root/target/extension/vadm-firefox.xpi" "$tree/usr/share/vadm/"
 cp "$root/LICENSE" "$root/ATTRIBUTION.md" "$tree/usr/share/doc/vadm/"
-python3 - "$root/art/Mister Download Manager.png" \
+python3 - "$root/art/VADM.png" \
   "$tree/usr/share/icons/hicolor/256x256/apps/vadm.png" <<'EOF'
 import sys
 from PIL import Image

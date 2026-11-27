@@ -23,7 +23,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "target" / "readme-icons"
-LOGO = ROOT / "art" / "Mister Download Manager.png"
+LOGO = ROOT / "art" / "VADM.png"
 MODEL = "openai/gpt-5-image-mini"
 
 STYLE = (

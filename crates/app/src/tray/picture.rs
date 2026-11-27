@@ -21,14 +21,14 @@ pub const MADE: [u32; 8] = [16, 20, 24, 32, 48, 64, 128, 256];
 /// The hand-made picture of `size` px (one of [`MADE`]), a PNG.
 fn png(size: u32) -> &'static [u8] {
     match size {
-        16 => include_bytes!("../../assets/icons/app/mdm-16.png"),
-        20 => include_bytes!("../../assets/icons/app/mdm-20.png"),
-        24 => include_bytes!("../../assets/icons/app/mdm-24.png"),
-        32 => include_bytes!("../../assets/icons/app/mdm-32.png"),
-        48 => include_bytes!("../../assets/icons/app/mdm-48.png"),
-        64 => include_bytes!("../../assets/icons/app/mdm-64.png"),
-        128 => include_bytes!("../../assets/icons/app/mdm-128.png"),
-        _ => include_bytes!("../../assets/icons/app/mdm-256.png"),
+        16 => include_bytes!("../../assets/icons/app/vadm-16.png"),
+        20 => include_bytes!("../../assets/icons/app/vadm-20.png"),
+        24 => include_bytes!("../../assets/icons/app/vadm-24.png"),
+        32 => include_bytes!("../../assets/icons/app/vadm-32.png"),
+        48 => include_bytes!("../../assets/icons/app/vadm-48.png"),
+        64 => include_bytes!("../../assets/icons/app/vadm-64.png"),
+        128 => include_bytes!("../../assets/icons/app/vadm-128.png"),
+        _ => include_bytes!("../../assets/icons/app/vadm-256.png"),
     }
 }
 

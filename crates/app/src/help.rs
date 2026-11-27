@@ -912,7 +912,7 @@ impl About {
                 let ink = winui::TEXT();
                 egui::Image::from_bytes(
                     "bytes://mdm-48.png",
-                    include_bytes!("../assets/icons/app/mdm-48.png"),
+                    include_bytes!("../assets/icons/app/vadm-48.png"),
                 )
                 .paint_at(ui, winui::r(o, 16.0, 16.0, 48.0, 48.0));
                 winui::text(

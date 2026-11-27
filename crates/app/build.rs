@@ -23,9 +23,9 @@ fn main() {
     // Linux or macOS); winresource builds on Windows only.
     #[cfg(windows)]
     if windows {
-        println!("cargo:rerun-if-changed=assets/icons/app/mdm.ico");
+        println!("cargo:rerun-if-changed=assets/icons/app/vadm.ico");
         let mut res = winresource::WindowsResource::new();
-        res.set_icon("assets/icons/app/mdm.ico")
+        res.set_icon("assets/icons/app/vadm.ico")
             .set("ProductName", "VADM")
             .set("FileDescription", "VADM")
             .set("CompanyName", "VADM")

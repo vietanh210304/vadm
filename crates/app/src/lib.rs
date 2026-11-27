@@ -141,7 +141,7 @@ pub fn app_icon() -> std::sync::Arc<egui::IconData> {
 pub fn app_picture() -> std::sync::Arc<egui::IconData> {
     static ICON: std::sync::OnceLock<std::sync::Arc<egui::IconData>> = std::sync::OnceLock::new();
     ICON.get_or_init(|| {
-        let png = include_bytes!("../assets/icons/app/mdm-256.png");
+        let png = include_bytes!("../assets/icons/app/vadm-256.png");
         std::sync::Arc::new(eframe::icon_data::from_png_bytes(png).unwrap_or_default())
     })
     .clone()
