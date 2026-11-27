@@ -44,7 +44,6 @@
     <td align="center" width="210"><img src="docs/images/icons/faster.png" width="76" alt=""><h1>5×</h1><b>Faster</b><br><sub>a 1 GB file: 1 s instead of 5.5 s, on a local test server</sub></td>
     <td align="center" width="210"><img src="docs/images/icons/languages.png" width="76" alt=""><h1>+47</h1><b>More languages</b><br><sub>87 instead of IDM's 40</sub></td>
     <td align="center" width="210"><img src="docs/images/icons/free.png" width="76" alt=""><h1>100%</h1><b>Cheaper (free!)</b><br><sub>no licence, no trial, ever</sub></td>
-    <td align="center" width="210"><img src="docs/images/icons/torrent.png" width="76" alt=""><h1>Torrent</h1><b>Supported fully</b><br><sub>magnet links, .torrent files, seeding</sub></td>
   </tr>
 </table>
 
@@ -302,10 +301,6 @@ right-to-left window.
   </tr>
   <tr>
     <td><img src="docs/images/add-url.webp" alt="Add URL"><br><sub><b>Add a download</b>: paste a link, or let MDM catch it from your browser.</sub></td>
-    <td><img src="docs/images/add-torrent.webp" alt="Add torrent"><br><sub><b>Torrents and magnet links</b>: pick the files you want, skip the rest.</sub></td>
-  </tr>
-  <tr>
-    <td><img src="docs/images/progress-torrent.webp" alt="A torrent's progress window"><br><sub><b>A torrent's progress</b>: its files, peers, trackers and pieces, in tabs.</sub></td>
     <td><img src="docs/images/progress-video.webp" alt="A video's progress window"><br><sub><b>A video's progress</b>: speed and time left while yt-dlp brings it in.</sub></td>
   </tr>
   <tr>
@@ -333,8 +328,7 @@ right-to-left window.
   size the page lists, filtered by size and type, and sends them to the Link grabber; the
   right-click menu's **Download all links** brings the page's pictures too, hidden until you ask.
 - **Downloads videos** from web pages (a button appears over the video, on many pages before it plays; playlists,
-  subtitles, the sound alone), **image galleries** with gallery-dl, and **torrents and magnet links**
-  (sequential order, RSS feeds, sharing limits, an optional public tracker list for more peers).
+  subtitles, the sound alone), and **image galleries** with gallery-dl.
 - **Many links at once**: the Link grabber sorts them into packages and extracts the archives
   (zip, 7z, rar) when they're in. Give it an **FTP folder or a web server's "Index of" page** and it
   lists every file in it and its subfolders, keeping the folder tree when they download; paste a
@@ -471,7 +465,6 @@ pieces fit.
 | [`mdm-extract`](crates/extract) | Archive extraction (zip, tar, gz, xz; 7z and RAR through 7-Zip; in place through HatchZip) |
 | [`mdm-geo`](crates/geo) | A server's country, from an IP table on this computer |
 | [`mdm-tools`](crates/tools) | yt-dlp and ffmpeg for video pages, gallery-dl for galleries |
-| [`mdm-torrent`](crates/torrent) | BitTorrent through librqbit |
 | [`mdm-labserver`](crates/labserver) | An HTTP test server with fault injection, for tests and benchmarks |
 
 | Tool | What it does |
@@ -485,7 +478,7 @@ pieces fit.
 | `tools\lab\docs-shots.ps1` | The screenshots, from a separate test instance (`/show <window>` opens each window), off the screen |
 | `python tools/shots/make.py` | The help pages' pictures, from one list (`tools/shots/shots.toml`): shot, cropped, annotated, lossless WebP; `make.py check` keeps them in step |
 | `tools/lab/wsl/` | A WSL2 machine that builds MDM for Linux in minutes and shoots its windows on a virtual screen ([README](tools/lab/wsl/README.md)) |
-| `tools\lab\progress-shots.ps1` | The progress window of a video (yt-dlp) and of a torrent, from a swarm on this computer (`cargo run -p mdm-torrent --example swarm`) |
+| `tools\lab\progress-shots.ps1` | The progress window of a video (yt-dlp) |
 | `python tools/website/build.py --serve` | misterdownloadmanager.com into `target/site` (help pages from `docs/`, news from the CHANGELOG, FAQ and legal pages from `website/content/`), served on http://127.0.0.1:8765; GitHub Pages publishes it (`pages.yml`) |
 | `website/ratings/`, `website/markdown/` | The website's two Cloudflare Workers: the visitors' star ratings ([README](website/ratings/README.md)), and Markdown for AI tools and agents ([README](website/markdown/README.md)). Every page of the site also has a Markdown version (`/download.md` beside `/download.html`), and the site publishes `llms.txt`, an API catalog and an MCP server card: [For AI tools and agents](https://misterdownloadmanager.com/agents.html) |
 | `python tools/readme/social.py` | The repository's social preview card (`docs/images/social-preview.png`) |

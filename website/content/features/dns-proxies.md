@@ -59,7 +59,7 @@ long it takes to answer.
 
 If the DNS can't be reached, the download stops with a message naming it, unless you allow
 falling back to the system's DNS. Your hosts file and local names stay with the system's DNS,
-and video pages and torrent trackers still use it. The command line's `get` takes `--dns`.
+and video pages still use it. The command line's `get` takes `--dns`.
 
 ## One adapter for everything
 

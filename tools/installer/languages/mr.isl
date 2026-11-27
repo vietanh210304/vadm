@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 अनइंस्टॉल करत आ�
 
 [CustomMessages]
 TaskBrowser=ब्राउझर इंटिग्रेशन सेट अप करा (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent फाइल्स आणि मॅग्नेट लिंक्स Mister Download Manager सह उघडा
 TaskStartup=जेव्हा &Windows सुरू होते तेव्हा Mister Download Manager सुरू करा
 TaskGroupOther=इतर:
 Launch=Mister Download Manager सुरू करा

@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Afskrái %1.
 
 [CustomMessages]
 TaskBrowser=Setja upp samþættingu við &vafra (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Opna .&torrent skrár og segultengla með Mister Download Manager
 TaskStartup=Ræsa Mister Download Manager þegar &Windows ræsir
 TaskGroupOther=Annað:
 Launch=Ræsa Mister Download Manager

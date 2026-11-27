@@ -176,7 +176,7 @@ pub(crate) fn text_of_class(page: &str, class: &str) -> Option<String> {
 /// "Download all links": each `<a href>` and `<area href>`, and each `<video src>`, `<audio src>`
 /// and `<source src>`, in the page's order. Each is read as the browser reads it: references
 /// decoded, against the page's `<base href>` or else `at` (the address the page came from),
-/// without its `#fragment`, and once. Only what can be downloaded: http(s), ftp(s) and magnet
+/// without its `#fragment`, and once. Only what can be downloaded: http(s) and ftp(s)
 /// links (not `mailto:`, `javascript:`, `data:`). Comments, scripts and styles aren't markup:
 /// an address in them isn't a link.
 pub fn links(page: &str, at: &Url) -> Vec<Url> {
@@ -203,7 +203,7 @@ pub fn links(page: &str, at: &Url) -> Vec<Url> {
             let mut url = base.join(decode(&value).trim()).ok()?;
             // A download names its server: `ftps:x`, a scheme browsers don't know, names none.
             let served = crate::supported(&url) && url.host_str().is_some_and(|h| !h.is_empty());
-            if !(served || url.scheme() == "magnet") {
+            if !served {
                 return None;
             }
             url.set_fragment(None);
@@ -656,7 +656,6 @@ mod tests {
                 "https://cdn.example.net/a.zip?x=1&y=2",
                 "https://example.com/dir/page.html",
                 "ftp://ftp.example.org/pub/f.tar.gz",
-                "magnet:?xt=urn:btih:abc&dn=x",
                 "https://example.com/dir/map.zip",
                 "https://example.com/dir/clip.mp4",
                 "https://example.com/dir/clip.webm",

@@ -11,7 +11,6 @@ let filter = 'all';
 let data = null;
 let timer = null;
 let failures = 0;
-let chosenFile = null;
 const rows = new Map();
 
 try { token = localStorage.getItem('mdm-token'); } catch (e) { token = null; }
@@ -297,49 +296,21 @@ for (const tab of document.querySelectorAll('[data-filter]')) {
 
 // ---- adding ------------------------------------------------------------------------------
 
-$('file').addEventListener('change', () => {
-  const f = $('file').files[0];
-  chosenFile = null;
-  $('file-name').hidden = true;
-  if (!f) return;
-  if (f.size > 10 * 1024 * 1024) { toast(T('This file is too large to be a torrent.'), true); $('file').value = ''; return; }
-  chosenFile = f;
-  $('url').value = '';
-  $('file-name').textContent = f.name;
-  $('file-name').hidden = false;
-});
-$('url').addEventListener('input', () => {
-  if ($('url').value) { chosenFile = null; $('file').value = ''; $('file-name').hidden = true; }
-});
-document.querySelector('label.file').addEventListener('keydown', (ev) => {
-  if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); $('file').click(); }
-});
-
 $('add').addEventListener('submit', async (ev) => {
   ev.preventDefault();
   const category = $('category').value;
   const queue = $('when').value;
   const start = queue === '';
   const url = $('url').value.trim();
-  if (!url && !chosenFile) { $('url').focus(); return; }
+  if (!url) { $('url').focus(); return; }
   const button = $('add').querySelector('button[type=submit]');
   button.disabled = true;
   try {
-    let j;
-    if (chosenFile) {
-      const q = new URLSearchParams({ category, queue, start: String(start) });
-      j = await api('torrent?' + q, { body: await chosenFile.arrayBuffer(), headers: { 'Content-Type': 'application/x-bittorrent' } });
-    } else {
-      j = await api('add', { json: { url, category, queue, start } });
-    }
-    toast(j && j.pending ? T('Added. MDM is reading the torrent: it joins the list in a moment.') : T('Added.'));
+    await api('add', { json: { url, category, queue, start } });
+    toast(T('Added.'));
     $('url').value = '';
-    $('file').value = '';
-    chosenFile = null;
-    $('file-name').hidden = true;
   } catch (e) {
     if (e.code === 'unsupported') toast(T('MDM cannot download this address.'), true);
-    else if (e.code === 'not-a-torrent') toast(T('This is not a torrent file.'), true);
     else if (e.code !== 'not-paired') toast(T('MDM could not add it.'), true);
   } finally {
     button.disabled = false;

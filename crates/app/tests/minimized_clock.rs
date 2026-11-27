@@ -94,8 +94,6 @@ async fn a_scheduled_queue_runs_while_minimized() {
             "language": "en", "language_asked": true, "helpers_asked": true,
             "extension_never_ask": true, "update_check": false, "clipboard_autostart": false,
             "minimize_to_tray": false, "show_complete": true,
-            "torrent_dht": false, "torrent_lsd": false, "torrent_upnp": false,
-            "torrent_incoming": false,
         },
     });
     std::fs::write(data.join("downloads.json"), list.to_string()).unwrap();

@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=ブラウザー統合をセットアップする(&B) (Chrome、Edge、Brave、Firefox)
-TaskTorrents=Mister Download Manager で .&torrent ファイルとマグネット リンクを開く
 TaskStartup=Windows の起動時に Mister Download Manager を&開始する
 TaskGroupOther=その他:
 Launch=Mister Download Manager を起動する

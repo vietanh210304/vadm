@@ -189,7 +189,7 @@ impl PlaylistView {
         let titles = [
             ("Segmented downloads, explained", Some(754.0), false),
             ("Resuming a broken download", Some(512.0), false),
-            ("Torrents and magnet links", Some(1103.0), false),
+            ("Browser integration and link capture", Some(1103.0), false),
             ("A private video", None, true),
             ("Queues and the scheduler", Some(689.0), false),
             ("Video pages and subtitles", Some(1460.0), false),
@@ -348,7 +348,7 @@ impl PlaylistView {
         let line_y = o.y + 70.0;
         let n = self.entries.len();
         let status = if self.listing.is_some() {
-            crate::torrentdlg::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
+            crate::winui::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
             match self.total {
                 Some(t) => crate::i18n::fmt(
                     // i18n: in Download video, while a playlist is listed: {n} videos listed so far, {total} in all

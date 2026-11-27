@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Atinstalē %1.
 
 [CustomMessages]
 TaskBrowser=Iestatīt pārlūkprogrammas &integrāciju (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Atvērt .&torrent failus un magnētsaites ar Mister Download Manager
 TaskStartup=Sākt Mister Download Manager, kad startējas &Windows
 TaskGroupOther=Cits:
 Launch=Startēt Mister Download Manager

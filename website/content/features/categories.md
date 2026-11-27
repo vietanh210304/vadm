@@ -17,7 +17,7 @@ help: download-list.md#categories
 ## Every file finds its folder
 
 A download falls into a category by its file type: **General**, **Compressed**, **Documents**,
-**Music**, **Programs** or **Video**, and torrents into **Torrents**. Each category has its own
+**Music**, **Programs** or **Video**. Each category has its own
 folder inside your Downloads folder, so a ZIP file lands in `Downloads\Compressed` and a film in
 `Downloads\Video` without you choosing.
 
@@ -74,5 +74,5 @@ either way.
 *Right-click a category → Properties: its name, file types and folder.*
 
 Changed your mind? **Options → Save to → Restore the built-in categories** brings them back as
-they came, and leaves your own categories alone. **General** and **Torrents** still change only
-their folder.
+they came, and leaves your own categories alone. **General** still changes only
+its folder.

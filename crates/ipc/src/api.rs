@@ -168,14 +168,11 @@ impl ListAnswer {
     }
 }
 
-/// An address added (`url`): the download's id, or `pending` while a torrent's files are looked
-/// up (it joins the list once they are known).
+/// An address added (`url`): the download's id.
 #[derive(Clone, Debug, Default, Serialize, Deserialize, JsonSchema)]
 pub struct AddAnswer {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub id: Option<u64>,
-    #[serde(default)]
-    pub pending: bool,
 }
 
 /// One download of the list.
@@ -185,9 +182,9 @@ pub struct DownloadInfo {
     pub id: u64,
     /// The file's name.
     pub file: String,
-    /// Its address (a video's page, a torrent's magnet link).
+    /// Its address (for instance a video's page).
     pub url: String,
-    /// Where it is saved: the file, or a torrent's folder.
+    /// Where it is saved.
     pub path: String,
     /// `Queued` (added, never started), `Downloading`, `Stopped`, `Complete` or `Error`.
     pub status: String,
@@ -208,7 +205,7 @@ pub struct DownloadInfo {
     /// Seconds left at the speed it goes now, while it downloads with a known size.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub left: Option<u64>,
-    /// `Complete`: whether its file (a torrent's folder) is still at `path`: false once it was
+    /// `Complete`: whether its file is still at `path`: false once it was
     /// moved or deleted. Null while not looked at yet, and for the other statuses.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub exists: Option<bool>,
@@ -216,7 +213,7 @@ pub struct DownloadInfo {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub finished: Option<i64>,
     /// What downloads it when it isn't a plain file: `video` (from a page, by yt-dlp),
-    /// `torrent`, `gallery` (by gallery-dl). Null: a file.
+    /// `gallery` (by gallery-dl). Null: a file.
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub kind: Option<String>,
     /// It can be downloaded again from the start (Redownload): a file that isn't running.
@@ -382,8 +379,8 @@ pub mod recent_why {
     pub const MISSING: &str = "missing";
     /// It is running: stop it first (remove, delete, redownload).
     pub const RUNNING: &str = "running";
-    /// Not for this download now (resume a complete one, pause one that isn't running, a
-    /// torrent busy checking, redownload a video).
+    /// Not for this download now (resume a complete one, pause one that isn't running,
+    /// redownload a video).
     pub const CANT: &str = "cant";
     /// This system can't (share on Linux; copying a file without an X11 display).
     pub const UNSUPPORTED: &str = "unsupported";
@@ -877,7 +874,7 @@ mod tests {
             left: Some(12),
             exists: Some(false),
             finished: Some(1_800_000_000),
-            kind: Some("torrent".into()),
+            kind: Some("video".into()),
             redownload: true,
             icon: Some("zip".into()),
             ..row(1, "a.zip", "Complete")

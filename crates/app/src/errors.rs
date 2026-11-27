@@ -257,26 +257,6 @@ pub fn service(service: &str, fault: &mdm_engine::ServiceFault) -> String {
         F::TooManyRequests(_) => t("{service} asks to slow down; MDM will try again in a minute"),
         // i18n: a debrid service's error: it isn't answering
         F::ServiceDown => t("{service} is not responding; try again later"),
-        // i18n: a debrid service's error: it can't get the torrent sent to it (nobody shares it any more, or its magnet link can't be read)
-        F::TorrentUnavailable => {
-            t("{service} can't get this torrent: nobody shares it, or its link can't be read")
-        }
-        F::UnsafeName(name) => {
-            return fmt(
-                // i18n: a torrent through a debrid service: one of its files has a name that would be written outside its folder; nothing was written. {name} the file's name as the service gave it
-                t("A file of this torrent can't be saved safely: {name}"),
-                &[("name", &ltr(name))],
-            );
-        }
-        F::ChosenFileMissing(path) => {
-            return fmt(
-                // i18n: a torrent through a debrid service: a file ticked in Add torrent isn't among the files the service has, so nothing was downloaded (rather than every file); {service} its name, {file} the file's path in the torrent
-                t(
-                    "{service} doesn't list {file}, chosen in Add torrent: nothing was downloaded. Add the torrent again with all its files, or without this one",
-                ),
-                &[("service", service), ("file", &crate::i18n::isolate(path))],
-            );
-        }
         F::Other(message) => {
             return fmt(
                 // i18n: a debrid service's error in its own words (English); {service} its name
@@ -324,27 +304,6 @@ fn refusal(r: &Refusal) -> String {
             &[("site", &ltr(site))],
         ),
         Refusal::Service { service, fault } => self::service(service, fault),
-    }
-}
-
-/// Why a torrent couldn't be listed or added, in the interface language. librqbit's own errors
-/// (`Engine`) come in its English.
-pub fn torrent(e: &mdm_torrent::TorrentError) -> String {
-    use mdm_torrent::TorrentError as E;
-    match e {
-        E::NotATorrent => t("this is not a magnet link or a .torrent file").to_owned(),
-        E::BadPieces => {
-            // i18n: error when opening a .torrent file whose piece size or list of pieces doesn't fit its files (damaged, or made wrong); it isn't added
-            t("this .torrent file is damaged: its pieces don't match its files").to_owned()
-        }
-        E::MetadataTimeout => t("no peer sent the torrent's file list in time").to_owned(),
-        E::Unknown => t("this torrent is not in the list").to_owned(),
-        // i18n: error when adding a torrent; {name} = a file's path inside the torrent
-        E::UnsafeName(u) => fmt(
-            t("this torrent has a file name that isn't safe to write, so it wasn't added: {name}"),
-            &[("name", &ltr(&u.path))],
-        ),
-        E::Engine(text) => text.clone(),
     }
 }
 

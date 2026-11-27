@@ -1,7 +1,7 @@
 //! Tasks → Download video from a page… (M9, ours: IDM's video panel is fed by its browser
 //! module, which comes with M8). Paste a page, look it up with yt-dlp, pick a quality, choose
 //! where it goes. yt-dlp is installed (verified, D-011) from here on first use, and ffmpeg (the
-//! LGPL build) when the best qualities need merging. It follows the app's mode, like Add torrent.
+//! LGPL build) when the best qualities need merging. It follows the app's mode.
 
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
@@ -875,7 +875,7 @@ impl VideoDialog {
             .and(offer.as_ref())
             .map(|(_, _, msg)| *msg);
         if let Some(t) = installing {
-            crate::torrentdlg::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
+            crate::winui::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
             let msg = match t {
                 Tool::YtDlp => crate::i18n::t("Downloading and verifying yt-dlp..."),
                 Tool::Ffmpeg => crate::i18n::t("Downloading and verifying ffmpeg (about 80 MB)..."),
@@ -886,7 +886,7 @@ impl VideoDialog {
             };
             text(&p, o.x + 31.0, line_y, msg, winui::TEXT());
         } else if self.lookup.is_some() {
-            crate::torrentdlg::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
+            crate::winui::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
             text(
                 &p,
                 o.x + 31.0,

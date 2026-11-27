@@ -2,7 +2,7 @@
 //! the Web (the `Zone.Identifier` stream SmartScreen and Office's Protected View read), macOS'
 //! quarantine attribute (Gatekeeper's), Linux's origin attributes (shown by file managers,
 //! enforced by nothing). Every download MDM makes is marked here (the engine's files as they are
-//! created, extracted files, videos, galleries, torrents), as Options → Downloads → "Mark
+//! created, extracted files, videos, galleries), as Options → Downloads → "Mark
 //! downloaded files as coming from the internet" says and, on Windows, as Windows' own policy
 //! for attachments says: browsers save their downloads through Windows' attachment services,
 //! which leave the mark out under "Do not preserve zone information in file attachments".
@@ -54,13 +54,13 @@ fn system_keeps() -> bool {
     }
 }
 
-/// What a mark names as the source of a file that names none of its own (a torrent's, a magnet
-/// link's): Windows' own word for the internet zone.
+/// What a mark names as the source of a file that names none of its own: Windows' own word
+/// for the internet zone.
 pub const INTERNET: &str = "about:internet";
 
 /// The address a mark names as a file's source: a web or FTP address without its login (user
-/// name and password: a mark never carries one), as browsers wrote theirs; any other (a magnet
-/// link sent to a debrid account) [`INTERNET`], as a torrent's files are.
+/// name and password: a mark never carries one), as browsers wrote theirs; any other:
+/// [`INTERNET`].
 pub fn source(url: &str) -> String {
     match url::Url::parse(url) {
         Ok(u) if matches!(u.scheme(), "http" | "https" | "ftp" | "ftps" | "ftpes") => {
@@ -80,7 +80,6 @@ pub fn page(referrer: &str) -> Option<String> {
 }
 
 fn without_login(mut u: url::Url) -> String {
-    // Only an address that can't have a login refuses these (a magnet link): none here.
     let _ = u.set_username("");
     let _ = u.set_password(None);
     u.to_string()

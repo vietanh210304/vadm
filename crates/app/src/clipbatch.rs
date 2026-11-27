@@ -1,6 +1,6 @@
 //! Tasks → Add batch download from clipboard (#709): the copied text read when the command is
 //! chosen (only then: the clipboard belongs to the person at the computer), and what it holds
-//! decides the window. Every download address in it (http, https, ftp, magnet; one per line or
+//! decides the window. Every download address in it (http, https, ftp; one per line or
 //! in a forum post, Markdown or HTML) goes to Link grabber, each once, grouped and ticked; one
 //! address with a number in its file name (`…/ep01.mp4`), or with a `*` already, goes to Batch
 //! download with that part as its pattern.
@@ -166,25 +166,23 @@ mod tests {
         assert_eq!(got[14], "https://media.example.org/show/ep15.mp4");
     }
 
-    /// Links and a magnet link: all to Link grabber; one link without a number too.
+    /// Links go to Link grabber; one link without a number too.
     #[test]
-    fn links_and_magnets_go_to_link_grabber() {
+    fn links_go_to_link_grabber() {
         let clip = read(Some(
-            "<https://a.example.org/setup.exe>\nmagnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=Show",
+            "<https://a.example.org/setup.exe>\n<https://b.example.org/guide.pdf>",
         ));
         assert_eq!(
             urls(&clip),
             [
                 "https://a.example.org/setup.exe",
-                "magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=Show"
+                "https://b.example.org/guide.pdf",
             ]
         );
         assert_eq!(
             urls(&read(Some("https://a.example.org/setup.exe"))),
             ["https://a.example.org/setup.exe"]
         );
-        let one_magnet = "magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567";
-        assert_eq!(urls(&read(Some(one_magnet))), [one_magnet]);
     }
 
     /// #1782: copied `thunder://`, `flashget://` and `qqdl://` links are the addresses wrapped
@@ -208,7 +206,6 @@ mod tests {
             "http://a.example.org/setup.exe",
             "https://a.example.org/setup.exe",
             "ftp://a.example.org/pub/setup.exe",
-            "magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=Show",
         ] {
             for wrapped in wrappers(address) {
                 assert_eq!(urls(&read(Some(&wrapped))), [address], "{wrapped}");
@@ -296,7 +293,7 @@ mod tests {
                 width: 1
             })
         );
-        // No number, a number too long to be a count, a magnet: one row in Link grabber.
+        // No number, a number too long to be a count: one row in Link grabber.
         for one in [
             "https://x.example/setup.exe",
             "https://x.example/mp4/video.mp4",
@@ -305,7 +302,6 @@ mod tests {
         ] {
             assert_eq!(urls(&read(Some(one))), [one], "{one}");
         }
-        assert_eq!(numbered("magnet:?xt=urn:btih:1234"), None);
     }
 
     /// The pattern made of a numbered address gives that address back first.

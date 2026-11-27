@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Se dezinstalează %1.
 
 [CustomMessages]
 TaskBrowser=Configurați integrarea cu &browserul (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Deschideți fișierele .&torrent și linkurile magnet cu Mister Download Manager
 TaskStartup=Porniți Mister Download Manager la pornirea &Windows
 TaskGroupOther=Altele:
 Launch=Porniți Mister Download Manager

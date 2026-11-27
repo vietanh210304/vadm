@@ -242,12 +242,11 @@ palette! {
     header: "header", "Every list's and table's column headers" = grey(0x19), grey(0xff);
     header_line: "header.line", "A header's bottom line in dialogs' lists" = grey(0x4e), grey(0xe5);
     header_sep: "header.sep", "The dividers between column headers" = grey(0x63), grey(0xe5);
-    table_line: "table.line", "The dividers in the link grabber's and Add torrent's tables" = grey(0x4a), grey(0xe5);
+    table_line: "table.line", "The dividers in the link grabber's tables" = grey(0x4a), grey(0xe5);
     sorted: "header.sorted", "The sorted column's header" = grey(0x26), grey(0xf0);
     sort_arrow: "header.sort-arrow", "The sort chevron" = grey(0xc8), grey(0x60);
     row_pressed: "row.pressed", "A list row pressed" = grey(0x4f), grey(0xe8);
     chip_web: "chip.web", "The download list's Web chip" = rgb(0x2e, 0x9d, 0x52), rgb(0x2e, 0x9d, 0x52);
-    chip_torrent: "chip.torrent", "The download list's Torrent chip" = rgb(0x7e, 0x4f, 0xd0), rgb(0x7e, 0x4f, 0xd0);
     chip_text: "chip.text", "Text on a chip" = grey(0xff), grey(0xff);
     drag_ghost: "list.drag-ghost", "A column header being dragged" = rgba(0x60, 0x60, 0x60, 160), rgba(0x60, 0x60, 0x60, 160);
     marquee: "list.marquee", "The rubber band that selects rows" = rgba(0x33, 0x99, 0xff, 0x40), rgba(0x33, 0x99, 0xff, 0x40);
@@ -299,9 +298,6 @@ palette! {
     progress_label_disabled: "progress.label.disabled", "A greyed label in the progress window" = grey(0x80), grey(0x80);
     segment_border: "segments.border", "The segment bar's frame" = rgb(0x65, 0x6b, 0x7b), rgb(0x65, 0x6b, 0x7b);
     segment_corner: "segments.corner", "The segment bar's corner pixels" = rgb(0xa2, 0xa5, 0xaf), rgb(0xa2, 0xa5, 0xaf);
-    piece: "pieces.have", "A torrent piece that is here" = rgb(0x2e, 0x9d, 0x52), rgb(0x2e, 0x9d, 0x52);
-    piece_partial: "pieces.partial", "A square standing for pieces partly here" = rgb(0x3a, 0x6e, 0x4b), rgb(0x9c, 0xd2, 0xae);
-    piece_missing: "pieces.missing", "A piece not here yet" = grey(0x45), grey(0xd6);
     // ---- title bars we draw ----
     caption: "caption", "A title bar MDM draws itself" = grey(0x20), grey(0xff);
     caption_text: "caption.text", "Its title and glyphs" = grey(0xff), grey(0x00);
@@ -1041,7 +1037,6 @@ mod tests {
         use crate::derive::contrast;
         for p in [&emerald.light, &emerald.dark] {
             assert!(contrast(p.chip_text, p.chip_web) >= 4.5);
-            assert!(contrast(p.chip_text, p.chip_torrent) >= 4.5);
             assert!(contrast(p.text, p.window) >= 4.5);
         }
     }

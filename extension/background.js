@@ -174,7 +174,7 @@ async function remoteSend(target, message) {
 // The file types the app takes by default (mdm_ipc::capture::DEFAULT_AUTO_TYPES; a test keeps
 // them the same): what is caught for another MDM when this computer has none to ask.
 const DEFAULT_TYPES =
-  "00* 3DM 3DS 3GP 3MF 7Z AAB AAC ABC ACE AFDESIGN AFPHOTO AI AIF AIFF APE APK APKM APKS APPIMAGE APPX APPXBUNDLE ARJ ARROW ARW ASF AU AVI AVRO AZW AZW3 BAK BAM BIN BLEND BZ BZ2 C4D CAB CAF CBR CBZ CCD CHD CKPT CPIO CR2 CR3 CRAM CSO DAE DAT DCM DDS DEB DFF DIVX DJVU DMG DNG DOC DOCX DSF DWG DXF EPS EPUB EXE EXR F3D F4V FASTA FASTQ FB2 FBX FEATHER FIG FITS FLAC FLATPAK FQ GCODE GCZ GEM GGML GGUF GLB GLTF GPKG GRIB GRIB2 GZ GZIP H5 HDF5 HDR IGES IGS IMG INDD IPA ISO ISZ JAR JOBLIB JSONL KERAS KRA LAS LAZ LLAMAFILE LWO LZ LZ4 LZH LZMA M2T M2TS M2V M4A M4B M4V MA MAT MAX MB MBTILES MDF MDS MID MIDI MKA MKV MLMODEL MOBI MOV MP3 MP4 MPA MPE MPEG MPG MSI MSIX MSIXBUNDLE MSP MSU MTS MXF NC NDJSON NEF NEMO NII NPY NPZ NRG NSP NSZ NUPKG OBJ ODP ODS ODT OGG OGM OGV ONNX OPUS ORC ORF OTF OVA OVF PAK PARQUET PB PBF PDF PICKLE PK3 PK4 PKG PKL PLJ PLY POTX PPS PPSX PPT PPTX PSB PSD PT PTH QCOW QCOW2 QT R0* R1* R2* R3* R4* R5* R6* R7* R8* R9* RA RAF RAR RDS RM RMVB RPM RTF RUN RVZ RW2 SAFETENSORS SEA SF2 SFZ SHP SIT SITX SKETCH SKP SLDASM SLDPRT SNAP SQLITE SQLITE3 STEP STL STP TAR TBZ TBZ2 TFLITE TGA TGZ TIF TIFF TLZ TORRENT TTA TTC TTF TXZ TZST UNITYPACKAGE USD USDA USDC USDZ VDB VDI VHD VHDX VMDK VOB VPK VSIX WAV WBFS WEBM WHL WIM WMA WMV WRL WTV WUA WV X3D XAPK XCF XCI XLS XLSB XLSM XLSX XZ Z Z0* ZIP ZIPX ZPR ZST ZTL";
+  "00* 3DM 3DS 3GP 3MF 7Z AAB AAC ABC ACE AFDESIGN AFPHOTO AI AIF AIFF APE APK APKM APKS APPIMAGE APPX APPXBUNDLE ARJ ARROW ARW ASF AU AVI AVRO AZW AZW3 BAK BAM BIN BLEND BZ BZ2 C4D CAB CAF CBR CBZ CCD CHD CKPT CPIO CR2 CR3 CRAM CSO DAE DAT DCM DDS DEB DFF DIVX DJVU DMG DNG DOC DOCX DSF DWG DXF EPS EPUB EXE EXR F3D F4V FASTA FASTQ FB2 FBX FEATHER FIG FITS FLAC FLATPAK FQ GCODE GCZ GEM GGML GGUF GLB GLTF GPKG GRIB GRIB2 GZ GZIP H5 HDF5 HDR IGES IGS IMG INDD IPA ISO ISZ JAR JOBLIB JSONL KERAS KRA LAS LAZ LLAMAFILE LWO LZ LZ4 LZH LZMA M2T M2TS M2V M4A M4B M4V MA MAT MAX MB MBTILES MDF MDS MID MIDI MKA MKV MLMODEL MOBI MOV MP3 MP4 MPA MPE MPEG MPG MSI MSIX MSIXBUNDLE MSP MSU MTS MXF NC NDJSON NEF NEMO NII NPY NPZ NRG NSP NSZ NUPKG OBJ ODP ODS ODT OGG OGM OGV ONNX OPUS ORC ORF OTF OVA OVF PAK PARQUET PB PBF PDF PICKLE PK3 PK4 PKG PKL PLJ PLY POTX PPS PPSX PPT PPTX PSB PSD PT PTH QCOW QCOW2 QT R0* R1* R2* R3* R4* R5* R6* R7* R8* R9* RA RAF RAR RDS RM RMVB RPM RTF RUN RVZ RW2 SAFETENSORS SEA SF2 SFZ SHP SIT SITX SKETCH SKP SLDASM SLDPRT SNAP SQLITE SQLITE3 STEP STL STP TAR TBZ TBZ2 TFLITE TGA TGZ TIF TIFF TLZ TTA TTC TTF TXZ TZST UNITYPACKAGE USD USDA USDC USDZ VDB VDI VHD VHDX VMDK VOB VPK VSIX WAV WBFS WEBM WHL WIM WMA WMV WRL WTV WUA WV X3D XAPK XCF XCI XLS XLSB XLSM XLSX XZ Z Z0* ZIP ZIPX ZPR ZST ZTL";
 
 // Pair with the MDM at `address` with a code it shows; {ok} or {ok: false, why, left}.
 async function remotePair(address, code) {
@@ -588,10 +588,8 @@ async function showStatus() {
 
 // ---- the rules: Options in the app, kept here between the browser's stops ------------------
 
-// {types, capture, captureOff, excludedSites, excludedAddresses, opened, minKb, torrents, at};
+// {types, capture, captureOff, excludedSites, excludedAddresses, opened, minKb, at};
 // null until first asked. `captureOff`: why `capture` is false (a host before #208 doesn't say).
-// `torrents`: false while the app's Torrent settings leave .torrent files to the browser (#1058;
-// a host before it doesn't say, and takes them as listed).
 let rules = null;
 
 async function storedRules() {
@@ -619,7 +617,6 @@ async function askRules() {
       excludedAddresses: Array.isArray(reply.excludedAddresses) ? reply.excludedAddresses : [],
       opened: reply.opened !== false,
       minKb: Number(reply.minKb) || 0,
-      torrents: reply.torrents !== false,
       at: Date.now(),
     };
     await ext.storage.local.set({ rules });
@@ -629,7 +626,7 @@ async function askRules() {
   // No MDM on this computer, another one chosen: the app's default file types (the browser
   // keeps the files it would open).
   if (await remoteTarget()) {
-    rules = { types: DEFAULT_TYPES, capture: true, excludedSites: "", excludedAddresses: [], opened: false, minKb: 0, torrents: true, at: Date.now() };
+    rules = { types: DEFAULT_TYPES, capture: true, excludedSites: "", excludedAddresses: [], opened: false, minKb: 0, at: Date.now() };
     // Kept as the app's are: Safari's page.js holds links by the stored copy.
     await ext.storage.local.set({ rules });
     return rules;
@@ -653,20 +650,6 @@ function typePatterns(list) {
     .split(/\s+/)
     .filter(Boolean)
     .map((t) => new RegExp("^" + t.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*") + "$", "i"));
-}
-
-// A .torrent, as the app tells one (mdm_ipc::capture::is_torrent): its name or an address's
-// path ends in .torrent, or its type is application/x-bittorrent.
-function isTorrent(name, urls, mime) {
-  const ends = (s) => /\.torrent$/i.test(s || "");
-  const path = (u) => {
-    try {
-      return new URL(u).pathname;
-    } catch {
-      return "";
-    }
-  };
-  return ends(name) || urls.some((u) => ends(path(u))) || /^\s*application\/x-bittorrent\s*(;|$)/i.test(mime || "");
 }
 
 function extensionOf(name) {
@@ -2558,8 +2541,6 @@ async function candidate(item, url, clicked = false) {
   if (by) return left(by);
   const type = extensionOf(name);
   if (!type || !typePatterns(r.types).some((p) => p.test(type))) return left("file-type");
-  // The app's Torrent settings leave torrents to the browser (its own torrent client, #1058).
-  if (r.torrents === false && isTorrent(name, [first, url], item.mime)) return left("torrents");
   // Smaller than Options' minimum (when the browser knows the size already).
   const size = item.totalBytes > 0 ? item.totalBytes : item.fileSize;
   if (r.minKb > 0 && size > 0 && size < r.minKb * 1024) return left("small");

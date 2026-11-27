@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Nastavi integracijo &brskalnika (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Odpri datoteke .&torrent in magnetne povezave z Mister Download Manager
 TaskStartup=Zaženi Mister Download Manager ob zagonu &sistema Windows
 TaskGroupOther=Drugo:
 Launch=Zaženi Mister Download Manager

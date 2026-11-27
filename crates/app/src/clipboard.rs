@@ -311,7 +311,7 @@ fn watching() {
     }
 }
 
-/// A dialog's box filled from the clipboard as it opens (Add URL, Batch download, Add torrent,
+/// A dialog's box filled from the clipboard as it opens (Add URL, Batch download,
 /// Download video): asked when the dialog opens, and the text handed over once, on the frame
 /// its answer comes. The dialog fills its box then if the user hasn't typed in it.
 #[derive(Default)]

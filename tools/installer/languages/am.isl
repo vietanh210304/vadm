@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 እየተራገፈ ነው።
 
 [CustomMessages]
 TaskBrowser=የ&አሳሽ ውህደትን ያዋቅሩ (Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent ፋይሎችን እና ማግኔት ማገናኛዎችን በMister Download Manager ይክፈቱ
 TaskStartup=Start Mister Download Manager when &Windows starts
 TaskGroupOther=ሌላ:
 Launch=Mister Download Managerን ያስጀምሩ

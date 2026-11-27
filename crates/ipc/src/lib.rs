@@ -104,9 +104,6 @@ pub struct Command {
     /// from a request line: no window opens for it, and it may only add, list and act.
     #[serde(skip)]
     pub remote: bool,
-    /// The remote control: an uploaded .torrent file's bytes (never read from a request line).
-    #[serde(skip)]
-    pub torrent_file: Option<Vec<u8>>,
     /// The remote control (#157, `misterdownloadmanager-cli pair`): show a new pairing code;
     /// answered with it, the page's addresses and a QR code to scan ([`api::PairAnswer`]).
     pub pair: bool,
@@ -124,7 +121,7 @@ pub struct Command {
     /// screenshots and scripted checks (tools/lab/docs-shots.ps1): `addurl`, `batch`, `find`,
     /// `scheduler`, `about`, `language`, `shortcuts`, `speedlimit`, `properties`, `delete`,
     /// `progress`, `existing-files`, `video-page`, `video-helpers`, `video-subs`,
-    /// `torrent-settings`, `add-trackers`, `menu` (the first download's right-click menu),
+    /// `menu` (the first download's right-click menu),
     /// `options[:general|types|saveto|downloads|connection|proxy|logins|sounds|regional|panels]`.
     pub show: Option<String>,
     /// From the browser's download button over a video: open the Download video window for this
@@ -998,14 +995,6 @@ pub fn parse_args(args: &[String]) -> Option<Command> {
             "startup" => cmd.startup = true,
             "fromhost" => cmd.hidden = true,
             "show" => cmd.show = it.next().map(|w| w.to_ascii_lowercase()),
-            // A bare magnet link or .torrent file (what Windows passes for an association).
-            _ if a
-                .get(..7)
-                .is_some_and(|s| s.eq_ignore_ascii_case("magnet:"))
-                || a.to_ascii_lowercase().ends_with(".torrent") =>
-            {
-                cmd.url = Some(a.clone());
-            }
             _ => continue,
         }
         any = true;
@@ -1035,11 +1024,7 @@ mod tests {
     }
 
     #[test]
-    fn bare_magnets_and_torrent_files() {
-        let c = parse_args(&["magnet:?xt=urn:btih:abc".into()]).unwrap();
-        assert_eq!(c.url.as_deref(), Some("magnet:?xt=urn:btih:abc"));
-        let c = parse_args(&[r"C:\dl\x.TORRENT".into()]).unwrap();
-        assert_eq!(c.url.as_deref(), Some(r"C:\dl\x.TORRENT"));
+    fn stray_args_and_show() {
         assert!(parse_args(&["stray".into()]).is_none());
         let c = parse_args(&["/show".into(), "Options:Connection".into()]).unwrap();
         assert_eq!(c.show.as_deref(), Some("options:connection"));

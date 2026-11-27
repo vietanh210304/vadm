@@ -3094,12 +3094,11 @@ mod glyph_tests {
 
 #[cfg(test)]
 mod status_width_tests {
-    /// #736: the list's Status cell while a torrent's files or a finished file are checked or a
-    /// video joined, a short word and how far ("Checking 45%", "Merging 63%"), fits its column
-    /// at the default width in English, German, French, Russian and Arabic, at 100 % and at
-    /// 150 % (View → Interface size), the widest percentage ("100 %") and "..." before it is
-    /// known included. "63% merged" was cut to "63% me..." at 65 px, and a torrent's "Wird
-    /// überprüft 45 %" in German.
+    /// #736: the list's Status cell while a finished file is checked or a video joined, a short
+    /// word and how far ("Checking 45%", "Merging 63%"), fits its column at the default width in
+    /// English, German, French, Russian and Arabic, at 100 % and at 150 % (View → Interface size),
+    /// the widest percentage ("100 %") and "..." before it is known included. "63% merged" was cut
+    /// to "63% me..." at 65 px.
     ///
     /// In the list's font as this system draws it: Segoe UI on Windows, the system font on
     /// macOS, fontconfig's interface font on Linux (DejaVu Sans on a bare Ubuntu, where German

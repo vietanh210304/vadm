@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Tarayıcı &tümleştirmesini ayarla (Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent dosyalarını ve mıknatıs bağlantılarını Mister Download Manager ile aç
 TaskStartup=&Windows başladığında Mister Download Manager uygulamasını başlat
 TaskGroupOther=Diğer:
 Launch=Start Mister Download Manager

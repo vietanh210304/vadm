@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 അൺഇൻസ്റ്റാൾ ചെ�
 
 [CustomMessages]
 TaskBrowser=ബ്രൗസർ സംയോജനം (&B) സജ്ജീകരിക്കുക (Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent ഫയലുകളും മാഗ്നറ്റ് ലിങ്കുകളും Mister Download Manager ഉപയോഗിച്ച് തുറക്കുക
 TaskStartup=&Windows ആരംഭിക്കുമ്പോൾ Mister Download Manager ആരംഭിക്കുക
 TaskGroupOther=മറ്റുള്ളവ:
 Launch=Mister Download Manager ആരംഭിക്കുക

@@ -66,7 +66,7 @@ a branch, and **Home** / **End** go to the first / last node.
 | **Left** / **Right** | The previous / next button (greyed ones too: a screen reader says they are unavailable) |
 | **Home** / **End** | The first / last button |
 | **Enter** or **Space** | Press the button |
-| **Down**, **Alt+Down** or **F4** | Open the button's menu (**Add Torrent**, **Start Queue**, **Stop Queue**) |
+| **Down**, **Alt+Down** or **F4** | Open the button's menu (**Start Queue**, **Stop Queue**) |
 
 ## Menus and windows
 

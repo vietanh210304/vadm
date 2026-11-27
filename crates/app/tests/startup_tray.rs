@@ -196,8 +196,6 @@ fn a_start_with_the_session_waits_in_the_tray() {
     let settings = serde_json::json!({
         "update_check": false, "helpers_asked": true, "language_asked": true,
         "extension_never_ask": true,
-        "torrent_dht": false, "torrent_lsd": false, "torrent_upnp": false,
-        "torrent_incoming": false,
     });
     std::fs::write(
         data.join("downloads.json"),

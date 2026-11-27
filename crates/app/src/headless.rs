@@ -1,6 +1,6 @@
 //! `misterdownloadmanager --headless` (#157): MDM on a server (a NAS, Docker, Unraid), without a
-//! window. The same app runs (its list, queues, Scheduler, limits, torrents, the automation API
-//! and the remote control), driven by a loop instead of the window's frames; downloads come from
+//! window. The same app runs (its list, queues, Scheduler, limits, the automation API and the
+//! remote control), driven by a loop instead of the window's frames; downloads come from
 //! the remote control's page, the browser extension pointed at it, or the command line.
 //!
 //! Settings come from the data folder's list (`downloads.json`, as on a desktop), then from the

@@ -560,17 +560,6 @@ pub fn text_width_font(p: &Painter, font: FontId, s: &str) -> f32 {
     p.layout_no_wrap(s.to_owned(), font, TEXT()).size().x
 }
 
-/// Where the fields of a column of labelled rows start (offset from the dialog's left), for
-/// labels drawn at `label_x`: `field_x` as laid out for English, or further right when a
-/// translated label is longer, so no label runs under its field. Every row shares it.
-pub fn label_column(p: &Painter, label_x: f32, labels: &[&str], field_x: f32) -> f32 {
-    let widest = labels
-        .iter()
-        .map(|l| text_width(p, l))
-        .fold(0.0_f32, f32::max);
-    field_x.max((label_x + widest + 6.0).ceil())
-}
-
 /// `s` cut with "..." (three periods, as Windows' DT_END_ELLIPSIS) to fit `max` px.
 pub fn ellipsize(p: &Painter, font: &FontId, s: &str, max: f32) -> String {
     if text_width_font(p, font.clone(), s) <= max {
@@ -710,6 +699,23 @@ fn reflow(s: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join("\n\n")
+}
+
+/// A turning ring: the loading sign while something is fetched.
+pub(crate) fn spinner(ui: &Ui, center: Pos2, radius: f32) {
+    let t = ui.input(|i| i.time) as f32;
+    let start = t * 5.0;
+    let n = 24;
+    let points: Vec<Pos2> = (0..=n)
+        .map(|k| {
+            let a = start + k as f32 / n as f32 * std::f32::consts::PI * 1.5;
+            pos2(center.x + radius * a.cos(), center.y + radius * a.sin())
+        })
+        .collect();
+    let p = ui.painter();
+    p.circle_stroke(center, radius, Stroke::new(2.0, crate::theme::colors().table_line));
+    p.line(points, Stroke::new(2.0, accent()));
+    ui.ctx().request_repaint();
 }
 
 #[cfg(test)]

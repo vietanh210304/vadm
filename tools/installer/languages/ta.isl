@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=உலாவி ஒருங்கிணைப்பை (&b) அமைக்கவும் (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Mister Download Manager மூலம் .&torrent கோப்புகள் மற்றும் மேக்னட் இணைப்புகளைத் திறக்கவும்
 TaskStartup=Windows தொடங்கும் போது Mister Download Managerஐத் &தொடங்கவும்
 TaskGroupOther=மற்றவை:
 Launch=Mister Download Manager ஐத் தொடங்கு

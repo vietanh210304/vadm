@@ -61,10 +61,6 @@ When none of this helps, the browser keeps the download, so nothing is lost. The
 
 See [If a video won't download](video.md#if-a-video-wont-download).
 
-## A magnet link takes a long time
-
-A magnet link has to get the torrent's file list from other peers first. That can take a minute or two, and longer for torrents with few peers. If nobody answers in about three minutes, MDM gives up; try again later, or use the `.torrent` file if the site offers one.
-
 ## MDM uses a lot of memory
 
 Task Manager shows several figures, and they mean different things:

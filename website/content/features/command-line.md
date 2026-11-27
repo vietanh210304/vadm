@@ -30,8 +30,7 @@ Linux the program has the same name, without `.exe`.
 
 `misterdownloadmanager-cli` comes with every download of MDM and works without the app running.
 `get` downloads a file over several connections with a progress line, **Ctrl+C** pauses it and
-`resume` carries on later. `video-get` downloads a video, and `torrent-get` a torrent or only some
-of its files. `video-info` and `torrent-info` say what there is to choose before you download.
+`resume` carries on later. `video-get` downloads a video, and `video-info` says what there is to choose before you download.
 `misterdownloadmanager-cli help <command>` lists every option, and a command that fails exits
 with code 1.
 

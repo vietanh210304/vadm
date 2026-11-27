@@ -48,7 +48,7 @@ impl ProxyKind {
         }
     }
 
-    /// A SOCKS proxy carries every connection (web, FTP, torrents), not only web addresses.
+    /// A SOCKS proxy carries every connection (web, FTP), not only web addresses.
     pub fn is_socks(self) -> bool {
         matches!(self, ProxyKind::Socks5 | ProxyKind::Socks4)
     }
@@ -474,10 +474,6 @@ pub struct Settings {
     pub debrid_accounts: Vec<DebridAccount>,
     /// "Download supported file-host links through these accounts".
     pub debrid_on: bool,
-    /// Options → Accounts (#44): magnet links and .torrent files go to the first account, whose
-    /// service downloads them; their files then come over HTTP. No peer connections. Off: as
-    /// before, through the torrent engine.
-    pub debrid_torrents: bool,
     /// Sounds: download complete, download failed, queue started, queue stopped/finished.
     pub sounds: [(bool, String); 4],
     /// The local automation API (beyond IDM): status queries over the command channel. Off by
@@ -491,63 +487,12 @@ pub struct Settings {
     /// Where it listens: "" every local network address, `127.0.0.1` this computer only, or
     /// one address (`mdm_remote::addrs::chosen`).
     pub remote_listen: String,
-    /// Torrents keep sharing after they finish (D-018: off; a finished torrent stops, like any
-    /// download).
-    pub torrent_keep_sharing: bool,
-    /// Torrent settings' "Open magnet links and .torrent files with Mister Download Manager":
-    /// the system opens them with MDM (D-018: opt-in, current user), and the browser hands a
-    /// .torrent download over (#1058: off, it stays with the browser for the user's own torrent
-    /// client). None: never decided, settled once at the first start (`settle_torrent_handler`)
-    /// and saved. Saved as `torrent_handler`, which mdm_ipc::capture::CaptureRules reads (None
-    /// there: taken, as before): every list before #1058 saved `torrent_associations: false`,
-    /// unticked and never looked at alike.
-    #[serde(rename = "torrent_handler")]
-    pub torrent_associations: Option<bool>,
-    /// The switch as lists before #1058 saved it, read only: true was the user's tick; false
-    /// says nothing (`settle_torrent_handler`).
-    #[serde(rename = "torrent_associations", skip_serializing)]
-    pub torrent_associations_before: bool,
-    /// Torrent settings → Network (#40, `torrent_config`): accept incoming connections, map
-    /// the port with the router's UPnP, a fixed port (0: any, picked at each start), the DHT,
-    /// finding peers on the local network.
-    pub torrent_incoming: bool,
-    pub torrent_upnp: bool,
-    pub torrent_port: u16,
-    /// Torrent settings → "Connect over uTP too" (#1384): BitTorrent over UDP beside TCP, on by
-    /// default (a list saved before it has none: on too). It needs the listening port (librqbit's
-    /// uTP socket is the listener's), and a proxy turns it off (SOCKS5 carries TCP only).
-    pub torrent_utp: bool,
-    pub torrent_dht: bool,
-    pub torrent_lsd: bool,
-    /// Torrents go through Proxy / Socks' SOCKS5 proxy (a manual `socks5://` one only).
-    pub torrent_proxy: bool,
-    /// A blocklist's address (empty: none), fetched again every `BLOCKLIST_DAYS`.
-    pub torrent_blocklist: String,
-    /// Torrent settings → "Add the trackers of a public list to public torrents" (#1776): off
-    /// by default. Torrents added while it is on get the list's trackers as last fetched (never
-    /// a private one, BEP 27); the list is fetched again once a day (`torrents::PublicTrackers`).
-    pub torrent_public_trackers: bool,
-    /// That list's address (empty: `mdm_torrent::public_trackers::DEFAULT_LIST`).
-    pub torrent_public_trackers_url: String,
-    /// Stop the torrent engine when no torrent runs (it stops listening; new settings apply).
-    pub torrent_stop_idle: bool,
-    /// Torrent settings → "Limit uploading to [n] KBytes/sec" for all torrents together (#39;
-    /// off by default: a torrent's own limit, in its progress window, still applies).
-    pub torrent_upload_on: bool,
-    pub torrent_upload_kb: u64,
-    /// Torrent settings → seeding limits (#39), both off by default (D-018: sharing is the
-    /// user's choice): stop sharing a finished torrent at a share ratio (in hundredths: 200 is
-    /// 2.00), or after so many minutes of sharing.
-    pub torrent_stop_ratio_on: bool,
-    pub torrent_stop_ratio: u32,
-    pub torrent_stop_minutes_on: bool,
-    pub torrent_stop_minutes: u32,
     /// Help: look for a newer release once a week (D-020; its switch is in Check for updates:
     /// Options → General has no free row in IDM's layout).
     pub update_check: bool,
     /// When the weekly check last ran (Unix seconds; 0: never).
     pub update_checked: i64,
-    /// The user's categories (D-021), after IDM's and Torrents.
+    /// The user's categories (D-021), after IDM's.
     pub custom_categories: Vec<crate::model::CustomCategory>,
     /// The built-in categories the user renamed, gave other file types or deleted (#93); the
     /// others are as shipped. Their folders stay in `category_dirs`.
@@ -751,32 +696,11 @@ impl Default for Settings {
             site_logins: Vec::new(),
             debrid_accounts: Vec::new(),
             debrid_on: true,
-            debrid_torrents: false,
             sounds: Default::default(),
             automation_api: false,
             remote_on: false,
             remote_port: mdm_remote::PORT,
             remote_listen: String::new(),
-            torrent_keep_sharing: false,
-            torrent_associations: None,
-            torrent_associations_before: false,
-            torrent_incoming: true,
-            torrent_upnp: true,
-            torrent_port: 0,
-            torrent_utp: true,
-            torrent_dht: true,
-            torrent_lsd: true,
-            torrent_proxy: false,
-            torrent_blocklist: String::new(),
-            torrent_public_trackers: false,
-            torrent_public_trackers_url: String::new(),
-            torrent_stop_idle: true,
-            torrent_upload_on: false,
-            torrent_upload_kb: 100,
-            torrent_stop_ratio_on: false,
-            torrent_stop_ratio: 200,
-            torrent_stop_minutes_on: false,
-            torrent_stop_minutes: 1440,
             update_check: true,
             update_checked: 0,
             custom_categories: Vec::new(),
@@ -807,26 +731,6 @@ impl Default for Settings {
 }
 
 impl Settings {
-    /// #1058: Torrent settings' switch as the user chose it, for a list that never decided it
-    /// (None): ticked in an earlier version (a saved true was the user's), else what the
-    /// installer's task left (`installer`: ticked or not; None for a portable copy or no
-    /// installer), else whether this program is what the system opens .torrent files with now
-    /// (`registered`, asked only then). Once decided, the box and the browser's hand-off follow
-    /// the saved value only: a later look at the system would tick it again after the user
-    /// unticked it while everyone's association (HKLM) stays. True when it changed (to save).
-    pub fn settle_torrent_handler(
-        &mut self,
-        installer: Option<bool>,
-        registered: impl FnOnce() -> bool,
-    ) -> bool {
-        if self.torrent_associations.is_some() {
-            return false;
-        }
-        let on = self.torrent_associations_before || installer.unwrap_or_else(registered);
-        self.torrent_associations = Some(on);
-        true
-    }
-
     /// The settings as the list file writes them (#44, secrets.rs): each secret's field holds
     /// its keychain reference once the keychain holds it, else the secret sealed as before
     /// (and the keychain is asked to take it). Serialized inside `secrets::prepared`, where these
@@ -983,7 +887,7 @@ impl Settings {
     }
 
     /// `live` with the settings a dialog changed (`from` → `to`) put in, field by field: what
-    /// changed elsewhere while it was open (the toolbar's Speed Limiter, Torrent settings, the
+    /// changed elsewhere while it was open (the toolbar's Speed Limiter, the
     /// Categories pane) is kept, not reverted to the copy the dialog started from.
     pub fn merge_changes(live: &Settings, from: &Settings, to: &Settings) -> Settings {
         let value = |s: &Settings| serde_json::to_value(s).unwrap_or_default();
@@ -1064,54 +968,6 @@ impl Settings {
     pub fn manual_proxy_url(&self) -> Option<String> {
         let (kind, remote, at) = self.manual_proxy()?;
         Some(format!("{}://{at}", kind.scheme(remote)))
-    }
-
-    /// The SOCKS5 proxy torrents may use: Proxy / Socks' manual one when it is a SOCKS5 one,
-    /// with its login; librqbit takes no other kind.
-    pub fn socks5_proxy(&self) -> Option<String> {
-        if self.proxy_mode != 3 || self.manual_proxy()?.0 != ProxyKind::Socks5 {
-            return None;
-        }
-        let mut url = url::Url::parse(&self.manual_proxy_url()?).ok()?;
-        if !self.proxy_user.is_empty() {
-            let _ = url.set_username(&self.proxy_user);
-            let _ = url.set_password(Some(&self.proxy_pass));
-        }
-        Some(url.as_str().trim_end_matches('/').to_owned())
-    }
-
-    /// The public tracker list's address (#1776): the one given, else the default list.
-    pub fn public_trackers_list(&self) -> &str {
-        match self.torrent_public_trackers_url.trim() {
-            "" => mdm_torrent::public_trackers::DEFAULT_LIST,
-            url => url,
-        }
-    }
-
-    /// The torrent engine as Torrent settings say (#40), its data in `state_dir`. None when they
-    /// say to use the proxy and Proxy / Socks has no SOCKS5 one: torrents then don't start, never
-    /// going around the proxy unasked.
-    pub fn torrent_config(&self, state_dir: std::path::PathBuf) -> Option<mdm_torrent::Config> {
-        let proxy = match (self.torrent_proxy, self.socks5_proxy()) {
-            (true, None) => return None,
-            (true, proxy) => proxy,
-            (false, _) => None,
-        };
-        let blocklist = (!self.torrent_blocklist.trim().is_empty())
-            .then(|| state_dir.join(crate::torrents::BLOCKLIST_FILE));
-        Some(mdm_torrent::Config {
-            listen: self.torrent_incoming,
-            upnp: self.torrent_upnp,
-            port: (self.torrent_port != 0).then_some(self.torrent_port),
-            utp: self.torrent_utp,
-            dht: self.torrent_dht,
-            lsd: self.torrent_lsd,
-            proxy,
-            blocklist,
-            // The chosen network adapter (#35, #143); the session takes it again when it starts.
-            bind: crate::torrents::route_bind(&own_route()).ok().flatten(),
-            ..mdm_torrent::Config::new(state_dir)
-        })
     }
 
     /// Options → Proxy / Socks for the engine. An automatic configuration script (PAC) is run
@@ -1315,25 +1171,6 @@ impl Settings {
         self.speed_limit_on
             .then_some(self.speed_limit_kb.max(1) * 1024)
     }
-
-    /// Torrent settings' seeding limits: the share ratio and the seconds of sharing at which a
-    /// finished torrent stops being shared (None: that limit is off).
-    pub fn sharing_limits(&self) -> crate::torrents::SharingLimits {
-        crate::torrents::SharingLimits {
-            ratio: self
-                .torrent_stop_ratio_on
-                .then(|| f64::from(self.torrent_stop_ratio.max(1)) / 100.0),
-            secs: self
-                .torrent_stop_minutes_on
-                .then(|| u64::from(self.torrent_stop_minutes.max(1)) * 60),
-        }
-    }
-
-    /// Torrent settings' upload limit for all torrents together, bytes/s (None: off).
-    pub fn torrent_upload_limit(&self) -> Option<u64> {
-        self.torrent_upload_on
-            .then_some(self.torrent_upload_kb.max(1) * 1024)
-    }
 }
 
 /// DNS mode numbers (`Settings::dns_mode`) as the engine's.
@@ -1506,7 +1343,7 @@ pub fn own_route() -> mdm_engine::Route {
 }
 
 /// The command line's network (#1556): Options → Proxy / Socks (the proxy and the network
-/// adapter), Connection → DNS and Torrent settings' proxy, read from the settings as a command
+/// adapter) and Connection → DNS, read from the settings as a command
 /// starts (the defaults when there are none yet: the system's proxy). An automatic configuration
 /// script, Options' or the system's for "Use system settings", is fetched first: the app has it
 /// fetched by the time it downloads, and a command downloads at once.
@@ -1532,20 +1369,6 @@ impl Settings {
             proxy: self.proxy(),
             dns: self.dns(),
             adapter: self.net_adapter.trim().to_owned(),
-            torrent_proxy: match (self.torrent_proxy, self.socks5_proxy()) {
-                (false, _) => mdm_cli::TorrentProxy::Off,
-                (true, Some(p)) => mdm_cli::TorrentProxy::Through(p),
-                (true, None) => mdm_cli::TorrentProxy::Missing,
-            },
-            // The same switch, address and cache as the app's (#1776).
-            public_trackers: self
-                .torrent_public_trackers
-                .then(crate::torrents::state_dir)
-                .flatten()
-                .map(|dir| mdm_cli::PublicTrackers {
-                    url: self.public_trackers_list().to_owned(),
-                    dir,
-                }),
             // Site rules and exceptions (#1778): the command line asks a site as the app does.
             sites: mdm_cli::SiteRules {
                 rules: self.site_rules.clone(),
@@ -1574,46 +1397,7 @@ pub fn own_net() -> mdm_engine::Options {
 mod tests {
     use std::path::Path;
 
-    /// #1776: the public tracker list is off by default, its address the default list's; the
-    /// default list is saved as none given, another address as typed (trimmed).
-    #[test]
-    fn the_public_tracker_list_is_off_until_turned_on() {
-        use super::Settings;
-        use crate::torrentdlg::Net;
-        use mdm_torrent::public_trackers::DEFAULT_LIST;
-        let old: Settings = serde_json::from_value(serde_json::json!({})).unwrap();
-        let mut s = Settings::default();
-        for s in [&old, &s] {
-            assert!(!s.torrent_public_trackers);
-            assert_eq!(s.public_trackers_list(), DEFAULT_LIST);
-        }
-        let mut net = Net::of(&s);
-        assert!(!net.public_trackers);
-        assert_eq!(net.public_list, DEFAULT_LIST);
-        net.public_trackers = true;
-        net.apply(&mut s);
-        assert!(s.torrent_public_trackers);
-        assert_eq!(s.torrent_public_trackers_url, "");
-        let mut net = Net::of(&s);
-        net.public_list = " https://lists.example.org/trackers.txt ".into();
-        net.apply(&mut s);
-        assert_eq!(
-            s.public_trackers_list(),
-            "https://lists.example.org/trackers.txt"
-        );
-        let again: Settings = serde_json::from_value(serde_json::to_value(&s).unwrap()).unwrap();
-        assert!(again.torrent_public_trackers);
-        assert_eq!(
-            again.public_trackers_list(),
-            "https://lists.example.org/trackers.txt"
-        );
-        // Emptied: the default list again.
-        let mut net = Net::of(&s);
-        net.public_list = "  ".into();
-        net.apply(&mut s);
-        assert_eq!(s.public_trackers_list(), DEFAULT_LIST);
-    }
-
+    /// #1776: `the_public_tracker_list` removed.
     /// #668: the User-Agent for links added by hand is the default browser's unless one is set.
     /// Saved before, MDM's former default (Internet Explorer 11's) or nothing reads as automatic;
     /// automatic is saved empty, which an older MDM reads as its own default again.
@@ -1722,7 +1506,6 @@ mod tests {
             Category::Video,
             Category::Music,
             Category::Compressed,
-            Category::Torrents,
             Category::General,
         ];
         for c in cats {
@@ -1876,83 +1659,6 @@ mod tests {
 
     use super::*;
 
-    /// #40: torrents use only a manual SOCKS5 proxy, with its login; asked for one and given
-    /// none, they don't start (no config) rather than go around it.
-    #[test]
-    fn torrents_use_a_socks5_proxy_or_none() {
-        let dir = std::path::PathBuf::from("state");
-        let mut s = Settings {
-            proxy_mode: 3,
-            proxy_host: "socks5://127.0.0.1".into(),
-            proxy_port: "1080".into(),
-            proxy_user: "ann".into(),
-            proxy_pass: "p@ss".into(),
-            ..Settings::default()
-        };
-        assert_eq!(
-            s.socks5_proxy().as_deref(),
-            Some("socks5://ann:p%40ss@127.0.0.1:1080")
-        );
-        assert_eq!(
-            s.torrent_config(dir.clone()).unwrap().proxy,
-            None,
-            "not asked"
-        );
-        s.torrent_proxy = true;
-        assert!(s.torrent_config(dir.clone()).unwrap().proxy.is_some());
-        s.proxy_host = "http://127.0.0.1".into();
-        assert_eq!(s.socks5_proxy(), None, "an HTTP proxy isn't for torrents");
-        // #1558: Type SOCKS5 with the address alone; socks5h unless names are looked up here.
-        s.proxy_host = "127.0.0.1".into();
-        s.proxy_kind = ProxyKind::Socks5;
-        assert_eq!(
-            s.socks5_proxy().as_deref(),
-            Some("socks5h://ann:p%40ss@127.0.0.1:1080")
-        );
-        s.proxy_kind = ProxyKind::Socks4;
-        assert_eq!(s.socks5_proxy(), None, "librqbit takes SOCKS5 only");
-        s.proxy_host = "http://127.0.0.1".into();
-        assert!(
-            s.torrent_config(dir.clone()).is_none(),
-            "asked, none there: not started"
-        );
-        s.torrent_port = 51413;
-        s.torrent_proxy = false;
-        let c = s.torrent_config(dir).unwrap();
-        assert_eq!(
-            (c.port, c.listen, c.dht, c.lsd),
-            (Some(51413), true, true, true)
-        );
-    }
-
-    /// #1058: the browser integration (the native host, mdm_ipc::capture::CaptureRules) reads
-    /// the capture settings from the saved list by the app's own names: Torrent settings' switch
-    /// too, as settled; not decided yet, it takes torrents, as before.
-    #[test]
-    fn the_host_reads_the_capture_settings_as_saved() {
-        use mdm_ipc::capture::CaptureRules;
-        let read = |s: &Settings| -> CaptureRules {
-            serde_json::from_value(serde_json::to_value(s).unwrap()).unwrap()
-        };
-        let d = Settings::default();
-        let r = read(&d);
-        assert_eq!((d.torrent_associations, r.torrent_handler), (None, None));
-        assert!(r.takes_torrents());
-        assert_eq!(r.auto_types, d.auto_types);
-        assert_eq!(r.capture_min_kb, d.capture_min_kb);
-        for on in [false, true] {
-            let s = Settings {
-                torrent_associations: Some(on),
-                capture_min_kb: 7,
-                ..Settings::default()
-            };
-            let r = read(&s);
-            assert_eq!(r.torrent_handler, Some(on));
-            assert_eq!(r.takes_torrents(), on);
-            assert_eq!(r.capture_min_kb, 7);
-        }
-    }
-
     /// #1581: private-window downloads are kept in the list by default, for a new list and for
     /// every list that never chose (before #1581 the unticked default was saved as
     /// `keep_private_downloads: false`, which says nothing); a choice saved since is kept.
@@ -1986,59 +1692,6 @@ mod tests {
             ..Settings::default()
         };
         assert!(read(serde_json::to_value(&s).unwrap()).private_notice_shown);
-    }
-
-    /// #1058: Torrent settings' switch is settled once, as the user chose it.
-    #[test]
-    fn the_torrent_switch_is_settled_once_as_chosen() {
-        let undecided = Settings::default;
-        let settle = |mut s: Settings, installer: Option<bool>, registered: bool| {
-            let changed = s.settle_torrent_handler(installer, || registered);
-            (s.torrent_associations, changed)
-        };
-        // Never decided: MDM opens .torrent files now (the installer's task, an earlier tick,
-        // an all-users association) → on; it doesn't → off.
-        assert_eq!(settle(undecided(), None, true), (Some(true), true));
-        assert_eq!(settle(undecided(), None, false), (Some(false), true));
-        // The installer's value wins over what the system says.
-        assert_eq!(settle(undecided(), Some(false), true), (Some(false), true));
-        assert_eq!(settle(undecided(), Some(true), false), (Some(true), true));
-        // An earlier version's tick stays.
-        let ticked = Settings {
-            torrent_associations_before: true,
-            ..Settings::default()
-        };
-        assert_eq!(settle(ticked, Some(false), false), (Some(true), true));
-        // Decided: kept, whatever the system says (an everyone's association, HKLM, that
-        // unticking couldn't remove), and the system isn't asked.
-        for on in [false, true] {
-            let mut s = Settings {
-                torrent_associations: Some(on),
-                ..Settings::default()
-            };
-            assert!(!s.settle_torrent_handler(Some(!on), || panic!("asked")));
-            assert_eq!(s.torrent_associations, Some(on));
-        }
-        // A list saved before #1058: its false is undecided, its true ticked.
-        let old: Settings = serde_json::from_str(r#"{"torrent_associations":false}"#).unwrap();
-        assert_eq!(
-            (old.torrent_associations, old.torrent_associations_before),
-            (None, false)
-        );
-        let old: Settings = serde_json::from_str(r#"{"torrent_associations":true}"#).unwrap();
-        assert_eq!(
-            (old.torrent_associations, old.torrent_associations_before),
-            (None, true)
-        );
-        // Settled and saved, it reads back decided: no second settling.
-        let mut s = old;
-        s.settle_torrent_handler(None, || false);
-        let json = serde_json::to_value(&s).unwrap();
-        assert_eq!(json["torrent_handler"], serde_json::json!(true));
-        assert!(json.get("torrent_associations").is_none(), "{json}");
-        let mut back: Settings = serde_json::from_value(json).unwrap();
-        assert!(!back.settle_torrent_handler(Some(false), || false));
-        assert_eq!(back.torrent_associations, Some(true));
     }
 
     /// #41: a list saved before Zen was known gets it, captured; a choice made is kept.
@@ -2161,11 +1814,11 @@ mod tests {
         assert!(!Settings::default().ytdlp_config);
     }
 
-    /// #1556: the command line gets the app's proxy, DNS, adapter and torrent proxy, as the
+    /// #1556: the command line gets the app's proxy, DNS and adapter, as the
     /// settings give them to the app's downloads.
     #[test]
     fn the_command_line_gets_the_apps_network() {
-        let mut s = Settings {
+        let s = Settings {
             proxy_from_browser: false,
             proxy_mode: 3,
             proxy_host: "socks5://127.0.0.1".into(),
@@ -2179,14 +1832,6 @@ mod tests {
         assert_eq!(net.proxy, s.proxy());
         assert_eq!(net.dns, s.dns());
         assert_eq!(net.adapter, "wg0");
-        assert_eq!(net.torrent_proxy, mdm_cli::TorrentProxy::Off);
-        s.torrent_proxy = true;
-        assert_eq!(
-            s.cli_net().torrent_proxy,
-            mdm_cli::TorrentProxy::Through("socks5://127.0.0.1:1080".into())
-        );
-        s.proxy_host = "http://127.0.0.1".into();
-        assert_eq!(s.cli_net().torrent_proxy, mdm_cli::TorrentProxy::Missing);
         // No settings yet: the system's proxy, as the app has it.
         assert_eq!(
             Settings::default().cli_net().proxy,

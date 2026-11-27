@@ -26,7 +26,6 @@ use egui::{Color32, ImageSource};
 /// them).
 pub const NEEDS: &[(&str, &str)] = &[
     ("tb-add-url", "Toolbar: Add URL"),
-    ("tb-add-torrent", "Toolbar: Add torrent"),
     ("tb-resume", "Toolbar: Resume"),
     ("tb-stop", "Toolbar: Stop"),
     ("tb-stop-all", "Toolbar: Stop all"),
@@ -42,13 +41,12 @@ pub const NEEDS: &[(&str, &str)] = &[
     ("cat-music", "Categories: Music"),
     ("cat-programs", "Categories: Programs"),
     ("cat-video", "Categories: Video"),
-    ("cat-torrents", "Categories: Torrents"),
     ("cat-unfinished", "Categories: Unfinished"),
     ("cat-finished", "Categories: Finished"),
     ("cat-queues", "Categories: Queues"),
     (
         "cat-folder",
-        "A folder (a category of your own, a torrent's folder)",
+        "A folder (a category of your own)",
     ),
     ("cat-folder-open", "An open folder"),
     (
@@ -72,13 +70,11 @@ pub const NEEDS: &[(&str, &str)] = &[
     ("ft-executable", "Programs and installers"),
     ("ft-disk-image", "Disk images (iso, dmg…)"),
     ("ft-font", "Fonts"),
-    ("ft-torrent", "Torrent files"),
     ("st-complete", "Status: complete"),
     ("st-downloading", "Status: downloading"),
     ("st-paused", "Status: paused"),
     ("st-queued", "Status: queued"),
     ("st-error", "Status: failed"),
-    ("st-seeding", "Status: seeding"),
     ("ui-minimize", "Title bar: Minimize"),
     ("ui-maximize", "Title bar: Maximize"),
     ("ui-restore", "Title bar: Restore"),
@@ -297,31 +293,30 @@ macro_rules! builtin_files {
 static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
     let mut sets = HashMap::new();
     // Microsoft's Fluent UI System Icons (MIT, assets/themes/metro/icons/LICENSE), recoloured
-    // white to be tinted; the magnet and the torrent file are MDM's own at their weight, Hide
-    // to the notification area MDM's own one-colour picture.
+    // white to be tinted; Hide to the notification area is MDM's own one-colour picture.
     let metro = builtin_files!("metro";
         16: ["cat-all.svg", "cat-compressed.svg", "cat-documents.svg", "cat-finished.svg",
             "cat-folder-open.svg", "cat-folder.svg", "cat-music.svg", "cat-programs.svg",
-            "cat-queues.svg", "cat-torrents.svg", "cat-unfinished.svg", "cat-video.svg",
+            "cat-queues.svg", "cat-unfinished.svg", "cat-video.svg",
             "ft-archive.svg", "ft-audio.svg", "ft-code.svg", "ft-disk-image.svg", "ft-document.svg",
             "ft-executable.svg", "ft-font.svg", "ft-generic.svg", "ft-image.svg", "ft-pdf.svg",
-            "ft-presentation.svg", "ft-spreadsheet.svg", "ft-text.svg", "ft-torrent.svg",
+            "ft-presentation.svg", "ft-spreadsheet.svg", "ft-text.svg",
             "ft-video.svg", "misc-down.svg", "misc-emblem-ok.svg", "misc-remove.svg", "misc-up.svg",
             "st-complete.svg", "st-downloading.svg", "st-error.svg", "st-paused.svg",
-            "st-queued.svg", "st-seeding.svg", "tb-add-torrent.svg", "tb-add-url.svg",
+            "st-queued.svg", "tb-add-url.svg",
             "tb-delete-completed.svg", "tb-delete.svg", "tb-options.svg", "tb-resume.svg",
             "tb-scheduler.svg", "tb-start-queue.svg", "tb-stop-all.svg", "tb-stop-queue.svg",
             "tb-stop.svg", "ui-close.svg", "ui-maximize.svg", "ui-minimize.svg", "ui-restore.svg",
             "ui-to-tray-symbolic.png"];
         24: ["cat-all.svg", "cat-compressed.svg", "cat-documents.svg", "cat-finished.svg",
             "cat-folder-open.svg", "cat-folder.svg", "cat-music.svg", "cat-programs.svg",
-            "cat-queues.svg", "cat-torrents.svg", "cat-unfinished.svg", "cat-video.svg",
+            "cat-queues.svg", "cat-unfinished.svg", "cat-video.svg",
             "ft-archive.svg", "ft-audio.svg", "ft-code.svg", "ft-document.svg", "ft-executable.svg",
             "ft-font.svg", "ft-generic.svg", "ft-image.svg", "ft-pdf.svg", "ft-presentation.svg",
-            "ft-spreadsheet.svg", "ft-text.svg", "ft-torrent.svg", "ft-video.svg", "misc-down.svg",
+            "ft-spreadsheet.svg", "ft-text.svg", "ft-video.svg", "misc-down.svg",
             "misc-emblem-ok.svg", "misc-remove.svg", "misc-up.svg", "st-complete.svg",
             "st-downloading.svg", "st-error.svg", "st-paused.svg", "st-queued.svg",
-            "st-seeding.svg", "tb-add-torrent.svg", "tb-add-url.svg", "tb-delete-completed.svg",
+            "tb-add-url.svg", "tb-delete-completed.svg",
             "tb-delete.svg", "tb-options.svg", "tb-resume.svg", "tb-scheduler.svg",
             "tb-stop-all.svg", "tb-stop-queue.svg", "tb-stop.svg", "ui-close.svg",
             "ui-maximize.svg", "ui-minimize.svg", "ui-restore.svg", "ui-to-tray-symbolic.png"];
@@ -330,20 +325,19 @@ static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
     sets.insert("metro".to_owned(), Arc::new(Set::from_files(metro, true)));
     // GNOME's adwaita-icon-theme 51.0 (LGPL-3, assets/themes/adwaita/icons/LICENSE), its files
     // as GNOME ships them: colour pictures at 16 pixels and drawings above, one-colour symbolic
-    // icons tinted. The PDF, torrent-file and Hide to the notification area icons are MDM's
-    // own, in its style.
+    // icons tinted. The PDF and Hide to the notification area icons are MDM's own, in its style.
     let adwaita = builtin_files!("adwaita";
         16: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open-symbolic.svg", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues-symbolic.svg", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues-symbolic.svg", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image-symbolic.svg",
             "ft-document.png", "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png",
             "ft-pdf.png", "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
-            "ft-torrent.png", "ft-video.png", "misc-down-symbolic.svg",
+            "ft-video.png", "misc-down-symbolic.svg",
             "misc-emblem-ok-symbolic.svg", "misc-remove-symbolic.svg", "misc-up-symbolic.svg",
             "st-complete-symbolic.svg", "st-downloading-symbolic.svg", "st-error-symbolic.svg",
-            "st-paused-symbolic.svg", "st-queued-symbolic.svg", "st-seeding-symbolic.svg",
-            "tb-add-torrent-symbolic.svg", "tb-add-url-symbolic.svg",
+            "st-paused-symbolic.svg", "st-queued-symbolic.svg",
+            "tb-add-url-symbolic.svg",
             "tb-delete-completed-symbolic.svg", "tb-delete-symbolic.svg", "tb-options-symbolic.svg",
             "tb-resume-symbolic.svg", "tb-scheduler-symbolic.svg", "tb-start-queue-symbolic.svg",
             "tb-stop-all-symbolic.svg", "tb-stop-queue-symbolic.svg", "tb-stop-symbolic.svg",
@@ -351,21 +345,21 @@ static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
             "ui-restore-symbolic.svg", "ui-to-tray-symbolic.png"];
         24: ["cat-all.svg", "cat-compressed.svg", "cat-documents.svg", "cat-finished.svg",
             "cat-folder-open-symbolic.svg", "cat-folder.svg", "cat-music.svg", "cat-programs.svg",
-            "cat-queues-symbolic.svg", "cat-torrents.svg", "cat-unfinished.svg", "cat-video.svg",
+            "cat-queues-symbolic.svg", "cat-unfinished.svg", "cat-video.svg",
             "ft-archive.svg", "ft-audio.svg", "ft-code.svg", "ft-disk-image.svg", "ft-document.svg",
             "ft-executable.svg", "ft-font.svg", "ft-generic.svg", "ft-image.svg", "ft-pdf.png",
-            "ft-presentation.svg", "ft-spreadsheet.svg", "ft-text.svg", "ft-torrent.png",
+            "ft-presentation.svg", "ft-spreadsheet.svg", "ft-text.svg",
             "ft-video.svg", "misc-down-symbolic.svg", "misc-emblem-ok-symbolic.svg",
             "misc-remove-symbolic.svg", "misc-up-symbolic.svg", "st-complete-symbolic.svg",
             "st-downloading-symbolic.svg", "st-error-symbolic.svg", "st-paused-symbolic.svg",
-            "st-queued-symbolic.svg", "st-seeding-symbolic.svg", "tb-add-torrent-symbolic.svg",
+            "st-queued-symbolic.svg",
             "tb-add-url-symbolic.svg", "tb-delete-completed-symbolic.svg", "tb-delete-symbolic.svg",
             "tb-options-symbolic.svg", "tb-resume-symbolic.svg", "tb-scheduler-symbolic.svg",
             "tb-start-queue-symbolic.svg", "tb-stop-all-symbolic.svg", "tb-stop-queue-symbolic.svg",
             "tb-stop-symbolic.svg", "ui-close-symbolic.svg", "ui-maximize-symbolic.svg",
             "ui-minimize-symbolic.svg", "ui-restore-symbolic.svg", "ui-to-tray-symbolic.png"];
-        32: ["ft-pdf.png", "ft-torrent.png", "ui-to-tray-symbolic.png"];
-        48: ["ft-pdf.png", "ft-torrent.png", "ui-to-tray-symbolic.png"]);
+        32: ["ft-pdf.png", "ui-to-tray-symbolic.png"];
+        48: ["ft-pdf.png", "ui-to-tray-symbolic.png"]);
     sets.insert(
         "adwaita".to_owned(),
         Arc::new(Set::from_files(adwaita, false)),
@@ -378,29 +372,29 @@ static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
         16: ["cat-all-symbolic.svg", "cat-compressed.svg", "cat-documents.svg",
             "cat-finished-symbolic.svg", "cat-folder-open-symbolic.svg", "cat-folder-symbolic.svg",
             "cat-music.svg", "cat-programs-symbolic.svg", "cat-queues-symbolic.svg",
-            "cat-torrents.svg", "cat-unfinished-symbolic.svg", "cat-video.svg", "ft-archive.svg",
+            "cat-unfinished-symbolic.svg", "cat-video.svg", "ft-archive.svg",
             "ft-audio.svg", "ft-code.svg", "ft-disk-image-symbolic.svg", "ft-document.svg",
             "ft-executable-symbolic.svg", "ft-font.svg", "ft-generic.svg", "ft-image.svg",
             "ft-pdf.png", "ft-presentation.svg", "ft-spreadsheet.svg", "ft-text.svg",
-            "ft-torrent.svg", "ft-video.svg", "misc-down-symbolic.svg",
+            "ft-video.svg", "misc-down-symbolic.svg",
             "misc-emblem-ok-symbolic.svg", "misc-remove.svg", "misc-up-symbolic.svg",
             "st-complete-symbolic.svg", "st-downloading-symbolic.svg", "st-error-symbolic.svg",
-            "st-paused-symbolic.svg", "st-queued-symbolic.svg", "st-seeding-symbolic.svg",
+            "st-paused-symbolic.svg", "st-queued-symbolic.svg",
             "tb-add-url-symbolic.svg", "tb-delete-completed-symbolic.svg", "tb-delete.svg",
             "tb-options-symbolic.svg", "tb-resume-symbolic.svg", "tb-scheduler-symbolic.svg",
             "tb-stop-symbolic.svg", "ui-close-symbolic.svg", "ui-maximize-symbolic.svg",
             "ui-minimize-symbolic.svg", "ui-restore-symbolic.svg", "ui-to-tray-symbolic.png"];
         24: ["cat-all-symbolic.svg", "cat-compressed.svg", "cat-documents.svg",
             "cat-finished-symbolic.svg", "cat-folder-open-symbolic.svg", "cat-folder-symbolic.svg",
-            "cat-music.svg", "cat-programs.svg", "cat-queues-symbolic.svg", "cat-torrents.svg",
+            "cat-music.svg", "cat-programs.svg", "cat-queues-symbolic.svg",
             "cat-unfinished-symbolic.svg", "cat-video.svg", "ft-archive.svg", "ft-audio.svg",
             "ft-code.svg", "ft-disk-image.svg", "ft-document.svg", "ft-executable.svg",
             "ft-font.svg", "ft-generic.svg", "ft-image.svg", "ft-pdf.png", "ft-presentation.svg",
-            "ft-spreadsheet.svg", "ft-text.svg", "ft-torrent.svg", "ft-video.svg",
+            "ft-spreadsheet.svg", "ft-text.svg", "ft-video.svg",
             "misc-down-symbolic.svg", "misc-emblem-ok-symbolic.svg", "misc-remove.svg",
             "misc-up-symbolic.svg", "st-complete-symbolic.svg", "st-downloading-symbolic.svg",
             "st-error-symbolic.svg", "st-paused-symbolic.svg", "st-queued-symbolic.svg",
-            "st-seeding-symbolic.svg", "tb-add-torrent-symbolic.svg", "tb-add-url-symbolic.svg",
+            "tb-add-url-symbolic.svg",
             "tb-delete-completed-symbolic.svg", "tb-delete.svg", "tb-options-symbolic.svg",
             "tb-resume-symbolic.svg", "tb-scheduler-symbolic.svg", "tb-start-queue-symbolic.svg",
             "tb-stop-all-symbolic.svg", "tb-stop-queue-symbolic.svg", "tb-stop-symbolic.svg",
@@ -418,49 +412,49 @@ static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
     let luna = builtin_files!("luna";
         16: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         24: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         32: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         48: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"]);
@@ -468,49 +462,49 @@ static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
     let aero = builtin_files!("aero";
         16: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         24: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         32: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         48: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"]);
@@ -518,49 +512,49 @@ static SETS: LazyLock<Mutex<HashMap<String, Arc<Set>>>> = LazyLock::new(|| {
     let aqua = builtin_files!("aqua";
         16: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         24: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         32: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"];
         48: ["cat-all.png", "cat-compressed.png", "cat-documents.png", "cat-finished.png",
             "cat-folder-open.png", "cat-folder.png", "cat-music.png", "cat-programs.png",
-            "cat-queues.png", "cat-torrents.png", "cat-unfinished.png", "cat-video.png",
+            "cat-queues.png", "cat-unfinished.png", "cat-video.png",
             "ft-archive.png", "ft-audio.png", "ft-code.png", "ft-disk-image.png", "ft-document.png",
             "ft-executable.png", "ft-font.png", "ft-generic.png", "ft-image.png", "ft-pdf.png",
-            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png", "ft-torrent.png",
+            "ft-presentation.png", "ft-spreadsheet.png", "ft-text.png",
             "ft-video.png", "misc-down.png", "misc-emblem-ok.png", "misc-remove.png", "misc-up.png",
             "st-complete.png", "st-downloading.png", "st-error.png", "st-paused.png",
-            "st-queued.png", "st-seeding.png", "tb-add-torrent.png", "tb-add-url.png",
+            "st-queued.png", "tb-add-url.png",
             "tb-delete-completed.png", "tb-delete.png", "tb-options.png", "tb-resume.png",
             "tb-scheduler.png", "tb-start-queue.png", "tb-stop-all.png", "tb-stop-queue.png",
             "tb-stop.png", "ui-to-tray.png"]);
@@ -714,10 +708,8 @@ pub fn paint(
 
 /// A file type's need, from the classic fallback icon's kind (fileicons.rs).
 pub fn file_need(tango: &str, ext: Option<&str>) -> &'static str {
-    match ext {
-        Some("torrent") => return "ft-torrent",
-        Some("pdf") => return "ft-pdf",
-        _ => {}
+    if ext == Some("pdf") {
+        return "ft-pdf";
     }
     match tango {
         "folder" => "cat-folder",
@@ -764,10 +756,9 @@ mod tests {
             assert!(!text.contains("#212121"), "{need} keeps Fluent's ink");
         }
         // MDM's own Hide to the notification area, where Fluent has none of that meaning: a
-        // picture at every size; its torrent icons are drawings at Fluent's weight.
+        // picture at every size.
         for px in [16.0, 24.0, 32.0, 48.0] {
             assert!(metro.file("ui-to-tray", px).unwrap().1.png, "{px}");
-            assert!(!metro.file("tb-add-torrent", px).unwrap().1.png, "{px}");
         }
     }
 
@@ -939,9 +930,8 @@ mod tests {
         assert!(!f.png && !f.mono);
         // The scale between: at 18 pixels the drawing too, sharper than the picture stretched.
         assert!(!adw.file("ft-audio", 18.0).unwrap().1.png);
-        // Our own PDF and torrent file keep their colours.
+        // Our own PDF keeps its colours.
         assert!(!adw.file("ft-pdf", 16.0).unwrap().1.mono);
-        assert!(!adw.file("ft-torrent", 32.0).unwrap().1.mono);
     }
 
     /// Breeze has every need: KDE's one-colour icons (ColorScheme-Text) take the ink and keep
@@ -1024,7 +1014,6 @@ mod tests {
     #[test]
     fn file_types_map_to_needs() {
         assert_eq!(file_need("x-office-document", Some("pdf")), "ft-pdf");
-        assert_eq!(file_need("text-x-generic", Some("torrent")), "ft-torrent");
         assert_eq!(file_need("package-x-generic", Some("zip")), "ft-archive");
         assert_eq!(file_need("folder", None), "cat-folder");
     }

@@ -755,7 +755,7 @@ fn dialog_window<T>(
     let focused = key.with("focus-sent");
     let takes_focus = modal
         || (cfg!(all(not(windows), not(target_os = "macos")))
-            && (is_file_info(id) || matches!(id, "video-page" | "torrent" | "grabber")));
+            && (is_file_info(id) || matches!(id, "video-page" | "grabber")));
     if takes_focus && matches!(out, Outcome::Open) && !crate::offscreen() {
         let shown = ctx.data(|d| d.get_temp::<bool>(key.with("shown")).unwrap_or(false));
         if shown && !ctx.data(|d| d.get_temp::<bool>(focused).unwrap_or(false)) {
@@ -940,9 +940,9 @@ pub struct NewUrl {
 }
 
 impl AddUrl {
-    /// Opens like IDM's: pre-filled with the clipboard's text when it is an http(s) URL (or a
-    /// magnet link: OK then opens Add torrent). The clipboard is read off the window's thread,
-    /// and the address put in the box on the frame it comes ([`AddUrl::fill_from_clipboard`]).
+    /// Opens like IDM's: pre-filled with the clipboard's text when it is an http(s) URL.
+    /// The clipboard is read off the window's thread, and the address put in the box on the frame
+    /// it comes ([`AddUrl::fill_from_clipboard`]).
     pub fn from_clipboard(history: &[String]) -> Self {
         AddUrl {
             history: history.to_vec(),
@@ -969,7 +969,7 @@ impl AddUrl {
             _ => clip,
         };
         if let Ok(u) = Url::parse(clip)
-            && (mdm_engine::supported(&u) || u.scheme() == "magnet")
+            && mdm_engine::supported(&u)
         {
             self.address = clip.to_owned();
         }
@@ -1173,7 +1173,7 @@ impl AddUrl {
                 }
                 if ok || (enter && !list_was_open) {
                     match crate::model::parse_address(&self.address) {
-                        Ok(url) if mdm_engine::supported(&url) || url.scheme() == "magnet" => {
+                        Ok(url) if mdm_engine::supported(&url) => {
                             return Outcome::Done(NewUrl {
                                 url,
                                 login: self.typed_login(),
@@ -4239,82 +4239,6 @@ pub fn drag_downloads_out(
 /// without a handle on the app.
 static TOLD: std::sync::Mutex<Vec<(&'static str, String)>> = std::sync::Mutex::new(Vec::new());
 
-pub struct Confirmation {
-    title: &'static str,
-    text: String,
-    answer: tokio::sync::oneshot::Sender<bool>,
-}
-impl Confirmation {
-    pub fn answer(self, yes: bool) {
-        let _ = self.answer.send(yes);
-    }
-}
-static QUESTIONS: Mutex<std::collections::VecDeque<Confirmation>> =
-    Mutex::new(std::collections::VecDeque::new());
-
-/// Ask from a worker without blocking the UI or treating a closed question as consent.
-pub async fn confirm(title: &'static str, text: String) -> bool {
-    let (answer, reply) = tokio::sync::oneshot::channel();
-    QUESTIONS.lock().unwrap().push_back(Confirmation {
-        title,
-        text,
-        answer,
-    });
-    reply.await.unwrap_or(false)
-}
-pub fn next_confirmation() -> Option<Confirmation> {
-    QUESTIONS.lock().unwrap().pop_front()
-}
-pub fn show_confirmation(ctx: &egui::Context, ask: &Confirmation) -> Outcome<bool> {
-    let id = "torrent-file-permission";
-    let extra = grow_extra(ctx, id);
-    question(
-        ctx,
-        id,
-        ask.title,
-        [540.0, 112.0 + extra],
-        false,
-        winui::BG(),
-        |ui, o| {
-            let lines = winui::paragraph(
-                &ui.painter().clone(),
-                o.x + 16.0,
-                o.y + 20.0,
-                &ask.text,
-                winui::TEXT(),
-                o.x + 524.0,
-                13.0,
-            );
-            grow_to(ui.ctx(), id, lines, 4);
-            let yes = winui::button(
-                ui,
-                r(o, 176.0, 77.0 + extra, 73.0, 21.0),
-                "Yes",
-                ButtonKind::Normal,
-                false,
-                None,
-            )
-            .clicked();
-            let no = winui::button(
-                ui,
-                r(o, 268.0, 77.0 + extra, 73.0, 21.0),
-                "No",
-                ButtonKind::Default,
-                false,
-                None,
-            )
-            .clicked();
-            if yes {
-                Outcome::Done(true)
-            } else if no || winui::escape_pressed(ui) || winui::enter_pressed(ui) {
-                Outcome::Done(false)
-            } else {
-                Outcome::Open
-            }
-        },
-    )
-}
-
 /// Tell the user `text` under the window title `title` (English, marked; the text translated).
 pub fn tell(title: &'static str, text: String) {
     TOLD.lock().unwrap().push((title, text));
@@ -4327,12 +4251,7 @@ pub fn told() -> Vec<(&'static str, String)> {
 
 /// Open a downloaded file with its program, or say why not (moved or deleted since, no
 /// program for it): on a thread of its own, as the file may be on a drive slow to answer
-/// (#743). Returns at once.
-pub fn open_file(path: &Path) {
-    open_download(path, false);
-}
-
-/// [`open_file`] for a download: `moved_away`, its file was dragged out of Download complete to
+/// (#743). Returns at once. `moved_away`: its file was dragged out of Download complete to
 /// a place MDM couldn't learn (#869), which is said when it isn't there.
 pub fn open_download(path: &Path, moved_away: bool) {
     let path = path.to_owned();
@@ -5009,135 +4928,6 @@ impl CreateFolder {
     }
 }
 
-/// "Some of the torrent's files are already in this folder … Use them?" — asked before a torrent
-/// is added where files of its names exist (#40: librqbit writes into a file that is there, so
-/// an unrelated file of the same name would be overwritten). Yes keeps them for the torrent:
-/// what matches it is kept, the rest replaced (how data from elsewhere is resumed or shared).
-pub struct ExistingFiles {
-    /// The first file found (its full path), and how many in all.
-    first: String,
-    count: usize,
-}
-
-impl ExistingFiles {
-    pub fn new(found: &[PathBuf]) -> Self {
-        ExistingFiles {
-            first: found
-                .first()
-                .map(|p| p.display().to_string())
-                .unwrap_or_default(),
-            count: found.len(),
-        }
-    }
-
-    /// `Done` on Yes; `Closed` on No, Escape or the close box.
-    pub fn show(&mut self, ctx: &egui::Context) -> Outcome<()> {
-        let first = crate::i18n::ltr(&self.first);
-        // On its own line under the path, so a long path never cuts it off.
-        let more = (self.count > 1).then(|| {
-            // i18n: "files already there" question, under the first path: {n} = how many more
-            crate::i18n::tn(
-                (self.count - 1) as u64,
-                "and {n} other file",
-                "and {n} other files",
-            )
-        });
-        question(
-            ctx,
-            "existing-files",
-            "Files already there",
-            [460.0, 206.0],
-            false,
-            winui::BG(),
-            |ui, o| {
-                let p = ui.painter().clone();
-                let ink = winui::TEXT();
-                let (left, right) = (o.x + 11.0, o.x + 449.0);
-                let lines = winui::paragraph(
-                    &p,
-                    left,
-                    o.y + 21.0,
-                    crate::i18n::t("Some of the torrent's files are already in this folder:"),
-                    ink,
-                    right,
-                    18.0,
-                );
-                let path_y = o.y + 21.0 + lines as f32 * 18.0;
-                crate::fileicons::paint_at(
-                    ui,
-                    &p,
-                    crate::fileicons::Kind::File(&self.first),
-                    egui::pos2(left, path_y - 12.0),
-                    16.0,
-                );
-                let (rect, cut) = winui::text_fit(
-                    &p,
-                    left + crate::fileicons::INDENT,
-                    path_y,
-                    &first,
-                    ink,
-                    right,
-                );
-                if cut {
-                    winui::full_on_hover(ui, rect, "existing-files-path", &first);
-                }
-                let mut ask_y = path_y + 24.0;
-                if let Some(more) = &more {
-                    winui::text(&p, left, path_y + 18.0, more, winui::MUTED());
-                    ask_y += 18.0;
-                }
-                // The two sentences wrap (translations run longer), above the buttons.
-                let asked = winui::paragraph(
-                    &p,
-                    left,
-                    ask_y,
-                    crate::i18n::t(
-                        "Use them for this torrent? What matches it is kept, the rest replaced.",
-                    ),
-                    ink,
-                    right,
-                    18.0,
-                );
-                winui::paragraph(
-                    &p,
-                    left,
-                    ask_y + asked as f32 * 18.0,
-                    crate::i18n::t("No goes back, to choose another folder."),
-                    winui::MUTED(),
-                    right,
-                    18.0,
-                );
-                let yes = winui::button(
-                    ui,
-                    r(o, 294.0, 172.0, 73.0, 21.0),
-                    "Yes",
-                    ButtonKind::Normal,
-                    false,
-                    None,
-                )
-                .clicked();
-                // No is the default: a file the user didn't mean to give up stays as it is.
-                let no = winui::button(
-                    ui,
-                    r(o, 376.0, 172.0, 73.0, 21.0),
-                    "No",
-                    ButtonKind::Default,
-                    false,
-                    None,
-                )
-                .clicked();
-                if yes {
-                    Outcome::Done(())
-                } else if no || winui::escape_pressed(ui) || winui::enter_pressed(ui) {
-                    Outcome::Closed
-                } else {
-                    Outcome::Open
-                }
-            },
-        )
-    }
-}
-
 /// A dialog's "start" (`T`) held while what it would start into is looked at on the disk, off
 /// the window's thread (#743: a sleeping hard disk, a USB drive or a network folder can take
 /// seconds to answer, and the window waited for it; the dialog stays as it is meanwhile), then
@@ -5151,9 +4941,6 @@ pub struct Gate<T, A, Q> {
 
 /// [`ensure_folder`]'s: whether the folder is there; Create folder.
 pub type FolderGate<T> = Gate<T, bool, CreateFolder>;
-
-/// [`ensure_files_free`]'s: the torrent's files found there; Existing files.
-pub type FilesGate<T> = Gate<T, Vec<PathBuf>, ExistingFiles>;
 
 impl<T, A, Q> Default for Gate<T, A, Q> {
     fn default() -> Self {
@@ -5247,31 +5034,6 @@ impl<T> Outcome<T> {
             Outcome::Closed => Outcome::Closed,
         }
     }
-}
-
-/// Holds a dialog's "start" (`out`) while files the torrent would write into already exist in
-/// `folder` (looked for when the dialog says start, off the window's thread, by what `found`
-/// makes): asks [`ExistingFiles`] and keeps the result meanwhile; No goes back to the dialog.
-/// `gate` lives in the dialog, across frames.
-pub fn ensure_files_free<T, F: FnOnce() -> Vec<PathBuf> + Send + 'static>(
-    ctx: &egui::Context,
-    gate: &mut FilesGate<T>,
-    out: Outcome<T>,
-    folder: &Path,
-    found: impl FnOnce() -> F,
-) -> Outcome<T> {
-    gate.pass(
-        ctx,
-        out,
-        folder,
-        || {
-            let found = found();
-            move |_: &PathBuf| found()
-        },
-        |found| (!found.is_empty()).then(|| ExistingFiles::new(&found)),
-        ExistingFiles::show,
-    )
-    .map(|(v, _)| v)
 }
 
 /// Holds a dialog's "start" (`out`) until `folder` exists: looked at off the window's thread,
@@ -5769,7 +5531,7 @@ mod tests {
             ),
             "https://a.example/f.zip"
         );
-        assert_eq!(fill("magnet:?xt=urn:btih:ab"), "magnet:?xt=urn:btih:ab");
+        assert_eq!(fill("magnet:?xt=urn:btih:ab"), "");
         assert_eq!(fill("some words"), "");
         assert_eq!(fill("mailto:a@b.example"), "");
         // #1782: a wrapped link is shown as the address inside it; one with nothing MDM

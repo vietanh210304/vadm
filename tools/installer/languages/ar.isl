@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=إعداد تكامل المستعرض (&B) (Chrome، Edge، Brave، Firefox)
-TaskTorrents=فتح ملفات .&torrent وروابط magnet باستخدام Mister Download Manager
 TaskStartup=بدء تشغيل Mister Download Manager عند بدء تشغيل &Windows
 TaskGroupOther=أخرى:
 Launch=بدء تشغيل Mister Download Manager

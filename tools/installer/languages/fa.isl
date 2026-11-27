@@ -292,7 +292,6 @@ ShutdownBlockReasonUninstallingApp=در حال حذف نصب %1.
 
 [CustomMessages]
 TaskBrowser=ادغام &مرورگر را تنظیم کنید (Chrome, Edge, Brave, Firefox)
-TaskTorrents=باز کردن فایل‌های &torrent. و پیوندهای آهنربایی با Mister Download Manager
 TaskStartup=اجرای Mister Download Manager هنگام راه‌اندازی &Windows
 TaskGroupOther=سایر:
 Launch=اجرای Mister Download Manager

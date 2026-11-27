@@ -61,8 +61,6 @@ mod remote;
 mod renderer;
 mod requestedit;
 mod resumeread;
-mod rss;
-mod rssdlg;
 mod scale;
 mod scheduler;
 mod schemes;
@@ -75,11 +73,6 @@ mod sysprogress;
 mod theme;
 mod themefile;
 mod themeicons;
-mod torrent_ownership;
-mod torrent_rename;
-mod torrentdlg;
-mod torrentfiles;
-mod torrents;
 mod transfer;
 #[cfg(not(target_os = "android"))]
 mod tray;
@@ -524,7 +517,7 @@ fn app() -> eframe::Result {
     });
     #[cfg(target_os = "linux")]
     let wake_at_end = wake.clone();
-    // macOS: so do the .torrent files and magnet links Finder and the browsers hand over (#698).
+    // macOS: so do files Finder and the browsers hand over (#698).
     #[cfg(target_os = "macos")]
     unix::open_events::start(tx.clone(), wake.clone());
     // The remote control (#141) sends its commands down the same channel.
@@ -803,7 +796,7 @@ mod tests {
     }
 
     /// An off-screen run neither reads the clipboard (Add URL, Batch, the clipboard monitor…)
-    /// nor writes it (Copy magnet link, Copy…): it logs what it would have copied.
+    /// nor writes it (Copy…): it logs what it would have copied.
     #[test]
     fn offscreen_runs_leave_the_clipboard_alone() {
         let _one = clipboard_test();
@@ -819,12 +812,12 @@ mod tests {
             Read::Text("x".into())
         );
         assert_eq!(
-            super::write_clipboard(true, "magnet:?xt=urn:btih:ab".into()),
+            super::write_clipboard(true, "https://example.com/file.zip".into()),
             None
         );
         assert_eq!(
-            super::write_clipboard(false, "magnet:?xt=urn:btih:ab".into()),
-            Some("magnet:?xt=urn:btih:ab".into())
+            super::write_clipboard(false, "https://example.com/file.zip".into()),
+            Some("https://example.com/file.zip".into())
         );
     }
 

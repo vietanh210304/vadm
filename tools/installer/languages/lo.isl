@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=ກຳລັງຖອນການຕິດຕ
 
 [CustomMessages]
 TaskBrowser=ຕັ້ງຄ່າການເຊື່ອມໂຍງກັບໂປຣແກຣມທ່ອງເວັບ (&browser integration) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=ເປີດໄຟລ໌ .&torrent ແລະລິ້ງແມັກເນັດດ້ວຍ Mister Download Manager
 TaskStartup=ເລີ່ມ Mister Download Manager ເມື່ອ &Windows ເລີ່ມຕົ້ນ
 TaskGroupOther=ອື່ນໆ:
 Launch=ເລີ່ມ Mister Download Manager

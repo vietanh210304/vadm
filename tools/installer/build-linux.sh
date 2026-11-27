@@ -82,7 +82,6 @@ Icon=misterdownloadmanager
 Terminal=false
 Categories=Network;FileTransfer;
 StartupWMClass=misterdownloadmanager
-MimeType=x-scheme-handler/magnet;application/x-bittorrent;
 Keywords=mdm;idm;download manager;
 EOF
 
@@ -123,7 +122,7 @@ Priority: optional
 Homepage: https://github.com/anefzaoui/misterdownloadmanager
 Description: Download manager
  Speeds up downloads with several connections at once, resumes them, catches them from the
- browser, and downloads videos and torrents.
+ browser, and downloads videos.
 EOF
 dpkg-deb --root-owner-group --build "$deb" "$dist/$name.deb"
 
@@ -142,7 +141,7 @@ AutoReqProv: no
 
 %description
 Speeds up downloads with several connections at once, resumes them, catches them from the
-browser, and downloads videos and torrents.
+browser, and downloads videos.
 
 %install
 cp -a "$tree/." %{buildroot}/

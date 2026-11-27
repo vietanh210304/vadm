@@ -14,8 +14,8 @@ help: server.md
 
 ## The same MDM, without a window
 
-`misterdownloadmanager --headless` runs MDM with its list, categories, queues, Scheduler, speed
-limits and torrents, but no window. Its folders and port come from flags or the environment. It
+`misterdownloadmanager --headless` runs MDM with its list, categories, queues, Scheduler and speed
+limits, but no window. Its folders and port come from flags or the environment. It
 stops cleanly, saving its list, when the system stops it. It runs on any Linux machine with MDM
 installed, and on Windows and macOS the same way.
 

@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Deïnstalleer %1.
 
 [CustomMessages]
 TaskBrowser=Stel &blaaierintegrasie op (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Maak .&torrent-lêers en magneetskakels oop met Mister Download Manager
 TaskStartup=Begin Mister Download Manager wanneer &Windows begin
 TaskGroupOther=Ander:
 Launch=Begin Mister Download Manager

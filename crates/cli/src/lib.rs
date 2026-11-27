@@ -19,7 +19,7 @@ use serde_json::json;
 #[command(
     version,
     about = "Mister Download Manager command line",
-    long_about = "Mister Download Manager command line: downloads, videos and torrents without the \
+    long_about = "Mister Download Manager command line: downloads and videos without the \
                   window, and the running app's automation API. Guide: \
                   https://misterdownloadmanager.com/help/command-line.html"
 )]
@@ -320,37 +320,6 @@ enum Cmd {
         #[arg(long, value_parser = parse_proxy)]
         proxy: Option<Proxy>,
     },
-    /// Make a .torrent of a file or folder (no trackers; peers find it through the DHT).
-    TorrentCreate {
-        /// The file or folder to share.
-        path: PathBuf,
-        /// The .torrent file to write.
-        #[arg(short, long)]
-        output: PathBuf,
-    },
-    /// What a torrent holds: its name, files (numbered) and size.
-    TorrentInfo {
-        /// A magnet link or a .torrent file.
-        source: String,
-    },
-    /// Download a torrent.
-    TorrentGet {
-        /// A magnet link or a .torrent file.
-        source: String,
-        /// Folder to save into.
-        #[arg(short, long, default_value = ".")]
-        output: PathBuf,
-        /// Only these files, by their numbers in `torrent-info` (e.g. 0,2); all by default.
-        #[arg(long, value_delimiter = ',')]
-        files: Option<Vec<usize>>,
-        /// Stop after this many seconds (a test run).
-        #[arg(long)]
-        seconds: Option<u64>,
-        /// Use the torrent's files already in the folder: what matches the torrent is kept, the
-        /// rest downloaded into them. Without it, such files stop the download.
-        #[arg(long)]
-        use_existing: bool,
-    },
     /// Pause downloads in the running app, by their ids from `status` (automation API).
     Pause {
         /// Download ids.
@@ -377,7 +346,7 @@ enum Cmd {
     },
     /// Add a download to the running app.
     Add {
-        /// The address to download (http, https, ftp, ftps, or a magnet link).
+        /// The address to download (http, https, ftp, or ftps).
         url: String,
         /// Folder to save into.
         #[arg(short, long)]
@@ -896,8 +865,8 @@ pub fn main(args: Vec<OsString>) -> ExitCode {
     main_with(args, None, Net::default())
 }
 
-/// How the command line connects (#1556): the app's Options → Proxy / Socks, Connection → DNS
-/// and network adapter, and Torrent settings' proxy, as the app's program reads them from its
+/// How the command line connects (#1556): the app's Options → Proxy / Socks and Connection → DNS
+/// and network adapter, as the app's program reads them from its
 /// settings ([`main_with`]). A command's `--proxy`, `--dns` and `--adapter` take their place for
 /// that run. The default, without the app's settings: straight to the servers, the system's DNS.
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -906,10 +875,6 @@ pub struct Net {
     pub dns: mdm_engine::DnsChoice,
     /// The network adapter by name ("" any), looked for when the command starts.
     pub adapter: String,
-    pub torrent_proxy: TorrentProxy,
-    /// Torrent settings' public tracker list (#1776), when it is on: `torrent-get` adds it to a
-    /// public torrent as the app does.
-    pub public_trackers: Option<PublicTrackers>,
     /// Options → Connection's site rules and exceptions (#1778): `get` and `resume` ask a site
     /// as the app does, where the command line doesn't say otherwise.
     pub sites: SiteRules,
@@ -922,35 +887,12 @@ pub struct SiteRules {
     pub exceptions: Vec<(String, u32)>,
 }
 
-/// The public tracker list the app's Torrent settings turned on (#1776): its address, and the
-/// folder of the cache the app keeps (the app's torrent data folder), which the command line
-/// reads and fetches again when it is due, with MDM's own downloader.
-#[derive(Clone, Debug, PartialEq, Eq)]
-pub struct PublicTrackers {
-    pub url: String,
-    pub dir: std::path::PathBuf,
-}
-
-/// Torrent settings' "Use the proxy" (#40), for `torrent-info` and `torrent-get`.
-#[derive(Clone, Debug, Default, PartialEq, Eq)]
-pub enum TorrentProxy {
-    /// Off: torrents connect directly.
-    #[default]
-    Off,
-    /// Through this SOCKS5 proxy (`socks5://…`, with its login).
-    Through(String),
-    /// On, but Options → Proxy / Socks has no SOCKS5 proxy: torrents don't start, as in the app.
-    Missing,
-}
-
 /// How this command connects: [`Net`] with the command's own `--proxy`, `--dns`, `--adapter`.
 #[derive(Clone, Debug, Default)]
 struct Conn {
     proxy: Proxy,
     dns: mdm_engine::DnsChoice,
     route: mdm_engine::Route,
-    torrent_proxy: TorrentProxy,
-    public_trackers: Option<PublicTrackers>,
     sites: SiteRules,
 }
 
@@ -1001,8 +943,6 @@ impl Conn {
             proxy: proxy.clone().unwrap_or_else(|| net.proxy.clone()),
             dns: dns.cloned().unwrap_or_else(|| net.dns.clone()),
             route,
-            torrent_proxy: net.torrent_proxy.clone(),
-            public_trackers: net.public_trackers.clone(),
             sites: net.sites.clone(),
         }
     }
@@ -1577,130 +1517,6 @@ async fn run(cmd: Cmd, json: bool, accounts: Option<&dyn Accounts>) -> anyhow::R
             if failed > 0 {
                 anyhow::bail!("{failed} of {n} videos failed");
             }
-            Ok(())
-        }
-        Cmd::TorrentCreate { path, output } => {
-            let spawner = mdm_torrent::librqbit::spawn_utils::BlockingSpawner::new(1);
-            let made = mdm_torrent::librqbit::create_torrent(
-                &path,
-                mdm_torrent::librqbit::CreateTorrentOptions {
-                    name: None,
-                    trackers: Vec::new(),
-                    piece_length: None,
-                },
-                &spawner,
-            )
-            .await?;
-            std::fs::write(&output, made.as_bytes()?)?;
-            if json {
-                emit(json!({ "info_hash": made.info_hash().as_string(), "path": output }));
-            } else {
-                println!("{}  {}", made.info_hash().as_string(), output.display());
-            }
-            Ok(())
-        }
-        Cmd::TorrentInfo { source } => {
-            let (t, _dir) = torrents().await?;
-            let m = t
-                .metadata(&torrent_source(&source)?, Duration::from_secs(180), None)
-                .await?;
-            let files = m.files.iter().enumerate().filter(|(_, f)| !f.padding);
-            if json {
-                let files: Vec<_> = files
-                    .map(|(i, f)| json!({ "index": i, "size": f.size, "path": f.path }))
-                    .collect();
-                emit(json!({
-                    "name": m.name,
-                    "info_hash": m.info_hash,
-                    "size": m.total(),
-                    "files": files,
-                }));
-            } else {
-                println!("{}  {}  {} bytes", m.name, m.info_hash, m.total());
-                for (i, f) in files {
-                    println!("{i:>4}  {:>14}  {}", f.size, f.path.display());
-                }
-            }
-            t.stop().await;
-            Ok(())
-        }
-        Cmd::TorrentGet {
-            source,
-            output,
-            files,
-            seconds,
-            use_existing,
-        } => {
-            let (t, _dir) = torrents().await?;
-            let m = t
-                .metadata(&torrent_source(&source)?, Duration::from_secs(180), None)
-                .await?;
-            // The app asks first; here, the flag says yes (#40).
-            let there = m.existing_in(&output);
-            if let (false, Some(first)) = (use_existing, there.first()) {
-                t.stop().await;
-                anyhow::bail!(
-                    "files of the torrent are already there ({}, first: {}); add --use-existing \
-                     to use them, or choose another folder with -o",
-                    there.len(),
-                    first.display()
-                );
-            }
-            let folder = m.folder_in(&output);
-            let torrent = with_public_list(&m.torrent).await;
-            let hash = t
-                .add(&torrent, &folder, files, m.peers.clone(), false)
-                .await?;
-            let started = std::time::Instant::now();
-            loop {
-                tokio::time::sleep(Duration::from_millis(1000)).await;
-                let s = t.stats(&hash)?;
-                if json {
-                    emit(json!({
-                        "event": "progress",
-                        "phase": format!("{:?}", s.phase),
-                        "downloaded": s.done,
-                        "size": s.total,
-                        "speed": s.down_speed as u64,
-                        "peers": s.peers_live,
-                        "peers_seen": s.peers_seen,
-                    }));
-                } else {
-                    eprint!(
-                        "\r{:?} {} / {}  {:.0} KB/s  peers {}/{}      ",
-                        s.phase,
-                        s.done,
-                        s.total,
-                        s.down_speed / 1024.0,
-                        s.peers_live,
-                        s.peers_seen
-                    );
-                }
-                if s.phase == mdm_torrent::Phase::Finished {
-                    if json {
-                        emit(json!({ "event": "done", "path": folder, "size": s.total }));
-                    } else {
-                        eprintln!();
-                        println!("saved in {}", folder.display());
-                    }
-                    break;
-                }
-                if let Some(e) = s.error {
-                    anyhow::bail!(e);
-                }
-                if seconds.is_some_and(|n| started.elapsed().as_secs() >= n) {
-                    t.pause(&hash).await?;
-                    let secs = started.elapsed().as_secs();
-                    if json {
-                        emit(json!({ "event": "stopped", "downloaded": s.done, "seconds": secs }));
-                    } else {
-                        eprintln!();
-                        println!("stopped after {secs} s; {} bytes there", s.done);
-                    }
-                    break;
-                }
-            }
-            t.stop().await;
             Ok(())
         }
         Cmd::VideoGet {
@@ -2493,81 +2309,6 @@ fn mb(b: u64) -> String {
     format!("{:.2} MB", b as f64 / (1 << 20) as f64)
 }
 
-/// A throwaway torrent session for the command line (its own state folder, nothing kept),
-/// through Torrent settings' SOCKS5 proxy when they say to use it (#1556), as the app's.
-async fn torrents() -> anyhow::Result<(mdm_torrent::Torrents, tempfile::TempDir)> {
-    let proxy = match conn().torrent_proxy {
-        TorrentProxy::Off => None,
-        TorrentProxy::Through(p) => Some(p),
-        TorrentProxy::Missing => anyhow::bail!(
-            "Torrent settings say to use the proxy, and Options → Proxy / Socks has no SOCKS5 proxy: set one, or turn Use the proxy off"
-        ),
-    };
-    let dir = tempfile::tempdir()?;
-    let t = mdm_torrent::Torrents::start(mdm_torrent::Config {
-        // Its own folder, nothing of the person's is there: the engine may open what it makes.
-        require_authorization: false,
-        proxy,
-        ..mdm_torrent::Config::new(dir.path().to_owned())
-    })
-    .await?;
-    Ok((t, dir))
-}
-
-/// `torrent` with Torrent settings' public tracker list (#1776) when it is on, as the app adds
-/// it to a torrent: from the app's cache, fetched again first (this command's connection, MDM's
-/// downloader) when it is due; never to a private torrent. Said on stderr.
-async fn with_public_list(torrent: &[u8]) -> Vec<u8> {
-    let Some(p) = conn().public_trackers else {
-        return torrent.to_vec();
-    };
-    let now = || {
-        std::time::SystemTime::now()
-            .duration_since(std::time::UNIX_EPOCH)
-            .map_or(0, |d| d.as_secs())
-    };
-    let cache = mdm_torrent::public_trackers::refresh_file(&p.dir, &p.url, now, || {
-        mdm_torrent::public_trackers::download(&p.url, &p.dir, own_net())
-    })
-    .await;
-    let (out, said) = public_list_added(torrent, cache.trackers(&p.url));
-    if let Some(said) = said {
-        eprintln!("{said}");
-    }
-    out
-}
-
-/// [`with_public_list`] once the list is in hand: the bytes, and what to say (nothing when the
-/// list added nothing).
-fn public_list_added(torrent: &[u8], list: &[String]) -> (Vec<u8>, Option<String>) {
-    if mdm_torrent::trackers::private(torrent) {
-        let said = "a private torrent: the public tracker list isn't added";
-        return (
-            torrent.to_vec(),
-            (!list.is_empty()).then(|| said.to_owned()),
-        );
-    }
-    match mdm_torrent::public_trackers::add_to(torrent, list) {
-        Some(with) => {
-            let n = mdm_torrent::trackers::listed(&with)
-                .len()
-                .saturating_sub(mdm_torrent::trackers::listed(torrent).len());
-            let said = format!("{n} tracker(s) added from the public list");
-            (with, Some(said))
-        }
-        None => (torrent.to_vec(), None),
-    }
-}
-
-fn torrent_source(s: &str) -> anyhow::Result<mdm_torrent::Source> {
-    match mdm_torrent::Source::magnet(s) {
-        Some(m) => Ok(m),
-        None => Ok(mdm_torrent::Source::File(mdm_torrent::read_file(
-            std::path::Path::new(s),
-        )?)),
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -2662,57 +2403,6 @@ mod tests {
         assert!(headers.is_empty());
     }
 
-    /// #1776: `torrent-get` adds the public list as the app does: to a public torrent, after its
-    /// own tracker, the hash the same; never to a private one; nothing said when nothing is new.
-    #[test]
-    fn torrent_get_adds_the_public_list_to_public_torrents_only() {
-        let info = |private: bool| {
-            format!(
-                "d6:lengthi5e4:name1:a12:piece lengthi16384e6:pieces20:aaaaaaaaaaaaaaaaaaaa{}e",
-                if private { "7:privatei1e" } else { "" }
-            )
-        };
-        let torrent = |private: bool| {
-            let own = "http://own.example/announce";
-            format!("d8:announce{}:{own}4:info{}e", own.len(), info(private)).into_bytes()
-        };
-        let list: Vec<String> = [
-            "udp://tracker.opentrackr.org:1337/announce",
-            "http://127.0.0.1:6969/announce",
-        ]
-        .map(String::from)
-        .to_vec();
-        let hash = |t: &[u8]| {
-            mdm_torrent::librqbit::torrent_from_bytes(t)
-                .unwrap()
-                .info_hash
-        };
-        let public = torrent(false);
-        let (out, said) = public_list_added(&public, &list);
-        assert_eq!(
-            mdm_torrent::trackers::listed(&out),
-            [
-                "http://own.example/announce",
-                "udp://tracker.opentrackr.org:1337/announce"
-            ]
-        );
-        assert_eq!(hash(&out), hash(&public));
-        assert_eq!(
-            said.as_deref(),
-            Some("1 tracker(s) added from the public list")
-        );
-        // Again: nothing new, nothing said.
-        assert_eq!(public_list_added(&out, &list), (out.clone(), None));
-        // Private: as it was.
-        let private = torrent(true);
-        let (out, said) = public_list_added(&private, &list);
-        assert_eq!(out, private);
-        assert!(said.unwrap().contains("private"));
-        // No list yet: as it was, nothing said.
-        assert_eq!(public_list_added(&public, &[]), (public.clone(), None));
-        assert_eq!(public_list_added(&private, &[]), (private, None));
-    }
-
     /// #1556: a command goes through the app's network settings, its own switches over them.
     #[test]
     fn a_command_takes_the_apps_network_and_its_own_switches() {
@@ -2720,8 +2410,6 @@ mod tests {
             proxy: Proxy::System,
             dns: parse_dns("quad9-tls").unwrap(),
             adapter: String::new(),
-            torrent_proxy: TorrentProxy::Through("socks5://127.0.0.1:1080".into()),
-            public_trackers: None,
             sites: SiteRules::default(),
         };
         let cmd = |args: &[&str]| {
@@ -2753,10 +2441,6 @@ mod tests {
         assert!(matches!(c.proxy, Proxy::Manual { ref url, .. } if url == "socks5h://h:1"));
         let c = Conn::of(&cmd(&["video-info", "https://v.test/w"]), &net);
         assert_eq!(c.proxy, Proxy::System);
-        assert_eq!(
-            Conn::of(&cmd(&["torrent-info", "x.torrent"]), &net).torrent_proxy,
-            net.torrent_proxy
-        );
         // An adapter that isn't there: nothing goes out.
         let c = Conn::of(
             &cmd(&[
@@ -3015,13 +2699,13 @@ mod tests {
         let cli = Cli::try_parse_from([
             NAME,
             "add",
-            "magnet:?xt=urn:btih:abc",
+            "https://example.test/archive.tar.gz",
             "-o",
             "D:\\Downloads",
             "-f",
-            "my_torrent",
+            "archive.tar.gz",
             "-c",
-            "Torrents",
+            "Compressed",
             "-q",
             "Night",
             "--checksum",
@@ -3045,10 +2729,10 @@ mod tests {
                 later: true,
                 silent: true,
                 private: false,
-            } if url == "magnet:?xt=urn:btih:abc"
+            } if url == "https://example.test/archive.tar.gz"
                 && o == &PathBuf::from("D:\\Downloads")
-                && n == "my_torrent"
-                && c == "Torrents"
+                && n == "archive.tar.gz"
+                && c == "Compressed"
                 && q == "Night"
                 && h == sha256
         ));

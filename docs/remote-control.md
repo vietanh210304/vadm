@@ -1,7 +1,7 @@
 # Control MDM from your phone
 
 Add a download from your phone, or from another computer at home, and watch it run on the
-computer where MDM is: paste a link or a magnet link, send a `.torrent` file, see the list with
+computer where MDM is: paste a link, see the list with
 its progress, and pause, start or remove downloads. Your phone opens a small page that MDM
 itself serves; nothing is installed on the phone, and no outside service is involved.
 
@@ -43,9 +43,8 @@ another. To keep the page one tap away, add it to the phone's home screen (the b
 
 ## What the page does
 
-- **Add**: a download's address or a magnet link, or a `.torrent` file from the phone. Pick a
+- **Add**: a download's address. Pick a
   **Category** (or let the file's type pick it), and **When**: **Start now**, or wait in a queue.
-  A torrent is added with all its files, once MDM has read them (a magnet link can take a moment).
 - **The list**: every download with its progress, speed and size, with **All**, **Unfinished**
   and **Finished**. **Pause** and **Start** each one; **×** removes it from the list, and with
   **Delete the file too**, deletes its file from the computer.

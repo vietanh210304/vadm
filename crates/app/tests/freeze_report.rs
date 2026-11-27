@@ -92,15 +92,13 @@ fn end(pid: u32) {
 /// The app, off the screens, with `data` as its data folder (and a download folder in it), the
 /// crash tests on.
 fn start(data: &Path) -> Child {
-    // No update check, no first-start questions; the torrent engine stays on this computer.
+    // No update check, no first-start questions.
     // Minimize stays a minimize (not the notification area), for `/show minimized`.
     let downloads = data.join("downloads");
     std::fs::create_dir_all(&downloads).unwrap();
     let settings = serde_json::json!({
         "language": "en", "update_check": false, "helpers_asked": true, "language_asked": true,
         "extension_never_ask": true, "minimize_to_tray": false, "clipboard_autostart": false,
-        "torrent_dht": false, "torrent_lsd": false, "torrent_upnp": false,
-        "torrent_incoming": false,
         "category_dirs": [["General", downloads.to_string_lossy()]],
     });
     std::fs::write(

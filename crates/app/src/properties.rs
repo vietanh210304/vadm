@@ -41,7 +41,6 @@ pub struct Properties {
     /// The debrid accounts (#44): "Through …" shows while one takes the address.
     route: crate::debrid::Route,
     direct: bool,
-    files_requested: bool,
     /// Its own request settings as Connection... left them (#1778), kept on OK.
     own: crate::model::OwnRequest,
     /// Connection...'s window while it is open, and the most connections Options allows.
@@ -65,15 +64,10 @@ impl Properties {
             error: None,
             route,
             direct: item.direct,
-            files_requested: false,
             own: item.own.clone(),
             request: None,
             request_wanted: false,
         }
-    }
-
-    pub fn take_files_requested(&mut self) -> bool {
-        std::mem::take(&mut self.files_requested)
     }
 
     /// Connection... was pressed: the app opens its window with [`Properties::open_request`].
@@ -89,14 +83,12 @@ impl Properties {
     }
 
     /// A download whose own request settings can be changed here: a file MDM's engine
-    /// downloads (not a video's or gallery's helper, a torrent or a service's transfer), not
-    /// finished. While it runs they show, greyed: they apply as it starts.
+    /// downloads (not a video's or gallery's helper), not finished. While it runs they show,
+    /// greyed: they apply as it starts.
     fn request_editable(item: &Item) -> bool {
         item.status != Status::Complete
             && item.video.is_none()
             && item.gallery.is_none()
-            && item.torrent.is_none()
-            && item.remote.is_none()
     }
 
     /// `item` took a new address while this window was open (the browser's next download of
@@ -182,16 +174,15 @@ impl Properties {
     }
 
     /// The address can be replaced (Refresh download address) while the download isn't finished
-    /// or running, unless it isn't a file's address: a video's stream (#795) or a torrent's
-    /// magnet link or .torrent file (#904), which are shown read only. The same answer decides
-    /// the field and OK's check, so a field that can't be edited never holds OK back.
+    /// or running, unless it isn't a file's address: a video's stream (#795), which is shown read
+    /// only. The same answer decides the field and OK's check, so a field that can't be edited
+    /// never holds OK back.
     fn address_editable(&self, item: &Item) -> bool {
         item.status != Status::Complete
             && item.live.is_none()
             // Its resume state is being moved (#1739): rewritten once it is at its place.
             && item.move_from.is_none()
             && !self.stream
-            && item.torrent.is_none()
     }
 
     /// OK closes the window: the address, when it can be replaced, is one MDM downloads.
@@ -288,13 +279,13 @@ impl Properties {
         // A video's server is its file's once MDM's engine has downloaded it (#769, #795), as
         // the progress window shows it; yt-dlp's own and gallery-dl's are theirs.
         let helpers = item.video.is_some() || item.gallery.is_some();
-        if item.torrent.is_some() || helpers && seen.is_none() {
-            // i18n: Properties, where a download's server is: a torrent, a video or a gallery has no single server of MDM's own
+        if helpers && seen.is_none() {
+            // i18n: Properties, where a download's server is: a video or a gallery has no single server of MDM's own
             fit(
                 ui,
                 col,
                 128.0,
-                crate::i18n::t("not one server (peers, or a helper's)"),
+                crate::i18n::t("not one server (a helper's)"),
             );
         } else if seen.is_some() {
             crate::whereis::line(
@@ -562,19 +553,6 @@ impl Properties {
         if open && complete {
             crate::dialogs::open_download(&item.dest, item.moved_away);
         }
-        if item.torrent.is_some()
-            && winui::button_light(
-                ui,
-                r(o, 170.0, 390.0, 78.0, 21.0),
-                // i18n: File Properties button that opens the selected torrent's file list
-                "Files...",
-                ButtonKind::Normal,
-                false,
-            )
-            .clicked()
-        {
-            self.files_requested = true;
-        }
         let ok = winui::button_light(
             ui,
             r(o, 393.0, 390.0, 73.0, 21.0),
@@ -642,31 +620,6 @@ mod tests {
         );
         item.status = Status::Stopped;
         item
-    }
-
-    /// #904: a torrent's address is its magnet link (or .torrent), shown read only; OK closes
-    /// the window instead of asking for an http(s) or ftp(s) address it can't be given.
-    #[test]
-    fn a_torrents_properties_close_with_ok() {
-        let mut torrent = item("magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567");
-        torrent.torrent = Some(crate::torrents::TorrentSpec {
-            ownership: None,
-            hash: "0123456789abcdef0123456789abcdef01234567".into(),
-            files: None,
-            folder: PathBuf::from("f"),
-            create_subfolder: true,
-            uploaded: 0,
-            seeded_secs: 0,
-            peers: 0,
-            up_speed: 0.0,
-            upload_limit: None,
-            in_order: false,
-            ends_first: false,
-            public_list: 0,
-        });
-        let props = Properties::new(&torrent, crate::debrid::Route::default());
-        assert!(!props.address_editable(&torrent));
-        assert!(props.address_ok(&torrent));
     }
 
     /// A file's address that isn't finished stays editable, and a bad one still holds OK back.

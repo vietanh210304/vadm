@@ -170,7 +170,7 @@ impl GalleryDialog {
             .is_some_and(|(p, ok)| *p == page && *ok);
         let mut status_right = 489.0;
         if self.install.is_some() {
-            crate::torrentdlg::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
+            crate::winui::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
             let msg = crate::i18n::t("Downloading and verifying gallery-dl...");
             text(&p, o.x + 31.0, line_y, msg, winui::TEXT());
         } else if tool.is_none() {
@@ -231,7 +231,7 @@ impl GalleryDialog {
                 self.error = None;
             }
         } else if self.check.is_some() {
-            crate::torrentdlg::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
+            crate::winui::spinner(ui, pos2(o.x + 18.0, line_y - 4.0), 6.0);
             // i18n: in Download a gallery, while gallery-dl checks the address (offline)
             let msg = crate::i18n::t("Checking the address with gallery-dl...");
             text(&p, o.x + 31.0, line_y, msg, winui::TEXT());

@@ -3,7 +3,7 @@
 //! folder's `themes` folder, pywal's colours). A registry read can wait for seconds (#719: 8 s,
 //! on the window's thread, froze the window), a folder on a slow or network disk as long; so a
 //! thread of their own reads each ([`Watched`]), the window takes the last answer and is woken
-//! when one changes. The rule of the clipboard's reads (#418) and the torrents' numbers (#693).
+//! when one changes. The rule of the clipboard's reads (#418).
 //!
 //! Linux's desktop settings come from the portal's and the theme settings' own threads
 //! (`unix::desktop_dark`), macOS's accent from `launch::Asked`; neither is read here.

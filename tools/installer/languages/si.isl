@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 අස්ථාපනය කරමින�
 
 [CustomMessages]
 TaskBrowser=බ්‍රවුසර ඒකාබද්ධතාව (&b) සකසන්න (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Mister Download Manager මඟින් .&torrent ගොනු සහ magnet සබැඳුම් විවෘත කරන්න
 TaskStartup=Windows ආරම්භයේදී Mister Download Manager &ආරම්භ කරන්න
 TaskGroupOther=වෙනත්:
 Launch=Mister Download Manager ආරම්භ කරන්න

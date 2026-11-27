@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Konfigurera webbläsarintegrering (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Öppna .&torrent-filer och magnetlänkar med Mister Download Manager
 TaskStartup=Starta Mister Download Manager när &Windows startar
 TaskGroupOther=Övrigt:
 Launch=Starta Mister Download Manager

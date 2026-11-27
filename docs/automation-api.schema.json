@@ -25,7 +25,7 @@
       "type": "object"
     },
     "AddAnswer": {
-      "description": "An address added (`url`): the download's id, or `pending` while a torrent's files are looked\nup (it joins the list once they are known).",
+      "description": "An address added (`url`): the download's id.",
       "properties": {
         "id": {
           "format": "uint64",
@@ -34,10 +34,6 @@
             "integer",
             "null"
           ]
-        },
-        "pending": {
-          "default": false,
-          "type": "boolean"
         }
       },
       "type": "object"
@@ -143,7 +139,7 @@
           ]
         },
         "exists": {
-          "description": "`Complete`: whether its file (a torrent's folder) is still at `path`: false once it was\nmoved or deleted. Null while not looked at yet, and for the other statuses.",
+          "description": "`Complete`: whether its file is still at `path`: false once it was\nmoved or deleted. Null while not looked at yet, and for the other statuses.",
           "type": [
             "boolean",
             "null"
@@ -175,7 +171,7 @@
           "type": "integer"
         },
         "kind": {
-          "description": "What downloads it when it isn't a plain file: `video` (from a page, by yt-dlp),\n`torrent`, `gallery` (by gallery-dl). Null: a file.",
+          "description": "What downloads it when it isn't a plain file: `video` (from a page, by yt-dlp),\n`gallery` (by gallery-dl). Null: a file.",
           "type": [
             "string",
             "null"
@@ -191,7 +187,7 @@
           ]
         },
         "path": {
-          "description": "Where it is saved: the file, or a torrent's folder.",
+          "description": "Where it is saved.",
           "type": "string"
         },
         "redownload": {
@@ -218,7 +214,7 @@
           "type": "string"
         },
         "url": {
-          "description": "Its address (a video's page, a torrent's magnet link).",
+          "description": "Its address (for instance a video's page).",
           "type": "string"
         }
       },
@@ -813,7 +809,7 @@
         },
         "show": {
           "default": null,
-          "description": "`/show <window>` (beyond IDM): the running app opens one of its windows by name, for\nscreenshots and scripted checks (tools/lab/docs-shots.ps1): `addurl`, `batch`, `find`,\n`scheduler`, `about`, `language`, `shortcuts`, `speedlimit`, `properties`, `delete`,\n`progress`, `existing-files`, `video-page`, `video-helpers`, `video-subs`,\n`torrent-settings`, `add-trackers`, `menu` (the first download's right-click menu),\n`options[:general|types|saveto|downloads|connection|proxy|logins|sounds|regional|panels]`.",
+          "description": "`/show <window>` (beyond IDM): the running app opens one of its windows by name, for\nscreenshots and scripted checks (tools/lab/docs-shots.ps1): `addurl`, `batch`, `find`,\n`scheduler`, `about`, `language`, `shortcuts`, `speedlimit`, `properties`, `delete`,\n`progress`, `existing-files`, `video-page`, `video-helpers`, `video-subs`,\n`menu` (the first download's right-click menu),\n`options[:general|types|saveto|downloads|connection|proxy|logins|sounds|regional|panels]`.",
           "type": [
             "string",
             "null"

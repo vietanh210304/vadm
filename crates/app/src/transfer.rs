@@ -235,7 +235,7 @@ fn downloadable(url: &str) -> bool {
 }
 
 /// Every download address in free text (a page saved as text, a list, a mail, a forum post):
-/// http(s), ftp(s) and magnet links, one per line or inside sentences, Markdown links
+/// http(s) and ftp(s) links, one per line or inside sentences, Markdown links
 /// (`[name](address)`), angle brackets (`<address>`) or HTML (`href="address"`). What ends a
 /// sentence (`.`, `,`, `!`…), a closing bracket the address didn't open and Markdown's `**` are
 /// not part of the address; a pair of brackets inside it is (`…/wiki/Name_(film)`). A
@@ -246,35 +246,17 @@ fn addresses(text: &str) -> Vec<String> {
     let lower = text.to_ascii_lowercase();
     let mut out = Vec::new();
     let mut at = 0;
-    // The next of each, found again only once passed: a long list without magnet links (or
-    // with nothing but them) is read once, not once per address (#805).
-    let (mut web, mut magnet) = (Next::default(), Next::default());
-    loop {
-        let web = web.from(&lower, "://", at);
-        let magnet = magnet.from(&lower, "magnet:?", at);
-        let (pos, is_magnet) = match (web, magnet) {
-            (Some(w), Some(m)) if m < w => (m, true),
-            (Some(w), _) => (w, false),
-            (None, Some(m)) => (m, true),
-            (None, None) => break,
-        };
-        let start = if is_magnet {
-            pos
-        } else {
-            scheme_start(&lower, pos)
-        };
+    let mut web = Next::default();
+    while let Some(pos) = web.from(&lower, "://", at) {
+        let start = scheme_start(&lower, pos);
         let rest = &text[start..];
         let len = address_len(rest);
         let before = text[..start].chars().next_back();
         let cand = trim_address(&rest[..len], before);
-        let found = if is_magnet {
-            magnet_link(cand)
-        } else {
-            match unwrapped(cand) {
-                Wrapped::No => web_address(cand),
-                Wrapped::Address(inner) => Some(inner),
-                Wrapped::Unsupported => None,
-            }
+        let found = match unwrapped(cand) {
+            Wrapped::No => web_address(cand),
+            Wrapped::Address(inner) => Some(inner),
+            Wrapped::Unsupported => None,
         };
         out.extend(found);
         at = (start + len).max(pos + 3);
@@ -367,12 +349,6 @@ fn web_address(cand: &str) -> Option<String> {
         .map(String::from)
 }
 
-/// A magnet link to a torrent (one with its BitTorrent hash, `xt=urn:btih:` or `urn:btmh:`).
-fn magnet_link(cand: &str) -> Option<String> {
-    let cand = cand.replace("&amp;", "&");
-    (mdm_torrent::Source::magnet(&cand).is_some() && magnet_hash(&cand).is_some()).then_some(cand)
-}
-
 /// What [`unwrapped`] made of a link.
 #[derive(Clone, Debug, PartialEq)]
 pub enum Wrapped {
@@ -399,7 +375,7 @@ const WRAPPED_BASE64: base64::engine::GeneralPurpose = base64::engine::GeneralPu
 /// `[FLASHGET]<address>[FLASHGET]` (and sometimes `&<something>` after the base64), QQ the
 /// address alone. The scheme is read in any case; a `/` after the base64 is left out.
 ///
-/// Only an address MDM downloads comes out (http, https, ftp, a magnet link to a torrent).
+/// Only an address MDM downloads comes out (http, https, ftp).
 /// Base64 that can't be read, missing marks, bytes that are not UTF-8 (old links hold GBK
 /// text) and any other address inside are [`Wrapped::Unsupported`]. A wrapped link inside
 /// another is one of those too: a link is unwrapped once and never again, so no link can make
@@ -423,35 +399,15 @@ pub fn unwrapped(link: &str) -> Wrapped {
         use base64::Engine as _;
         let text = String::from_utf8(WRAPPED_BASE64.decode(code).ok()?).ok()?;
         let inner = text.strip_prefix(head)?.strip_suffix(tail)?.trim();
-        if inner.to_ascii_lowercase().starts_with("magnet:?") {
-            magnet_link(inner)
-        } else {
-            web_address(inner)
-        }
+        web_address(inner)
     };
     inside(code)
         .or_else(|| code.strip_suffix('/').and_then(inside))
         .map_or(Wrapped::Unsupported, Wrapped::Address)
 }
 
-/// A magnet link's torrent hash (`xt=urn:btih:<hash>`), in lower case.
-pub fn magnet_hash(magnet: &str) -> Option<String> {
-    let lower = magnet.to_ascii_lowercase();
-    let query = lower.strip_prefix("magnet:?")?;
-    query.split('&').find_map(|kv| {
-        let hash = kv
-            .strip_prefix("xt=urn:btih:")
-            .or_else(|| kv.strip_prefix("xt=urn:btmh:"))?;
-        (!hash.is_empty()).then(|| hash.to_owned())
-    })
-}
-
-/// What makes two found addresses one download: the same torrent for magnet links, else the
-/// same address but for a `#fragment`.
+/// What makes two found addresses one download: the same address but for a `#fragment`.
 fn same_key(address: &str) -> String {
-    if let Some(hash) = magnet_hash(address) {
-        return format!("magnet:{hash}");
-    }
     match url::Url::parse(address) {
         Ok(mut u) => {
             u.set_fragment(None);
@@ -523,15 +479,13 @@ mod tests {
     }
 
     /// #709: a forum post or a list copied from a page: the addresses inside Markdown, angle
-    /// brackets, brackets and sentences, magnet links among them, each once.
+    /// brackets, brackets and sentences, each once.
     #[test]
     fn addresses_in_a_forum_post() {
         let post = "Mirror 1: **https://dl.example.org/pack/part1.rar**\n\
             Mirror 2: [part 2](https://dl.example.org/pack/part2.rar \"title\")\n\
             [https://dl.example.org/pack/part3.rar](https://dl.example.org/pack/part3.rar)\n\
             Old: <https://old.example.org/notes.txt>, and the wiki (https://wiki.example.org/Film_(1999)).\n\
-            Torrent: magnet:?xt=urn:btih:ABCDEF0123456789ABCDEF0123456789ABCDEF01&dn=Show&amp;tr=udp://t.example:80/announce.\n\
-            Same torrent: magnet:?xt=urn:btih:abcdef0123456789abcdef0123456789abcdef01\n\
             Glued:https://glued.example.org/a.iso! Linkhttps://word.example.org/b.iso?\n\
             Twice: https://DL.example.org/pack/part1.rar#again and HTTPS://dl.example.org:443/pack/part2.rar\n\
             Quoted «https://q.example.org/q.zip» and 「https://cjk.example.org/c.zip」，next\n\
@@ -545,17 +499,12 @@ mod tests {
                 "https://dl.example.org/pack/part3.rar",
                 "https://old.example.org/notes.txt",
                 "https://wiki.example.org/Film_(1999)",
-                "magnet:?xt=urn:btih:ABCDEF0123456789ABCDEF0123456789ABCDEF01&dn=Show&tr=udp://t.example:80/announce",
                 "https://glued.example.org/a.iso",
                 "https://word.example.org/b.iso",
                 "https://q.example.org/q.zip",
                 "https://cjk.example.org/c.zip",
                 "https://h.example.org/get?id=7&key=x",
             ]
-        );
-        assert_eq!(
-            magnet_hash("MAGNET:?dn=x&xt=urn:btih:ABC").as_deref(),
-            Some("abc")
         );
         assert_eq!(found(""), Vec::<String>::new());
         assert_eq!(found("no links here, only words."), Vec::<String>::new());
@@ -578,8 +527,6 @@ mod tests {
         ]
     }
 
-    const MAGNET: &str = "magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=Show";
-
     /// #1782: each wrapper round each kind of address MDM downloads gives that address, alone
     /// and inside a sentence.
     #[test]
@@ -588,7 +535,6 @@ mod tests {
             "http://dl.example.org/pack/a.zip",
             "https://dl.example.org/pack/b.rar?id=7&key=x",
             "ftp://ftp.example.org/pub/c.iso",
-            MAGNET,
         ] {
             for wrapped in wrappers(address) {
                 assert_eq!(
@@ -614,7 +560,7 @@ mod tests {
             ]
         );
         // Not one of them: left to the callers, as before.
-        for plain in ["https://a.org/x.zip", MAGNET, "thunder", "no links here"] {
+        for plain in ["https://a.org/x.zip", "thunder", "no links here"] {
             assert_eq!(unwrapped(plain), Wrapped::No, "{plain}");
         }
     }
@@ -723,24 +669,16 @@ mod tests {
     fn a_wrapped_and_a_plain_link_to_the_same_file_are_one() {
         let address = "https://dl.example.org/pack/a.zip";
         let [thunder, flashget, qqdl] = wrappers(address);
-        let [magnet, ..] = wrappers(MAGNET);
         let list = format!(
             "{thunder}\n{address}\n{flashget}\n{qqdl}\nhttps://other.example.org/b.zip\n\
-             {MAGNET}\n{magnet}\nTHUNDER://{}",
+             THUNDER://{}",
             thunder.trim_start_matches("thunder://")
         );
-        assert_eq!(
-            found(&list),
-            [address, "https://other.example.org/b.zip", MAGNET]
-        );
+        assert_eq!(found(&list), [address, "https://other.example.org/b.zip"]);
         // The plain one first, or the wrapped one: the same.
         assert_eq!(found(&format!("{address} {qqdl}")), [address]);
         // Only wrapped, each another way: still the one download, under its own address.
         assert_eq!(found(&format!("{thunder}\n{flashget}\n{qqdl}")), [address]);
-        assert_eq!(
-            found(&format!("{magnet}\n{}", wrappers(MAGNET)[2])),
-            [MAGNET]
-        );
     }
 
     fn temp(name: &str) -> PathBuf {

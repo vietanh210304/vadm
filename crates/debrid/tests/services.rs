@@ -278,7 +278,7 @@ async fn torbox_links_come_through_the_account_once_it_has_the_file() {
     // Done: the web download leaves the account's TorBox list (found by its link); again, a
     // no-op. Only this test makes web downloads in this binary.
     let held = || async {
-        let body = reqwest::get(lab.url("/_debrid/torrents"))
+        let body = reqwest::get(lab.url("/_debrid/webdl"))
             .await
             .unwrap()
             .bytes()
@@ -438,8 +438,6 @@ async fn megadebrid_links_come_through_the_account_by_key_or_password() {
         .await,
         Err(mdm_debrid::Fault::Service(ServiceFault::SignIn))
     ));
-    // No torrents through Mega-Debrid yet: they go to an account that takes them.
-    assert_eq!(d.torrent_account(), None);
     assert!(signin::start(&http, ServiceKind::MegaDebrid).await.is_err());
 }
 

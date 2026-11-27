@@ -12,7 +12,7 @@ Every version is on the [Releases](https://github.com/anefzaoui/misterdownloadma
 
 | File | What it is |
 |---|---|
-| `MisterDownloadManager-<version>-setup.exe` | The installer. Pick this one unless you have a reason not to. It can set up browser integration and open `.torrent` files and magnet links with MDM. |
+| `MisterDownloadManager-<version>-setup.exe` | The installer. Pick this one unless you have a reason not to. It can set up browser integration. |
 | `MisterDownloadManager-<version>-portable.zip` | A portable copy. The download list and settings stay in a `data` folder next to the program, and nothing is written to the registry. Browser integration needs the installer. See [Portable mode](portable.md). |
 | `MisterDownloadManager-<version>-x64.zip` | The same programs without an installer. It keeps its data in `%APPDATA%\misterdownloadmanager`, like an installed copy. |
 
@@ -78,8 +78,6 @@ bars:
   *Add URL.*
 - ![A download's progress window on Linux: its speed, time left and connections](images/progress-linux.webp)
   *A download's progress.*
-- ![Add torrent on Linux, with the torrent's files](images/add-torrent-linux.webp)
-  *Add torrent.*
 - ![The Scheduler on Linux](images/scheduler-linux.webp)
   *The Scheduler.*
 - ![Options on its Connection page, on Linux](images/options-linux.webp)
@@ -142,7 +140,6 @@ Browser integration is set up by MDM itself at each start (the browsers installe
 3. Choose whether to install for you only or for everyone on the computer. For you only needs no administrator rights and goes to `%LOCALAPPDATA%\Programs\Mister Download Manager`. For everyone goes to `Program Files`.
 4. Pick what the setup should do:
    - **Set up browser integration (Chrome, Edge, Brave, Firefox)**
-   - **Open .torrent files and magnet links with Mister Download Manager**
    - **Start Mister Download Manager when Windows starts**
    - **Create a desktop shortcut** (off unless you tick it)
 5. Click **Install**, then **Finish** to start MDM.
@@ -190,12 +187,12 @@ window offers them when you first need them. More in [Videos](video.md).
 From top to bottom:
 
 - **Menu bar.**
-  - **Tasks** — add downloads, torrents, magnet links, batch downloads and videos from a page; **Torrent settings**; **Link grabber**; **RSS feeds**; show the drop target; import and export the list; exit.
+  - **Tasks** — add downloads, batch downloads and videos from a page; **Link grabber**; show the drop target; import and export the list; exit.
   - **File** — the selected download: **Stop Download**, **Remove**, **Download Now**, **Redownload**.
   - **Downloads** — **Pause All**, **Stop All**, **Delete All Completed**, **Find**, the **Scheduler**, queues, the **Speed Limiter** and **Options**.
   - **View** — show or hide the categories, sort the list (**Arrange files**), **Dark Mode support**, **Always dark**, **Theme**, **Interface size** (every window larger, 100 % to 200 %; **Ctrl +**, **Ctrl −** and **Ctrl 0** too), **Font** (the interface's own font file and text size, apart from **Interface size**), **Text** (Windows: smooth or classic letters), **Draw with** (OpenGL, or Direct3D on Windows, Vulkan on Linux, Metal on macOS) and **Language**.
   - **Help** — help pages and tutorials (on the website, in your language when it has it), **Keyboard shortcuts**, **Report a problem**, **Check for updates**, **About**, **Tell a friend** and **Support MDM** (its creator's GitHub Sponsors page: optional, nothing in MDM changes).
-- **Toolbar.** **Add URL**, **Add Torrent**, **Resume**, **Stop**, **Stop All**, **Delete**, **Delete Completed**, **Options**, **Scheduler**, **Start Queue**, **Stop Queue**. The small arrow next to **Add Torrent**, **Start Queue** and **Stop Queue** opens more choices.
+- **Toolbar.** **Add URL**, **Resume**, **Stop**, **Stop All**, **Delete**, **Delete Completed**, **Options**, **Scheduler**, **Start Queue**, **Stop Queue**. The small arrow next to **Start Queue** and **Stop Queue** opens more choices.
 - **Categories** (left). Choose what the list shows: **All Downloads**, **Unfinished**, **Finished** and **Queues**, each with its categories. Drag the gap between the pane and the list to make it wider.
 - **Download list** (right). One row per download. See [The download list](download-list.md).
 

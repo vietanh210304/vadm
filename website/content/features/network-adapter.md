@@ -4,7 +4,7 @@ title: Bind downloads to a VPN adapter, with a kill switch
 headline: Through your VPN, or not at all.
 line: Every connection MDM opens goes out through the adapter you pick, and stops when it disconnects.
 lede: Pick a network adapter, usually your VPN's, and every connection MDM opens goes through it. If the VPN drops, nothing slips out through your normal connection: downloads stop, and start again when it's back.
-description: Hold Mister Download Manager's downloads, torrents and videos to one network adapter, usually a VPN's, with a kill switch when it disconnects.
+description: Hold Mister Download Manager's downloads and videos to one network adapter, usually a VPN's, with a kill switch when it disconnects.
 group: network
 order: 210
 since: 0.5
@@ -24,7 +24,7 @@ connected.
 
 ## Everything MDM opens
 
-It covers downloads and FTP, torrents (peers, trackers, the DHT and the listening port), video
+It covers downloads and FTP, video
 pages and image galleries, the DNS you chose, MDM's own downloads and its update check. The
 command line's `get`, `video-get` and `gallery-get` take `--adapter`, with the adapter's name,
 such as `Ethernet` or `wg0`, or one of its addresses.

@@ -149,7 +149,6 @@ impl Extracts {
     /// (`by_hand`) tries again an archive already extracted.
     pub fn offer(&mut self, item: &Item, items: &[Item], settings: &Settings, by_hand: bool) {
         if item.status != Status::Complete
-            || item.torrent.is_some()
             || item.video.is_some()
             || !archive_name(&item.file_name)
         {
@@ -1066,9 +1065,7 @@ mod tests {
         assert!(q.take_vault().is_empty());
     }
 
-    /// What is extracted from a download is marked as it is (its address without its login), a
-    /// torrent's delivered through a debrid account (its address is the magnet link) as the
-    /// internet.
+    /// What is extracted from a download is marked as it is (its address without its login).
     #[test]
     fn extracted_files_are_marked_as_their_archive() {
         // A ZIP holding one empty file, setup.exe, stored (an empty file's CRC is 0).
@@ -1109,8 +1106,8 @@ mod tests {
         let t = tempfile::tempdir().unwrap();
         for (k, (url, named)) in [
             (
-                "magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=tools",
-                crate::webmark::INTERNET,
+                "https://files.test/tools.zip",
+                "https://files.test/tools.zip",
             ),
             (
                 "ftp://user:pw@files.test/tools.zip",

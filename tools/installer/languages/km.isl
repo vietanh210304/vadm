@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=កំពុងលុបការដំឡើ
 
 [CustomMessages]
 TaskBrowser=រៀបចំការរួមបញ្ចូល&កម្មវិធីរុករក (Chrome, Edge, Brave, Firefox)
-TaskTorrents=បើកឯកសារ .&torrent និងតំណភ្ជាប់ magnet ជាមួយ Mister Download Manager
 TaskStartup=ចាប់ផ្ដើម Mister Download Manager នៅពេល &Windows ចាប់ផ្ដើម
 TaskGroupOther=ផ្សេងៗ:
 Launch=ចាប់ផ្ដើម Mister Download Manager

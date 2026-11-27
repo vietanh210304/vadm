@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Desinstalando %1.
 
 [CustomMessages]
 TaskBrowser=Configurar a integración co &navegador (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Abrir ficheiros .&torrent e ligazóns magnet con Mister Download Manager
 TaskStartup=Iniciar Mister Download Manager cando se inicia &Windows
 TaskGroupOther=Outros:
 Launch=Iniciar Mister Download Manager

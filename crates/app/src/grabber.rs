@@ -160,8 +160,6 @@ pub struct Link {
     pub state: LinkState,
     pub on: bool,
     known: bool,
-    /// A magnet link (#709): a torrent, added once its files are known; never looked up here.
-    magnet: bool,
     check: Option<Check>,
     /// Its look-up found a web page (`ProbeInfo::web_page`).
     page: bool,
@@ -215,25 +213,6 @@ impl Link {
             format!("{}/{}", self.found.within.join("/"), self.name)
         }
     }
-}
-
-/// A link's category: a torrent's is Torrents, whatever its name says.
-fn category_of(magnet: bool, name: &str) -> Category {
-    if magnet {
-        Category::Torrents
-    } else {
-        Category::of(name)
-    }
-}
-
-/// A magnet link's name: the one it gives (`dn=`), else its torrent's hash.
-fn magnet_name(url: &Url) -> String {
-    url.query_pairs()
-        .find(|(k, _)| k == "dn")
-        .map(|(_, v)| v.into_owned())
-        .filter(|n| !n.trim().is_empty())
-        .or_else(|| crate::transfer::magnet_hash(url.as_str()))
-        .unwrap_or_else(|| url.to_string())
 }
 
 type Check = Arc<Mutex<Option<Result<mdm_engine::ProbeInfo, LinkState>>>>;
@@ -393,12 +372,7 @@ impl Grabber {
             if d.page_image {
                 pictures.insert(address_key(&url), self.links.len());
             }
-            let magnet = url.scheme() == "magnet";
-            let name = mdm_engine::naming::sanitize(&if magnet {
-                magnet_name(&url)
-            } else {
-                mdm_engine::naming::file_name(None, &url)
-            });
+            let name = mdm_engine::naming::sanitize(&mdm_engine::naming::file_name(None, &url));
             let known = known(&url);
             let origin = if known {
                 Origin::Known
@@ -438,7 +412,7 @@ impl Grabber {
                 found: d,
                 url,
                 pkg,
-                category: category_of(magnet, &name),
+                category: Category::of(&name),
                 name,
                 state: if listed {
                     LinkState::Online
@@ -449,7 +423,6 @@ impl Grabber {
                 // package's files come unticked (#1772).
                 on: !known && !folder && !unticked,
                 known,
-                magnet,
                 check: None,
                 page: folder,
                 read: None,
@@ -569,7 +542,7 @@ impl Grabber {
                 None => s.first = Some(l.category()),
                 Some(c) => s.one &= c == l.category(),
             }
-            s.archives = s.archives || (!l.magnet && crate::extractq::archive_name(&l.name));
+            s.archives = s.archives || crate::extractq::archive_name(&l.name);
         }
         for (k, s) in seen.into_iter().enumerate() {
             let Some(s) = s else { continue };
@@ -601,7 +574,7 @@ impl Grabber {
         }
         self.categories = now;
         for l in &mut self.links {
-            l.category = category_of(l.magnet, &l.name);
+            l.category = Category::of(&l.name);
         }
         let all: Vec<usize> = (0..self.packages.len()).collect();
         self.settle(&all);
@@ -691,7 +664,6 @@ impl Grabber {
             if l.state != LinkState::Unchecked
                 || l.known
                 || l.found.from_page
-                || l.magnet
                 || hosts.iter().filter(|h| **h == host).count() >= CHECKS_PER_HOST
             {
                 continue;
@@ -775,7 +747,7 @@ impl Grabber {
                     l.size = info.size;
                     let named = mdm_engine::naming::sanitize(&info.file_name);
                     if !named.is_empty() && named != l.name {
-                        l.category = category_of(l.magnet, &named);
+                        l.category = Category::of(&named);
                         l.name = named;
                         moved.push(l.pkg);
                     }
@@ -1161,9 +1133,6 @@ impl Grabber {
                             let state = if l.found.from_page && l.state == LinkState::Unchecked {
                                 // i18n: Link grabber, a link's status: a web page sent it (Click'n'Load), so it isn't looked up (name, size, online) before it is added
                                 crate::i18n::t("Not looked up").to_owned()
-                            } else if l.magnet && l.state == LinkState::Unchecked {
-                                // i18n: Link grabber, a link's status: a magnet link (a torrent, its files looked up once it is added)
-                                crate::i18n::t("Magnet link").to_owned()
                             } else {
                                 state_text(&l.state)
                             };
@@ -1447,14 +1416,8 @@ impl Grabber {
     }
 }
 
-/// A link's address as Link grabber tells links apart: without its `#fragment` (the same file);
-/// a magnet link by its torrent's hash alone (its name and trackers aside).
+/// A link's address as Link grabber tells links apart: without its `#fragment` (the same file).
 fn address_key(u: &Url) -> Url {
-    if let Some(hash) = crate::transfer::magnet_hash(u.as_str())
-        && let Ok(key) = Url::parse(&format!("magnet:?xt=urn:btih:{hash}"))
-    {
-        return key;
-    }
     let mut u = u.clone();
     u.set_fragment(None);
     u
@@ -2297,9 +2260,8 @@ mod tests {
     }
 
     /// #709, Tasks → Add batch download from clipboard, as the window takes it: the clipboard
-    /// read off the window's thread, its 15 links (written twice, among other text) and a
-    /// magnet link become 16 ticked rows in two packages, the magnet one never looked up;
-    /// Start hands them all over.
+    /// read off the window's thread, its 15 links (written twice, among other text) become 15
+    /// ticked rows; Start hands them all over.
     #[test]
     fn copied_links_become_ticked_rows() {
         let mut post = String::from("Season 1, all episodes:\n");
@@ -2309,7 +2271,6 @@ mod tests {
             ));
         }
         post.push_str("Mirror of the first: https://media.example.org/s1/ep01.mp4.\n");
-        post.push_str("Or the torrent: magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=Season%201\n");
         let text = post.clone();
         let reader: &'static crate::clipboard::Reader =
             Box::leak(Box::new(crate::clipboard::Reader::new(
@@ -2333,36 +2294,25 @@ mod tests {
         };
         let mut g = grabber();
         g.add(found, "Clipboard".into(), |_| false);
-        assert_eq!(g.links.len(), 16);
+        assert_eq!(g.links.len(), 15);
         assert!(g.links.iter().all(|l| l.on), "every row ticked");
         let rows = g.visible_rows();
-        assert_eq!(rows.len(), 16 + 1, "one package: Various files");
+        assert_eq!(rows.len(), 15 + 1, "one package: Various files");
         assert_eq!(g.packages[0].name, "Various files");
-        let magnet = g.links.iter().find(|l| l.magnet).unwrap();
-        assert_eq!(magnet.name, "Season 1");
-        assert_eq!(magnet.category(), Category::Torrents);
-        assert!(
-            g.to_check().iter().all(|(_, u, _)| u.scheme() == "https"),
-            "a magnet link is not looked up over HTTP"
-        );
         let picked = g.picked();
         let all: Vec<&str> = picked
             .iter()
             .flat_map(|p| p.links.iter().map(|l| l.0.url.as_str()))
             .collect();
-        assert_eq!(all.len(), 16);
+        assert_eq!(all.len(), 15);
         assert_eq!(all[0], "https://media.example.org/s1/ep01.mp4");
-        assert!(all[15].starts_with("magnet:?"));
-        // The same torrent copied again with its trackers: not a second row.
+        // The same link copied again with a fragment: not a second row.
         g.add(
-            vec![link(
-                "magnet:?xt=urn:btih:0123456789ABCDEF0123456789ABCDEF01234567&tr=udp%3A%2F%2Ft.example%3A80",
-                None,
-            )],
+            vec![link("https://media.example.org/s1/ep01.mp4#mirror", None)],
             String::new(),
             |_| false,
         );
-        assert_eq!(g.links.len(), 16);
+        assert_eq!(g.links.len(), 15);
     }
 
     /// A big page's "Download all links" (#1063): `n` links of one page, two in five a split

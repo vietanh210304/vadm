@@ -39,16 +39,6 @@ even after restarting MDM.
 Some servers drop the connection when the speed is very low. Avoid a tight limit for a server
 that can't resume: the progress window shows **Resume capability: No** for those.
 
-## Torrents share the cap fairly
-
-<!--@coming 0.5-->
-
-Each torrent gets a limit of its own, like any other download, and a remembered limit applies
-again when it resumes. Under **Limit all downloads together to**, torrents and other downloads
-share the cap: each side gets at least half, and more when the other side needs less. A torrent
-can't be held under 16 KBytes/sec, because a lower limit made torrents drop their peers and
-stall.
-
 ## Capped by data, not by speed
 
 On an internet plan with a data cap, the amount matters more than the speed. The Scheduler's

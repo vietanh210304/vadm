@@ -153,28 +153,6 @@ fn pair_then_control() {
             assert!(add.remote && add.silent && add.later);
             assert_eq!(add.queue.as_deref(), Some("Main download queue"));
         }
-        // A torrent file: its bytes, never a path.
-        let r = c
-            .post(format!("{base}api/torrent?start=true"))
-            .bearer_auth(&token)
-            .body(b"d4:infod4:name1:xee".to_vec())
-            .send()
-            .await
-            .unwrap();
-        assert_eq!(r.status(), 200);
-        {
-            let log = seen.lock().unwrap();
-            let t = log.last().unwrap();
-            assert!(t.torrent_file.is_some() && t.url.is_none() && !t.later);
-        }
-        let r = c
-            .post(format!("{base}api/torrent"))
-            .bearer_auth(&token)
-            .body(b"<html>".to_vec())
-            .send()
-            .await
-            .unwrap();
-        assert_eq!(r.status(), 400);
         // Only the list's actions.
         let r = c
             .post(format!("{base}api/act"))

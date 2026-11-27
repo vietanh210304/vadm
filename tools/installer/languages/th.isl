@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=ตั้งค่าการรวมกับ &เบราว์เซอร์ (Chrome, Edge, Brave, Firefox)
-TaskTorrents=เปิดไฟล์ .&torrent และลิงก์แม่เหล็กด้วย Mister Download Manager
 TaskStartup=เริ่ม Mister Download Manager เมื่อ &Windows เริ่มทำงาน
 TaskGroupOther=อื่น ๆ:
 Launch=เริ่ม Mister Download Manager

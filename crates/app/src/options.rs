@@ -1233,7 +1233,7 @@ impl OptionsDialog {
             crate::i18n::t("Category"),
             LIGHT_TEXT(),
         );
-        // IDM's, Torrents and the user's (the registry follows this dialog's edits).
+        // IDM's and the user's (the registry follows this dialog's edits).
         let cats = Category::all();
         self.category = self.category.min(cats.len() - 1);
         let names: Vec<String> = cats.iter().map(|c| c.label().into_owned()).collect();
@@ -1450,7 +1450,7 @@ impl OptionsDialog {
             self.commit_cat_dir(downloads);
             let text = crate::i18n::fmt(
                 crate::i18n::t(
-                    "Bring back {names} as they were shipped: their names, file types and folders? Your own categories, General and Torrents stay as they are. Downloads already moved to General stay there.",
+                    "Bring back {names} as they were shipped: their names, file types and folders? Your own categories and General stay as they are. Downloads already moved to General stay there.",
                 ),
                 &[("names", &crate::categories::restored_names())],
             );
@@ -2408,7 +2408,7 @@ impl OptionsDialog {
                     crate::i18n::t("Every connection goes through it, from {ip}."),
                     &[("ip", &crate::i18n::ltr(&ip.unwrap_or_default()))],
                 );
-                // Downloads, torrents (#143), video pages and galleries (through the helpers'
+                // Downloads, video pages and galleries (through the helpers'
                 // relay, #35) all go through it on every system: nothing more to say.
                 (line, true)
             }
@@ -2575,19 +2575,11 @@ impl OptionsDialog {
             "Download supported file-host links through these accounts",
             true,
         );
-        winui::checkbox_light(
-            ui,
-            o + vec2(21.0, 324.0),
-            &mut self.s.debrid_torrents,
-            // i18n: Options → Accounts: checkbox: magnet links and .torrent files go to the first account's service, which downloads them; MDM then downloads the files from it (no connections to peers)
-            "Send torrents and magnet links to the first account instead of to peers",
-            self.s.debrid_on,
-        );
         let p = ui.painter().clone();
         let lines = winui::paragraph(
             &p,
             o.x + 21.0,
-            o.y + 358.0,
+            o.y + 334.0,
             // i18n: Options → Accounts: what these accounts are, and the services' rule against sharing
             crate::i18n::t(
                 "A debrid service downloads a file host's link with your own paid account and gives MDM a direct link. Use only your own account: sharing an account or its links breaks the services' terms and can get it suspended. Downloads the browser already started stay as they are.",
@@ -5221,7 +5213,7 @@ fn dns_dialog(ui: &mut Ui, o: Pos2, e: &mut DnsEdit) -> Outcome<()> {
         o.y + 192.0,
         // i18n: Options → DNS settings: what the DNS choice covers and what it doesn't
         crate::i18n::t(
-            "Names in your hosts file and local names (single words, .local, .lan) stay with the system's DNS. Video pages and torrent trackers use the system's DNS for now.",
+            "Names in your hosts file and local names (single words, .local, .lan) stay with the system's DNS. Video pages use the system's DNS for now.",
         ),
         LIGHT_TEXT(),
         o.x + 386.0,

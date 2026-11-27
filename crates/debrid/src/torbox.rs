@@ -17,50 +17,50 @@ use serde::Deserialize;
 use serde_json::Value;
 use url::Url;
 
-use crate::torrents::{RemoteFile, Status};
 use crate::{Fault, Http, ServiceKind};
+
+/// How TorBox is progressing on a web download (`state`).
+#[derive(Debug, PartialEq)]
+pub(crate) enum Status {
+    Working { progress: Option<f32>, what: String },
+    Failed(mdm_engine::ServiceFault),
+}
 
 /// Where TorBox answers (tests: the lab server's `/tb/v1/api/`).
 pub const BASE: &str = "https://api.torbox.app/v1/api/";
 
-/// TorBox's kinds of downloads MDM uses: the same calls under their own path and id names.
+/// TorBox's web download endpoints.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Kind {
     Web,
-    Torrent,
 }
 
 impl Kind {
     fn path(self) -> &'static str {
         match self {
             Kind::Web => "webdl",
-            Kind::Torrent => "torrents",
         }
     }
     fn create(self) -> &'static str {
         match self {
             Kind::Web => "webdl/createwebdownload",
-            Kind::Torrent => "torrents/createtorrent",
         }
     }
     /// The created download's id in `create`'s answer.
     fn created_id(self) -> &'static str {
         match self {
             Kind::Web => "webdownload_id",
-            Kind::Torrent => "torrent_id",
         }
     }
     /// The id's name for `control…` (JSON) and for `requestdl` (query).
     fn control(self) -> (&'static str, &'static str) {
         match self {
             Kind::Web => ("webdl/controlwebdownload", "webdl_id"),
-            Kind::Torrent => ("torrents/controltorrent", "torrent_id"),
         }
     }
     fn request_id(self) -> &'static str {
         match self {
             Kind::Web => "web_id",
-            Kind::Torrent => "torrent_id",
         }
     }
 }
@@ -88,7 +88,6 @@ pub(crate) fn fault_of(code: &str, detail: &str) -> Fault {
         "ACTIVE_LIMIT" => F::TooManyActive,
         "MONTHLY_LIMIT" | "COOLDOWN_LIMIT" | "DOWNLOAD_TOO_LARGE" => F::LimitReached,
         "ITEM_NOT_FOUND" | "LINK_OFFLINE" | "INVALID_LINK" => F::FileUnavailable,
-        "BOZO_TORRENT" | "INVALID_HASH" => F::TorrentUnavailable,
         "DATABASE_ERROR" | "UNKNOWN_ERROR" | "DOWNLOAD_SERVER_ERROR" => F::ServiceDown,
         _ if !detail.is_empty() => F::Other(detail.to_owned()),
         _ => F::Other(code.to_owned()),
@@ -242,8 +241,6 @@ pub(crate) async fn create(
 pub(crate) struct Item {
     #[serde(default)]
     pub id: u64,
-    #[serde(default)]
-    pub name: String,
     /// The link it was made from (a web download's file-host link).
     #[serde(default)]
     pub original_url: String,
@@ -359,25 +356,6 @@ pub(crate) async fn link(
     })
 }
 
-/// A finished download's files, each with its direct link.
-pub(crate) async fn files(
-    http: &Http,
-    key: &str,
-    kind: Kind,
-    id: u64,
-    i: &Item,
-) -> Result<Vec<RemoteFile>, Fault> {
-    let mut out = Vec::with_capacity(i.files.len());
-    for f in &i.files {
-        out.push(RemoteFile {
-            path: f.name.clone(),
-            size: f.size,
-            link: link(http, key, kind, id, f.id).await?.into(),
-        });
-    }
-    Ok(out)
-}
-
 /// `POST <kind>/control…` `delete`: gone from the account's list.
 pub(crate) async fn delete(http: &Http, key: &str, kind: Kind, id: u64) -> Result<(), Fault> {
     let (path, name) = kind.control();
@@ -391,15 +369,6 @@ pub(crate) async fn delete(http: &Http, key: &str, kind: Kind, id: u64) -> Resul
     )
     .await
     .map(|_| ())
-}
-
-/// A torrent's id as the app keeps it (`Order::transfer`): its number.
-pub(crate) fn torrent_id(t: &str) -> Result<u64, Fault> {
-    t.parse().map_err(|_| {
-        Fault::Service(mdm_engine::ServiceFault::Other(
-            "the service gave an id MDM can't use".into(),
-        ))
-    })
 }
 
 #[cfg(test)]
@@ -439,7 +408,6 @@ mod tests {
     fn list_states_mean_what_they_say() {
         let i = |state: &str, done: bool, error: Option<&str>| Item {
             id: 1,
-            name: "x".into(),
             original_url: String::new(),
             download_state: state.into(),
             progress: 0.25,
@@ -464,7 +432,5 @@ mod tests {
             state(&i("downloading", false, Some("Host error"))),
             Some(Status::Failed(F::Other(_)))
         ));
-        assert_eq!(torrent_id("12").unwrap(), 12);
-        assert!(torrent_id("x/../1").is_err());
     }
 }
