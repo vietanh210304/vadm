@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Eemaldan %1.
 
 [CustomMessages]
 TaskBrowser=Seadista &brauseri integreerimine (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Ava &torrent-failid ja magnetlingid rakendusega Mister Download Manager
 TaskStartup=Käivita Mister Download Manager &Windowsi käivitamisel
 TaskGroupOther=Muu:
 Launch=Käivita Mister Download Manager

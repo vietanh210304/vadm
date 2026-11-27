@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Yn dad-osod %1.
 
 [CustomMessages]
 TaskBrowser=Sefydlu integreiddio porwr (&browser integration) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Agor ffeiliau .&torrent a dolenni magnet gyda Mister Download Manager
 TaskStartup=Dechrau Mister Download Manager pan fydd &Windows yn cychwyn
 TaskGroupOther=Arall:
 Launch=Dechrau Mister Download Manager

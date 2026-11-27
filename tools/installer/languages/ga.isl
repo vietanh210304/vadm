@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Ag díshuiteáil %1.
 
 [CustomMessages]
 TaskBrowser=Cumasaigh comhtháthú &brabhsálaí (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Oscail comhaid .&torrent agus naisc mhaighnéadacha le Mister Download Manager
 TaskStartup=Tosaigh Mister Download Manager nuair a thosaíonn &Windows
 TaskGroupOther=Eile:
 Launch=Tosaigh Mister Download Manager

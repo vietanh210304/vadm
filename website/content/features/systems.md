@@ -21,7 +21,7 @@ page](/download.html) offers three files:
 
 - **The installer** (`setup.exe`), the one to pick unless you have a reason not to. It installs
   for you alone without administrator rights, or for everyone, and can set up browser
-  integration and open `.torrent` files and magnet links with MDM.
+  integration.
 - **The portable copy** (`portable.zip`), which runs from any folder.
 - **The plain zip** (`x64.zip`), the same programs without an installer.
 
@@ -41,8 +41,8 @@ ARM computers too (`linux-arm64`).
 
 ## Portable: everything in one folder
 
-Unzip the portable copy anywhere, a USB stick included. The download list, the settings, the
-video helpers and torrent data stay in a `data` folder next to the program, and nothing is
+Unzip the portable copy anywhere, a USB stick included. The download list, the settings and the
+video helpers stay in a `data` folder next to the program, and nothing is
 written to the registry. Two things need the installer instead: starting with Windows, and
 taking downloads from the browser, since both go through the registry. [Carry MDM on a USB
 stick](guide-usb-stick.md) shows the set-up.

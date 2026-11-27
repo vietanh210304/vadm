@@ -822,7 +822,7 @@ SOFTWARE_LD = {
     "codeRepository": REPO,
     "featureList": [
         "Up to 128 connections per download with dynamic re-splitting",
-        "Crash-safe resume", "HTTP, HTTPS, FTP and FTPS", "BitTorrent and magnet links",
+        "Crash-safe resume", "HTTP, HTTPS, FTP and FTPS",
         "Video downloads from web pages (yt-dlp)", "Browser extension for Chrome, Edge, Brave, Opera, Vivaldi and Firefox",
         "Queues and scheduler", "Speed limiter", "86 interface languages", "Portable mode",
         "Command line and automation API", "MCP server for AI assistants",
@@ -1109,7 +1109,7 @@ def build_faq() -> None:
                         "acceptedAnswer": {"@type": "Answer", "text": md(a)}} for question, _, a in allq],
     }]
     write("/faq/", f"Questions and answers — {NAME}",
-          f"Answers about {NAME}: is it free, is it safe, how it compares with IDM, browsers, videos, torrents, speed, Mac and Linux, and more.",
+          f"Answers about {NAME}: is it free, is it safe, how it compares with IDM, browsers, videos, speed, Mac and Linux, and more.",
           f"""{page_head("Questions and answers", "Short answers to what people ask most, each with a link to the full guide.", trail)}
     <div class="wrap narrow prose page-body">
       {"".join(parts)}
@@ -1949,7 +1949,7 @@ def build_features() -> None:
       {manifest(feats, "h2")}
     </div>"""
     write("/features/", f"Features — {NAME}",
-          f"Every feature of {NAME}: acceleration and resume, the browser extension, video, torrents, the scheduler, the link grabber, themes and more.",
+          f"Every feature of {NAME}: acceleration and resume, the browser extension, video, the scheduler, the link grabber, themes and more.",
           body, section="features", jsonld=[crumbs_ld(index_trail)], priority="0.8")
 
 

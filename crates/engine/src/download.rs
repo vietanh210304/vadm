@@ -275,7 +275,7 @@ pub enum Proxy {
 }
 
 /// Whether the engine can download `url`: http, https, ftp, ftps (implicit TLS) and ftpes
-/// (explicit TLS). Magnet links are the torrent engine's.
+/// (explicit TLS).
 pub fn supported(url: &Url) -> bool {
     matches!(url.scheme(), "http" | "https") || crate::ftp::is_ftp(url)
 }

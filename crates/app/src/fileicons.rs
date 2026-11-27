@@ -1,5 +1,5 @@
 //! The icon before a file's name, in every list that shows files (the download list, Download
-//! File Info, Properties, a torrent's files, the Scheduler's): the system's own icon for its type,
+//! File Info, Properties, the Scheduler's): the system's own icon for its type,
 //! the one its file manager shows. Windows' shell (win32.rs), macOS Finder (unix.rs), the Linux
 //! desktop's icon theme (unix.rs, xdgicons.rs). Each type is looked up once per pixel size, on a
 //! background thread (a type's first lookup can load its shell handler), and kept. Until its
@@ -18,7 +18,7 @@ use egui::{Color32, ImageSource, Painter, Rect, Ui, pos2};
 pub enum Kind<'a> {
     /// A file, by its name (the extension decides; case doesn't matter).
     File(&'a str),
-    /// A folder (a torrent's folder, a tree's branch).
+    /// A folder (a tree's branch).
     Folder,
     /// An open folder (Download complete's: the file is in it). Windows has its own; elsewhere
     /// the theme's "folder-open", else its folder.

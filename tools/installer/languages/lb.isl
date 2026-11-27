@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Deinstalléieren %1.
 
 [CustomMessages]
 TaskBrowser=Browserintegratioun ariichten (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Maacht .&torrent-Fichieren a Magnet-Linke mat Mister Download Manager op
 TaskStartup=Start Mister Download Manager, wann &Windows start
 TaskGroupOther=Aneres:
 Launch=Start Mister Download Manager

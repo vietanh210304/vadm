@@ -275,8 +275,6 @@ pub enum Step {
     Limits,
     /// The downloads' progress and what finished.
     Downloads,
-    /// Torrents in other programs (remote control).
-    RemoteTorrents,
     /// The update check.
     UpdateCheck,
     /// The clipboard's watch.
@@ -287,8 +285,6 @@ pub enum Step {
     Taskbar,
     /// The crash report's record of what is open.
     ReportState,
-    /// The torrents' session and feeds.
-    Torrents,
     /// The theme and the system's light or dark mode.
     Theme,
     /// The title bar's and menus' colour.
@@ -300,7 +296,7 @@ pub enum Step {
 }
 
 impl Step {
-    const ALL: [Step; 18] = [
+    const ALL: [Step; 16] = [
         Step::Start,
         Step::Commands,
         Step::NetworkSettings,
@@ -308,13 +304,11 @@ impl Step {
         Step::NetworkAdapter,
         Step::Limits,
         Step::Downloads,
-        Step::RemoteTorrents,
         Step::UpdateCheck,
         Step::Clipboard,
         Step::Tray,
         Step::Taskbar,
         Step::ReportState,
-        Step::Torrents,
         Step::Theme,
         Step::Caption,
         Step::MainWindow,
@@ -331,13 +325,11 @@ impl Step {
             Step::NetworkAdapter => "the network adapter's watch",
             Step::Limits => "the download limits",
             Step::Downloads => "the downloads' progress",
-            Step::RemoteTorrents => "the remote torrents",
             Step::UpdateCheck => "the update check",
             Step::Clipboard => "the clipboard's watch",
             Step::Tray => "the tray icon",
             Step::Taskbar => "the taskbar button's or dock icon's progress",
             Step::ReportState => "the crash monitor's record",
-            Step::Torrents => "the torrents",
             Step::Theme => "the theme",
             Step::Caption => "the title bar's colour",
             Step::MainWindow => "drawing the main window",
@@ -1200,7 +1192,7 @@ mod watchdog_tests {
             main: true,
             seconds: 8,
             busy: Some(busy),
-            step: "the torrents".to_owned(),
+            step: "the downloads' progress".to_owned(),
         };
         let input = mdm_crash::report::Input {
             kind: Some(mdm_crash::protocol::Kind::Freeze),

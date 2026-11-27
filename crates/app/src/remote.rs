@@ -1,11 +1,10 @@
 //! The remote control's side in the app (#141; the server is crates/remote): starting it as
-//! Options says, the page's texts from the app's catalogs, and the torrents a paired device
-//! sends while their files are looked up. The page's own English texts are listed here, so
-//! tools/i18n/extract.py puts them in the catalog; a test keeps the list and the page in step.
+//! Options says, and the page's texts from the app's catalogs. The page's own English texts are
+//! listed here, so tools/i18n/extract.py puts them in the catalog; a test keeps the list and the
+//! page in step.
 
-use std::sync::{Arc, Mutex};
+use std::sync::Arc;
 
-use crate::model::Category;
 use crate::settings::Settings;
 
 /// The remote control for `settings`, started (or not) as they say. None without a data folder.
@@ -77,12 +76,8 @@ const PAGE: &[&str] = &[
     crate::i18n::mark("This device's name"),
     // i18n: remote control page (on a phone): button: pair this phone with MDM
     crate::i18n::mark("Pair"),
-    // i18n: remote control page (on a phone): label of the box where a download's address or a magnet link is typed
-    crate::i18n::mark("Address or magnet link"),
-    // i18n: remote control page (on a phone): button that picks a .torrent file on the phone
-    crate::i18n::mark(".torrent file"),
-    // i18n: remote control page (on a phone): what the ".torrent file" button does (screen readers)
-    crate::i18n::mark("Choose a .torrent file"),
+    // i18n: remote control page (on a phone): label of the box where a download's address is typed
+    crate::i18n::mark("Address"),
     // i18n: remote control page (on a phone): label of the category choice for a new download
     crate::i18n::mark("Category"),
     // i18n: remote control page (on a phone): label of the choice: start the new download now, or let it wait in a queue
@@ -134,16 +129,10 @@ const PAGE: &[&str] = &[
     crate::i18n::mark("MDM could not do it."),
     // i18n: remote control page (on a phone): question before removing a download; {name} its file name
     crate::i18n::mark("Remove {name} from the list?"),
-    // i18n: remote control page (on a phone): the file chosen is too large for a .torrent file
-    crate::i18n::mark("This file is too large to be a torrent."),
-    // i18n: remote control page (on a phone): a magnet link or .torrent file was added; MDM reads the torrent's files first
-    crate::i18n::mark("Added. MDM is reading the torrent: it joins the list in a moment."),
     // i18n: remote control page (on a phone): a download was added
     crate::i18n::mark("Added."),
-    // i18n: remote control page (on a phone): the address typed isn't one MDM downloads (not http, https, ftp or magnet)
+    // i18n: remote control page (on a phone): the address typed isn't one MDM downloads (not http, https or ftp)
     crate::i18n::mark("MDM cannot download this address."),
-    // i18n: remote control page (on a phone): the file chosen isn't a .torrent file
-    crate::i18n::mark("This is not a torrent file."),
     // i18n: remote control page (on a phone): adding a download failed
     crate::i18n::mark("MDM could not add it."),
     // i18n: remote control page (on a phone): question before unpairing this phone
@@ -164,7 +153,6 @@ const KNOWN: &[&str] = &[
     "Music",
     "Programs",
     "Video",
-    "Torrents",
     "Main download queue",
     "Synchronization queue",
 ];
@@ -252,26 +240,6 @@ pub fn qr_text(text: &str) -> String {
         y += 2;
     }
     out
-}
-
-/// A torrent's files being looked up: filled in on the runtime when they are known.
-pub type Slot = Arc<Mutex<Option<Result<mdm_torrent::Meta, String>>>>;
-
-/// A torrent a paired device sent, or a magnet link ticked in Link grabber (#709): its files
-/// looked up on the runtime, then added as Add torrent would with everything chosen.
-pub struct Lookup {
-    pub slot: Slot,
-    pub category: Option<Category>,
-    /// The queue it waits in (by index), or None to start now.
-    pub queue: Option<usize>,
-    pub from_magnet: bool,
-    /// The folder its own folder goes in (Link grabber's package's), else its category's.
-    pub dir: Option<std::path::PathBuf>,
-    /// The downloads added with it (#766): it joins their group, for one summary.
-    pub group: Option<u64>,
-    /// Someone waits for it at the computer: a look-up that fails says so (a paired device's
-    /// is only logged).
-    pub tell: bool,
 }
 
 #[cfg(test)]

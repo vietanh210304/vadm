@@ -3,10 +3,8 @@
 
 pub mod content;
 pub mod debrid;
-pub mod debrid_torrents;
 pub mod drive;
 pub mod faults;
-mod feeds;
 pub mod ftp;
 mod github;
 pub mod growth;
@@ -20,6 +18,7 @@ pub mod rapidgator;
 mod server;
 pub mod socks;
 mod streams;
+pub mod torbox;
 pub mod tree;
 pub mod zip;
 

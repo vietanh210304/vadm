@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Böngészőintegráció beállítása (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=A .&torrent fájlok és a mágneses hivatkozások megnyitása a Mister Download Manager alkalmazással
 TaskStartup=A Mister Download Manager indítása a &Windows indításakor
 TaskGroupOther=Egyéb:
 Launch=A Mister Download Manager indítása

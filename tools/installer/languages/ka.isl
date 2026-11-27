@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1-ის დეინსტალაცი�
 
 [CustomMessages]
 TaskBrowser=დააყენეთ &ბრაუზერის ინტეგრაცია (Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent ფაილების და მაგნიტური ბმულების გახსნა Mister Download Manager-ით
 TaskStartup=Mister Download Manager-ის გაშვება &Windows-ის გაშვებისას
 TaskGroupOther=სხვა:
 Launch=გაუშვით Mister Download Manager

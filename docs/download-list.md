@@ -19,20 +19,16 @@ branches and the category or queue you were looking at.
 
 | Column | What it shows |
 |---|---|
-| **Source** | **Web** (a web server) or **Torrent**. |
 | **File Name** | The file's name, after its type's icon: your system's own (Windows Explorer's, macOS Finder's, your Linux desktop's icon theme), or MDM's where the system has none. |
 | **Q** | A queue icon when the download is in a queue. |
 | **Size** | The file's size, when the server told it. |
 | **Status** | How far it is, or **Complete**, **Error** and so on. |
 | **Time left** | While it downloads. |
 | **Transfer rate** | The current speed. |
-| **Upload speed** | A torrent: what it sends to peers, while it runs. |
-| **Peers** | A torrent's connected peers while it runs, seeders and leechers alike. |
-| **Share ratio** | A torrent: what it has sent to peers against what it took. |
 | **Last Try Date** | When it last ran. |
 | **Added** | When you added it. |
 | **Description** | Your note from **Download File Info** or **Properties**. |
-| **Save To** | The folder the download is saved in (a torrent's or a gallery's own folder is in it). |
+| **Save To** | The folder the download is saved in (a gallery's own folder is in it). |
 
 - **Sort:** click a column title. Click again to reverse the order, and a third time to go back to the order of addition. **View → Arrange files** does the same from the menu (**By Save Path** sorts by the **Save To** column's folder).
 - **Move a column:** drag its title sideways.
@@ -53,7 +49,7 @@ MDM remembers the columns, their widths and the sort order. A list from an earli
 
 Each column title has a faint funnel. Click it to filter the list by that column:
 
-- **Source**, **Q** and **Status** offer a few values to tick, such as only **Error** under **Status**, or only **Not in a queue** under **Q**.
+- **Q** and **Status** offer a few values to tick, such as only **Error** under **Status**, or only **Not in a queue** under **Q**.
 - The other columns take text: type a word, and only rows whose cell contains it stay.
 
 A filtered column's funnel turns blue. To remove every filter, right-click a column title and choose **Clear all filters**. Filters last until you close MDM.
@@ -70,19 +66,19 @@ The pane on the left has four branches:
 - **Finished** — complete downloads, by category.
 - **Queues** — each queue; select one to see only its downloads.
 
-Each download falls into a category by its file type: **General**, **Compressed**, **Documents**, **Music**, **Programs** or **Video**. Torrents have their own **Torrents** category. Each category has its own folder, by default inside your Downloads folder (`Downloads\Compressed`, `Downloads\Video` and so on; General uses `Downloads` itself).
+Each download falls into a category by its file type: **General**, **Compressed**, **Documents**, **Music**, **Programs** or **Video**. Each category has its own folder, by default inside your Downloads folder (`Downloads\Compressed`, `Downloads\Video` and so on; General uses `Downloads` itself).
 
 Right-click a category for:
 
 - **Browse** — open its folder in Explorer.
-- **Properties** — change its name, its file types and its folder. General and Torrents only change their folder. A renamed category keeps its folder; a built-in one keeps its name in your language until you rename it.
+- **Properties** — change its name, its file types and its folder. General only changes its folder. A renamed category keeps its folder; a built-in one keeps its name in your language until you rename it.
 - **Add category** — make your own, for example **Books** for `EPUB MOBI`. Give it a name, the file types (separated by spaces, `*` allowed) and a folder.
-- **Delete** — remove a category, your own or a built-in one (not General or Torrents). MDM asks what happens to its downloads: **Move its downloads to General**, or **Remove its downloads from the list** (a download that is running moves to General instead). Their files stay where they are either way. From then on, files of its types go to another category that has them, or to General.
+- **Delete** — remove a category, your own or a built-in one (not General). MDM asks what happens to its downloads: **Move its downloads to General**, or **Remove its downloads from the list** (a download that is running moves to General instead). Their files stay where they are either way. From then on, files of its types go to another category that has them, or to General.
 
 ![A category's properties: its name, file types and folder](images/help/category-properties.webp)
 *Right-click a category → Properties: its name, file types and folder.*
 
-To bring the built-in categories back as they came, with their names, file types and folders, use **Options → Save to → Restore the built-in categories**. Your own categories, General and Torrents stay as they are.
+To bring the built-in categories back as they came, with their names, file types and folders, use **Options → Save to → Restore the built-in categories**. Your own categories and General stay as they are.
 
 The top branches show how many downloads they hold. **View → Hide categories** gives the list
 the whole window.
@@ -122,7 +118,7 @@ nothing changes.
 
 Drag a link from a browser (or a page's text with links in it) onto the list to add it: one
 link opens **Download File Info**, several open **Link grabber** to choose which to add. Drop a
-`.torrent` file to add the torrent, or a list of addresses (`.txt`, `.ef2`) to import it. The
+list of addresses (`.txt`, `.ef2`) to import it. The
 list is outlined while something you can drop is over it. On macOS and Linux, files can be
 dropped (links from a browser only on Windows).
 
@@ -160,7 +156,7 @@ The right-click menu has everything you can do with a download: **Open**, **Open
 
 **Move/Rename** (**Ctrl+M**) moves or renames the file of a finished download, or of one that hasn't started yet. With several downloads selected it asks for a folder and moves them all there, each under its own name.
 
-**Redownload** downloads a file again from the start, one download at a time. A finished file stays as it is while the new copy comes in, and the new copy takes its place, under the same name, only once it is complete: if the new download fails or you stop it, you still have your file. If another program has the file open at that moment (on Windows), MDM keeps both, saves the new copy beside it with a number (`name (1).ext`) and tells you. Torrents, videos and image galleries don't have it: a torrent's **Recheck files** finds and fetches its damaged pieces, and a finished gallery's **Resume Download** fetches the files it is missing.
+**Redownload** downloads a file again from the start, one download at a time. A finished file stays as it is while the new copy comes in, and the new copy takes its place, under the same name, only once it is complete: if the new download fails or you stop it, you still have your file. If another program has the file open at that moment (on Windows), MDM keeps both, saves the new copy beside it with a number (`name (1).ext`) and tells you. Videos and image galleries don't have it: a finished gallery's **Resume Download** fetches the files it is missing.
 
 ## Verify checksum
 

@@ -33,7 +33,6 @@ MDM is a tool, like a web browser. You agree to use it lawfully, and in particul
 
 - to download only files you have the right to download, and to respect copyright and the terms of the sites you download from;
 - not to use it to break copy protection (DRM): MDM doesn't do this and isn't meant to;
-- when downloading torrents, to respect the rights of others in what you download and share, since torrent clients upload pieces to other people while they download;
 - not to use it to overload, attack or get around the limits of servers you don't own.
 
 You alone are responsible for the files you download and for how you use the software.

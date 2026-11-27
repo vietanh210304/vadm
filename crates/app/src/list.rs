@@ -44,13 +44,10 @@ themed! {
 }
 
 /// Columns, by their fixed data slot in [`Row::cells`]: IDM's eight, then the user's additions:
-/// "Added" (2026-10-30: when the download was added; sorts in order of addition), "Source"
-/// (D-014: a Web or Torrent chip, first by default), and a torrent's "Peers" and "Share ratio"
-/// (#357: how many peers it has connected and what it has given back). "Upload speed" (#357: what
-/// it sends) and "Save To" (#1827: the folder it's saved in) are the last slots: a saved layout
-/// is indexed by slot, so a new column must not take a slot an older build already meant
-/// something else by.
-pub const COLS: usize = 14;
+/// "Added" (2026-10-30: when the download was added; sorts in order of addition) and "Save To"
+/// (#1827: the folder it's saved in). A saved layout is indexed by slot, so a new column must not
+/// take a slot an older build already meant something else by.
+pub const COLS: usize = 10;
 pub const TITLES: [&str; COLS] = [
     "File Name",
     // i18n: column title: one letter for Queue (the column is narrow)
@@ -66,14 +63,6 @@ pub const TITLES: [&str; COLS] = [
     "Description",
     // i18n: past participle: when the download was added
     "Added",
-    // i18n: noun: where the download comes from (Web or Torrent)
-    "Source",
-    // i18n: column title: how many peers a torrent is connected to now (seeders and leechers)
-    "Peers",
-    // i18n: column title: what a torrent has sent to peers against what it took
-    "Share ratio",
-    // i18n: column title: what a torrent sends to peers, bytes per second
-    "Upload speed",
     // i18n: column title: the folder the download is saved in
     "Save To",
 ];
@@ -119,34 +108,21 @@ pub fn finishing_texts(code: &str, full: &str) -> Vec<String> {
 }
 /// The "Added" column's data slot.
 pub const ADDED: usize = 8;
-/// The "Source" column's data slot: its cell is "Web" or "Torrent", painted as a chip.
-pub const SOURCE: usize = 9;
-/// The "Peers" column's data slot (a torrent's connected peers; blank for anything else).
-pub const PEERS: usize = 10;
-/// The "Share ratio" column's data slot (a torrent's sent over taken; blank otherwise).
-pub const RATIO: usize = 11;
-/// The "Upload speed" column's data slot (what a torrent sends; blank for anything else). The
-/// last slot, so a layout saved before it existed still means what it meant.
-pub const UPLOAD: usize = 12;
 /// The "Save To" column's data slot: the folder the download is saved in. Last slot, shown by
 /// default after Description.
-pub const SAVE_TO: usize = 13;
+pub const SAVE_TO: usize = 9;
 
-/// IDM's default column widths (and ours for Added, room for a 12-hour clock's
-/// `Oct 28 9:05:01 AM 2026`, Source, Peers, Share ratio and Upload speed). Status is wider than
-/// IDM's 65 px (#736): one word and a percentage while a file is checked or a video joined
-/// ("Checking 45%", German's "Zusammenführen 100 %"). 132 px is the least it has: while nobody
-/// resized it, it grows to what the list's font needs in the interface language
-/// ([`status_width`]). Linux draws with fontconfig's interface font, often DejaVu Sans, wider
-/// than Windows' Segoe UI.
+/// IDM's default column widths (and ours for Added: room for a 12-hour clock's
+/// `Oct 28 9:05:01 AM 2026`). Status is wider than IDM's 65 px (#736): one word and a percentage
+/// while a file is checked or a video joined ("Checking 45%", German's "Zusammenführen 100 %").
+/// 132 px is the least it has: while nobody resized it, it grows to what the list's font needs
+/// in the interface language ([`status_width`]). Linux draws with fontconfig's interface font,
+/// often DejaVu Sans, wider than Windows' Segoe UI.
 pub const DEFAULT_WIDTHS: [f32; COLS] = [
-    150.0, 20.0, 75.0, 132.0, 75.0, 95.0, 65.0, 200.0, 145.0, 62.0, 64.0, 92.0, 100.0, 220.0,
+    150.0, 20.0, 75.0, 132.0, 75.0, 95.0, 65.0, 200.0, 145.0, 220.0,
 ];
-/// Default display order: Source first, then IDM's, a torrent's three columns after its rate, and
-/// Added after Last Try Date.
-const DEFAULT_ORDER: [usize; COLS] = [
-    SOURCE, 0, 1, 2, 3, 4, 5, UPLOAD, PEERS, RATIO, 6, ADDED, 7, SAVE_TO,
-];
+/// Default display order: IDM's columns, Added after Last Try Date, and Save To last.
+const DEFAULT_ORDER: [usize; COLS] = [0, 1, 2, 3, 4, 5, 6, ADDED, 7, SAVE_TO];
 
 const MIN_WIDTH: f32 = 16.0;
 /// How far from a separator a press grabs it for resizing.
@@ -166,8 +142,6 @@ pub enum Filter {
 /// The values a column filters by, for columns that have a few (None: a text search).
 pub fn filter_values(col: usize) -> Option<&'static [&'static str]> {
     match col {
-        // i18n: where a download comes from: Web (web or FTP server) or Torrent (BitTorrent)
-        SOURCE => Some(&["Web", "Torrent"]),
         1 => Some(&["In a queue", "Not in a queue"]),
         // i18n: a download's status (state it is in, not a command)
         3 => Some(&["Downloading", "Stopped", "Waiting", "Complete", "Error"]),
@@ -325,13 +299,40 @@ impl ListState {
         }
     }
 
-    /// Restore a saved layout. One saved before "Added" existed gets it after Last Try Date,
-    /// one saved before "Source" gets it first, one saved before the torrent's columns gets them
-    /// after Transfer rate, in this order: Upload speed, Peers, Share ratio. A layout that
-    /// doesn't name every column exactly once is ignored.
+    /// Restore a saved layout. One saved before "Added" existed gets it after Last Try Date. A
+    /// layout that doesn't name every column exactly once is ignored.
     pub fn apply(&mut self, mut l: Layout) {
-        if !l.order.contains(&SOURCE) {
-            l.order.insert(0, SOURCE);
+        if l.widths.len() > COLS || l.order.iter().any(|&c| c > SAVE_TO) {
+            // Layouts saved when Source/Peers/Share ratio/Upload speed existed had Save To at 13.
+            let old_save = l.order.contains(&13);
+            l.order.retain(|&c| c <= 8 || c == 13);
+            for c in &mut l.order {
+                if *c == 13 {
+                    *c = SAVE_TO;
+                }
+            }
+            if old_save {
+                if let Some(&w) = l.widths.get(13) {
+                    l.widths[SAVE_TO] = w;
+                }
+                if let Some(&v) = l.visible.get(13) {
+                    l.visible[SAVE_TO] = v;
+                }
+            } else {
+                l.widths.truncate(SAVE_TO);
+                l.visible.truncate(SAVE_TO);
+            }
+            l.widths.truncate(COLS);
+            l.visible.truncate(COLS);
+            l.sort = l.sort.and_then(|(c, d)| {
+                if c <= 8 {
+                    Some((c, d))
+                } else if c == 13 {
+                    Some((SAVE_TO, d))
+                } else {
+                    None
+                }
+            });
         }
         if !l.order.contains(&ADDED) {
             let at = l
@@ -340,32 +341,6 @@ impl ListState {
                 .position(|c| *c == 6)
                 .map_or(l.order.len(), |p| p + 1);
             l.order.insert(at, ADDED);
-        }
-        if !l.order.contains(&PEERS) {
-            let at = l
-                .order
-                .iter()
-                .position(|c| *c == 5)
-                .map_or(l.order.len(), |p| p + 1);
-            l.order.insert(at, PEERS);
-        }
-        if !l.order.contains(&RATIO) {
-            let at = l
-                .order
-                .iter()
-                .position(|c| *c == PEERS)
-                .map_or(l.order.len(), |p| p + 1);
-            l.order.insert(at, RATIO);
-        }
-        // Last, and so before the two already there: a layout from before #357's second half
-        // keeps Transfer rate, then Upload speed, Peers, Share ratio.
-        if !l.order.contains(&UPLOAD) {
-            let at = l
-                .order
-                .iter()
-                .position(|c| *c == 5)
-                .map_or(l.order.len(), |p| p + 1);
-            l.order.insert(at, UPLOAD);
         }
         // A layout from before "Save To" gets it last, shown, at its default width.
         if !l.order.contains(&SAVE_TO) {
@@ -1120,23 +1095,6 @@ pub fn show(
                     );
                 }
                 let cell = Rect::from_min_max(pos2(*x0, top), pos2(*x1 - 1.0, top + row_h()));
-                if *c == SOURCE {
-                    let cut = chip(
-                        &bp.with_clip_rect(screen(cell.intersect(body))),
-                        &font,
-                        (*x0, *x1),
-                        top,
-                        &row.cells[*c],
-                    );
-                    let hovered = resp
-                        .hover_pos()
-                        .map(english)
-                        .is_some_and(|h| cell.contains(h));
-                    if cut && hovered {
-                        cut_under_pointer = Some(crate::i18n::t(&row.cells[*c]).to_owned());
-                    }
-                    continue;
-                }
                 let value = cell_text(*c, &row.cells[*c]);
                 let s = winui::ellipsize(&bp, &font, &value, x1 - tx - 3.0);
                 // A cut cell shows its whole text on hover (Windows' list label tip); the
@@ -1443,8 +1401,8 @@ fn fit_width(p: &egui::Painter, font: &egui::FontId, col: usize, rows: &[Row]) -
         .map(|r| lead + measure(&cell_text(col, crate::i18n::t(&r.cells[col]))) + 8.0)
         .fold(0.0, f32::max);
     match col {
-        // The queue icon and the source chip have their own sizes.
-        1 | SOURCE => DEFAULT_WIDTHS[col],
+        // The queue icon has its own size.
+        1 => DEFAULT_WIDTHS[col],
         _ => title.max(cells).ceil().max(MIN_WIDTH),
     }
 }
@@ -1465,8 +1423,8 @@ fn widen_cjk_headers(
         return;
     }
     for &c in shown {
-        // The queue icon and the source chip have their own fixed widths.
-        if c == 1 || c == SOURCE || (widths[c] - DEFAULT_WIDTHS[c]).abs() >= 0.5 {
+        // The queue icon has its own fixed width.
+        if c == 1 || (widths[c] - DEFAULT_WIDTHS[c]).abs() >= 0.5 {
             continue;
         }
         // The title's pen is 6 px in and it ends 4 px before the column's inclusive right edge,
@@ -1488,9 +1446,8 @@ fn widen_cjk_headers(
 fn cell_text(col: usize, s: &str) -> String {
     match col {
         0 | 7 => crate::i18n::isolate(s),
-        // Dates, a peer count and a ratio read left to right.
-        // Dates, a rate, a peer count and a ratio read left to right.
-        6 | ADDED | UPLOAD | PEERS | RATIO => crate::i18n::ltr(s),
+        // Dates read left to right.
+        6 | ADDED => crate::i18n::ltr(s),
         _ => s.to_owned(),
     }
 }
@@ -1509,45 +1466,6 @@ fn dotted(p: &egui::Painter, l: f32, t: f32, r: f32, b: f32, color: Color32) {
         fill(p, r, y, r, y, color);
         y += 2.0;
     }
-}
-
-/// A Source chip: a rounded pill, green "Web" or purple "Torrent", white text, at the cell's
-/// left of the cell `x0..x1`. A label too long for the cell (a translation in a narrow column)
-/// is cut with "..."; returns whether it was.
-fn chip(
-    p: &egui::Painter,
-    font: &egui::FontId,
-    (x0, x1): (f32, f32),
-    top: f32,
-    label: &str,
-) -> bool {
-    if label.is_empty() {
-        return false;
-    }
-    let fill = if label == "Torrent" {
-        crate::theme::colors().chip_torrent
-    } else {
-        crate::theme::colors().chip_web
-    };
-    // The cell holds the English key (filters match on it); the chip shows it translated.
-    let full = crate::i18n::t(label);
-    // Room: the pill starts 5 px in, pads its text 6 px each side, and ends 3 px before the cell.
-    let label = &winui::ellipsize(p, font, full, (x1 - x0 - 5.0 - 12.0 - 3.0).max(0.0));
-    let w = winui::text_width_font(p, font.clone(), label).round();
-    let pill = Rect::from_min_size(
-        pos2(x0 + 5.0, top + 2.0),
-        egui::vec2(w + 12.0, row_h() - 4.0),
-    );
-    p.rect_filled(winui::rect(pill), (row_h() - 4.0) / 2.0, fill);
-    text_font(
-        p,
-        font.clone(),
-        pill.left() + 6.0,
-        top + 12.0,
-        label,
-        crate::theme::colors().chip_text,
-    );
-    label != full
 }
 
 /// Where a column's funnel sits in its header: at the right, left of the sort chevron.
@@ -1942,30 +1860,28 @@ mod tests {
         widen_cjk_headers(&mut sorted, &[4], true, Some((4, true)), time_left);
         assert_eq!(sorted[4], 109.0);
 
-        // The queue icon and the source chip have fixed widths.
+        // The queue icon has a fixed width.
         let mut fixed = DEFAULT_WIDTHS;
-        widen_cjk_headers(&mut fixed, &[1, SOURCE], true, None, |_| 200.0);
+        widen_cjk_headers(&mut fixed, &[1], true, None, |_| 200.0);
         assert_eq!(fixed[1], DEFAULT_WIDTHS[1]);
-        assert_eq!(fixed[SOURCE], DEFAULT_WIDTHS[SOURCE]);
     }
 
     #[test]
     fn moving_a_column_right_and_left() {
         let mut st = ListState::default();
         let cols = spans(&st);
-        // Drop "File Name" (slot 0) at the boundary after "Size" (x = 62 + 150 + 20 + 75 = 307).
-        move_column(&mut st, &cols, 0, 308.0);
-        assert_eq!(st.order[..5], [SOURCE, 1, 2, 0, 3]);
+        // Drop "File Name" (slot 0) at the boundary after "Size" (x = 150 + 20 + 75 = 245).
+        move_column(&mut st, &cols, 0, 246.0);
+        assert_eq!(st.order[..4], [1, 2, 0, 3]);
         let cols = spans(&st);
         // And to the very left.
         move_column(&mut st, &cols, 0, 1.0);
-        assert_eq!(st.order[..3], [0, SOURCE, 1]);
+        assert_eq!(st.order[..2], [0, 1]);
     }
 
-    fn row(source: &str, status: &'static str, name: &str, queued: bool) -> Row {
+    fn row(status: &'static str, name: &str, queued: bool) -> Row {
         let mut cells: [String; COLS] = Default::default();
         cells[0] = name.into();
-        cells[SOURCE] = source.into();
         Row {
             status_group: status,
             icon: IconKey::Silk("page_white"),
@@ -1982,15 +1898,12 @@ mod tests {
     fn filters_by_values_and_text() {
         let mut st = ListState::default();
         let rows = [
-            row("Web", "Complete", "Setup.EXE", false),
-            row("Torrent", "Downloading", "debian.iso", true),
-            row("Web", "Error", "notes.pdf", false),
+            row("Complete", "Setup.EXE", false),
+            row("Downloading", "debian.iso", true),
+            row("Error", "notes.pdf", false),
         ];
         let shown = |st: &ListState| rows.iter().filter(|r| matches(st, r)).count();
         assert_eq!(shown(&st), 3);
-        st.filters[SOURCE] = Some(Filter::Values(vec!["Torrent"]));
-        assert_eq!(shown(&st), 1);
-        st.filters[SOURCE] = None;
         st.filters[3] = Some(Filter::Values(vec!["Complete", "Error"]));
         assert_eq!(shown(&st), 2);
         st.filters[0] = Some(Filter::Text("setup".into()));
@@ -2008,11 +1921,7 @@ mod tests {
         assert_eq!(TITLES[6], "Last Try Date");
         assert_eq!(TITLES[7], "Description");
         assert_eq!(TITLES[ADDED], "Added");
-        assert_eq!(TITLES[SOURCE], "Source");
-        assert_eq!(TITLES[UPLOAD], "Upload speed");
         assert_eq!(TITLES[SAVE_TO], "Save To");
-        assert_eq!(TITLES[PEERS], "Peers");
-        assert_eq!(TITLES[RATIO], "Share ratio");
     }
 
     #[test]
@@ -2067,22 +1976,11 @@ mod tests {
         };
         let mut st = ListState::default();
         st.apply(old);
-        // Source first, the three torrent columns after Transfer rate, Added after Last Try Date.
-        assert_eq!(
-            st.order,
-            [
-                SOURCE, 0, 2, 1, 3, 4, 5, UPLOAD, PEERS, RATIO, 6, ADDED, 7, SAVE_TO
-            ]
-        );
+        // Added after Last Try Date, Save To last.
+        assert_eq!(st.order, [0, 2, 1, 3, 4, 5, 6, ADDED, 7, SAVE_TO]);
         assert_eq!(st.widths[0], 200.0, "the saved widths stay");
         assert_eq!(st.widths[ADDED], DEFAULT_WIDTHS[ADDED]);
         assert!(st.visible[ADDED]);
-        assert!(st.visible[SOURCE]);
-        // A layout saved before they existed gets their defaults, shown.
-        assert_eq!(st.widths[UPLOAD], DEFAULT_WIDTHS[UPLOAD]);
-        assert_eq!(st.widths[PEERS], DEFAULT_WIDTHS[PEERS]);
-        assert_eq!(st.widths[RATIO], DEFAULT_WIDTHS[RATIO]);
-        assert!(st.visible[UPLOAD] && st.visible[PEERS] && st.visible[RATIO]);
         assert_eq!(st.sort, Some((2, false)));
     }
 
@@ -2093,7 +1991,7 @@ mod tests {
         let saved = |status: f32| Layout {
             order: DEFAULT_ORDER.to_vec(),
             widths: vec![
-                150.0, 20.0, 75.0, status, 75.0, 95.0, 65.0, 200.0, 145.0, 62.0, 64.0, 92.0, 100.0,
+                150.0, 20.0, 75.0, status, 75.0, 95.0, 65.0, 200.0, 145.0, 220.0,
             ],
             visible: vec![true; COLS],
             sort: None,
@@ -2157,81 +2055,36 @@ mod tests {
         );
     }
 
-    /// #357: a layout saved between "Source" and the torrent columns gets them in the same
-    /// place, and a layout that names a column twice is still ignored.
     #[test]
-    fn a_layout_saved_before_the_torrent_columns_gets_them() {
-        let old = Layout {
-            order: vec![SOURCE, 0, 1, 2, 3, 4, 5, 6, ADDED, 7],
+    fn old_torrent_layout_upgrades() {
+        // A layout saved with the old 14-column torrent layout drops those slots and keeps Save To.
+        let old14 = Layout {
+            order: vec![9, 0, 1, 2, 3, 4, 5, 12, 10, 11, 6, ADDED, 7, 13],
             widths: vec![
-                62.0, 150.0, 20.0, 75.0, 65.0, 75.0, 95.0, 65.0, 125.0, 300.0,
+                160.0, 20.0, 75.0, 132.0, 75.0, 95.0, 65.0, 200.0, 145.0, 62.0, 64.0, 92.0, 100.0,
+                250.0,
             ],
-            visible: vec![true; 10],
-            sort: None,
+            visible: vec![true; 14],
+            sort: Some((13, true)),
             status_fits: None,
         };
         let mut st = ListState::default();
-        st.apply(old);
-        assert_eq!(
-            st.order,
-            [
-                SOURCE, 0, 1, 2, 3, 4, 5, UPLOAD, PEERS, RATIO, 6, ADDED, 7, SAVE_TO
-            ]
-        );
-        assert!(st.widths[UPLOAD] > 0.0 && st.widths[PEERS] > 0.0 && st.widths[RATIO] > 0.0);
-        // None of the torrent columns were in that layout, so all three get their defaults.
-        assert_eq!(st.widths[UPLOAD], DEFAULT_WIDTHS[UPLOAD]);
+        st.apply(old14);
+        assert_eq!(st.order, DEFAULT_ORDER.to_vec());
+        assert_eq!(st.widths[0], 160.0);
+        assert_eq!(st.widths[SAVE_TO], 250.0);
+        assert_eq!(st.sort, Some((SAVE_TO, true)));
         // A layout that names one column twice (and so misses another) is ignored whole.
         let bad = Layout {
-            order: vec![SOURCE, 0, 1, 2, 3, 4, 5, 6, ADDED, 7, PEERS, PEERS],
-            widths: vec![62.0; 12],
-            visible: vec![true; 12],
+            order: vec![0, 1, 2, 3, 4, 5, 6, ADDED, 7, 7],
+            widths: vec![62.0; COLS],
+            visible: vec![true; COLS],
             sort: None,
             status_fits: None,
         };
         let mut st = ListState::default();
         st.apply(bad);
         assert_eq!(st.order, DEFAULT_ORDER.to_vec(), "the default stands");
-    }
-
-    /// A layout saved by 0.5.2 (12 slots: Peers at 10, Share ratio at 11, sorted by Peers) must
-    /// keep meaning what it meant: Peers is still Peers, with its own width and its sort. Upload
-    /// speed takes the new, free slot and gets its default.
-    #[test]
-    fn a_layout_saved_by_052_keeps_peers_as_peers() {
-        let old = Layout {
-            order: vec![SOURCE, 0, 1, 2, 3, 4, 5, PEERS, RATIO, 6, ADDED, 7],
-            widths: vec![
-                150.0, 20.0, 75.0, 65.0, 75.0, 95.0, 65.0, 300.0, 145.0, 62.0, 64.0, 92.0,
-            ],
-            visible: vec![true; 12],
-            sort: Some((PEERS, true)),
-            status_fits: None,
-        };
-        let mut st = ListState::default();
-        st.apply(old);
-        assert_eq!(
-            st.order,
-            [
-                SOURCE, 0, 1, 2, 3, 4, 5, UPLOAD, PEERS, RATIO, 6, ADDED, 7, SAVE_TO
-            ]
-        );
-        assert_eq!(
-            st.widths[PEERS], 64.0,
-            "Peers keeps the width 0.5.2 saved for it"
-        );
-        assert_eq!(st.widths[RATIO], 92.0, "Share ratio keeps its own");
-        assert_eq!(
-            st.widths[UPLOAD], DEFAULT_WIDTHS[UPLOAD],
-            "the new slot gets its default"
-        );
-        assert_eq!(
-            st.sort,
-            Some((PEERS, true)),
-            "a list sorted by Peers is still sorted by Peers"
-        );
-        assert_eq!(st.widths[SOURCE], 62.0, "the saved widths stay");
-        assert_eq!(st.widths[ADDED], 145.0);
     }
 
     /// #1190: the download list and its rows take a screen reader's focus (a row's focus selects

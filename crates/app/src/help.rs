@@ -942,7 +942,7 @@ impl About {
                     &version,
                 );
                 let about = crate::i18n::t(
-                    "The download manager you already know, rebuilt to be faster. Free and open source under the GNU GPL, version 3 or later. Videos are found by yt-dlp; torrents run on librqbit.",
+                    "The download manager you already know, rebuilt to be faster. Free and open source under the GNU GPL, version 3 or later. Videos are found by yt-dlp.",
                 );
                 let lines =
                     winui::paragraph(&p, o.x + 80.0, o.y + 72.0, about, ink, o.x + 404.0, 13.0);

@@ -8,7 +8,6 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use axum::Router;
-use axum::body::Bytes;
 use axum::extract::{ConnectInfo, DefaultBodyLimit, FromRequestParts, Query, Request};
 use axum::http::{HeaderMap, HeaderValue, StatusCode, header, request::Parts};
 use axum::middleware::Next;
@@ -19,9 +18,7 @@ use serde::Deserialize;
 use crate::Inner;
 use crate::pairing::Check;
 
-/// The largest .torrent file taken (as the app's own limit, mdm_torrent::MAX_TORRENT_FILE).
-const MAX_TORRENT: usize = 10 << 20;
-/// The largest other request body.
+/// The largest request body.
 const MAX_BODY: usize = 64 << 10;
 /// The longest address taken.
 const MAX_URL: usize = 8192;
@@ -84,10 +81,6 @@ pub fn router(state: Arc<State>) -> Router {
         .route("/api/pair", post(pair))
         .route("/api/list", get(list))
         .route("/api/add", post(add))
-        .route(
-            "/api/torrent",
-            post(torrent).layer(DefaultBodyLimit::max(MAX_TORRENT)),
-        )
         .route("/api/act", post(act))
         .route("/api/queue", post(queue))
         .route("/api/forget", post(forget))
@@ -321,35 +314,6 @@ async fn add(s: S, _: Paired, axum::Json(b): axum::Json<AddBody>) -> Response {
             category: b.category.filter(|c| !c.is_empty()),
             queue: b.queue.filter(|q| !q.is_empty()),
             later: !b.start,
-            silent: true,
-            ..Default::default()
-        },
-    )
-    .await
-}
-
-#[derive(Deserialize)]
-struct TorrentQuery {
-    #[serde(default)]
-    category: Option<String>,
-    #[serde(default)]
-    queue: Option<String>,
-    #[serde(default)]
-    start: bool,
-}
-
-async fn torrent(s: S, _: Paired, Query(q): Query<TorrentQuery>, body: Bytes) -> Response {
-    // A .torrent file is a bencoded dictionary.
-    if body.first() != Some(&b'd') {
-        return error(StatusCode::BAD_REQUEST, "not-a-torrent");
-    }
-    ask(
-        &s,
-        mdm_ipc::Command {
-            torrent_file: Some(body.to_vec()),
-            category: q.category.filter(|c| !c.is_empty()),
-            queue: q.queue.filter(|q| !q.is_empty()),
-            later: !q.start,
             silent: true,
             ..Default::default()
         },

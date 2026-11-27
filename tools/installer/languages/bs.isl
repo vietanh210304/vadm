@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Deinstaliranje %1.
 
 [CustomMessages]
 TaskBrowser=Postavi integraciju &preglednika (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Otvorite .&torrent datoteke i magnet veze pomoću Mister Download Manager
 TaskStartup=Pokrenite Mister Download Manager kada se pokrene &Windows
 TaskGroupOther=Ostalo:
 Launch=Pokrenite Mister Download Manager

@@ -84,8 +84,6 @@ async fn the_computer_is_woken_for_the_queue_and_kept_awake_while_it_runs() {
             "language": "en", "language_asked": true, "helpers_asked": true,
             "extension_never_ask": true, "update_check": false, "clipboard_autostart": false,
             "minimize_to_tray": false, "show_complete": false,
-            "torrent_dht": false, "torrent_lsd": false, "torrent_upnp": false,
-            "torrent_incoming": false,
         },
     });
     std::fs::write(data.join("downloads.json"), list.to_string()).unwrap();

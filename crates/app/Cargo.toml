@@ -48,7 +48,6 @@ mdm-ipc.workspace = true
 # The remote control (#141): a paired phone adds and controls downloads over the local network.
 mdm-remote.workspace = true
 mdm-tools.workspace = true
-mdm-torrent.workspace = true
 open.workspace = true
 reqwest.workspace = true
 serde.workspace = true
@@ -73,10 +72,6 @@ tracing.workspace = true
 # Unpacks the translation catalogs (i18n.rs, packed by build.rs); already in the tree through
 # reqwest's brotli support.
 brotli-decompressor = "6.2.0"
-# RSS feeds (rss.rs): reading them (no DTDs), and the rules' regular expressions; both already
-# in the tree (resvg's SVG, the engine's dependencies).
-roxmltree = "0.20.0"
-regex = "1.13.1"
 # The preview pane's thumbnails on Linux (#1368): the freedesktop cache names them by their
 # file's address's MD5 (preview.rs); the engine's checksums already build it.
 md-5.workspace = true
@@ -142,7 +137,7 @@ image = { workspace = true, features = ["jpeg", "gif", "webp", "bmp"] }
 [target.'cfg(target_os = "macos")'.dependencies]
 # Finder's file icons (unix.rs file_icon); already in the tree through winit and rfd.
 objc2 = "0.6.5"
-# .torrent files and magnet links Finder hands over as Apple events (unix.rs open_events, #698).
+# File events Finder hands over as Apple events (unix.rs open_events, #698).
 objc2-foundation = { version = "0.3.2", default-features = false, features = ["std", "NSString", "NSGeometry", "objc2-core-foundation", "NSAppleEventDescriptor", "NSAppleEventManager", "NSNotification", "NSURL", "NSArray"] }
 # The share sheet for a downloaded file from the browser popup's list (unix.rs share_file, #1496):
 # the sharing service picker, from a window of MDM's own at the pointer. The downloads' progress
@@ -176,6 +171,8 @@ tempfile.workspace = true
 tracing-subscriber.workspace = true
 # The command line's tests (tests/cli_*.rs) download from it.
 mdm-labserver.workspace = true
+# help.rs link tests.
+regex = "1.13.1"
 
 [lints]
 workspace = true

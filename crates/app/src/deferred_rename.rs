@@ -1,8 +1,8 @@
 //! Safe deferred rename (`Item::rename_on_complete`) from a download's progress window.
 //!
-//! Typing a new name while a download runs never touches the live HTTP stream, signed URL,
-//! temporary `.mdm.part` state, or torrent session in flight. Instead, the chosen main name is
-//! stored on the item and applied in place once the download reaches `Status::Complete`:
+//! Typing a new name while a download runs never touches the live HTTP stream, signed URL, or
+//! temporary `.mdm.part` state. Instead, the chosen main name is stored on the item and applied in
+//! place once the download reaches `Status::Complete`:
 //! - Single-file downloads replace only the finalized file's main stem, keeping its real
 //!   extension (including compound archive suffixes such as `.tar.gz`).
 //! - Folder downloads that belong exclusively to one download replace the folder's name,
@@ -183,12 +183,11 @@ pub fn build_renamed_file_name(current_name: &str, desired_stem: &str, is_dir: b
     format!("{base}{real_ext}")
 }
 
-/// Whether `item`'s destination stands for a folder (multi-file torrent, gallery, multi-file
-/// debrid transfer, files picked out of a ZIP) rather than a single file.
+/// Whether `item`'s destination stands for a folder (gallery or files picked out of a ZIP) rather
+/// than a single file.
 pub fn is_folder_target(item: &Item) -> bool {
     item.gallery.is_some()
         || item.zip.is_some()
-        || item.torrent.as_ref().is_some_and(|t| t.folder == item.dest)
         || item.dest.is_dir()
 }
 
@@ -273,8 +272,7 @@ pub fn folder_has_any_entries(dir: &Path) -> bool {
     std::fs::read_dir(dir).is_ok_and(|mut rd| rd.next().is_some())
 }
 
-/// Whether `dir` holds any file or subfolder outside `allowed_files` (files this download wrote
-/// or that belong to its torrent manifest).
+/// Whether `dir` holds any file or subfolder outside `allowed_files`.
 pub fn folder_has_untracked_files(dir: &Path, allowed_files: &[PathBuf]) -> bool {
     use std::collections::HashSet;
     if !dir.exists() {

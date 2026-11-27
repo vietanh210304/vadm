@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Qed tiddiżinstalla %1.
 
 [CustomMessages]
 TaskBrowser=Issettja l-integrazzjoni tal-&brawżer (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Iftaħ fajls .&torrent u links manjetiċi b'Mister Download Manager
 TaskStartup=Ibda Mister Download Manager meta tibda l-&Windows
 TaskGroupOther=Oħrajn:
 Launch=Ibda Mister Download Manager

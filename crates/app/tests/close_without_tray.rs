@@ -107,8 +107,6 @@ fn data(dir: &Path, name: &str, close_to_tray: bool) -> PathBuf {
         "update_check": false, "helpers_asked": true, "language_asked": true,
         "extension_never_ask": true, "close_to_tray": close_to_tray,
         "language": "en",
-        "torrent_dht": false, "torrent_lsd": false, "torrent_upnp": false,
-        "torrent_incoming": false,
     });
     std::fs::write(
         data.join("downloads.json"),

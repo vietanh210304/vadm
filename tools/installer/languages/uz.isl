@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 oʻchirilmoqda.
 
 [CustomMessages]
 TaskBrowser=Brauzer integratsiyasini sozlash (&Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent fayllarini va magnit havolalarni Mister Download Manager bilan ochish
 TaskStartup=&Windows ishga tushganda Mister Download Managerni ishga tushirish
 TaskGroupOther=Boshqa:
 Launch=Mister Download Managerni ishga tushirish

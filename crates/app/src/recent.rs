@@ -54,9 +54,7 @@ pub fn info(i: &Item, remote: bool, exists: Option<bool>) -> DownloadInfo {
 
 /// What downloads `i` when it isn't a plain file ([`DownloadInfo::kind`]).
 fn kind(i: &Item) -> Option<&'static str> {
-    if i.torrent.is_some() || i.remote.is_some() {
-        Some("torrent")
-    } else if i.video.is_some() {
+    if i.video.is_some() {
         Some("video")
     } else if i.gallery.is_some() {
         Some("gallery")
@@ -66,14 +64,12 @@ fn kind(i: &Item) -> Option<&'static str> {
 }
 
 /// The popup's key for the icon of a download's file type: its extension, lowercase (`zip`);
-/// `_` for a file without one; `folder` for a gallery's folder and a torrent named without an
-/// extension (its folder).
+/// `_` for a file without one; `folder` for a gallery's folder.
 pub fn icon_key(i: &Item) -> String {
     let folder = i.gallery.is_some() || i.zip.is_some();
     match What::of(Kind::File(&i.file_name)) {
         _ if folder => "folder".into(),
         What::File(Some(ext)) => ext,
-        _ if i.torrent.is_some() || i.remote.is_some() => "folder".into(),
         _ => "_".into(),
     }
 }

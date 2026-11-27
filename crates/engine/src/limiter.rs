@@ -19,7 +19,7 @@ pub struct Limiter {
     rate: AtomicU64,
     bucket: Mutex<Bucket>,
     /// Every byte that went through it (less what was given back), limited or not: what the
-    /// downloads under it took, for the global cap's split with torrents.
+    /// downloads under it took.
     taken: AtomicU64,
     /// Wakes the waits when the limit changes, so they count what is left at the new rate.
     changed: Notify,

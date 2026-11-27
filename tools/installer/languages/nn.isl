@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Avinstallerer %1.
 
 [CustomMessages]
 TaskBrowser=Set opp nettlesar&integrering (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Opne .&torrent-filer og magnetlenkjer med Mister Download Manager
 TaskStartup=Start Mister Download Manager når &Windows startar
 TaskGroupOther=Anna:
 Launch=Start Mister Download Manager

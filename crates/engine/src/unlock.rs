@@ -81,15 +81,6 @@ pub enum ServiceFault {
     TooManyRequests(Option<Duration>),
     /// The service isn't answering or fails.
     ServiceDown,
-    /// A torrent the service can't get (#44): nobody shares it any more, or its magnet link
-    /// can't be read.
-    TorrentUnavailable,
-    /// A torrent's file whose name can't be written safely in its folder (it climbs out of it,
-    /// `../`): nothing is written.
-    UnsafeName(String),
-    /// A torrent's file ticked in Add torrent that the service's list doesn't hold (by its path
-    /// in the torrent): nothing is downloaded rather than every file.
-    ChosenFileMissing(String),
     /// Anything else, in the service's own words.
     Other(String),
 }
@@ -123,18 +114,6 @@ impl std::fmt::Display for ServiceFault {
             ServiceFault::PasswordNeeded => "the file is password-protected",
             ServiceFault::TooManyRequests(_) => "too many requests; slowing down",
             ServiceFault::ServiceDown => "it isn't responding",
-            ServiceFault::TorrentUnavailable => {
-                "the torrent can't be downloaded (nobody shares it, or its link can't be read)"
-            }
-            ServiceFault::UnsafeName(n) => {
-                return write!(f, "a file's name can't be written safely: {n}");
-            }
-            ServiceFault::ChosenFileMissing(p) => {
-                return write!(
-                    f,
-                    "a file chosen in Add torrent isn't in the service's list: {p}"
-                );
-            }
             ServiceFault::Other(m) => return f.write_str(m),
         };
         f.write_str(s)

@@ -75,7 +75,7 @@ scheme's colours go where they mean the same:
 | Focus, default buttons, check boxes, links, the selection and the progress bar | `base0D` (blue) | `color4` |
 | Errors | `base08` (red) | `color1` |
 | Warnings | `base0A` (yellow) | `color3` |
-| Success, the meters and a torrent's pieces | `base0B` (green) | `color2` |
+| Success and the meters | `base0B` (green) | `color2` |
 
 Borders and the hover and pressed shades are mixed from these, as for a theme file's `[seeds]`.
 Text stays readable: text and secondary text at 4.5:1 or more against every background they sit

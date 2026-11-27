@@ -49,7 +49,7 @@ button greys itself or Escape closes a drop-down, so **Tab** never starts over a
 
 The **Categories** pane will read as a tree, each category with its count, open or shut, and the
 menu bar and every right-click menu as menus whose items can be run. Screen readers will reach
-every row of a list, not only those in view, with its place ("12 of 40"), and lists such as Download video's qualities and Add torrent's files will read with their
+every row of a list, not only those in view, with its place ("12 of 40"), and lists such as Download video's qualities will read with their
 names and ticks. A window will show its contents the first time a screen reader reads it, and a
 drop-down's choice can be set by its text. In dark mode, grey notes and error texts will have the
 4.5:1 contrast WCAG asks for. **View → Theme** adds **High contrast**: black and white, a bright

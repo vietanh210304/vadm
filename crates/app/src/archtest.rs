@@ -51,10 +51,8 @@ pub fn tested_name(name: &str) -> bool {
 /// Whether `item` is a finished file download whose archive can be tested.
 pub fn testable(item: &Item) -> bool {
     item.status == Status::Complete
-        && item.torrent.is_none()
         && item.video.is_none()
         && item.gallery.is_none()
-        && item.remote.is_none()
         && item.zip.is_none()
         && tested_name(&item.file_name)
 }

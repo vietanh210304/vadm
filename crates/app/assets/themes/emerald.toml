@@ -85,9 +85,8 @@ success = "#3ecf8e"
 # Dotted tree connectors, quiet enough to read as structure rather than as ink.
 "tree.lines" = "#dedede"
 
-# Kind chips: a soft fill with the ink on it, so one text colour works on both hues.
+# Kind chips: a soft fill with the ink on it.
 "chip.web" = "#d9f6e7"
-"chip.torrent" = "#ece6fa"
 "chip.text" = "#171717"
 
 [dark]
@@ -98,5 +97,4 @@ success = "#3ecf8e"
 "selection.text" = "#171717"
 "tree.lines" = "#2e2e2e"
 "chip.web" = "#12352a"
-"chip.torrent" = "#211a33"
 "chip.text" = "#e6e6e6"

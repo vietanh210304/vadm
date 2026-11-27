@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Απεγκατάσταση %1.
 
 [CustomMessages]
 TaskBrowser=Ρύθμιση ενσωμάτωσης &προγράμματος περιήγησης (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Άνοιγμα αρχείων .&torrent και συνδέσεων magnet με το Mister Download Manager
 TaskStartup=Εκκίνηση του Mister Download Manager όταν ξεκινά το &Windows
 TaskGroupOther=Άλλα:
 Launch=Εκκίνηση του Mister Download Manager

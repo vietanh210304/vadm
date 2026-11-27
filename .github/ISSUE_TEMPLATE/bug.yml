@@ -51,7 +51,6 @@ body:
         - Downloads (speed, resuming, errors)
         - Browser extension
         - Video downloads
-        - Torrents
         - Queues and the Scheduler
         - The window, menus and dialogs
         - Languages and translations

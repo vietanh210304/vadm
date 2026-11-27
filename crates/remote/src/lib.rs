@@ -1,5 +1,5 @@
 //! Mister Download Manager's remote control (#141): a phone or another computer on the local
-//! network adds downloads and torrents, sees the list and controls it, from a small web page
+//! network adds downloads, sees the list and controls it, from a small web page
 //! MDM serves over HTTPS. Off by default (Options → Remote).
 //!
 //! * One command path: every request becomes an [`mdm_ipc::Command`] marked `remote`, handed to

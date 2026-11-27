@@ -55,7 +55,7 @@ pub struct Mapped {
     pub accent: Color32,
     pub error: Color32,
     pub warning: Color32,
-    /// Success messages, the torrent pieces and the meters.
+    /// Success messages and the meters.
     pub success: Color32,
 }
 

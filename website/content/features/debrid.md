@@ -33,14 +33,6 @@ your API token; Premiumize with its API key; Mega-Debrid with your user name and
 application's API key. MDM shows the account's name and whether it is premium. With several accounts,
 a link goes through the first one whose service supports its host.
 
-## Torrents without peers
-
-Tick **Send torrents and magnet links to the first account instead of to peers**, and a magnet
-link or a `.torrent` file goes to the service. It downloads the torrent on its own servers while
-the list shows how far it is (**45% at Real-Debrid**). MDM then fetches the files over HTTP and
-removes the torrent from the account's list. Your computer never connects to the torrent's
-peers.
-
 ## Experimental, and said so
 
 MDM's support was built from each service's public documentation and is not yet confirmed with

@@ -18,7 +18,6 @@ pub mod megadebrid;
 pub mod premiumize;
 pub mod realdebrid;
 pub mod torbox;
-pub mod torrents;
 
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex, RwLock};
@@ -88,16 +87,10 @@ impl ServiceKind {
         matches!(self, ServiceKind::MegaDebrid)
     }
 
-    /// Whether it downloads torrents for MDM (`torrents`). Mega-Debrid's torrent calls don't
-    /// document the states a torrent goes through, nor its files' links: not yet.
-    pub fn takes_magnets(self) -> bool {
-        !matches!(self, ServiceKind::MegaDebrid)
-    }
-
     /// The requests a minute MDM allows itself (each service's published limit, halved or more:
     /// Real-Debrid 250 a minute, AllDebrid 600, Mega-Debrid 50 a second; Premiumize publishes
     /// none). TorBox: 300 a minute
-    /// for each endpoint, per API key, and 60 new web downloads (or uncached torrents) an hour
+    /// for each endpoint, per API key, and 60 new web downloads an hour
     /// (https://support.torbox.app/en/articles/13726368-api-rate-limits); a refused request
     /// pauses it as any "too many requests" does.
     fn per_minute(self) -> usize {
@@ -288,27 +281,6 @@ impl Http {
         self.client
             .get(url.clone())
             .header(reqwest::header::USER_AGENT, USER_AGENT)
-    }
-
-    fn delete(&self, url: &Url) -> reqwest::RequestBuilder {
-        self.client
-            .delete(url.clone())
-            .header(reqwest::header::USER_AGENT, USER_AGENT)
-    }
-
-    /// Real-Debrid: send `req`, whose answer has no body (204); an error answer through `fault`.
-    async fn empty(
-        &self,
-        req: reqwest::RequestBuilder,
-        fault: fn(u16, &[u8], Option<u64>) -> Fault,
-    ) -> Result<(), Fault> {
-        let (status, body, retry_after) = self.send(ServiceKind::RealDebrid, req).await?;
-        if (200..300).contains(&status) {
-            return Ok(());
-        }
-        let f = fault(status, &body, retry_after);
-        self.pause(ServiceKind::RealDebrid, &f);
-        Err(f)
     }
 
     fn post_json(&self, url: &Url, body: &serde_json::Value) -> reqwest::RequestBuilder {
@@ -570,8 +542,8 @@ impl Session {
                     let i = torbox::item(&self.http, &key, Kind::Web, id).await?;
                     match torbox::state(&i) {
                         None => break i,
-                        Some(torrents::Status::Failed(f)) => return Err(Fault::Service(f)),
-                        Some(torrents::Status::Working { progress, what }) => {
+                        Some(torbox::Status::Failed(f)) => return Err(Fault::Service(f)),
+                        Some(torbox::Status::Working { progress, what }) => {
                             let line = format!(
                                 "TorBox is fetching the file: {what}, {}%",
                                 (progress.unwrap_or(0.0) * 100.0) as u32 / 10 * 10
@@ -581,7 +553,6 @@ impl Session {
                                 said = line;
                             }
                         }
-                        Some(torrents::Status::Ready { .. }) => unreachable!("state() never says"),
                     }
                     if Instant::now() >= until {
                         return Err(Fault::Service(ServiceFault::ServiceDown));
@@ -656,22 +627,6 @@ impl Session {
                 }))
             }
         }
-    }
-}
-
-/// A service's id for a torrent, checked before it goes into an address: letters, digits, `-`
-/// and `_` only.
-pub(crate) fn plain_id(id: &str) -> Result<&str, Fault> {
-    if !id.is_empty()
-        && id
-            .chars()
-            .all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_')
-    {
-        Ok(id)
-    } else {
-        Err(Fault::Service(ServiceFault::Other(
-            "the service gave an id MDM can't use".into(),
-        )))
     }
 }
 
@@ -791,22 +746,25 @@ impl Debrid {
         })
     }
 
-    /// The unlocker for `url` (`mdm_engine::Options::unlocker`), when an account takes its host.
-    pub fn unlocker_for(&self, url: &Url) -> Option<Arc<dyn mdm_engine::Unlocker>> {
-        let (id, _) = self.account_for(url)?;
-        let session = self
-            .sessions
+    fn session(&self, id: u64) -> Option<Arc<Session>> {
+        self.sessions
             .read()
             .unwrap()
             .iter()
-            .find(|s| s.account.id == id)?
-            .clone();
+            .find(|s| s.account.id == id)
+            .cloned()
+    }
+
+    /// The unlocker for `url` (`mdm_engine::Options::unlocker`), when an account takes its host.
+    pub fn unlocker_for(&self, url: &Url) -> Option<Arc<dyn mdm_engine::Unlocker>> {
+        let (id, _) = self.account_for(url)?;
+        let session = self.session(id)?;
         Some(Arc::new(AccountUnlocker { session }))
     }
 
     /// A download of `url` through an account ended (done, or taken off MDM's list): on TorBox,
-    /// its web downloads leave the account's list, as a torrent does once downloaded. The other
-    /// services keep no list of unlocked links.
+    /// its web downloads leave the account's list. The other services keep no list of unlocked
+    /// links.
     pub async fn release(&self, url: &Url) -> Result<(), Fault> {
         let Some((id, ServiceKind::TorBox)) = self.account_for(url) else {
             return Ok(());
@@ -820,12 +778,7 @@ impl Debrid {
     /// Ask the service about account `id` (Options, after signing in).
     pub async fn account_info(&self, id: u64) -> Result<AccountInfo, Fault> {
         let s = self
-            .sessions
-            .read()
-            .unwrap()
-            .iter()
-            .find(|s| s.account.id == id)
-            .cloned()
+            .session(id)
             .ok_or(Fault::Service(ServiceFault::SignIn))?;
         account_info(&s).await
     }

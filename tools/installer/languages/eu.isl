@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 desinstalatzen.
 
 [CustomMessages]
 TaskBrowser=Arakatzailearen integrazioa konfiguratu (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Ireki .&torrent fitxategiak eta magnet estekak Mister Download Manager aplikazioarekin
 TaskStartup=Abiarazi Mister Download Manager &Windows abiaraztean
 TaskGroupOther=Bestelakoak:
 Launch=Abiarazi Mister Download Manager

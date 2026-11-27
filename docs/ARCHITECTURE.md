@@ -8,7 +8,7 @@ How Mister Download Manager's pieces fit together.
 |---|---|---|
 | `crates/engine` | `mdm-engine` | Downloads one file over HTTP(S) or FTP(S): probe, segment planner, connection workers, resume state, per-host limits, speed limiter, checksums, proxy scripts |
 | `crates/app` | `mdm-app` | The desktop app (`misterdownloadmanager.exe`, egui): list, categories, queues, scheduler, dialogs, tray, settings |
-| `crates/cli` | `mdm-cli` | Headless downloads with progress (`get`, `resume`), videos, torrents and the automation API's commands: a library the app's program runs (`misterdownloadmanager --cli …`), and `misterdownloadmanager-cli`, a small launcher that starts it with the same arguments, terminal and exit code |
+| `crates/cli` | `mdm-cli` | Headless downloads with progress (`get`, `resume`), videos and the automation API's commands: a library the app's program runs (`misterdownloadmanager --cli …`), and `misterdownloadmanager-cli`, a small launcher that starts it with the same arguments, terminal and exit code |
 | `crates/mcp` | `mdm-mcp` | The MCP server (`misterdownloadmanager-mcp`): AI assistants list, add and control the running app's downloads through the automation API |
 | `crates/remote` | `mdm-remote` | The remote control (#141): the HTTPS server a paired phone or computer on the local network uses (its page, pairing codes, device tokens, the self-signed certificate); every request becomes an automation API command the app answers |
 | `crates/nmhost` | `mdm-nmhost` | The browser's native messaging host: takes captured downloads from the extension and hands them to the app |
@@ -19,7 +19,6 @@ How Mister Download Manager's pieces fit together.
 | `crates/geo` | `mdm-geo` | Where a download's server is (#140): an IP-to-country range table built from DB-IP's Lite data (`tools/geo/build.py`), looked up on this computer only, and the countries' flags |
 | `crates/tools` | `mdm-tools` | Video pages through yt-dlp and ffmpeg, image galleries through gallery-dl (run as separate programs); while a network adapter is chosen, their connections go through a proxy of MDM's on 127.0.0.1 that binds them to it (`relay.rs`); each runs in a folder it can write, also its TEMP (`workdir.rs`) |
 | `crates/crash` | `mdm-crash` | Crash and freeze reports: the monitor process, out-of-process minidumps, symbolicated stacks, the report's text and the release logs ([crash-reports.md](crash-reports.md)) |
-| `crates/torrent` | `mdm-torrent` | BitTorrent and magnet links through librqbit |
 | `crates/labserver` | `mdm-labserver` | An HTTP Range server with a request log and fault injection, and an FTP/FTPS server with its own faults, for tests and benchmarks |
 | `extension/` | — | The Chromium (MV3) and Firefox extension |
 | `docs/` | — | The user guide and tutorials, this file, the benchmark data; the website makes the guide its help pages, which Help opens |

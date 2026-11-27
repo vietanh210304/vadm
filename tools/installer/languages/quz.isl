@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 hurquchkan.
 
 [CustomMessages]
 TaskBrowser=Wamp'aq &mask'ay (Chrome, Edge, Brave, Firefox) t'ikrayta churay
-TaskTorrents=.&torrent willkakunatawan magnet t'inkikunata Mister Download Managerwan kichay
 TaskStartup=&Windows qallariptin Mister Download Managerta qallariy
 TaskGroupOther=Huk:
 Launch=Mister Download Managerta qallariy

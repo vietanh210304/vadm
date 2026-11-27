@@ -41,15 +41,10 @@
 
   <section id="main" hidden>
     <form id="add" class="card" autocomplete="off">
-      <label for="url" data-t="Address or magnet link"></label>
+      <label for="url" data-t="Address"></label>
       <div class="row">
-        <input id="url" type="url" inputmode="url" dir="ltr" placeholder="https://…   magnet:?…">
-        <label class="button file" tabindex="0" role="button" data-ta="Choose a .torrent file">
-          <span dir="auto" data-t=".torrent file"></span>
-          <input id="file" type="file" accept=".torrent,application/x-bittorrent">
-        </label>
+        <input id="url" type="url" inputmode="url" dir="ltr" placeholder="https://…">
       </div>
-      <p id="file-name" class="muted" hidden></p>
       <div class="row">
         <label class="field"><span data-t="Category"></span><select id="category"></select></label>
         <label class="field"><span data-t="When"></span><select id="when"></select></label>

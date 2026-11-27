@@ -1,7 +1,7 @@
 //! Add or edit a category (D-021): the user's own or a built-in one by file type (#93: name,
-//! file types, folder), General's and Torrents' folder only. Opened from Options → Save to
+//! file types, folder), General's folder only. Opened from Options → Save to
 //! (New, Edit...) and the Categories right-click menu (Add category, Properties); Delete
-//! removes a category (General and Torrents stay), and Options → Save to restores the
+//! removes a category (General stays), and Options → Save to restores the
 //! built-in ones as shipped.
 
 use std::path::Path;
@@ -14,7 +14,7 @@ use crate::winui::{self, ButtonKind, LIGHT_BG, LIGHT_DISABLED, LIGHT_TEXT, r};
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Target {
     New,
-    /// A category of the user's or a built-in one (General and Torrents: only their folder).
+    /// A category of the user's or a built-in one (General: only its folder).
     Edit(Category),
 }
 
@@ -67,7 +67,7 @@ impl CategoryDialog {
 
     /// `names`: every category's name now (a new name must be another).
     pub fn show(&mut self, ctx: &egui::Context, names: &[String]) -> Outcome<CategoryEdit> {
-        // General and Torrents: only the folder changes.
+        // General: only the folder changes.
         let built_in = matches!(self.target, Target::Edit(c) if !c.editable());
         let title = match self.target {
             Target::New => crate::i18n::mark("Add category"),
@@ -349,7 +349,7 @@ pub fn apply(settings: &mut Settings, e: CategoryEdit, downloads: &Path) -> Cate
 }
 
 /// Delete a category: a user's goes, a built-in one by file type is marked deleted (#93); the
-/// downloads still in it become General (`items`), files stay put. General and Torrents stay.
+/// downloads still in it become General (`items`), files stay put. General stays.
 pub fn delete(settings: &mut Settings, cat: Category, items: &mut [crate::model::Item]) {
     match cat {
         Category::Custom(id) => settings.custom_categories.retain(|c| c.id != id),
@@ -365,7 +365,7 @@ pub fn delete(settings: &mut Settings, cat: Category, items: &mut [crate::model:
 }
 
 /// Options → Save to → Restore the built-in categories: the five by file type come back as
-/// shipped (name, file types, folder); General, Torrents and the user's own stay as they are.
+/// shipped (name, file types, folder); General and the user's own stay as they are.
 pub fn restore(settings: &mut Settings) {
     let keys: Vec<String> = by_type().map(|c| c.key().into_owned()).collect();
     settings
@@ -480,11 +480,10 @@ mod tests {
             Category::General,
             "its shipped types go too"
         );
-        // General and Torrents can't be deleted.
+        // General can't be deleted.
         delete(&mut s, Category::General, &mut items);
-        delete(&mut s, Category::Torrents, &mut items);
-        assert!(!Category::General.deleted() && !Category::Torrents.deleted());
-        assert!(!Category::General.editable() && !Category::Torrents.editable());
+        assert!(!Category::General.deleted());
+        assert!(!Category::General.editable());
         // A user's own and General's folder survive Restore.
         let books = apply(
             &mut s,
@@ -555,18 +554,6 @@ mod tests {
         delete(&mut s, cat, &mut items);
         assert_eq!(Category::of("novel.epub"), Category::General);
         crate::model::set_custom(&[]);
-    }
-
-    #[test]
-    fn torrents_have_a_folder_but_no_file_types() {
-        let _turn = registry();
-        let downloads = Path::new(r"C:\d");
-        assert_eq!(
-            Category::Torrents.folder(downloads),
-            downloads.join("Torrents")
-        );
-        assert_eq!(Category::of("ubuntu.iso.torrent"), Category::General);
-        assert!(Category::all().contains(&Category::Torrents));
     }
 
     /// #1063: `Category::of` works from rules built once, no longer from every category's

@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Menghapus instalasi %1.
 
 [CustomMessages]
 TaskBrowser=Siapkan integrasi &browser (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Buka file .&torrent dan tautan magnet dengan Mister Download Manager
 TaskStartup=Mulai Mister Download Manager saat &Windows dimulai
 TaskGroupOther=Lainnya:
 Launch=Mulai Mister Download Manager

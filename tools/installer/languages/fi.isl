@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Määritä selaimen integrointi (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Avaa .&torrent-tiedostot ja magneettilinkit sovelluksella Mister Download Manager
 TaskStartup=Käynnistä Mister Download Manager &Windowsin käynnistyessä
 TaskGroupOther=Muut:
 Launch=Käynnistä Mister Download Manager

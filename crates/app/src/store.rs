@@ -122,17 +122,6 @@ fn load_from(p: &Path, empty: Loaded) -> Loaded {
                 // The page it came from is sent again (#795): the browser's other context
                 // (cookies, User-Agent) is memory only.
                 i.context.referer = i.referer.clone();
-                // A list an older MDM saved dropped the layout of a torrent saved straight in
-                // Save to; its address still says so. Its folder is shared, never its own.
-                if let Some(t) = &mut i.torrent {
-                    if crate::torrents::url_marks_direct(&i.url) {
-                        t.create_subfolder = false;
-                    } else if !t.create_subfolder {
-                        // Migrate folderless rows written before the durable marker existed.
-                        // An older build may drop new fields, but preserves this address.
-                        crate::torrents::mark_direct(&mut i.url);
-                    }
-                }
                 // Downloads that were running when the app closed are now stopped (resumable).
                 if i.status == Status::Downloading {
                     i.status = Status::Stopped;
@@ -358,8 +347,7 @@ impl Saver {
         Saver::writing("list saver", write)
     }
 
-    /// A saver thread of its own, `name`, writing what it is handed with `write` (the RSS feeds',
-    /// rss.rs).
+    /// A saver thread of its own, `name`, writing what it is handed with `write`.
     pub fn writing(name: &str, write: fn(&Path, &[u8]) -> std::io::Result<()>) -> Saver {
         let shared = std::sync::Arc::new((
             std::sync::Mutex::new(SaverState::default()),
@@ -535,10 +523,10 @@ mod tests {
             while *held {
                 held = cv.wait(held).unwrap();
             }
-            crate::rss::write(p, bytes)
+            write(p, bytes)
         }
         let dir = tempfile::tempdir().unwrap();
-        let p = dir.path().join("rss.json");
+        let p = dir.path().join("saved.json");
         let saver = Saver::writing("test saver", held_write);
         let start = std::time::Instant::now();
         for n in 0..50u8 {

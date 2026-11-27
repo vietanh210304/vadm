@@ -292,7 +292,6 @@ ShutdownBlockReasonUninstallingApp=%1 چىقىرىۋاتىدۇ.
 
 [CustomMessages]
 TaskBrowser=كۆ&رسەتكۈچ بىر گەۋدىلەشتۈرۈش (Chrome, Edge, Brave, Firefox) تەڭشەش
-TaskTorrents=Mister Download Manager ئارقىلىق .&torrent ھۆججەتلىرى ۋە ماگنىت ئۇلىنىشلىرىنى ئېچىڭ
 TaskStartup=Windows ئى&جرا بولغاندا Mister Download Manager نى قوزغىتىڭ
 TaskGroupOther=باشقىلار:
 Launch=Mister Download Manager نى قوزغىتىش

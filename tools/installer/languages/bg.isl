@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Настройване на интеграция с &браузъра (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Отваряне на .&torrent файлове и магнитни връзки с Mister Download Manager
 TaskStartup=Стартиране на Mister Download Manager при стартиране на &Windows
 TaskGroupOther=Други:
 Launch=Стартиране на Mister Download Manager

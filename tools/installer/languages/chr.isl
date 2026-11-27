@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=ᎤᏕᎳᎰᏒᎢ %1.
 
 [CustomMessages]
 TaskBrowser=ᎤᏓᎷᎪᏗ &ᏗᏟᎶᏍᏗ (Chrome, Edge, Brave, Firefox) ᏕᎪᏢᎾ
-TaskTorrents=Mister Download Manager &ᎠᏍᏚᎢᏍᏗ .torrent Ꮧ फाइल ᎢᏯᏓᏛᏁᎯ ᎠᎴ magnet links
 TaskStartup=&Windows ᎤᎴᏅᎲᎯ Mister Download Manager ᎤᎴᏅᏗ
 TaskGroupOther=ᎤᏟᏍᏗ:
 Launch=Mister Download Manager ᎤᎴᏅᏗ

@@ -855,7 +855,7 @@ fn keyboard<C: Clone>(
         keys.into_iter().map(Press::Key).collect()
     };
     // The letter that opened this menu (this pass) is the menu's own: it must not also pick an
-    // item of it — Alt+T opened Tareas and ran "Abrir archivo torrent...", Alt+A opened Archivo
+    // item of it — Alt+A opened Archivo
     // and ran the Delete item's (#1190). The pass's keys are taken before the window's own code
     // runs (MenuKeys), so the app marks that letter where it opens the menu.
     if let Some(letter) = ctx
@@ -1276,7 +1276,7 @@ pub fn start_at(ctx: &egui::Context, id: &str, i: usize) {
 }
 
 /// Open a menu with its entry `i`'s submenu open and the submenu's first entry highlighted, as
-/// the keyboard leaves it (`/show menu:torrent`, for screenshots).
+/// the keyboard leaves it (`/show menu:import`, for screenshots).
 pub fn open_sub_at(ctx: &egui::Context, id: &str, i: usize) {
     show_cues(ctx);
     let sub_key = egui::Id::unique(("popup-sub", id));
@@ -2055,8 +2055,7 @@ pub fn toolbar(
     p.rect_filled(band, 0.0, WINDOW_BG());
     let mut x = o.x;
     let mut event = None;
-    let is_dropdown =
-        |icon: &Icon| matches!(icon, Icon::StartQueue | Icon::StopQueue | Icon::AddTorrent);
+    let is_dropdown = |icon: &Icon| matches!(icon, Icon::StartQueue | Icon::StopQueue);
     // A toolbar wider than the window (long translations): the longest labels give way first,
     // cut with "..." and whole on hover, so every button stays on screen.
     let natural: Vec<(f32, f32)> = all
@@ -3302,15 +3301,15 @@ mod tests {
     #[test]
     fn the_pointer_on_another_item_closes_the_submenu_at_once() {
         // Labels through names, so tools/i18n/extract.py doesn't take them for texts to translate.
-        let [rss, show_drop, import, file, exit] = [
-            "RSS feeds...",
+        let [grabber, show_drop, import, file, exit] = [
+            "Link grabber...",
             "Show drop target",
             "Import",
             "From a file",
             "Exit",
         ];
         let entries: Vec<MenuEntry<u8>> = vec![
-            MenuEntry::Item(rss, 0, true, false),
+            MenuEntry::Item(grabber, 0, true, false),
             MenuEntry::Item(show_drop, 1, true, false),
             MenuEntry::Sep,
             MenuEntry::Sub(import, true, vec![MenuEntry::Item(file, 2, true, false)]),

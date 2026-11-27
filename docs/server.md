@@ -4,8 +4,8 @@ Run Mister Download Manager on a home server or a NAS (Docker, Unraid, any Linux
 a window, and send it downloads from your phone or your browser: the server downloads them into
 its own folders, such as a network share.
 
-It is the same MDM as on a desktop: its list, categories, queues, Scheduler, speed limits and
-torrents. You control it with the [remote control's page](remote-control.md) (from any phone or
+It is the same MDM as on a desktop: its list, categories, queues, Scheduler and speed
+limits. You control it with the [remote control's page](remote-control.md) (from any phone or
 computer on your network), the browser extension pointed at it, or its command line.
 
 > **New:** the server mode is new in this version. Please
@@ -52,8 +52,7 @@ docker run -d --name mdm --restart unless-stopped \
 you built the image yourself.)
 
 - `/config` keeps the list, the settings, the certificate and the paired devices.
-- `/downloads` is where files land: each category has its folder inside (`Music`, `Video`,
-  `Torrents`…). Mount a network share there to download straight onto it.
+- `/downloads` is where files land: each category has its folder inside (`Music`, `Video`…). Mount a network share there to download straight onto it.
 - `--user`: the user that owns those folders (MDM runs as no particular user).
 
 [docker/compose.yml](../docker/compose.yml) does the same with Docker Compose.

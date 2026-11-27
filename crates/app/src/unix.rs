@@ -1,121 +1,12 @@
 //! Linux and macOS counterparts of what `win32` does through Windows (macOS's build experimental):
-//! starting with the session, the browsers' host registration, sounds, showing a file in its
-//! folder, and the torrent link handler. Each runs the system's own tool, so nothing here needs
-//! a library; the exceptions are the desktop's dark mode on Linux (D-Bus through zbus, the
-//! settings daemon's XSETTINGS through x11rb), the dock's progress (zbus; AppKit on macOS) and the
-//! crash reports (at the end): signals and Mach exceptions through crash-handler, thread and
-//! process ids through libc.
+//! starting with the session, the browsers' host registration, sounds, and showing a file in its
+//! folder. Each runs the system's own tool, so nothing here needs a library; the exceptions are
+//! the desktop's dark mode on Linux (D-Bus through zbus, the settings daemon's XSETTINGS through
+//! x11rb), the dock's progress (zbus; AppKit on macOS) and the crash reports (at the end): signals
+//! and Mach exceptions through crash-handler, thread and process ids through libc.
 
 use std::path::{Path, PathBuf};
 use std::process::{Command, Stdio};
-
-/// Inode and birth time: a freed inode is soon given to another file, so the inode alone can
-/// name a file the person saved later. The device is left out on purpose: its number depends on
-/// the order disks were plugged in and changes across a reboot or a replug, which would make
-/// MDM's own files look like strangers. A filesystem that keeps no birth time gives no
-/// identity, and such files are never deleted by MDM; a start asks before writing to them.
-pub fn torrent_file_identity(file: &std::fs::File) -> std::io::Result<[u64; 5]> {
-    use std::os::unix::fs::MetadataExt;
-    let metadata = file.metadata()?;
-    let born = metadata
-        .created()?
-        .duration_since(std::time::UNIX_EPOCH)
-        .map_err(std::io::Error::other)?;
-    if born.is_zero() {
-        return Err(std::io::ErrorKind::Unsupported.into());
-    }
-    Ok([
-        0,
-        metadata.ino(),
-        0,
-        born.as_secs(),
-        u64::from(born.subsec_nanos()),
-    ])
-}
-
-/// The identity of the plain file or folder at `path` (the folders MDM made for a torrent are
-/// recorded too). Anything else there (a pipe, a device, a link) has none and is not opened:
-/// opening a FIFO with nobody writing to it waits for ever, and the torrent would stay busy
-/// until MDM was restarted.
-pub fn torrent_file_identity_at(path: &Path) -> std::io::Result<[u64; 5]> {
-    use std::os::unix::fs::OpenOptionsExt;
-    let kind = std::fs::symlink_metadata(path)?.file_type();
-    if !kind.is_file() && !kind.is_dir() {
-        return Err(std::io::ErrorKind::InvalidInput.into());
-    }
-    // Not through a link or a pipe that took the name since the check above.
-    let file = std::fs::OpenOptions::new()
-        .read(true)
-        .custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK)
-        .open(path)?;
-    let kind = file.metadata()?.file_type();
-    if !kind.is_file() && !kind.is_dir() {
-        return Err(std::io::ErrorKind::InvalidInput.into());
-    }
-    torrent_file_identity(&file)
-}
-
-/// Open (or, with `create`, make with `create_new`) the file at `path` for the torrent engine
-/// without following a link at its end (`O_NOFOLLOW`), and without waiting on a pipe
-/// (`O_NONBLOCK`). What was opened must be a plain file.
-pub fn open_torrent_file(path: &Path, create: bool) -> std::io::Result<std::fs::File> {
-    use std::os::unix::fs::OpenOptionsExt;
-    let mut options = std::fs::OpenOptions::new();
-    options
-        .read(true)
-        .write(true)
-        .custom_flags(libc::O_NOFOLLOW | libc::O_NONBLOCK);
-    if create {
-        options.create_new(true);
-    }
-    let file = options.open(path)?;
-    if !file.metadata()?.file_type().is_file() {
-        return Err(std::io::ErrorKind::InvalidInput.into());
-    }
-    Ok(file)
-}
-
-/// Where the opened object really is, links resolved: `/proc/self/fd` on Linux, `F_GETPATH` on
-/// macOS. A system that can't say gives `Unsupported`.
-#[allow(unsafe_code)]
-pub fn torrent_file_path(file: &std::fs::File) -> std::io::Result<PathBuf> {
-    #[cfg(target_os = "linux")]
-    {
-        use std::os::fd::AsRawFd;
-        std::fs::read_link(format!("/proc/self/fd/{}", file.as_raw_fd()))
-    }
-    #[cfg(target_os = "macos")]
-    {
-        use std::os::{fd::AsRawFd, unix::ffi::OsStringExt};
-        let mut buffer = vec![0u8; libc::PATH_MAX as usize];
-        // SAFETY: F_GETPATH fills the buffer, which is PATH_MAX bytes, with a NUL-ended path.
-        let r = unsafe { libc::fcntl(file.as_raw_fd(), libc::F_GETPATH, buffer.as_mut_ptr()) };
-        if r == -1 {
-            return Err(std::io::Error::last_os_error());
-        }
-        let end = buffer.iter().position(|b| *b == 0).unwrap_or(buffer.len());
-        buffer.truncate(end);
-        Ok(PathBuf::from(std::ffi::OsString::from_vec(buffer)))
-    }
-    #[cfg(not(any(target_os = "linux", target_os = "macos")))]
-    {
-        let _ = file;
-        Err(std::io::ErrorKind::Unsupported.into())
-    }
-}
-
-/// Delete `path` when it is still the object whose identity is `expected`. POSIX can't delete
-/// through a handle: the identity is checked, then the file is removed by name, so a rename in
-/// that gap by another program can still make this remove the wrong file. (Windows deletes
-/// through the verified handle.)
-pub fn remove_owned_torrent_file(path: &Path, expected: [u64; 5]) -> std::io::Result<bool> {
-    // Without following a link or waiting on a pipe: the identity read of the path does both.
-    if torrent_file_identity_at(path)? != expected {
-        return Ok(false);
-    }
-    std::fs::remove_file(path)?;
-    Ok(true)
-}
 
 /// The program to start again later: the AppImage file itself when running from one (its
 /// programs sit in a temporary mount), else this executable.
@@ -1201,41 +1092,6 @@ pub fn show_in_folder(path: &Path) {
             let _ = open::that_detached(dir);
         }
     });
-}
-
-/// Torrent settings → open magnet links and .torrent files with Mister Download Manager: Linux
-/// records it with xdg-mime for the desktop entry the packages install, macOS with Launch
-/// Services for the app (`open_events::make_default`, #698). Turning it off leaves the choice to
-/// the desktop's settings (macOS: Finder's Get Info → Open with).
-pub fn set_torrent_handlers(on: bool) {
-    if !on {
-        return;
-    }
-    #[cfg(target_os = "macos")]
-    open_events::make_default();
-    #[cfg(not(target_os = "macos"))]
-    spawn(Command::new("xdg-mime").args([
-        "default",
-        "misterdownloadmanager.desktop",
-        "x-scheme-handler/magnet",
-        "application/x-bittorrent",
-    ]));
-}
-
-/// `win32::torrent_handler_is_ours`: is MDM what the desktop opens .torrent files with? Linux:
-/// xdg-mime's default app for them is the packages' desktop entry; macOS: Launch Services'
-/// default for the type is this app (`open_events::is_default`). Asked once, to settle Torrent
-/// settings' switch (#1058).
-pub fn torrent_handler_is_ours() -> bool {
-    #[cfg(target_os = "macos")]
-    return open_events::is_default();
-    #[cfg(not(target_os = "macos"))]
-    Command::new("xdg-mime")
-        .args(["query", "default", "application/x-bittorrent"])
-        .stdin(Stdio::null())
-        .stderr(Stdio::null())
-        .output()
-        .is_ok_and(|o| String::from_utf8_lossy(&o.stdout).trim() == "misterdownloadmanager.desktop")
 }
 
 /// `win32::assistive_technology_listening`: Linux's AT-SPI adapter answers a screen reader with
@@ -3250,21 +3106,13 @@ fn rgba_picture(img: image::RgbaImage) -> Option<crate::preview::Picture> {
     })
 }
 
-/// macOS hands an app what it should open (a .torrent double-clicked in Finder or dropped on
-/// MDM's icon in the Dock, a magnet link clicked in a browser) as Apple events, not on its
-/// command line, also to an MDM already running (#698). These receive them and send each one
-/// down the command channel, as a .torrent or magnet link on Windows' or Linux's command line
-/// goes (`mdm_ipc::parse_args`): Add torrent opens for it. The app's Info.plist
-/// (tools/installer/build-macos.sh) tells macOS that MDM opens them.
-///
-/// The same goes for MDM opened again while it runs (#1125): a click on its icon in the Dock,
-/// or MDM.app opened from Finder, Launchpad or Spotlight. macOS starts no second copy for that:
-/// it sends the running one a reopen event, which brings the main window back as a second start
-/// does on Windows and Linux. So a window closed into the Dock always has its way back.
+/// macOS opened again while it runs (#1125): a click on its icon in the Dock, or MDM.app opened
+/// from Finder, Launchpad or Spotlight. macOS starts no second copy for that: it sends the
+/// running one a reopen event, which brings the main window back as a second start does on
+/// Windows and Linux. So a window closed into the Dock always has its way back.
 #[cfg(target_os = "macos")]
 #[allow(unsafe_code)]
 pub mod open_events {
-    use std::ffi::c_void;
     use std::sync::Arc;
     use std::sync::atomic::{AtomicBool, Ordering};
     use std::sync::mpsc::Sender;
@@ -3276,14 +3124,9 @@ pub mod open_events {
         NSObject, NSString,
     };
 
-    /// Apple event codes (four characters): open documents, get URL, and an event's direct
-    /// object (the files, the link).
+    /// Apple event codes (four characters): kAEReopenApplication when the app is opened again
+    /// while it runs (its icon in the Dock clicked).
     const CORE_EVENT_CLASS: u32 = u32::from_be_bytes(*b"aevt");
-    const OPEN_DOCUMENTS: u32 = u32::from_be_bytes(*b"odoc");
-    const INTERNET_EVENT_CLASS: u32 = u32::from_be_bytes(*b"GURL");
-    const GET_URL: u32 = u32::from_be_bytes(*b"GURL");
-    const DIRECT_OBJECT: u32 = u32::from_be_bytes(*b"----");
-    /// kAEReopenApplication: the app opened again while it runs (its icon in the Dock clicked).
     const REOPEN: u32 = u32::from_be_bytes(*b"rapp");
 
     /// Whether MDM receives the reopen event (its handler is installed as the app starts).
@@ -3309,16 +3152,10 @@ pub mod open_events {
             #[unsafe(method(willFinishLaunching:))]
             fn will_finish_launching(&self, _note: &NSNotification) {
                 let manager = NSAppleEventManager::sharedAppleEventManager();
-                // SAFETY: both selectors are this class's, taking (event, reply) as the manager
-                // calls them; the handler lives as long as MDM (`start`). The event codes are
+                // SAFETY: the selector is this class's, taking (event, reply) as the manager
+                // calls it; the handler lives as long as MDM (`start`). The event codes are
                 // AEEventClass and AEEventID, 32-bit codes.
                 unsafe {
-                    let _: () = msg_send![&*manager, setEventHandler: self,
-                        andSelector: sel!(openDocuments:withReplyEvent:),
-                        forEventClass: CORE_EVENT_CLASS, andEventID: OPEN_DOCUMENTS];
-                    let _: () = msg_send![&*manager, setEventHandler: self,
-                        andSelector: sel!(getURL:withReplyEvent:),
-                        forEventClass: INTERNET_EVENT_CLASS, andEventID: GET_URL];
                     // In AppKit's place: its own handler brings back a minimized window, not
                     // one closed into the Dock (ordered out).
                     let _: () = msg_send![&*manager, setEventHandler: self,
@@ -3326,24 +3163,6 @@ pub mod open_events {
                         forEventClass: CORE_EVENT_CLASS, andEventID: REOPEN];
                 }
                 REOPENS.store(true, Ordering::Release);
-            }
-
-            #[unsafe(method(openDocuments:withReplyEvent:))]
-            fn open_documents(
-                &self,
-                event: &NSAppleEventDescriptor,
-                _reply: &NSAppleEventDescriptor,
-            ) {
-                for path in direct_object(event).map(|l| file_paths(&l)).unwrap_or_default() {
-                    self.hand(path);
-                }
-            }
-
-            #[unsafe(method(getURL:withReplyEvent:))]
-            fn get_url(&self, event: &NSAppleEventDescriptor, _reply: &NSAppleEventDescriptor) {
-                if let Some(link) = direct_object(event).and_then(|d| link(&d)) {
-                    self.hand(link);
-                }
             }
 
             /// Opened again (its icon in the Dock clicked): a plain second start, which brings
@@ -3367,22 +3186,8 @@ pub mod open_events {
         REOPENS.load(Ordering::Acquire)
     }
 
-    impl OpenEvents {
-        /// A .torrent's path or a magnet link to the app, as its command line would.
-        fn hand(&self, item: String) {
-            match mdm_ipc::parse_args(std::slice::from_ref(&item)) {
-                Some(cmd) => {
-                    tracing::info!("opened from the system: {item}");
-                    let _ = self.ivars().tx.send(mdm_ipc::Incoming { cmd, reply: None });
-                    (self.ivars().wake)();
-                }
-                None => tracing::info!("opened from the system, not a torrent: {item}"),
-            }
-        }
-    }
-
-    /// Receive the open-documents and get-URL events from now on (`app` calls it on the main
-    /// thread, before the window's event loop starts).
+    /// Receive the reopen event from now on (`app` calls it on the main thread, before the
+    /// window's event loop starts).
     pub fn start(tx: Sender<mdm_ipc::Incoming>, wake: Arc<dyn Fn() + Send + Sync>) {
         let Some(mtm) = MainThreadMarker::new() else {
             return;
@@ -3403,133 +3208,6 @@ pub mod open_events {
         // Neither the notification centre nor the event manager keeps its observer or handler:
         // this one lives as long as MDM.
         std::mem::forget(this);
-    }
-
-    /// The app's identifier and the .torrent file type, as Info.plist names them
-    /// (tools/installer/build-macos.sh).
-    pub const BUNDLE_ID: &str = "io.github.anefzaoui.misterdownloadmanager";
-    pub const TORRENT_TYPE: &str = "org.bittorrent.torrent";
-
-    #[link(name = "CoreServices", kind = "framework")]
-    unsafe extern "C" {
-        fn LSSetDefaultHandlerForURLScheme(scheme: *const c_void, bundle_id: *const c_void) -> i32;
-        fn LSSetDefaultRoleHandlerForContentType(
-            content_type: *const c_void,
-            role: u32,
-            bundle_id: *const c_void,
-        ) -> i32;
-        fn LSCopyDefaultRoleHandlerForContentType(
-            content_type: *const c_void,
-            role: u32,
-        ) -> *mut c_void;
-    }
-
-    /// Is this app Launch Services' default for .torrent files (`unix::torrent_handler_is_ours`)?
-    pub fn is_default() -> bool {
-        let torrent = NSString::from_str(TORRENT_TYPE);
-        // kLSRolesAll, as `make_default` sets it.
-        const ALL_ROLES: u32 = 0xFFFF_FFFF;
-        // SAFETY: NSString is toll-free bridged to CFString. A Copy function's result is ours to
-        // release, which Retained does; null (no default) is None.
-        let handler = unsafe {
-            Retained::from_raw(
-                LSCopyDefaultRoleHandlerForContentType(cf(&torrent), ALL_ROLES).cast::<NSString>(),
-            )
-        };
-        handler.is_some_and(|h| h.to_string().eq_ignore_ascii_case(BUNDLE_ID))
-    }
-
-    /// MDM the default app for magnet links and .torrent files (Torrent settings' switch). A
-    /// copy started outside its app (`cargo run`) has nothing to register: the log says so.
-    pub fn make_default() {
-        let id = NSString::from_str(BUNDLE_ID);
-        let scheme = NSString::from_str("magnet");
-        let torrent = NSString::from_str(TORRENT_TYPE);
-        // kLSRolesAll: viewer, editor, shell.
-        const ALL_ROLES: u32 = 0xFFFF_FFFF;
-        // SAFETY: NSString is toll-free bridged to CFString; the strings outlive the calls.
-        let (magnet, file) = unsafe {
-            (
-                LSSetDefaultHandlerForURLScheme(cf(&scheme), cf(&id)),
-                LSSetDefaultRoleHandlerForContentType(cf(&torrent), ALL_ROLES, cf(&id)),
-            )
-        };
-        if magnet != 0 || file != 0 {
-            tracing::info!(
-                "torrents: Launch Services didn't take MDM for magnet links ({magnet}) or                  .torrent files ({file})"
-            );
-        }
-    }
-
-    fn cf(s: &NSString) -> *const c_void {
-        (s as *const NSString).cast()
-    }
-
-    fn direct_object(event: &NSAppleEventDescriptor) -> Option<Retained<NSAppleEventDescriptor>> {
-        // SAFETY: paramDescriptorForKeyword: takes an AEKeyword (a 32-bit code).
-        unsafe { msg_send![event, paramDescriptorForKeyword: DIRECT_OBJECT] }
-    }
-
-    /// The paths of an open-documents event's files (a list, numbered from 1, of file URLs or
-    /// aliases).
-    pub fn file_paths(list: &NSAppleEventDescriptor) -> Vec<String> {
-        (1..=list.numberOfItems())
-            .filter_map(|i| list.descriptorAtIndex(i))
-            .filter_map(|d| d.fileURLValue())
-            .filter_map(|u| u.path())
-            .map(|p| p.to_string())
-            .collect()
-    }
-
-    /// A get-URL event's link.
-    pub fn link(d: &NSAppleEventDescriptor) -> Option<String> {
-        d.stringValue()
-            .map(|s| s.to_string())
-            .filter(|s| !s.is_empty())
-    }
-
-    #[cfg(test)]
-    mod tests {
-        use super::*;
-        use objc2_foundation::NSURL;
-
-        /// #698: the files of an open-documents event, as Finder sends them, and a magnet
-        /// link's get-URL event become what MDM's command line takes.
-        #[test]
-        fn finder_events_become_commands() {
-            let list = NSAppleEventDescriptor::listDescriptor();
-            let files = [
-                "/Users/me/Downloads/debian.iso.torrent",
-                "/tmp/a b/ü.torrent",
-            ];
-            for (i, p) in files.iter().enumerate() {
-                let url = NSURL::fileURLWithPath(&NSString::from_str(p));
-                list.insertDescriptor_atIndex(
-                    &NSAppleEventDescriptor::descriptorWithFileURL(&url),
-                    i as isize + 1,
-                );
-            }
-            let paths = file_paths(&list);
-            // A file URL's path comes back as the file system spells it: `ü` decomposed (u and
-            // its diaeresis), the same file to every macOS call that opens it.
-            assert_eq!(
-                paths,
-                [
-                    "/Users/me/Downloads/debian.iso.torrent",
-                    "/tmp/a b/u\u{308}.torrent"
-                ]
-            );
-            let cmd = mdm_ipc::parse_args(&paths[..1]).unwrap();
-            assert_eq!(cmd.url.as_deref(), Some(files[0]));
-
-            let magnet = "magnet:?xt=urn:btih:7acf8fb590b2060dd9c3146ef770169d593433b0&dn=x";
-            let d = NSAppleEventDescriptor::descriptorWithString(&NSString::from_str(magnet));
-            let got = link(&d).unwrap();
-            assert_eq!(got, magnet);
-            let cmd = mdm_ipc::parse_args(&[got]).unwrap();
-            assert_eq!(cmd.url.as_deref(), Some(magnet));
-            assert!(file_paths(&NSAppleEventDescriptor::listDescriptor()).is_empty());
-        }
     }
 }
 

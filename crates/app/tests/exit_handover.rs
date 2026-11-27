@@ -65,8 +65,6 @@ fn data_folder(root: &Path) -> PathBuf {
     let settings = serde_json::json!({
         "update_check": false, "helpers_asked": true, "language_asked": true,
         "extension_never_ask": true, "minimize_to_tray": false,
-        "torrent_dht": false, "torrent_lsd": false, "torrent_upnp": false,
-        "torrent_incoming": false,
         "category_dirs": [["General", downloads.to_string_lossy()]],
     });
     std::fs::write(
@@ -106,8 +104,6 @@ fn quits_within(app: &mut Child, wait: Duration) -> bool {
     let _ = app.wait();
     false
 }
-
-const MAGNET: &str = "magnet:?xt=urn:btih:5b4f0c3a9e1d27f86c0b3a4e9d1f2a7c6e8b0d14&dn=MDM%20test";
 
 /// `/exit` after `before` (second launches, each waited for by its window's line), five times.
 fn exit_after(before: &[(&[&str], Option<&str>)]) {
@@ -152,15 +148,6 @@ fn exit_with_the_main_window_only() {
 fn exit_with_about_open_and_the_main_window_minimized() {
     exit_after(&[
         (&["/show", "about"], Some("window opened: about")),
-        (&["/show", "minimized"], None),
-    ]);
-}
-
-#[test]
-#[ignore = "opens the app's windows (off-screen): needs OpenGL or Direct3D; run with --ignored"]
-fn exit_with_add_torrent_open_and_the_main_window_minimized() {
-    exit_after(&[
-        (&[MAGNET], Some("window opened: add-torrent")),
         (&["/show", "minimized"], None),
     ]);
 }

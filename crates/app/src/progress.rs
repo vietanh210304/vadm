@@ -81,7 +81,7 @@ fn disabled() -> Color32 {
     crate::theme::colors().progress_label_disabled
 }
 
-/// The segment / piece bar's 13 rows, top to bottom: (not here yet, here, a connection's
+/// The segment bar's 13 rows, top to bottom: (not here yet, here, a connection's
 /// start), from the theme (IDM's gradients in the classic look; its dark variant dims the
 /// "not here yet" rows, a bright white strip in the dark window).
 fn seg_rows() -> impl Iterator<Item = (Color32, Color32, Color32)> {
@@ -97,9 +97,8 @@ enum Tab {
 }
 
 impl Progress {
-    /// Open on a tab by its English name in lower case: a top tab ("status", "limit", "done") or
-    /// a torrent's details tab ("peers"; /show progress:peers, for the docs' screenshots and the
-    /// fit audit); any other name leaves it as it is. A top tab hidden with "Hide tab" comes back.
+    /// Open on a tab by its English name in lower case ("status", "limit", "done");
+    /// any other name leaves it as it is. A top tab hidden with "Hide tab" comes back.
     pub fn show_tab(&mut self, name: &str) {
         let top = match name {
             "status" => Some(Tab::Status),
@@ -110,29 +109,8 @@ impl Progress {
         if let Some(t) = top {
             self.hidden_tabs.retain(|h| *h != t);
             self.tab = t;
-            return;
         }
-        let tab = match name {
-            "files" => TTab::Files,
-            "peers" => TTab::Peers,
-            "trackers" => TTab::Trackers,
-            "pieces" => TTab::Pieces,
-            "general" => TTab::General,
-            _ => return,
-        };
-        self.ttab = tab;
-        self.details = true;
     }
-}
-
-/// A torrent's details tabs (M15, D-014), in the place of the connections table.
-#[derive(Clone, Copy, PartialEq, Eq)]
-enum TTab {
-    Files,
-    Peers,
-    Trackers,
-    Pieces,
-    General,
 }
 
 /// Why "Hang up modem when done" is greyed off Windows.
@@ -292,7 +270,6 @@ pub struct Progress {
     tab: Tab,
     /// Tabs taken off the strip with their "Hide tab" button (#326), for this window.
     hidden_tabs: Vec<Tab>,
-    ttab: TTab,
     limiter: bool,
     /// KBytes/sec typed on the Speed Limiter tab.
     limit_kb: String,
@@ -301,19 +278,7 @@ pub struct Progress {
     /// A limit change to report to the app (`Action::Limit`), and whether to remember it.
     pending_limit: Option<(Option<u64>, bool)>,
     remember: bool,
-    /// A torrent's own upload limit on the Speed Limiter tab: on, and its KBytes/sec box.
-    up_on: bool,
-    up_kb: String,
-    /// An upload limit change to report (`Action::UploadLimit`).
-    pending_upload: Option<Option<u64>>,
-    /// Files ticked or unticked in a torrent's Files tab, to report (`Action::Choose`).
-    pending_choose: Option<Action>,
     show_complete: bool,
-    /// Torrent settings' "Keep sharing torrents after they finish" (the General tab says so).
-    pub keep_sharing: bool,
-    /// The torrent session (the app's), for a finished torrent still shared without a `Run`:
-    /// its tabs read the session directly.
-    pub host: Option<crate::torrents::Host>,
     /// Hidden in the notification area (#63): not shown, its tab and choices kept for when it
     /// comes back (the tray's "Downloads in progress", or the download double-clicked).
     pub hidden: bool,
@@ -343,7 +308,7 @@ pub struct Progress {
     rename_show_saved: bool,
     pending_rename: Option<Option<String>>,
     /// Translated reason key when deferred rename is unavailable for this download (shared or
-    /// save folder, split archive volume, or single-file torrent).
+    /// save folder or split archive volume).
     pub rename_disabled_reason: Option<&'static str>,
     /// In-memory state stamp for `rename_disabled_reason`, so disk checks run only when the
     /// window opens, when a download completes, or when list/folder settings change.
@@ -373,15 +338,6 @@ pub enum Action {
     /// Set this download's speed limit (bytes/s, None = off).
     /// This download's limit (None: unlimited); `true`: remember it for the file.
     Limit(Option<u64>, bool),
-    /// A torrent's own upload limit (bytes/s, None: off), kept with it (`TorrentSpec`).
-    UploadLimit(Option<u64>),
-    /// A torrent's files to download from now on (#39, its Files tab): indexes into its list,
-    /// whether that is every file, and their size together.
-    Choose {
-        files: Vec<usize>,
-        all: bool,
-        size: u64,
-    },
     /// Set or clear the deferred rename (`Item::rename_on_complete`).
     Rename(Option<String>),
     /// Close the dialog, keep downloading.
@@ -400,19 +356,12 @@ impl Progress {
             details: true,
             tab: Tab::Status,
             hidden_tabs: Vec::new(),
-            ttab: TTab::Files,
             limiter: false,
             limit_kb: "10".into(),
             limit_init: false,
             pending_limit: None,
             remember: false,
-            up_on: false,
-            up_kb: "50".into(),
-            pending_upload: None,
-            pending_choose: None,
             show_complete,
-            keep_sharing: false,
-            host: None,
             hidden: false,
             tray: false,
             minimize_to_tray: false,
@@ -553,7 +502,7 @@ impl Progress {
         };
         let drop = self.status_drop();
         let body = if self.details {
-            [548.0, 412.0 + drop + torrent_drop(item)]
+            [548.0, 412.0 + drop]
         } else {
             [548.0, 241.0 + drop]
         };
@@ -715,19 +664,6 @@ impl Progress {
         let action = match (action, self.pending_limit.take()) {
             (Action::None, Some((limit, remember))) => Action::Limit(limit, remember),
             (a, _) => a,
-        };
-        // An upload change waits a frame when a download one goes first (one action a frame);
-        // so does a change of files.
-        let action = match action {
-            Action::None => self
-                .pending_upload
-                .take()
-                .map_or(Action::None, Action::UploadLimit),
-            a => a,
-        };
-        let action = match action {
-            Action::None => self.pending_choose.take().unwrap_or(Action::None),
-            a => a,
         };
         let action = match action {
             Action::None => self
@@ -912,9 +848,7 @@ impl Progress {
             action = Action::Cancel;
         }
 
-        if self.details && item.torrent.is_some() {
-            self.torrent_details(ui, &p, lower + vec2(0.0, torrent_drop(item)), item);
-        } else if self.details {
+        if self.details {
             winui::text_in_window(
                 ui,
                 &p,
@@ -932,7 +866,7 @@ impl Progress {
     /// Classic 3-D tabs over a raised page frame (spec "Tab strip"); with a tray, the "hide to
     /// the notification area" button at the row's end. True when that button is pressed.
     fn tabs(&mut self, ui: &mut Ui, o: Pos2) -> bool {
-        // The shared tab strip (the torrent tabs' too): one look in both themes, one Tab stop with
+        // The shared tab strip: one look in both themes, one Tab stop with
         // the arrows, sized to the translated labels. It had two of its own (classic 3-D in dark).
         let tabs: Vec<(Tab, &str)> = [
             // i18n: tab title: how the download is going
@@ -1059,10 +993,6 @@ impl Progress {
     fn limiter_page(&mut self, ui: &mut Ui, o: Pos2, item: &Item) -> bool {
         let p = ui.painter().clone();
         if !self.limit_init {
-            if let Some(rate) = item.torrent.as_ref().and_then(|t| t.upload_limit) {
-                self.up_on = true;
-                self.up_kb = (rate / 1024).max(1).to_string();
-            }
             if let Some(rate) = item.live.as_ref().and_then(|l| l.dl.speed_limit()) {
                 self.limiter = true;
                 self.limit_kb = (rate / 1024).max(1).to_string();
@@ -1089,16 +1019,13 @@ impl Progress {
         };
         text(&p, o.x + 136.0, o.y + 51.0, &rate, winui::TEXT());
         let was_on = self.limiter;
-        // A torrent's upload limit takes the right half (x 290): the download side's captions
-        // stop before it.
-        let torrent = item.torrent.is_some();
         winui::checkbox_until(
             ui,
             o + vec2(33.0, 64.0),
             &mut self.limiter,
             "Use Speed Limiter",
             true,
-            torrent.then_some(286.0),
+            None,
         );
         let label = if self.limiter {
             winui::TEXT()
@@ -1112,7 +1039,7 @@ impl Progress {
             o.y + 92.0,
             crate::i18n::t("Maximum download speed:"),
             label,
-            o.x + if torrent { 284.0 } else { 525.0 },
+            o.x + 525.0,
             ("limit-label", self.id),
         );
         let rate_box = winui::edit_right(
@@ -1183,62 +1110,7 @@ impl Progress {
             crate::i18n::t("on download stop/resume"),
             winui::TEXT(),
         );
-        if item.torrent.is_some() {
-            self.upload_limit(ui, &p, o);
-        }
         hide_tab(ui, o)
-    }
-
-    /// A torrent's own upload limit, right of the download one (#39): kept with the torrent,
-    /// so it applies again whenever it runs or shares.
-    fn upload_limit(&mut self, ui: &mut Ui, p: &egui::Painter, o: Pos2) {
-        let was_on = self.up_on;
-        winui::checkbox_until(
-            ui,
-            o + vec2(290.0, 64.0),
-            &mut self.up_on,
-            // i18n: a torrent's progress window, Speed Limiter tab: a limit for what this torrent sends to others
-            "Limit uploading",
-            true,
-            Some(525.0),
-        );
-        let label = if self.up_on {
-            winui::TEXT()
-        } else {
-            disabled()
-        };
-        winui::fit(
-            ui,
-            p,
-            o.x + 290.0,
-            o.y + 92.0,
-            // i18n: a torrent's progress window, Speed Limiter tab: label above the upload speed box
-            crate::i18n::t("Maximum upload speed:"),
-            label,
-            o.x + 525.0,
-            ("upload-label", self.id),
-        );
-        let rate_box = winui::edit_right(
-            ui,
-            r(o, 290.0, 100.0, 77.0, 23.0),
-            &mut self.up_kb,
-            self.up_on,
-        );
-        self.up_kb.retain(|c| c.is_ascii_digit());
-        let typed = rate_box.lost_focus()
-            || (rate_box.has_focus() && winui::enter_pressed(ui))
-            || winui::value_set_by_assistive(&rate_box);
-        text(
-            p,
-            o.x + 375.0,
-            o.y + 113.0,
-            crate::i18n::t("KBytes/sec"),
-            label,
-        );
-        let kb: u64 = self.up_kb.parse().unwrap_or(0);
-        if (was_on != self.up_on || (self.up_on && typed)) && !(self.up_on && kb == 0) {
-            self.pending_upload = Some(self.up_on.then_some(kb * 1024));
-        }
     }
 
     /// Options on completion → "Show download complete dialog" for this file.
@@ -1419,12 +1291,10 @@ impl Progress {
         let status = match item.status {
             // A live stream being recorded or saved shows no progress of its own: said first.
             _ if let Some(live) = live_status(item.live_state()) => live.to_owned(),
-            // A torrent reading and checking its files says so, not "Receiving data" (#39).
-            _ if let Some(checking) = item.torrent_checking() => checking,
             // After the last byte: the file checked, a video's streams joined (#736), as the
             // list says, not "Connecting...".
             _ if let Some(finishing) = item.finishing(false) => finishing,
-            // A torrent its debrid service is downloading (#44).
+            // A file-host link a debrid service is fetching (#44).
             Status::Downloading if item.at_service().is_some() => {
                 item.at_service().unwrap_or_default()
             }
@@ -1434,19 +1304,17 @@ impl Progress {
                     s.connections
                         .iter()
                         .any(|c| matches!(c.status, ConnStatus::Receiving))
-                }) || ((item.video.is_some() || item.torrent.is_some())
-                    && item.rate() > 0.0);
+                }) || (item.video.is_some() && item.rate() > 0.0);
                 // Every byte in and none on its way (#736): the last of it written out, the
                 // file named; nothing is connecting.
-                let completing = item.torrent.is_none()
-                    && snap.is_some_and(|s| {
-                        s.state == mdm_engine::download::State::Completing
-                            || (s.size.is_some_and(|t| t > 0 && s.downloaded >= t)
-                                && !s
-                                    .connections
-                                    .iter()
-                                    .any(|c| matches!(c.status, ConnStatus::Connecting)))
-                    });
+                let completing = snap.is_some_and(|s| {
+                    s.state == mdm_engine::download::State::Completing
+                        || (s.size.is_some_and(|t| t > 0 && s.downloaded >= t)
+                            && !s
+                                .connections
+                                .iter()
+                                .any(|c| matches!(c.status, ConnStatus::Connecting)))
+                });
                 if completing {
                     // i18n: a download's status: every byte is in, the file is being written out and given its name
                     crate::i18n::t("Finishing...")
@@ -1599,8 +1467,8 @@ impl Progress {
             );
         }
         // Where its server is (#140): a file download's, and a video's whose streams MDM's engine
-        // downloads (#769; a torrent or a gallery has no single server of MDM's own). As the
-        // running download sees it, else as its last run did.
+        // downloads (#769; a gallery has no single server of MDM's own). As the running download
+        // sees it, else as its last run did.
         let seen = snap
             .and_then(|s| s.server.as_ref())
             .map(crate::whereis::Seen::from)
@@ -1608,10 +1476,7 @@ impl Progress {
         // A video yt-dlp downloads itself (#769): why, in that row.
         if let Some(why) = item.video_helper() {
             fit(ui, "helper", 33.0, 161.0, &helper_line(&why), winui::TEXT());
-        } else if item.torrent.is_none()
-            && item.gallery.is_none()
-            && (item.video.is_none() || seen.is_some())
-        {
+        } else if item.gallery.is_none() && (item.video.is_none() || seen.is_some()) {
             // i18n: label before where a download's server is (its country and round trip)
             let label = crate::i18n::t("Server");
             text(p, o.x + 33.0, o.y + 161.0, label, winui::TEXT());
@@ -1746,404 +1611,6 @@ fn rename_error_message(err: crate::deferred_rename::RenameError) -> &'static st
     }
 }
 
-/// How much lower a torrent's details sit than a download's (and how much taller its window
-/// is): its tab strip, where the connections caption is, would touch the buttons above.
-fn torrent_drop(item: &Item) -> f32 {
-    if item.torrent.is_some() { 6.0 } else { 0.0 }
-}
-
-impl Progress {
-    /// A torrent's details: a tab strip where the connections caption is, the piece map in
-    /// the segment bar, and the tab's table below.
-    fn torrent_details(&mut self, ui: &mut Ui, p: &egui::Painter, o: Pos2, item: &Item) {
-        let d = match &item.live {
-            Some(crate::model::Live {
-                dl: crate::model::Job::Torrent(run),
-                ..
-            }) => Some(run.details()),
-            // Finished and still shared (no Run): the session has it all the same, so the
-            // tabs stay, the General tab's share ratio included.
-            _ => self
-                .host
-                .as_ref()
-                .and_then(|h| h.get())
-                .zip(item.torrent.as_ref())
-                .and_then(|(t, spec)| crate::torrents::details_of(&t, &spec.hash)),
-        };
-        let tabs = [
-            // i18n: tab title: the torrent's files
-            (TTab::Files, crate::i18n::mark("Files")),
-            // i18n: tab title: the other computers sharing the torrent
-            (TTab::Peers, crate::i18n::mark("Peers")),
-            // i18n: tab title: the servers that list the peers
-            (TTab::Trackers, crate::i18n::mark("Trackers")),
-            // i18n: tab title: the parts the torrent is made of
-            (TTab::Pieces, crate::i18n::mark("Pieces")),
-            // i18n: tab title: general information
-            (TTab::General, crate::i18n::mark("General")),
-        ];
-        // The usual tab control (the Scheduler's and Options' look): tabs sized to their
-        // labels from the leading edge, the page under them holding the piece map and the
-        // table.
-        let english: Vec<&str> = tabs.iter().map(|t| t.1).collect();
-        let light: Vec<winui::LightTab> = winui::tab_row(p, &english, 16.0, 530.0, 2.0, 8.0)
-            .into_iter()
-            .zip(tabs.iter())
-            .map(|((x0, x1, _), (_, label))| winui::LightTab {
-                label,
-                sel: (x0 - 2.0, x1 + 2.0),
-                unsel: (x0, x1),
-            })
-            .collect();
-        let current = tabs.iter().position(|t| t.0 == self.ttab).unwrap_or(0);
-        if let Some(i) = winui::tabs_light(ui, o, r(o, 14.0, 226.0, 521.0, 180.0), &light, current)
-        {
-            self.ttab = tabs[i].0;
-        }
-        let pieces = d.as_ref().map(|d| d.pieces.as_slice()).unwrap_or(&[]);
-        piece_bar(p, o, pieces);
-        let Some(d) = &d else {
-            table(ui, p, o, "t-none", &[(25.0, "")], &[], &[], false, None);
-            text(
-                p,
-                o.x + 25.0,
-                o.y + 312.0,
-                crate::i18n::t("Shown while the torrent is downloading."),
-                winui::TEXT(),
-            );
-            return;
-        };
-        match self.ttab {
-            TTab::Files => {
-                let rows: Vec<Vec<String>> = d
-                    .files
-                    .iter()
-                    .map(|(_, f, on, done)| {
-                        let pct = if !on {
-                            // i18n: a torrent file the user chose not to download
-                            crate::i18n::t("Skipped").to_owned()
-                        } else if f.size == 0 {
-                            crate::i18n::percent(1.0, 0)
-                        } else {
-                            crate::i18n::percent(*done as f64 / f.size as f64, 1)
-                        };
-                        vec![f.path.display().to_string(), model::size(f.size), pct]
-                    })
-                    .collect();
-                let ticks: Vec<bool> = d.files.iter().map(|f| f.2).collect();
-                let clicked = files_table(ui, p, o, "t-files", &rows, &ticks, 6);
-                // A box ticked or unticked (#39): the torrent downloads those files from now
-                // on; the last one ticked can't be unticked (a torrent of nothing).
-                if let Some(row) = clicked {
-                    let mut on: Vec<bool> = ticks.clone();
-                    on[row] = !on[row];
-                    if on.iter().any(|b| *b) {
-                        let chosen = d.files.iter().zip(&on).filter(|(_, b)| **b);
-                        self.pending_choose = Some(Action::Choose {
-                            files: chosen.clone().map(|(f, _)| f.0).collect(),
-                            all: on.iter().all(|b| *b),
-                            size: chosen.map(|(f, _)| f.1.size).sum(),
-                        });
-                    }
-                }
-            }
-            TTab::Peers => {
-                let rows: Vec<Vec<String>> = d
-                    .peers
-                    .iter()
-                    .map(|q| {
-                        vec![
-                            q.addr.clone(),
-                            q.client.clone().unwrap_or_default(),
-                            model::size(q.fetched),
-                            model::size(q.uploaded),
-                        ]
-                    })
-                    .collect();
-                table(
-                    ui,
-                    p,
-                    o,
-                    "t-peers",
-                    &[
-                        // i18n: column title: the web address (URL)
-                        (25.0, crate::i18n::mark("Address")),
-                        // i18n: column title: the peer's torrent program
-                        (190.0, crate::i18n::mark("Client")),
-                        // i18n: column title: how much came from the peer
-                        (340.0, crate::i18n::mark("Received")),
-                        // i18n: column title: how much went to the peer
-                        (425.0, crate::i18n::mark("Sent")),
-                    ],
-                    &[185.0, 335.0, 420.0],
-                    &rows,
-                    false,
-                    None,
-                );
-            }
-            TTab::Trackers => {
-                let rows: Vec<Vec<String>> = if d.trackers.is_empty() {
-                    vec![vec![
-                        crate::i18n::t("None: peers come from the DHT and other peers").into(),
-                    ]]
-                } else {
-                    d.trackers.iter().map(|t| vec![t.clone()]).collect()
-                };
-                // i18n: column title: a server that lists the peers
-                let head = [(25.0, crate::i18n::mark("Tracker"))];
-                table(ui, p, o, "t-trackers", &head, &[], &rows, false, None);
-            }
-            TTab::Pieces => {
-                let have = pieces.iter().filter(|b| **b).count();
-                let head = crate::i18n::fmt(
-                    // i18n: {have} and {total} = numbers of pieces; {size} = one piece's size
-                    crate::i18n::t("{have} of {total} pieces ({size} each)"),
-                    &[
-                        ("have", &crate::i18n::integer(have as u64)),
-                        ("total", &crate::i18n::integer(pieces.len() as u64)),
-                        ("size", &model::size(u64::from(d.piece_length))),
-                    ],
-                );
-                table(
-                    ui,
-                    p,
-                    o,
-                    "t-pieces",
-                    &[(25.0, head.as_str())],
-                    &[],
-                    &[],
-                    false,
-                    None,
-                );
-                piece_legend(p, o);
-                piece_grid(p, o, pieces);
-            }
-            TTab::General => {
-                let st = d.stats.as_ref();
-                let have = pieces.iter().filter(|b| **b).count();
-                // What it sent in all its runs (#39; librqbit counts only this one), against what
-                // it has: the same after a pause or a restart.
-                let spec = item.torrent.as_ref();
-                let sent = spec.map_or(0, |t| t.uploaded);
-                let done = st.map_or(item.downloaded, |s| s.done);
-                let ratio = crate::torrents::share_ratio_text(sent, done);
-                let shared = spec.map_or(0, |t| t.seeded_secs);
-                let hash = item
-                    .torrent
-                    .as_ref()
-                    .map_or(String::new(), |t| t.hash.clone());
-                let folder = item
-                    .torrent
-                    .as_ref()
-                    .map_or(String::new(), |t| t.folder.display().to_string());
-                let t = |s: &str| crate::i18n::t(s).to_owned();
-                let rows = vec![
-                    // i18n: the torrent's identifier
-                    vec![t("Info hash"), hash],
-                    vec![
-                        t("Pieces"),
-                        crate::i18n::fmt(
-                            // i18n: {have} and {total} = numbers of pieces; {size} = one piece's size
-                            crate::i18n::t("{have} of {total} ({size} each)"),
-                            &[
-                                ("have", &crate::i18n::integer(have as u64)),
-                                ("total", &crate::i18n::integer(pieces.len() as u64)),
-                                ("size", &model::size(u64::from(d.piece_length))),
-                            ],
-                        ),
-                    ],
-                    vec![
-                        t("Peers"),
-                        st.map_or(String::new(), |s| {
-                            crate::i18n::fmt(
-                                // i18n: {live} = peers connected now; {known} = peers heard of
-                                crate::i18n::t("{live} connected, {known} known"),
-                                &[
-                                    ("live", &crate::i18n::integer(s.peers_live as u64)),
-                                    ("known", &crate::i18n::integer(s.peers_seen as u64)),
-                                ],
-                            )
-                        }),
-                    ],
-                    vec![
-                        // i18n: how much was sent to other peers
-                        t("Sent"),
-                        model::size(sent),
-                    ],
-                    // i18n: sent divided by received
-                    vec![t("Share ratio"), ratio],
-                    vec![
-                        // i18n: a torrent's General tab: how long it has been shared once finished, in all
-                        t("Shared for"),
-                        model::time(shared as f64),
-                    ],
-                    // i18n: label before the folder the torrent is saved in
-                    vec![t("Saved in"), folder],
-                    vec![
-                        // i18n: noun: sharing the torrent with others after it is downloaded
-                        t("Sharing"),
-                        if self.keep_sharing {
-                            // i18n: a torrent's sharing, when Torrent settings keep it on
-                            t("Goes on after the download finishes")
-                        } else {
-                            t("Stops when the download finishes")
-                        },
-                    ],
-                ];
-                table(
-                    ui,
-                    p,
-                    o,
-                    "t-general",
-                    &[
-                        (25.0, crate::i18n::mark("Property")),
-                        (130.0, crate::i18n::mark("Value")),
-                    ],
-                    &[125.0],
-                    &rows,
-                    false,
-                    None,
-                );
-            }
-        }
-    }
-}
-
-/// The segment bar as a piece map: a column is filled when the pieces under it are there.
-fn piece_bar(p: &egui::Painter, o: Pos2, pieces: &[bool]) {
-    let (x0, y0) = (o.x + 17.0, o.y + 249.0);
-    let border = crate::theme::colors().segment_border;
-    fill(p, x0, y0, x0 + 512.0, y0, border);
-    fill(p, x0, y0 + 14.0, x0 + 512.0, y0 + 14.0, border);
-    fill(p, x0, y0, x0, y0 + 14.0, border);
-    fill(p, x0 + 512.0, y0, x0 + 512.0, y0 + 14.0, border);
-    let ix = o.x + 18.0;
-    // Runs of equal columns, painted as one rectangle per row.
-    let have = |c: usize| {
-        if pieces.is_empty() {
-            return false;
-        }
-        let a = c * pieces.len() / 511;
-        let b = ((c + 1) * pieces.len() / 511).max(a + 1).min(pieces.len());
-        pieces[a..b].iter().all(|x| *x)
-    };
-    let mut c = 0usize;
-    while c < 511 {
-        let on = have(c);
-        let mut e = c;
-        while e + 1 < 511 && have(e + 1) == on {
-            e += 1;
-        }
-        for (row, cols) in seg_rows().enumerate() {
-            let v = if on { cols.1 } else { cols.0 };
-            let y = y0 + 1.0 + row as f32;
-            fill(p, ix + c as f32, y, ix + e as f32, y, v);
-        }
-        c = e + 1;
-    }
-}
-
-/// The Pieces tab's key, at the header's right: have / some / missing.
-fn piece_legend(p: &egui::Painter, o: Pos2) {
-    let (done, partial, missing) = piece_colors();
-    let mut x = o.x + 505.0;
-    for (c, label) in [
-        // i18n: legend: pieces not downloaded yet
-        (missing, crate::i18n::mark("Missing")),
-        // i18n: legend: pieces partly downloaded
-        (partial, crate::i18n::mark("Some")),
-        // i18n: legend: pieces downloaded
-        (done, crate::i18n::mark("Have")),
-    ] {
-        let label = crate::i18n::t(label);
-        x -= winui::text_width(p, label);
-        text(p, x, o.y + 290.0, label, winui::TEXT());
-        x -= 10.0;
-        p.rect_filled(
-            winui::rect(egui::Rect::from_min_size(
-                egui::pos2(x, o.y + 282.0),
-                egui::vec2(7.0, 7.0),
-            )),
-            1.0,
-            c,
-        );
-        x -= 14.0;
-    }
-}
-
-/// Pieces there, partly there (a square standing for several), missing.
-fn piece_colors() -> (Color32, Color32, Color32) {
-    let c = crate::theme::colors();
-    (c.piece, c.piece_partial, c.piece_missing)
-}
-
-/// The Pieces tab: one square per piece (or per group of pieces when there are many).
-fn piece_grid(p: &egui::Painter, o: Pos2, pieces: &[bool]) {
-    if pieces.is_empty() {
-        return;
-    }
-    let (left, top, w, h) = (o.x + 22.0, o.y + 302.0, 498.0, 94.0);
-    let cols = (w / 7.0) as usize;
-    let rows = (h / 7.0) as usize;
-    let cells = (cols * rows).min(pieces.len());
-    let (done, partial, missing) = piece_colors();
-    for k in 0..cells {
-        let a = k * pieces.len() / cells;
-        let b = ((k + 1) * pieces.len() / cells)
-            .max(a + 1)
-            .min(pieces.len());
-        let got = pieces[a..b].iter().filter(|x| **x).count();
-        let c = if got == b - a {
-            done
-        } else if got > 0 {
-            partial
-        } else {
-            missing
-        };
-        let (x, y) = (
-            left + (k % cols) as f32 * 7.0,
-            top + (k / cols) as f32 * 7.0,
-        );
-        p.rect_filled(
-            winui::rect(egui::Rect::from_min_size(
-                egui::pos2(x, y),
-                egui::vec2(6.0, 6.0),
-            )),
-            1.0,
-            c,
-        );
-    }
-}
-
-/// The Files tab's table of a torrent's files, ticked or not: the progress window's (`shown`: 6
-/// rows) and the Files window's (torrentfiles.rs, taller). The row whose box was clicked.
-pub(crate) fn files_table(
-    ui: &mut Ui,
-    p: &egui::Painter,
-    o: Pos2,
-    id: &str,
-    rows: &[Vec<String>],
-    checks: &[bool],
-    shown: usize,
-) -> Option<usize> {
-    table_sized(
-        ui,
-        p,
-        o,
-        id,
-        &[
-            (25.0, crate::i18n::mark("File")),
-            (335.0, crate::i18n::mark("Size")),
-            (430.0, crate::i18n::mark("Done")),
-        ],
-        &[330.0, 425.0],
-        rows,
-        true,
-        Some(checks),
-        shown,
-    )
-}
-
 /// Zip preview's table of a ZIP's files (#1775, zippreview.rs), ticked or not: each one's name
 /// (its path in the archive), its packed size, its size and when it was last changed. The row
 /// whose box was clicked.
@@ -2185,23 +1652,7 @@ pub(crate) fn table_body_height(shown: usize) -> f32 {
 
 /// A table in the connections table's frame: headers at x, column lines at `seps`, rows of
 /// text cut to their column (whole on hover), scrolled by the wheel. `checks`: a check box
-/// before each row's icon, ticked or not (the Files tab); the row whose box was clicked.
-#[allow(clippy::too_many_arguments)]
-fn table(
-    ui: &mut Ui,
-    p: &egui::Painter,
-    o: Pos2,
-    id: &str,
-    heads: &[(f32, &str)],
-    seps: &[f32],
-    rows: &[Vec<String>],
-    icons: bool,
-    checks: Option<&[bool]>,
-) -> Option<usize> {
-    table_sized(ui, p, o, id, heads, seps, rows, icons, checks, 6)
-}
-
-/// [`table`] showing `shown` rows: it grows down from the same top.
+/// before each row's icon, ticked or not; the row whose box was clicked.
 #[allow(clippy::too_many_arguments)]
 fn table_sized(
     ui: &mut Ui,

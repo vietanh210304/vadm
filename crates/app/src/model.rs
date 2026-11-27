@@ -8,9 +8,9 @@ use mdm_engine::download::State;
 use serde::{Deserialize, Serialize};
 use url::Url;
 
-/// IDM's default file categories (notes/research/idm-ui-and-integration.md, notes/UI.md), our
-/// Torrents (D-021) and the user's own (D-021: Options → Save to → New, the Categories
-/// right-click menu). Built-in ones are saved by name, so lists from before load unchanged.
+/// IDM's default file categories (notes/research/idm-ui-and-integration.md, notes/UI.md)
+/// and the user's own (D-021: Options → Save to → New, the Categories right-click menu).
+/// Built-in ones are saved by name, so lists from before load unchanged.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum Category {
     General,
@@ -19,8 +19,6 @@ pub enum Category {
     Music,
     Programs,
     Video,
-    /// Every torrent download (not by file type): its own folder, `Downloads\Torrents`.
-    Torrents,
     /// The user's category with this id (`Settings::custom_categories`).
     Custom(u32),
 }
@@ -153,14 +151,13 @@ fn type_matches(pattern: &str, ext: &str) -> bool {
 }
 
 impl Category {
-    /// IDM's named categories, then Torrents.
-    pub const BUILT_IN: [Category; 6] = [
+    /// IDM's named categories.
+    pub const BUILT_IN: [Category; 5] = [
         Category::Compressed,
         Category::Documents,
         Category::Music,
         Category::Programs,
         Category::Video,
-        Category::Torrents,
     ];
 
     /// The named categories: the built-in ones not deleted, then the user's (as in the
@@ -180,10 +177,9 @@ impl Category {
     }
 
     /// Can its name and file types be changed, and can it be deleted? The user's categories and
-    /// the built-in ones by file type; not General (where everything else goes) nor Torrents
-    /// (by source, not by file type).
+    /// the built-in ones by file type; not General (where everything else goes).
     pub fn editable(self) -> bool {
-        !matches!(self, Category::General | Category::Torrents)
+        !matches!(self, Category::General)
     }
 
     /// The name settings and folders know it by, whatever the user renamed it to: a built-in
@@ -210,8 +206,6 @@ impl Category {
             Category::Programs => crate::i18n::mark("Programs"),
             // i18n: category name: video files
             Category::Video => crate::i18n::mark("Video"),
-            // i18n: category name: torrent downloads (BitTorrent)
-            Category::Torrents => crate::i18n::mark("Torrents"),
             Category::Custom(_) => "",
         }
     }
@@ -267,7 +261,7 @@ impl Category {
     /// A built-in category's file types as shipped (the user's: theirs).
     fn shipped_extensions(self) -> Vec<String> {
         let fixed: &[&str] = match self {
-            Category::General | Category::Torrents => &[],
+            Category::General => &[],
             Category::Compressed => &[
                 "zip", "rar", "r0*", "r1*", "arj", "gz", "sit", "sitx", "sea", "ace", "bz2", "7z",
             ],
@@ -300,15 +294,12 @@ impl Category {
             Category::General => {
                 crate::i18n::t("The file types that are not listed in any other category").into()
             }
-            Category::Torrents => {
-                crate::i18n::t("Torrent downloads (magnet links and .torrent files)").into()
-            }
             c => upper_list(&c.extensions()),
         }
     }
 
     /// The category a file name falls into: the user's categories first (that is why they made
-    /// one), then IDM's; Torrents only by source, never by name.
+    /// one), then IDM's.
     /// Nothing is listed or copied for a name: the categories' types are worked out once
     /// ([`RULES`], #1063).
     pub fn of(file_name: &str) -> Category {
@@ -519,9 +510,6 @@ pub struct Item {
     /// A video from a page, downloaded by yt-dlp (its `url` is the page).
     #[serde(default)]
     pub video: Option<VideoSpec>,
-    /// A torrent or magnet (M15): its `url` is a magnet link, `dest` its folder or one file.
-    #[serde(default)]
-    pub torrent: Option<crate::torrents::TorrentSpec>,
     /// An image gallery downloaded by gallery-dl (#58): its `url` is the gallery's page, `dest`
     /// the folder its files go into.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -576,10 +564,6 @@ pub struct Item {
     /// the file). Kept, so a download goes the same way after a restart.
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub direct: bool,
-    /// A torrent through a debrid account (#44): its `url` is the magnet link, `dest` its folder
-    /// (or its one file, once known).
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub remote: Option<RemoteSpec>,
     /// Safe deferred main name chosen in the progress window: applied in place once the
     /// download reaches `Status::Complete`.
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -628,9 +612,6 @@ pub struct Item {
     pub own: OwnRequest,
     #[serde(skip)]
     pub live: Option<Live>,
-    /// The session's temporary view while a torrent is being checked; never saved.
-    #[serde(skip)]
-    pub torrent_check: Option<(u64, u64)>,
     /// The engine's last view of this download (segments, connections).
     #[serde(skip)]
     pub snap: Option<mdm_engine::Snapshot>,
@@ -726,8 +707,8 @@ pub struct PackageTag {
     pub password: Option<String>,
 }
 
-/// What runs a download: the engine (a file), yt-dlp (a video from a page), gallery-dl (an
-/// image gallery, #58), or librqbit (a torrent).
+/// What runs a download: the engine (a file), yt-dlp (a video from a page), or gallery-dl (an
+/// image gallery, #58).
 pub enum Job {
     File(Download),
     Video {
@@ -738,30 +719,8 @@ pub enum Job {
         job: mdm_tools::gallery::GalleryJob,
         url: Url,
     },
-    Torrent(crate::torrents::Run),
-    /// A torrent through a debrid account, then its files over HTTP (#44).
-    Remote(mdm_debrid::torrents::RemoteTorrent),
     /// Files picked out of a ZIP on its server (#1775).
     Zip(mdm_engine::remotezip::Fetch),
-}
-
-/// A torrent sent to a debrid account (#44).
-#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
-pub struct RemoteSpec {
-    /// The account it went to (Options → Accounts).
-    pub account: u64,
-    /// The service's id for it, once sent: a restart continues there, nothing is sent twice.
-    #[serde(default)]
-    pub transfer: Option<String>,
-    /// The folder its files go into (a torrent of several files gets its own folder there).
-    pub folder: PathBuf,
-    /// Custom file or folder name chosen in Add torrent (#517), when renamed from the torrent's own.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub renamed: Option<String>,
-    /// The files ticked in Add torrent, by their path in the torrent (`/`-separated); the
-    /// service downloads only those. None (and lists saved before it): all of them.
-    #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub files: Option<Vec<String>>,
 }
 
 /// The files picked out of a ZIP on its server (#1775): fetched one by one, each unpacked,
@@ -940,8 +899,6 @@ impl Job {
     pub fn snapshot(&self) -> mdm_engine::Snapshot {
         match self {
             Job::File(d) => d.snapshot(),
-            Job::Torrent(t) => t.snapshot(),
-            Job::Remote(r) => r.snapshot(),
             Job::Zip(z) => z.snapshot(),
             Job::Video { job, url } => tool_snapshot(job.progress(), url),
             Job::Gallery { job, url } => tool_snapshot(job.progress(), url),
@@ -953,8 +910,6 @@ impl Job {
             Job::File(d) => d.cancel(),
             Job::Video { job, .. } => job.stop(),
             Job::Gallery { job, .. } => job.stop(),
-            Job::Torrent(t) => t.cancel(),
-            Job::Remote(r) => r.cancel(),
             Job::Zip(z) => z.cancel(),
         }
     }
@@ -1004,12 +959,10 @@ impl Job {
 
     /// The speed limit can change while a file downloads, and while the engine downloads a
     /// video's streams (#769); gallery-dl, and yt-dlp downloading by itself, take it at the start
-    /// (the app starts them again, `is_helper`); a torrent's applies to the whole torrent session.
+    /// (the app starts them again, `is_helper`).
     pub fn set_speed_limit(&self, rate: Option<u64>) {
         match self {
             Job::File(d) => d.set_speed_limit(rate),
-            Job::Torrent(t) => t.set_speed_limit(rate),
-            Job::Remote(r) => r.set_speed_limit(rate),
             Job::Zip(z) => z.set_speed_limit(rate),
             Job::Video { job, .. } => job.set_speed_limit(rate),
             Job::Gallery { job, .. } => job.set_speed_limit(rate),
@@ -1019,10 +972,8 @@ impl Job {
     pub fn speed_limit(&self) -> Option<u64> {
         match self {
             Job::File(d) => d.speed_limit(),
-            Job::Torrent(t) => t.speed_limit(),
             Job::Video { job, .. } => job.speed_limit(),
             Job::Gallery { job, .. } => job.speed_limit(),
-            Job::Remote(r) => r.speed_limit(),
             Job::Zip(z) => z.speed_limit(),
         }
     }
@@ -1114,8 +1065,6 @@ impl Live {
 /// How long the speed shown takes to settle on a new pace (seconds): its average follows the
 /// bytes with this time constant (#1176), about two thirds of the way in 3 s.
 pub const SPEED_TAU: f64 = 3.0;
-/// The same for the global limiter's split between files and torrents (app.rs).
-pub const SPLIT_TAU: f64 = 2.0;
 /// How often the speed shown changes (seconds), with its time left: every download's on the
 /// same clock, so the list's rows and the total beside them change together (#1176).
 pub const SHOWN_EVERY: f64 = 0.5;
@@ -1374,18 +1323,14 @@ impl Item {
     }
 
     /// Can it be downloaded again from the start (Redownload)? A file download that isn't
-    /// running. Not a torrent (its pieces are checked against their hashes: Recheck files finds
-    /// and fetches the damaged ones, and its data keeps seeding), a video (its file is yt-dlp's to
-    /// make), a gallery (gallery-dl fetches only the files not there yet: Download Now does
-    /// that), nor a torrent through a debrid account (the service's files, #44). Nor one whose
-    /// unfinished file is being moved (`move_from`, #1739): its part file is on its way.
+    /// running. Not a video (its file is yt-dlp's to make), nor a gallery (gallery-dl fetches only
+    /// the files not there yet: Download Now does that). Nor one whose unfinished file is being
+    /// moved (`move_from`, #1739): its part file is on its way.
     pub fn can_redownload(&self) -> bool {
         self.live.is_none()
             && self.move_from.is_none()
-            && self.torrent.is_none()
             && self.video.is_none()
             && self.gallery.is_none()
-            && self.remote.is_none()
             && self.zip.is_none()
     }
 
@@ -1399,10 +1344,8 @@ impl Item {
         c.list_bytes = self.list_downloaded();
         c.list_tick = self.list_tick;
         c.video.clone_from(&self.video);
-        c.torrent.clone_from(&self.torrent);
         c.gallery.clone_from(&self.gallery);
         c.zip.clone_from(&self.zip);
-        c.remote.clone_from(&self.remote);
         c.preexisting_folder = self.preexisting_folder;
         c.written_files.clone_from(&self.written_files);
         c.number_at_start = self.number_at_start;
@@ -1434,7 +1377,6 @@ impl Item {
             finished: None,
             own_limit: None,
             video: None,
-            torrent: None,
             gallery: None,
             zip: None,
             log: Vec::new(),
@@ -1446,7 +1388,6 @@ impl Item {
             group: None,
             server: None,
             direct: false,
-            remote: None,
             rename_on_complete: None,
             preexisting_folder: false,
             moved_away: false,
@@ -1457,7 +1398,6 @@ impl Item {
             file_url: None,
             own: OwnRequest::default(),
             live: None,
-            torrent_check: None,
             snap: None,
             login: None,
             context: Default::default(),
@@ -1477,15 +1417,11 @@ impl Item {
         }
     }
 
-    /// A download of MDM's own engine (not a video, a gallery or a torrent, whose helper or
-    /// session keeps its unfinished files): its part file and resume state are all it has on
+    /// A download of MDM's own engine (not a video or a gallery, whose helper
+    /// keeps its unfinished files): its part file and resume state are all it has on
     /// the disk before it is finished.
     pub fn engine_file(&self) -> bool {
-        self.video.is_none()
-            && self.gallery.is_none()
-            && self.torrent.is_none()
-            && self.remote.is_none()
-            && self.zip.is_none()
+        self.video.is_none() && self.gallery.is_none() && self.zip.is_none()
     }
 
     /// Why Move/Rename (and File Properties → Move) can't take this download now, as a text
@@ -1501,16 +1437,6 @@ impl Item {
             // i18n: why a download can't be moved or renamed now: it is being moved already
             return Some(crate::i18n::mark("The download is being moved"));
         }
-        if self
-            .torrent
-            .as_ref()
-            .is_some_and(|t| t.shares_folder(&self.dest))
-        {
-            // i18n: shown when Move or Rename is refused: a torrent saved straight in Save to shares that folder with other files
-            return Some(crate::i18n::mark(
-                "This torrent shares its destination folder",
-            ));
-        }
         if self.status == Status::Complete || self.downloaded == 0 || self.engine_file() {
             return None;
         }
@@ -1520,17 +1446,10 @@ impl Item {
                 "Files taken out of a ZIP can be moved once they're all out",
             ));
         }
-        Some(if self.torrent.is_some() || self.remote.is_some() {
-            // i18n: why a torrent that isn't finished can't be moved or renamed: the torrent engine writes its pieces into the files where they are
-            crate::i18n::mark(
-                "A torrent can be moved once it's finished: until then the torrent engine writes its pieces where they are",
-            )
-        } else {
-            // i18n: why a video or an image gallery that isn't finished can't be moved or renamed: yt-dlp, ffmpeg or gallery-dl keep their unfinished files in its folder
-            crate::i18n::mark(
-                "A video or a gallery can be moved once it's finished: until then its helper programs keep their unfinished files in its folder",
-            )
-        })
+        // i18n: why a video or an image gallery that isn't finished can't be moved or renamed: yt-dlp, ffmpeg or gallery-dl keep their unfinished files in its folder
+        Some(crate::i18n::mark(
+            "A video or a gallery can be moved once it's finished: until then its helper programs keep their unfinished files in its folder",
+        ))
     }
     /// This row's resume state is at its place. `downloaded` can't say: after a crash the list
     /// holds what it held at its last save, often nothing. As read beside the window at start
@@ -1569,12 +1488,6 @@ impl Item {
         // show 0 for one look, unheld, and its file's size counted again by the download limit.
         let live_now = live.dl.live_state();
         let s = live.dl.snapshot();
-        // The service's id for a torrent sent to it (#44), kept to continue after a restart.
-        if let (Job::Remote(r), Some(spec)) = (&live.dl, self.remote.as_mut())
-            && spec.transfer.is_none()
-        {
-            spec.transfer = r.transfer();
-        }
         // The files picked out of a ZIP that are out (#1775): kept, so a stop and a start go on
         // with the others, and known as this download's.
         if let (Job::Zip(z), Some(spec)) = (&live.dl, self.zip.as_mut()) {
@@ -1628,7 +1541,7 @@ impl Item {
                 }
             }
         }
-        if self.torrent.is_none() && every_byte_in(&s) {
+        if every_byte_in(&s) {
             // Every byte in (#736): nothing comes in while the last of it is written out, the
             // file checked, joined or named; the rate the download ended on isn't one any more.
             live.speed.clear(Instant::now(), self.downloaded);
@@ -1763,25 +1676,11 @@ impl Item {
                     let known = job.known_files();
                     add_written(self.written_files.get_or_insert_with(Vec::new), known);
                 }
-                if status == Status::Complete
-                    && let Some(Live {
-                        dl: Job::Remote(r), ..
-                    }) = &self.live
-                {
-                    if r.preexisting_folder() {
-                        self.preexisting_folder = true;
-                    }
-                    let saved = r.saved_files();
-                    add_written(self.written_files.get_or_insert_with(Vec::new), saved);
-                }
                 for n in &notices {
                     self.note(n.clone());
                 }
                 self.notices = notices;
                 self.live = None;
-                // The session's last check numbers belong to the run just ended (a finished
-                // torrent leaves the session): not left saying "Checking" until the next tick.
-                self.torrent_check = None;
                 true
             }
             None => false,
@@ -1957,20 +1856,16 @@ impl Item {
     }
 
     /// The Status column: `13.38%`, `Complete`, `Error`, or blank.
-    /// A torrent at its debrid service (#44), before its files come, or a file-host link whose file
-    /// the service fetches first (TorBox): "45% at Real-Debrid" (the percentage first: the list's
-    /// Status column is narrow).
+    /// A file-host link whose file the service fetches first (TorBox, #44): "45% at TorBox"
+    /// (the percentage first: the list's Status column is narrow).
     pub fn at_service(&self) -> Option<String> {
         let (service, progress) = match &self.live {
-            Some(Live {
-                dl: Job::Remote(r), ..
-            }) => r.at_service().map(|(s, p)| (s.to_owned(), p))?,
             Some(_) => self.snap.as_ref()?.at_service.clone()?,
             None => return None,
         };
         let service = service.as_str();
         Some(crate::i18n::fmt(
-            // i18n: a torrent's status while the user's debrid service downloads it, before MDM gets its files; {service} the service ("Real-Debrid"), {percent} how far it is ("45%")
+            // i18n: a download's status while the user's debrid service fetches it, before MDM gets its file; {service} the service ("TorBox"), {percent} how far it is ("45%")
             crate::i18n::t("{percent} at {service}"),
             &[
                 ("service", service),
@@ -1982,31 +1877,10 @@ impl Item {
         ))
     }
 
-    /// "Checking 42%" while a torrent's files are read and checked (added over files already
-    /// there, Recheck): a running one from its live numbers (librqbit counts the bytes checked),
-    /// one not running from the session's (`torrent_check`, every 2 s). Whole percents: the
-    /// list's Status column is narrow.
-    pub fn torrent_checking(&self) -> Option<String> {
-        self.torrent.as_ref()?;
-        let (checked, total) = match (&self.live, &self.snap) {
-            (Some(_), Some(s)) if s.state == State::Verifying => {
-                (s.downloaded, s.size.unwrap_or(0))
-            }
-            (Some(_), _) => return None,
-            (None, _) => self.torrent_check?,
-        };
-        let ratio = if total > 0 {
-            checked as f64 / total as f64
-        } else {
-            0.0
-        };
-        Some(checking(&crate::i18n::percent(ratio.min(1.0), 0)))
-    }
-
     /// After the last byte, while the file is checked against its checksum or a video's
     /// streams are joined (#736): "Verifying... (45%)", "Merging...", with how far it is when
     /// that's known. `short`: the list's Status column, one short word and how far, "Checking
-    /// 45%" (as a torrent's check) and "Merging 45%" ("Merging ..." before that is known); the
+    /// 45%" and "Merging 45%" ("Merging ..." before that is known); the
     /// column is wide enough for them in the interface language and font ([`crate::list::status_width`]). The
     /// cell's tip and a screen reader say it whole ([`crate::list::Row::status_whole`]).
     pub fn finishing(&self, short: bool) -> Option<String> {
@@ -2094,7 +1968,7 @@ impl Item {
 
     /// Every byte is in (#736): no rate and no time left, as once it is complete.
     pub fn past_last_byte(&self) -> bool {
-        self.torrent.is_none() && self.snap.as_ref().is_some_and(every_byte_in)
+        self.snap.as_ref().is_some_and(every_byte_in)
     }
 
     pub fn status_text(&self) -> String {
@@ -2104,9 +1978,6 @@ impl Item {
         }
         if let Some(at) = self.at_service() {
             return at;
-        }
-        if let Some(checking) = self.torrent_checking() {
-            return checking;
         }
         if let Some(finishing) = self.finishing(true) {
             return finishing;
@@ -2174,11 +2045,11 @@ fn every_byte_in(s: &mdm_engine::Snapshot) -> bool {
             .any(|c| matches!(c.status, ConnStatus::Receiving | ConnStatus::Connecting)))
 }
 
-/// The list's Status column while a torrent's files or a finished file are checked (against
-/// the torrent's hashes, against a checksum): one short word and how far (#736).
+/// The list's Status column while a finished file is checked against a checksum: one short
+/// word and how far (#736).
 pub fn checking(percent: &str) -> String {
     crate::i18n::fmt(
-        // i18n: the list's Status column while a torrent's files or a finished file are checked (against the torrent's hashes or a checksum); {percent} how much is checked, e.g. "42%". One short word: the column is narrow
+        // i18n: the list's Status column while a finished file is checked against a checksum; {percent} how much is checked, e.g. "42%". One short word: the column is narrow
         crate::i18n::t("Checking {percent}"),
         &[("percent", percent)],
     )
@@ -2699,26 +2570,6 @@ mod tests {
         assert_eq!(shown(1024.0 * 1024.0 - 1.0, 1024.0, 2), 1024.0);
     }
 
-    /// A debrid torrent's ticked files are kept with the list; a list saved before them (no
-    /// `files`) means all of them.
-    #[test]
-    fn a_debrid_torrents_ticked_files_are_saved_and_older_lists_mean_all() {
-        let old: super::RemoteSpec =
-            serde_json::from_str(r#"{"account":7,"transfer":"RDT2","folder":"C:/dl"}"#).unwrap();
-        assert_eq!(old.files, None);
-        let spec = super::RemoteSpec {
-            account: 7,
-            files: Some(vec!["extras/notes.txt".into()]),
-            ..Default::default()
-        };
-        let text = serde_json::to_string(&spec).unwrap();
-        assert_eq!(
-            serde_json::from_str::<super::RemoteSpec>(&text).unwrap(),
-            spec
-        );
-        assert!(!serde_json::to_string(&old).unwrap().contains("files"));
-    }
-
     /// #1262: a failure's reason goes to the log without the queries of the addresses in it.
     #[test]
     fn a_failure_is_logged_without_tokens() {
@@ -3071,12 +2922,10 @@ mod address_tests {
                 format!("qqdl://{}", b64(address.as_bytes())),
             ]
         };
-        let magnet = "magnet:?xt=urn:btih:0123456789abcdef0123456789abcdef01234567&dn=Show";
         for address in [
             "http://dl.example.org/pack/a.zip",
             "https://dl.example.org/pack/b.rar?id=7&key=x",
             "ftp://ftp.example.org/pub/c.iso",
-            magnet,
         ] {
             for wrapped in wrappers(address) {
                 let u = super::parse_address(&wrapped).expect(&wrapped);
@@ -3104,8 +2953,7 @@ mod address_tests {
         ]);
         for wrapped in not {
             // What Add URL and Download File Info ask before they take an address.
-            let taken = super::parse_address(&wrapped)
-                .is_ok_and(|u| mdm_engine::supported(&u) || u.scheme() == "magnet");
+            let taken = super::parse_address(&wrapped).is_ok_and(|u| mdm_engine::supported(&u));
             assert!(!taken, "{wrapped}");
         }
     }

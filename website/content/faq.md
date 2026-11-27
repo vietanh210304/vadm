@@ -109,7 +109,7 @@ Yes: `ftp://`, and FTP over TLS both ways (`ftpes://` and `ftps://`), with sever
 
 Yes: HTTP and SOCKS proxies, and proxy auto-config (PAC) scripts, in **Options → Proxy / Socks**. See [Options](/help/options.html). To keep every download on a VPN, see [Network adapter](/features/network-adapter.html).
 
-## Video and torrents
+## Video
 
 ### How do I download a video from YouTube or another site? {#download-video}
 
@@ -122,14 +122,6 @@ Yes. When a video has subtitles, the **Subtitles** list in the video window offe
 ### Can it download from Netflix or other paid streaming services? {#drm}
 
 No. MDM doesn't break copy protection (DRM), by design. Videos that are protected stay protected. See also [what MDM is made for](/intended-use.html).
-
-### Does it download torrents? {#torrents}
-
-Yes, built in: open a `.torrent` file or paste a magnet link, tick the files you want in the folder tree, and the torrent downloads in the same list as everything else, with its peers, trackers and pieces one tab away. See [Torrents](/help/torrents.html).
-
-### Does it keep uploading after a torrent finishes? {#seeding}
-
-No, unless you want it to. While a torrent downloads it trades pieces with other people, as every torrent client does. When it finishes, it stops, like any other download. Turn on **Keep sharing torrents after they finish** in Options if you'd like to give back.
 
 ## Help and more
 

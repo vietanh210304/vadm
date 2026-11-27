@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=Po çinstalohet %1.
 
 [CustomMessages]
 TaskBrowser=Konfiguro integrimin e &shfletuesit (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Hapni skedarët .&torrent dhe lidhjet magnet me Mister Download Manager
 TaskStartup=Nisni Mister Download Manager kur niset &Windows
 TaskGroupOther=Të tjera:
 Launch=Nisni Mister Download Manager

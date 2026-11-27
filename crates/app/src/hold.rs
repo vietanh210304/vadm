@@ -7,8 +7,8 @@
 //! of its own (crashui.rs), waits the same way.
 //!
 //! What answers the user's own action on this computer is never held: a link clicked in the
-//! browser opens its Download File Info (or Download video, Link grabber, Add torrent) at once,
-//! as does every window opened from MDM's menus. Nor is the Turn off countdown: it warns that
+//! browser opens its Download File Info (or Download video, Link grabber) at once, as does
+//! every window opened from MDM's menus. Nor is the Turn off countdown: it warns that
 //! the computer is about to turn off, and its Cancel must stay within reach.
 //!
 //! Where the system can't tell (an unknown answer, a desktop without the state, macOS), nothing

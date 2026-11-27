@@ -18,7 +18,7 @@ const SIZE: f32 = 56.0;
 pub type Dropped = String;
 
 pub enum Event {
-    /// Something to download (an address, or a .torrent file's path).
+    /// Something to download (an address, or a list file).
     Drop(Dropped),
     /// Double-click: the main window.
     ShowMain,
@@ -157,7 +157,7 @@ impl DropTarget {
                     crate::i18n::t("Drag links here to download them")
                 } else {
                     // i18n: the drop target's tooltip on macOS and Linux (they hand over files only)
-                    crate::i18n::t("Drag .torrent files or lists of addresses here")
+                    crate::i18n::t("Drag links or lists of addresses here")
                 });
             #[cfg(not(windows))]
             for f in ui.ctx().input(|i| i.raw.dropped_files.clone()) {

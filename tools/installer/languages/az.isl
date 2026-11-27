@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 silinir.
 
 [CustomMessages]
 TaskBrowser=Brauzer inteqrasiyasını quraşdırın (&Chrome, Edge, Brave, Firefox)
-TaskTorrents=.&torrent fayllarını və maqnit keçidlərini Mister Download Manager ilə açın
 TaskStartup=&Windows işə düşəndə Mister Download Manager proqramını başladın
 TaskGroupOther=Digər:
 Launch=Mister Download Manager işə salınsın

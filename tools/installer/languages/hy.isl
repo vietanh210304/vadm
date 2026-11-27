@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Կարգավորել &դիտարկիչի ինտեգրումը (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Բացել .&torrent ֆայլերը և մագնիսական հղումները Mister Download Manager-ով
 TaskStartup=Միացնել Mister Download Manager-ը &Windows-ի գործարկման ժամանակ
 TaskGroupOther=Այլ:
 Launch=Միացնել Mister Download Manager-ը

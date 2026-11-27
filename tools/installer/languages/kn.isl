@@ -291,7 +291,6 @@ ShutdownBlockReasonUninstallingApp=%1 ಅನ್ನು ಅನ್‌ಇನ್‌�
 
 [CustomMessages]
 TaskBrowser=ಬ್ರೌಸರ್ ಇಂಟಿಗ್ರೇಶನ್ ಅನ್ನು ಹೊಂದಿಸಿ (&b) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Mister Download Manager ನೊಂದಿಗೆ .&torrent ಫೈಲ್‌ಗಳು ಮತ್ತು ಮ್ಯಾಗ್ನೆಟ್ ಲಿಂಕ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ
 TaskStartup=Windows ಪ್ರಾರಂಭವಾದಾಗ Mister Download Manager ಅನ್ನು &ಪ್ರಾರಂಭಿಸಿ
 TaskGroupOther=ಇತರೆ:
 Launch=Mister Download Manager ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ

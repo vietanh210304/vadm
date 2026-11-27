@@ -20,8 +20,6 @@ path = "src/main.rs"
 [dependencies]
 mdm-ipc.workspace = true
 mdm-tools.workspace = true
-mdm-torrent.workspace = true
-tempfile.workspace = true
 anyhow.workspace = true
 clap.workspace = true
 mdm-engine.workspace = true
@@ -31,6 +29,7 @@ tokio.workspace = true
 url.workspace = true
 
 [dev-dependencies]
+tempfile.workspace = true
 # The engine's Unlocker takes a CancellationToken (a fake one in the tests, #44).
 tokio-util.workspace = true
 

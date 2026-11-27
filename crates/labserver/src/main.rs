@@ -35,9 +35,6 @@ struct Args {
     /// Bytes per second per FTP transfer, e.g. 2M.
     #[arg(long, requires = "ftp")]
     ftp_rate: Option<String>,
-    /// A folder of .torrent files for /rss/dir.xml (the RSS tests' downloads).
-    #[arg(long)]
-    rss_dir: Option<std::path::PathBuf>,
     /// Serve HTTPS (as localhost, from a test CA made at start, written next to the log or
     /// printed) instead of HTTP: `browser_only` then looks at the TLS handshake too.
     #[arg(long)]
@@ -98,7 +95,6 @@ async fn main() -> anyhow::Result<()> {
         faults,
         on_log: Some(on_log),
         files: args.files.clone(),
-        rss_dir: args.rss_dir,
         tls: args.tls,
         http2: args.http2,
         cert,

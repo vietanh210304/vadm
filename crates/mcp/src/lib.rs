@@ -27,8 +27,8 @@ const API_OFF: &str = "Mister Download Manager's automation API is off. Ask the 
 const INSTRUCTIONS: &str = "Controls Mister Download Manager, the download manager running on \
     this computer. list_downloads shows its downloads with their ids (and optional id, status, \
     category, queue, or search filtering); pause_downloads, resume_downloads and \
-    remove_downloads act on those ids; add_download adds an address (http, https, ftp, ftps \
-    or a magnet link); start_queue starts a download queue (the main queue by default, or \
+    remove_downloads act on those ids; add_download adds an address (http, https, ftp, or ftps); \
+    start_queue starts a download queue (the main queue by default, or \
     by name); stop_queue stops a download queue (the main queue by default, or by name). \
     Listing and acting on downloads, stopping a queue, and starting a named queue need \
     the app's automation API, which the user turns on with `misterdownloadmanager-cli api on`. \
@@ -53,8 +53,7 @@ pub struct ListArgs {
 
 #[derive(Deserialize, JsonSchema)]
 pub struct AddArgs {
-    /// The address: http, https, ftp or ftps, or a magnet link (the app then asks the user
-    /// which of the torrent's files to take).
+    /// The address: http, https, ftp or ftps.
     pub url: String,
     /// The folder to save it in (default: the app's folder for that kind of file).
     pub folder: Option<String>,
@@ -181,7 +180,7 @@ impl Server {
         if !addable(&url) {
             return Err(format!(
                 "{url:?} isn't an address Mister Download Manager downloads: it takes http, \
-                 https, ftp and ftps addresses and magnet links."
+                 https, ftp and ftps addresses."
             ));
         }
         let queue = args.queue.filter(|q| !q.trim().is_empty());
@@ -387,14 +386,8 @@ fn explain(answer: Result<String, String>) -> Result<String, String> {
     Ok(answer)
 }
 
-/// What the app adds (`mdm_engine::supported`, and magnet links for Add torrent).
+/// What the app adds (`mdm_engine::supported`).
 fn addable(url: &str) -> bool {
-    if url
-        .get(..7)
-        .is_some_and(|s| s.eq_ignore_ascii_case("magnet:"))
-    {
-        return true;
-    }
     url::Url::parse(url)
         .is_ok_and(|u| matches!(u.scheme(), "http" | "https" | "ftp" | "ftps") && u.has_host())
 }
@@ -545,7 +538,7 @@ mod tests {
     fn adds_only_what_the_app_downloads() {
         assert!(addable("https://example.com/a.zip"));
         assert!(addable("ftp://example.com/a.zip"));
-        assert!(addable("MAGNET:?xt=urn:btih:abc"));
+        assert!(!addable("MAGNET:?xt=urn:btih:abc"));
         assert!(!addable("file:///etc/passwd"));
         assert!(!addable("javascript:alert(1)"));
         assert!(!addable("example.com/a.zip"));

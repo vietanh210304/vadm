@@ -48,7 +48,7 @@ How MDM knows:
 - **A server on your computer or your local network** shows as such, with no flag.
 - **Through a proxy**, MDM only sees the proxy, so it says **through a proxy** (with the proxy's country when it knows it) instead of guessing the server's. A VPN that works at the system level can't be seen: the country is then the server's, but the time includes the VPN's detour.
 - **A content delivery network** (Cloudflare, Amazon CloudFront, Fastly, Akamai and others) serves a file from a server near you, not from the site owner's. The tooltip says so: the place is the network's server, not where the site is.
-- Torrents and galleries have no single server of MDM's own (peers, or the many a gallery's pictures come from), so their windows don't show one. A video in one file shows the server it comes from.
+- Image galleries have no single server of MDM's own (the many a gallery's pictures come from), so their windows don't show one. A video in one file shows the server it comes from.
 
 **Properties** keeps what the last run saw, so a finished download still shows where it came from.
 
@@ -131,13 +131,12 @@ the whole file. To get such a file whole, let it finish.
 ## Through your VPN only: the network adapter and its kill switch
 
 **Options → Proxy / Socks → Network adapter** holds every connection MDM opens to one network
-adapter, usually your VPN's: downloads, FTP, torrents, video pages and galleries, MDM's own
+adapter, usually your VPN's: downloads, FTP, video pages and galleries, MDM's own
 downloads and the update check. It works as a kill switch: when the adapter disconnects, or the
 VPN is switched off, nothing goes out through your normal connection. Running downloads stop with
 **… is not connected**, and start again by themselves when the adapter is back. The line under
 the list shows the adapter's address, or that it isn't connected. Details in
-[Options → Proxy / Socks](options.md#proxy--socks) and, for torrents, in
-[Torrents and your security](torrent-security.md).
+[Options → Proxy / Socks](options.md#proxy--socks).
 
 ## The DNS
 
@@ -159,11 +158,11 @@ The Speed Limiter keeps MDM from using all of your connection.
 
 **Always turn on Speed Limiter on Mister Download Manager startup** turns it on each time MDM starts.
 
-A torrent counts as one file here: each torrent gets the limit of its own. So do a video and an image gallery ([Videos](video.md#speed-limits)). A download with a limit of its own (see [For one download](#for-one-download)) keeps that one.
+A video and an image gallery each get a limit of their own ([Videos](video.md#speed-limits)). A download with a limit of its own (see [For one download](#for-one-download)) keeps that one.
 
 ### For all downloads together
 
-In the same window, tick **Limit all downloads together to** and set the speed. This caps MDM as a whole, however many files are downloading, torrents included. When torrents and other downloads run at the same time, each side gets at least half of the speed, and more when the other side needs less: a torrent going slowly leaves the rest to the other downloads, and the other way round. It applies whenever it is ticked, whether the per-file limiter is on or off.
+In the same window, tick **Limit all downloads together to** and set the speed. This caps MDM as a whole, however many files are downloading. It applies whenever it is ticked, whether the per-file limiter is on or off.
 
 Tick **Only while I'm using the computer** to apply it only while you use the mouse or keyboard. After a minute without input, MDM goes back to full speed.
 
@@ -177,7 +176,7 @@ In the download's progress window, open the **Speed Limiter** tab:
 2. Set **Maximum download speed** in KBytes/sec. The new limit applies at once.
 3. Tick **Remember Speed Limiter settings for this file on download stop/resume** to keep this limit for the file: it applies again when you resume it later, even after restarting MDM.
 
-A video or a gallery takes a limit of its own the same way. For a torrent, the limit is that torrent's alone; the others keep theirs. A torrent can't be held under 16 KBytes/sec: a lower limit gives it 16.
+A video or a gallery takes a limit of its own the same way.
 
 > Some servers drop the connection when the speed is very low. Avoid a tight limit for servers that can't resume (**Resume capability: No**).
 

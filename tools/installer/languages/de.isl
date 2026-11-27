@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Browserintegration einrichten (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=TORRENT-Dateien und Magnet-Links mit Mister Download Manager &öffnen
 TaskStartup=Mister Download Manager beim Start von &Windows starten
 TaskGroupOther=Sonstiges:
 Launch=Mister Download Manager starten

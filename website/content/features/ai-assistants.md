@@ -26,8 +26,7 @@ Code, Cursor, VS Code and others.
 
 The assistant can list your downloads with their status, size, progress and speed, and filter
 them by status or by name. It can add an http, https, ftp or ftps address and start it or only
-queue it, in the folder and under the name you say. A magnet link opens **Add torrent** in MDM,
-for you to choose the files. It can pause, resume and remove downloads, deleting the files only
+queue it, in the folder and under the name you say. It can pause, resume and remove downloads, deleting the files only
 when asked, and start the main download queue.
 
 It can't change MDM's options, see your browser, or turn on MDM's automation API by itself. MDM

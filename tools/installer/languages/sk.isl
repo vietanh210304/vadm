@@ -3,7 +3,6 @@
 
 [CustomMessages]
 TaskBrowser=Nastaviť integráciu prehliadača (&B) (Chrome, Edge, Brave, Firefox)
-TaskTorrents=Otvárať súbory .&torrent a magnetické odkazy pomocou aplikácie Mister Download Manager
 TaskStartup=Spustiť aplikáciu Mister Download Manager pri štarte &systému Windows
 TaskGroupOther=Iné:
 Launch=Spustiť aplikáciu Mister Download Manager

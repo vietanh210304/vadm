@@ -2,8 +2,7 @@
 //! Windows' questions about an icon wait for Explorer: for seconds when it is busy (8 s in #747,
 //! the window frozen meanwhile). So a thread of its own asks ([`Watch`]), every [`EVERY`], and
 //! sets the icon's tip too; the window takes the last answer ([`Watch::latest`]), which never
-//! waits, and is woken when it changes. The rule of the clipboard's reads (`clipboard.rs`) and the
-//! torrents' numbers (#693).
+//! waits, and is woken when it changes. The rule of the clipboard's reads (`clipboard.rs`).
 //!
 //! No answer is not an answer: none yet, one too old ([`STALE`]: the shell stopped answering) or
 //! one being written as the window looks ([`Icon::Unknown`]) never decides that the icon is gone.
