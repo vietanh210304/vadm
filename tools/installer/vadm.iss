@@ -10,7 +10,7 @@
 ; Windows Credential Manager (vadm --forget-sign-ins).
 
 #ifndef AppVersion
-  #define AppVersion "0.6.0"
+  #define AppVersion "0.6.1"
 #endif
 #define AppName "VADM"
 #define AppExe "vadm.exe"

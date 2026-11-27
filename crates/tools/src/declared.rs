@@ -133,12 +133,23 @@ pub fn look_up(
     settle(first, declared, theirs)
 }
 
+/// Highest video stream height offered in `v` (0 when none or height is unknown).
+fn max_video_height(v: &resolve::Video) -> u32 {
+    v.formats
+        .iter()
+        .filter(|f| f.video)
+        .filter_map(|f| f.height)
+        .max()
+        .unwrap_or(0)
+}
+
 /// What a page's look-up answers once its declared video was looked up too (`theirs`): that
 /// video, named as the page names it; the page's own look-up (`first`) when yt-dlp found no
 /// video it knows at the declared address (an unsupported address: a site's own player page it
-/// can't read) or a list there; otherwise the declared video's error. The page said which video
-/// it is about: another one yt-dlp found in its HTML (a hidden welcome video) never comes in its
-/// place.
+/// can't read), a list there, or when `first` already found a strictly higher-resolution video on
+/// the same site (for example an embedded player `/embed/…` capped at 720p while the video's own
+/// page serves 1080p); otherwise the declared video's error. The page said which video it is about:
+/// another one yt-dlp found in its HTML (a hidden welcome video) never comes in its place.
 fn settle(
     first: Result<(Looked, LookedUp), ProcError>,
     declared: Declared,
@@ -146,6 +157,11 @@ fn settle(
 ) -> Result<(Looked, LookedUp, Option<Declared>), ProcError> {
     match theirs {
         Ok((Looked::Video(mut v), out)) => {
+            if same_site(&declared.page, &declared.address)
+                && matches!(&first, Ok((Looked::Video(vf), _)) if max_video_height(vf) > max_video_height(&v))
+            {
+                return first.map(|(l, o)| (l, o, None));
+            }
             if let Some(name) = &declared.name {
                 v.title = name.clone();
                 v.page_titled = true;
@@ -235,23 +251,44 @@ fn local(url: &Url) -> bool {
     }
 }
 
-/// A site's own name in its address, as the browser extension reads it (#1075, `siteNameOf`):
-/// the part before its domain's ending (www.shortverse.com: `shortverse`; news.bbc.co.uk: `bbc`,
-/// a country's second level left out). None for an IP address.
-fn site_name(url: &Url) -> Option<String> {
+/// Registrable domain tail (`host` from its site label onward) and that label index, for domain
+/// hosts. None for an IP address.
+fn domain_parts(url: &Url) -> Option<(Vec<String>, usize)> {
     let Some(url::Host::Domain(host)) = url.host() else {
         return None;
     };
-    let host = host.to_ascii_lowercase();
-    let labels: Vec<&str> = host.split('.').filter(|l| !l.is_empty()).collect();
+    let labels: Vec<String> = host
+        .to_ascii_lowercase()
+        .split('.')
+        .filter(|l| !l.is_empty())
+        .map(str::to_owned)
+        .collect();
     let mut at = labels.len().checked_sub(2)?;
     let second = [
         "co", "com", "org", "net", "gov", "edu", "ac", "or", "ne", "go",
     ];
-    if at > 0 && labels[labels.len() - 1].len() == 2 && second.contains(&labels[at]) {
+    if at > 0 && labels[labels.len() - 1].len() == 2 && second.contains(&labels[at].as_str()) {
         at -= 1;
     }
-    labels.get(at).map(|l| (*l).to_owned())
+    Some((labels, at))
+}
+
+/// Whether `a` and `b` belong to the same site (identical registrable domain).
+fn same_site(a: &str, b: &str) -> bool {
+    let reg = |raw: &str| {
+        Url::parse(raw)
+            .ok()
+            .and_then(|u| domain_parts(&u).map(|(labels, at)| labels[at..].join(".")))
+    };
+    matches!((reg(a), reg(b)), (Some(x), Some(y)) if x == y)
+}
+
+/// A site's own name in its address, as the browser extension reads it (#1075, `siteNameOf`):
+/// the part before its domain's ending (www.shortverse.com: `shortverse`; news.bbc.co.uk: `bbc`,
+/// a country's second level left out). None for an IP address.
+fn site_name(url: &Url) -> Option<String> {
+    let (labels, at) = domain_parts(url)?;
+    labels.get(at).cloned()
 }
 
 /// `s`'s letters and digits, lower-cased.
@@ -516,6 +553,18 @@ mod tests {
             looked(&[], r#"{"_type": "playlist", "title": "Showcase"}"#),
         );
         assert_eq!(title(&got), "Shortverse : Get Started false");
+        // Same-site embed downgraded (e.g. 720p embed while main page has 1080p): keep main page.
+        const PAGE_1080: &str = r#"{"title": "Full Video", "formats": [{"format_id": "720p", "height": 720, "vcodec": "h264"}, {"format_id": "1080p", "height": 1080, "vcodec": "h264"}]}"#;
+        const EMBED_720: &str = r#"{"title": "Full Video", "formats": [{"format_id": "720p", "height": 720, "vcodec": "h264"}]}"#;
+        let same_site_embed = Declared {
+            address: "https://watchporn.to/embed/165234".into(),
+            page: "https://watchporn.to/video/165234/alison-rey-contagious-love/".into(),
+            name: Some("Alison Rey - Contagious Love".into()),
+        };
+        let got = settle(looked(&[], PAGE_1080), same_site_embed, looked(&[], EMBED_720)).unwrap();
+        assert!(got.2.is_none());
+        let Looked::Video(v) = got.0 else { panic!("expected video") };
+        assert_eq!(max_video_height(&v), 1080);
     }
 
     #[test]

@@ -460,6 +460,13 @@ Each release's notes on GitHub come from its section here (`## [X.Y.Z]`, see
 - A download started in the browser (a video's download button, a link, a magnet or .torrent) now opens only its dialog when the main window is hidden or minimized, instead of always bringing the full window up.
 
 
+## [0.6.1] - 2026-11-27
+
+### Fixed
+
+- **Keep higher-resolution main-page video formats when an embed caps quality:** In **Download video from a page** and `vadm-cli video-info` / `video-get`, when a site's main page already extracts higher-resolution streams (for example **1080p** on sites where the page's `/embed/…` URL caps quality at **720p**), VADM now preserves the main page's higher-resolution options instead of overwriting them with the downgraded embed result (`crates/tools/src/declared.rs`).
+
+
 ## [0.6.0] - 2026-11-27
 
 ### Added & Changed (VADM)
