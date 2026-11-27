@@ -51,9 +51,9 @@ use sha2::{Digest, Sha256};
 
 /// yt-dlp's release signing key, from its repository (`public.key`).
 const YTDLP_KEY: &str = include_str!("../keys/yt-dlp.asc");
-/// Mister Download Manager's release signing key (Ed25519, fingerprint
-/// 5826D399249DE856EA087D802E293C28E8A69D74): release.yml signs each release's SHA256SUMS.txt
-/// with it (the MDM_RELEASE_KEY secret), and MDM updates itself only from a list it signed.
+/// VADM's release signing key (Ed25519, fingerprint
+/// A912F4D34D040D79ED0B961D9A41D190B1EE2CEB): release.yml signs each release's SHA256SUMS.txt
+/// with it (the MDM_RELEASE_KEY secret), and VADM updates itself only from a list it signed.
 const MDM_KEY: &str = include_str!("../keys/mdm-release.asc");
 /// Where releases come from: GitHub's API, else its pages (`github`, #1337).
 const RELEASES: &str = "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest";

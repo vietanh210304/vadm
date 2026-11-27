@@ -121,7 +121,7 @@ Source: "{#Bin}\vadm-mcp.exe"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag
 ; The extension, for "Load unpacked" (Chromium) and about:debugging (Firefox) until it is in
 ; the stores.
 Source: "{#Root}\target\extension\chromium\*"; DestDir: "{app}\extension\chromium"; Flags: ignoreversion recursesubdirs
-Source: "{#Root}\target\extension\mdm-firefox.xpi"; DestDir: "{app}\extension"; Flags: ignoreversion
+Source: "{#Root}\target\extension\vadm-firefox.xpi"; DestDir: "{app}\extension"; Flags: ignoreversion
 Source: "{#Root}\LICENSE"; DestDir: "{app}"; DestName: "LICENSE.txt"; Flags: ignoreversion
 Source: "{#Root}\ATTRIBUTION.md"; DestDir: "{app}"; DestName: "ATTRIBUTION.txt"; Flags: ignoreversion
 

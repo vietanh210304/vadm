@@ -21,7 +21,8 @@ $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $dist = Join-Path $root "target\dist"
 $target = @{ x64 = "x86_64-pc-windows-msvc"; arm64 = "aarch64-pc-windows-msvc"; x86 = "i686-pc-windows-msvc" }[$Arch]
-$bin = Join-Path $root "target\$target\release"
+$targetRoot = if ($env:CARGO_TARGET_DIR) { $env:CARGO_TARGET_DIR } else { Join-Path $root "target" }
+$bin = Join-Path $targetRoot "$target\release"
 # The files' names: x64's as before, the others with their processor.
 $suffix = if ($Arch -eq "x64") { "" } else { "-$Arch" }
 
@@ -71,7 +72,7 @@ function New-Zip([string]$name, [bool]$portable) {
   }
   New-Item -ItemType Directory -Force (Join-Path $stage "extension") | Out-Null
   Copy-Item (Join-Path $root "target\extension\chromium") (Join-Path $stage "extension\chromium") -Recurse
-  Copy-Item (Join-Path $root "target\extension\mdm-firefox.xpi") (Join-Path $stage "extension")
+  Copy-Item (Join-Path $root "target\extension\vadm-firefox.xpi") (Join-Path $stage "extension")
   Copy-Item (Join-Path $root "LICENSE") (Join-Path $stage "LICENSE.txt")
   Copy-Item (Join-Path $root "ATTRIBUTION.md") (Join-Path $stage "ATTRIBUTION.txt")
   if ($portable) {
