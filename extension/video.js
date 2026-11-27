@@ -42,7 +42,7 @@
   const GAP = 6;
   const DRAG_PX = 4;
   // Our app icon (extension/icons/icon-48.png, as data: no extension file is exposed to pages).
-  const LOGO = "data:image/png;base64,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";
+  const LOGO = "data:image/png;base64,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";
 
   const t = (key, ...subs) =>
     ext.i18n.getMessage(key, subs) || (FALLBACK[key] || key).replace(/\$(\d)/g, (_, n) => subs[n - 1] ?? "");
@@ -1257,7 +1257,7 @@ button {
   all: unset; box-sizing: border-box; display: inline-flex; align-items: center;
   color: inherit; cursor: pointer; font: inherit;
 }
-.go { gap: 6px; padding-inline: 5px 9px; border-radius: 3px; cursor: grab; }
+.go { gap: 6px; padding-inline: 5px 9px; border-radius: 3px; cursor: pointer; }
 .pill:not(.bare) .go { background: var(--go); color: var(--go-ink); box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .14); }
 .pill:not(.bare) .go:hover { background: var(--go-hi); }
 .pill:not(.bare) .go .label { font-weight: 700; }
@@ -1270,12 +1270,12 @@ button {
 .pill:has(button:focus-visible) { outline: 2px solid var(--tx); outline-offset: 2px; }
 button:focus-visible { outline: none; }
 .more:focus-visible, .x:focus-visible, .act:focus-visible { box-shadow: 0 0 0 1px var(--tx) inset; }
-/* Its grip: there all along (the tab keeps its width: the arrow and ✕ never move from under the
-   pointer), seen while the pointer is on it. */
-.grip { display: grid; visibility: hidden; grid-template-columns: repeat(2, 2px); gap: 2px; align-content: center; padding-inline-start: 1px; }
-.grip i { display: block; width: 2px; height: 2px; border-radius: 1px; background: currentColor; opacity: .55; }
-.pill:not(.bare):hover .grip, .pill.dragging .grip { visibility: visible; }
-.pill.bare .grip { display: none; }
+/* Separate drag handle: grabbing only happens here so clicking .go only downloads. */
+.grip { display: grid; grid-template-columns: repeat(2, 2px); gap: 2px; align-content: center; justify-content: center;
+  width: 14px; border-radius: 3px; color: var(--tx2); cursor: grab; flex: none; touch-action: none; }
+.grip i { display: block; width: 2px; height: 2px; border-radius: 1px; background: currentColor; opacity: .65; }
+.grip:hover { background: var(--hov); color: var(--tx); }
+.grip:hover i, .pill.dragging .grip i { opacity: 1; }
 .icon { display: flex; align-items: center; justify-content: center; width: 18px; height: 18px; flex: none; }
 .icon > * { display: none; }
 .icon img { width: 18px; height: 18px; }
@@ -1317,7 +1317,7 @@ button:focus-visible { outline: none; }
 .pill.compact:not(.bare) .go { padding-inline: 4px; }
 .pill.dragging { cursor: grabbing; transition: none; transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, .25), 0 16px 32px rgba(0, 0, 0, .3); }
-.pill.dragging .go { cursor: grabbing; }
+.pill.dragging .grip { cursor: grabbing; }
 /* The hover tip: exactly what one click gets, and how to move it. */
 .tip { position: absolute; top: 36px; left: 0; max-width: 320px; width: max-content; padding: 6px 9px; border-radius: 6px;
   pointer-events: none; background: var(--bg); color: var(--tx); border: 1px solid var(--bd); box-shadow: var(--sh);
@@ -1414,8 +1414,8 @@ button:focus-visible { outline: none; }
   shadow.innerHTML += `
 <div class="guide"></div>
 <div class="pill" part="pill" data-state="ready">
+  <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
   <button class="go" type="button">
-    <span class="grip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
     <span class="icon">
       <img class="logo" alt="" draggable="false">
       <span class="spin"></span>
@@ -1456,6 +1456,7 @@ button:focus-visible { outline: none; }
 </div>`;
   const $ = (sel) => shadow.querySelector(sel);
   const pill = $(".pill");
+  const grip = $(".grip");
   const go = $(".go");
   const label = $(".label");
   const sub = $(".sub");
@@ -1487,6 +1488,7 @@ button:focus-visible { outline: none; }
   item("never").lastElementChild.textContent = ext.i18n.getMessage("video_never_site", [host]) || `Never on ${host}`;
   item("settings").lastElementChild.textContent = t("video_settings");
   $(".tip .how").textContent = t("video_drag_dots");
+  grip.title = t("video_drag_dots");
 
   // ---- the look-ups (#703): each video's qualities, asked as its button shows ---------------
   // By what the button sends for it (its address and its own file): one look-up each, kept for
@@ -2891,9 +2893,9 @@ button:focus-visible { outline: none; }
     }
   });
 
-  // The main part: a click downloads, a drag moves it (and is not a click).
+  // The main part: a click downloads (.go) and a drag moves it (.grip), kept separate.
   // Only the user's own clicks and keys (never events a page script makes up).
-  go.addEventListener("pointerdown", (e) => {
+  grip.addEventListener("pointerdown", (e) => {
     if (e.button !== 0 || !video || !e.isTrusted) return;
     tipOff();
     // Where in the button it was taken (wherever it is: over the player, outside it, or moved up
@@ -2908,10 +2910,11 @@ button:focus-visible { outline: none; }
       at: chosen ? place : auto.at || place,
       moved: false,
     };
-    go.setPointerCapture(e.pointerId);
+    grip.setPointerCapture(e.pointerId);
     e.preventDefault();
+    e.stopPropagation();
   });
-  go.addEventListener("pointermove", (e) => {
+  grip.addEventListener("pointermove", (e) => {
     if (!dragging || e.pointerId !== dragging.id) return;
     if (!dragging.moved && Math.hypot(e.clientX - dragging.startX, e.clientY - dragging.startY) < DRAG_PX) return;
     if (!dragging.moved) {
@@ -2929,11 +2932,7 @@ button:focus-visible { outline: none; }
     dragging = null;
     pill.classList.remove("dragging");
     guide.classList.remove("on");
-    if (!d.moved) {
-      // A click: the quality one click gets (a status's own buttons do the rest).
-      if (e.type === "pointerup" && !pill.classList.contains("bare")) download();
-      return;
-    }
+    if (!d.moved) return;
     place = snap(d.at);
     chosen = true;
     // It snaps to its spot although the pointer is still on it (#560's pin is for a video
@@ -2965,11 +2964,12 @@ button:focus-visible { outline: none; }
       teardown();
     }
   }
-  go.addEventListener("pointerup", endDrag);
-  go.addEventListener("pointercancel", endDrag);
-  // Keyboard: Enter / Space (a real button's click without a pointer).
+  grip.addEventListener("pointerup", endDrag);
+  grip.addEventListener("pointercancel", endDrag);
+  go.addEventListener("pointerdown", () => tipOff());
+  // Download button: strictly click / Enter / Space (never drags).
   go.addEventListener("click", (e) => {
-    if (e.detail === 0 && e.isTrusted && !pill.classList.contains("bare")) download();
+    if (e.isTrusted && !pill.classList.contains("bare")) download();
   });
 
   // ---- wiring -----------------------------------------------------------------------------------
