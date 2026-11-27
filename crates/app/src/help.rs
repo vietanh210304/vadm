@@ -542,9 +542,7 @@ impl Updates {
                     }
                     Some(Ok(Found::Latest)) => {
                         let line = crate::i18n::fmt(
-                            crate::i18n::t(
-                                "You have the latest version of VADM ({version}).",
-                            ),
+                            crate::i18n::t("You have the latest version of VADM ({version})."),
                             &[("version", VERSION)],
                         );
                         winui::paragraph(&p, o.x + 11.0, o.y + 24.0, &line, ink, right, 13.0);
@@ -564,9 +562,7 @@ impl Updates {
                     }
                     Some(Ok(Found::Newer(rel))) => {
                         let line = crate::i18n::fmt(
-                            crate::i18n::t(
-                                "VADM {version} is available (released {date}).",
-                            ),
+                            crate::i18n::t("VADM {version} is available (released {date})."),
                             &[("version", &rel.version), ("date", &rel.date)],
                         );
                         winui::fit(
@@ -915,13 +911,7 @@ impl About {
                     include_bytes!("../assets/icons/app/vadm-48.png"),
                 )
                 .paint_at(ui, winui::r(o, 16.0, 16.0, 48.0, 48.0));
-                winui::text(
-                    &p,
-                    o.x + 80.0,
-                    o.y + 28.0,
-                    crate::i18n::t("VADM"),
-                    ink,
-                );
+                winui::text(&p, o.x + 80.0, o.y + 28.0, crate::i18n::t("VADM"), ink);
                 spoken_line(
                     ui,
                     r(o, 80.0, 14.0, 324.0, 18.0),

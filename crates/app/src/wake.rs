@@ -883,10 +883,7 @@ mod tests {
         assert_eq!(why_awake(&queues, false), Some(Awake::Queue(QUEUE)));
         assert_eq!(why_awake(&queues, true), Some(Awake::Queue(QUEUE)));
         let _ = crate::i18n::t("VADM is downloading");
-        assert_eq!(
-            Awake::Downloads.reason(),
-            "VADM is downloading"
-        );
+        assert_eq!(Awake::Downloads.reason(), "VADM is downloading");
     }
 
     /// The queue that woke the computer is done and its downloads go on: the hold is asked again
@@ -900,10 +897,7 @@ mod tests {
         tick_until(&mut w, Some(Awake::Queue(QUEUE)), |w| w.awake);
         // The queue is done, its downloads go on: asked again on the next tick, in their words.
         w.keep_awake(Some(Awake::Downloads));
-        assert_eq!(
-            sys.next().as_deref(),
-            Some("VADM is downloading")
-        );
+        assert_eq!(sys.next().as_deref(), Some("VADM is downloading"));
         sys.answer(true);
         tick_until(&mut w, Some(Awake::Downloads), |w| !w.holder.asking());
         // More ticks with the same reason ask nothing more.

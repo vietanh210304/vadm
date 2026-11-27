@@ -2065,9 +2065,13 @@ async fn a_server_that_sometimes_ignores_ranges_still_completes() {
 async fn a_missing_folder_is_reported_and_nothing_restarts() {
     let dir = tempfile::tempdir().unwrap();
     let gone = dir.path().join("unplugged");
-    let err = Download::resume(gone.join("a.bin.vadm.json"), Default::default(), fast_opts())
-        .err()
-        .expect("refused");
+    let err = Download::resume(
+        gone.join("a.bin.vadm.json"),
+        Default::default(),
+        fast_opts(),
+    )
+    .err()
+    .expect("refused");
     assert!(
         matches!(&err, mdm_engine::Error::DestinationUnavailable(p) if *p == gone),
         "{err}"

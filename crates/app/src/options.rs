@@ -1223,6 +1223,14 @@ impl OptionsDialog {
             true,
             LIGHT_PAGE(),
         );
+        winui::checkbox_light(
+            ui,
+            o + vec2(22.0, 402.0),
+            &mut self.s.auto_open_torrent,
+            // i18n: checkbox in Options -> File types: launch finished .torrent files with the default torrent app
+            "Automatically open finished .torrent files",
+            true,
+        );
     }
 
     fn save_to(&mut self, ui: &mut Ui, o: Pos2, downloads: &std::path::Path) {

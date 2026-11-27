@@ -1299,9 +1299,6 @@ pub struct App {
     /// extension in one window, and whether this run has weighed it.
     setup: Option<crate::setup::Setup>,
     setup_weighed: bool,
-    /// "Files already there", opened on its own by `/show existing-files` (screenshots and the
-    /// translations' fit check).
-    shown_existing: Option<crate::dialogs::ExistingFiles>,
     /// The browser extension's offer (extension.rs), and whether this run has weighed it.
     extension: Option<crate::extension::Extension>,
     extension_weighed: bool,
@@ -2082,7 +2079,6 @@ impl App {
             lang_picker: None,
             setup: None,
             setup_weighed: false,
-            shown_existing: None,
             extension: None,
             extension_weighed: false,
             auto_update: None,
@@ -7772,6 +7768,15 @@ impl App {
                 // Its archive, when it is to be extracted and its last volume is in (#37).
                 self.extracts.finished(*id, &self.items, &self.settings);
             }
+            if self.settings.auto_open_torrent
+                && !crate::offscreen()
+                && !cfg!(test)
+                && let Some(item) = self.items.iter().find(|item| item.id == *id)
+                && is_torrent_file(&item.dest)
+                && item.dest.is_file()
+            {
+                let _ = open::that_detached(&item.dest);
+            }
             // Finished files leave download queues (synchronization queues keep them).
             for q in self.queues.iter_mut().filter(|q| !q.sync) {
                 q.items.retain(|x| x != id);
@@ -8449,12 +8454,7 @@ impl App {
                 I("&Video downloads", Cmd::HelpPage("video.md"), true, false),
                 I("&Keyboard shortcuts", Cmd::Shortcuts, true, false),
                 Sep,
-                I(
-                    "VADM &Home Page",
-                    Cmd::HelpPage(""),
-                    true,
-                    false,
-                ),
+                I("VADM &Home Page", Cmd::HelpPage(""), true, false),
                 I("&Report a problem", Cmd::ReportProblem, true, false),
                 Sep,
                 I("Check for &updates...", Cmd::CheckUpdates, true, false),
@@ -11312,10 +11312,7 @@ impl App {
             texts.push(text);
         }
         if !texts.is_empty() {
-            self.notice = Some((
-                crate::i18n::mark("VADM"),
-                texts.join("\n\n"),
-            ));
+            self.notice = Some((crate::i18n::mark("VADM"), texts.join("\n\n")));
         }
     }
 
@@ -11553,11 +11550,6 @@ impl App {
             }
         }
         self.first_start_setup(ctx);
-        if let Some(q) = &mut self.shown_existing
-            && !matches!(q.show(ctx), Outcome::Open)
-        {
-            self.shown_existing = None;
-        }
         // Then the browser extension, once per start until a browser has it (extension.rs): at
         // a start with no setup (the setup has it as a step).
         if self.lang_picker.is_none()
@@ -12376,6 +12368,13 @@ impl App {
 /// The wall clock, in unix seconds (a snooze's end, #741).
 fn unix_now() -> i64 {
     chrono::Utc::now().timestamp()
+}
+
+/// Whether a finished file at `path` is a `.torrent` metadata file for an external client.
+fn is_torrent_file(path: &std::path::Path) -> bool {
+    path.extension()
+        .and_then(|e| e.to_str())
+        .is_some_and(|e| e.eq_ignore_ascii_case("torrent"))
 }
 
 /// The finished downloads whose progress windows close at `now` (then Download complete opens):
@@ -14601,12 +14600,7 @@ mod deferred_rename_guard_tests {
         g_preexisting.gallery = Some(Default::default());
         g_preexisting.preexisting_folder = true;
         assert_eq!(
-            deferred_rename_disabled_reason_with(
-                &g_preexisting,
-                &downloads,
-                &settings,
-                &items,
-            ),
+            deferred_rename_disabled_reason_with(&g_preexisting, &downloads, &settings, &items,),
             Some("This folder holds files from outside this download"),
             "a reused folder that already held untracked files is refused"
         );
@@ -17377,5 +17371,16 @@ mod stop_and_keep_tests {
             .len();
         assert!(kept > 0);
         assert_eq!(row.size, Some(kept));
+    }
+
+    #[test]
+    fn auto_open_torrent_matches_extension_case_insensitively() {
+        assert!(crate::settings::Settings::default().auto_open_torrent);
+        assert!(is_torrent_file(std::path::Path::new(
+            "ubuntu-24.04.torrent"
+        )));
+        assert!(is_torrent_file(std::path::Path::new("distro.TORRENT")));
+        assert!(!is_torrent_file(std::path::Path::new("archive.zip")));
+        assert!(!is_torrent_file(std::path::Path::new("torrent")));
     }
 }

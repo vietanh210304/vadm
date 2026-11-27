@@ -109,9 +109,7 @@ pub fn monitor_main(m: MonitorArgs) -> eframe::Result {
     crate::theme::init_text_size(settings.interface_text_size);
     let builder = crate::quiet(
         crate::window_builder()
-            .with_title(crate::i18n::os_text(crate::i18n::t(
-                "VADM crash report",
-            )))
+            .with_title(crate::i18n::os_text(crate::i18n::t("VADM crash report")))
             .with_inner_size([CLIENT[0] * zoom, CLIENT[1] * zoom])
             .with_resizable(false)
             .with_maximize_button(false)
@@ -455,9 +453,7 @@ impl ReportWindow {
     fn heading(&self, alive: bool) -> &'static str {
         match self.job.kind {
             // i18n: crash report window heading: the window of MDM stopped answering, then answered again
-            Kind::Freeze if self.recovered => {
-                crate::i18n::t("VADM stopped responding for a while")
-            }
+            Kind::Freeze if self.recovered => crate::i18n::t("VADM stopped responding for a while"),
             // i18n: crash report window heading: MDM's window doesn't answer (frozen)
             Kind::Freeze => crate::i18n::t("VADM stopped responding"),
             // i18n: crash report window heading: an internal error, MDM still running

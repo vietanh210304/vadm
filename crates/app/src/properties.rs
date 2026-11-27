@@ -86,9 +86,7 @@ impl Properties {
     /// downloads (not a video's or gallery's helper), not finished. While it runs they show,
     /// greyed: they apply as it starts.
     fn request_editable(item: &Item) -> bool {
-        item.status != Status::Complete
-            && item.video.is_none()
-            && item.gallery.is_none()
+        item.status != Status::Complete && item.video.is_none() && item.gallery.is_none()
     }
 
     /// `item` took a new address while this window was open (the browser's next download of

@@ -37,7 +37,7 @@ Download from [Releases](https://github.com/vietanh210304/vadm/releases/latest):
 | `VADM-<version>-extension-chromium.zip` | Browser extension for Chrome, Edge, Brave, Opera, Vivaldi: unzip and click **Load unpacked** in Developer mode (`chrome://extensions` or `edge://extensions`). |
 
 > [!NOTE]
-> Uncompressed/unpacked browser integration stays pinned to extension ID `oogbclbbninliongijffeeggalppliok`. Run `vadm-nmhost.exe --register` (done automatically by the installer or setup script) so Chrome/Edge/Firefox connect to VADM.
+> Uncompressed/unpacked browser integration stays pinned to extension ID `oogbclbbninliongijffeeggalppliok`. Run `vadm-nmhost.exe --register` (done automatically by the installer or setup script) so Chrome/Edge/Firefox connect to VADM. (Upstream MDM store listings: [Chrome Web Store](https://chromewebstore.google.com/detail/mister-download-manager/ejoleppdfgjdndddcjoehopknmlglojp) and [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/mister-download-manager/).)
 
 ---
 

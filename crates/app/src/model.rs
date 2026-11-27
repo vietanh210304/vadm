@@ -1972,28 +1972,16 @@ impl Item {
     }
 
     /// The icon before its status (#2008), for what [`Item::status_text`] says: being moved,
-    /// checked or joined is still under way; an archive found damaged is a failure; a finished
-    /// torrent connected to peers is seeding.
+    /// checked or joined is still under way; an archive found damaged is a failure.
     pub fn status_icon(&self) -> crate::icons::StatusIcon {
         use crate::icons::StatusIcon as S;
-        if self.move_from.is_some()
-            || self.torrent_checking().is_some()
-            || self.finishing(true).is_some()
-        {
+        if self.move_from.is_some() || self.finishing(true).is_some() {
             return S::Checking;
         }
         if self.damaged_text(true).is_some() {
             return S::Error;
         }
         match self.status {
-            Status::Complete
-                if self
-                    .torrent
-                    .as_ref()
-                    .is_some_and(|t| t.peers > 0 || t.up_speed > 0.0) =>
-            {
-                S::Seeding
-            }
             Status::Complete => S::Complete,
             Status::Error => S::Error,
             Status::Queued => S::Queued,
@@ -2793,15 +2781,6 @@ mod tests {
         it.damaged = false;
         it.move_from = Some(PathBuf::from("old"));
         assert_eq!(it.status_icon(), S::Checking);
-        it.move_from = None;
-        let spec: crate::torrents::TorrentSpec = serde_json::from_str(
-            r#"{"hash":"0123456789abcdef0123456789abcdef01234567","folder":"t"}"#,
-        )
-        .unwrap();
-        it.torrent = Some(spec);
-        assert_eq!(it.status_icon(), S::Complete, "no peers: not seeding");
-        it.torrent.as_mut().unwrap().peers = 3;
-        assert_eq!(it.status_icon(), S::Seeding);
     }
 
     /// Without a size there's no share to show: no 0 % (from #384).

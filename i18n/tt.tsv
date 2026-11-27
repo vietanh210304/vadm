@@ -7479,7 +7479,7 @@ column	Upload speed	Йөкләү тизлеге
 #. text in the browser extension
 #. in the menu under the download button over a video: the page is a list of videos (a playlist), whose videos are chosen in the app's window; keep the name Mister Download Manager as it is
 #, machine
-extension	A list of videos: choose them in Mister Download Manager	Видеолар исемлеге: аларны Mister Download Manager эчендә сайлагыз
+extension	A list of videos: choose them in VADM	Видеолар исемлеге: аларны VADM эчендә сайлагыз
 #. text in the browser extension
 #. link after popup_by_hand_firefox in the toolbar button's popup: opens the add-on's page on addons.mozilla.org (Firefox's add-ons store), whose copy Firefox keeps and updates; keep addons.mozilla.org as it is
 #, machine
@@ -7491,7 +7491,7 @@ extension	Add it from the Chrome Web Store	Chrome Web Store сайтыннан �
 #. text in the browser extension
 #. on the download button (green) over a video after the app added and started the download; a quality may follow ('· 1080p') and a 'Show' button; MDM is the app's short name, keep it; short
 #, machine
-extension	Added to MDM	MDM-га өстәлде
+extension	Added to VADM	VADM-га өстәлде
 #. text in the browser extension
 #. shown briefly on the download button over a video after a quality was picked: the download was added to the app's download queue, to start later
 #, machine
@@ -7509,7 +7509,7 @@ extension	All qualities and subtitles...	Барлык сыйфатлар һәм 
 #. text in the browser extension
 #. choice under Send downloads to: an MDM running on another computer of the network, such as a home server; keep the name Mister Download Manager as it is
 #, machine
-extension	Another Mister Download Manager (a server)	Башка Mister Download Manager (сервер)
+extension	Another VADM (a server)	Башка VADM (сервер)
 #. text in the browser extension
 #. tab above the list of qualities in the menu under the download button over a video: the choices that are sound only (MP3, Opus and the like); short, one word
 #, machine
@@ -7542,11 +7542,11 @@ extension	can't be saved	саклап булмый
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the browser can't reach the app (why is said below it); keep the name Mister Download Manager as it is
 #, machine
-extension	Can't reach Mister Download Manager	Mister Download Manager кушымтасына тоташып булмый
+extension	Can't reach VADM	VADM кушымтасына тоташып булмый
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the other Mister Download Manager (a server) doesn't answer; keep the name Mister Download Manager as it is
 #, machine
-extension	Can't reach the Mister Download Manager at {server}	{server} серверындагы Mister Download Manager кушымтасына тоташып булмый
+extension	Can't reach the VADM at {server}	{server} серверындагы VADM кушымтасына тоташып булмый
 #. text in the browser extension
 #. shown briefly on the download button when nothing on the page says which video the player is playing, so nothing was sent
 #, machine
@@ -7582,12 +7582,12 @@ extension	Connected	Тоташкан
 #. text in the browser extension
 #. the toolbar button's status when the browser reaches the app; keep the name Mister Download Manager as it is
 #, machine
-extension	Connected to Mister Download Manager	Mister Download Manager белән тоташтырылган
+extension	Connected to VADM	VADM белән тоташтырылган
 #. text in the browser extension
 #. the toolbar button's status when the browser reaches the app, with the app's version number; keep the name Mister Download Manager as it is
 #. {version} = a version number (keep the braces as they are)
 #, machine
-extension	Connected to Mister Download Manager {version}	Mister Download Manager {version} белән тоташтырылган
+extension	Connected to VADM {version}	VADM {version} белән тоташтырылган
 #. text in the browser extension
 #. under the extension's name in the toolbar button's popup: the browser reaches the app; its version follows; short
 #. {version} = a version number (keep the braces as they are)
@@ -7643,7 +7643,7 @@ extension	Download again	Кабат йөкләү
 #. text in the browser extension
 #. command in the browser's right-click menu on a page: download the links of the whole page; keep the name Mister Download Manager as it is
 #, machine
-extension	Download all links with Mister Download Manager	Mister Download Manager белән барлык сылтамаларны йөкләү
+extension	Download all links with VADM	VADM белән барлык сылтамаларны йөкләү
 #. text in the browser extension
 #. first line of the list under the download button over a video: downloads the best quality at once; the quality, its file type and size follow on the same line; short
 #, machine
@@ -7655,7 +7655,7 @@ extension	Download button over videos	Видеолар өстендәге йөк
 #. text in the browser extension
 #. command in the browser's right-click menu on selected text: download the links in the selection; keep the name Mister Download Manager as it is
 #, machine
-extension	Download selected links with Mister Download Manager	Mister Download Manager белән сайланган сылтамаларны йөкләү
+extension	Download selected links with VADM	VADM белән сайланган сылтамаларны йөкләү
 #. text in the browser extension
 #. first line of the tooltip of the download button over a video while the app is still finding its qualities
 #, machine
@@ -7667,7 +7667,7 @@ extension	Download video	Видеоны йөкләү
 #. text in the browser extension
 #. command in the browser's right-click menu on a link, picture, video or sound; keep the name Mister Download Manager as it is
 #, machine
-extension	Download with Mister Download Manager	Mister Download Manager белән йөкләү
+extension	Download with VADM	VADM белән йөкләү
 #. text in the browser extension
 #. first line of the tooltip of the download button over a video: what one click downloads; $what$ is a quality, a file type and a size, e.g. '1080p MP4 · 412 MB'
 #, machine
@@ -7738,11 +7738,11 @@ extension	Forget	Оныту
 #. text in the browser extension
 #. button on the download button over a video when the app didn't answer: opens the app's download page; MDM is the app's short name, keep it; very short
 #, machine
-extension	Get MDM	MDM алу
+extension	Get VADM	VADM алу
 #. text in the browser extension
 #. the extension's description in the browser's list of extensions; keep the name Mister Download Manager as it is
 #, machine
-extension	Hands downloads from the browser to Mister Download Manager.	Йөкләүләрне браузердан Mister Download Managerга тапшыра.
+extension	Hands downloads from the browser to VADM.	Йөкләүләрне браузердан VADMга тапшыра.
 #. text in the browser extension
 #. link in the toolbar button's popup to the help page
 #, machine
@@ -7782,7 +7782,7 @@ extension	It shows no code now: click Pair a device there first.	Хәзер ан
 #. text in the browser extension
 #. why a download stayed with the browser: it is a .torrent file and the app's Torrent settings don't open torrents with Mister Download Manager, so the browser keeps it for the user's own torrent program; keep the setting's name as the app shows it
 #, machine
-extension	It's a torrent, and Open magnet links and .torrent files with Mister Download Manager is off in Torrent settings.	Бу торрент, һәм Mister Download Manager белән магнит сылтамаларын һәм .torrent файлларын ачу Торрент көйләүләрендә сүндерелгән.
+extension	It's a torrent, and Open magnet links and .torrent files with VADM is off in Torrent settings.	Бу торрент, һәм VADM белән магнит сылтамаларын һәм .torrent файлларын ачу Торрент көйләүләрендә сүндерелгән.
 #. text in the browser extension
 #. why a download stayed with the browser: the file is smaller than the app's minimum size setting
 #, machine
@@ -7862,7 +7862,7 @@ extension	Looking up took too long	Эзләү бик озакка сузылды
 #. text in the browser extension
 #. on the download button (red) over a video when the app isn't installed or didn't start; 'Get MDM' and 'Retry' buttons follow; MDM is the app's short name, keep it; short
 #, machine
-extension	MDM didn't answer	MDM җавап бирмәде
+extension	VADM didn't answer	VADM җавап бирмәде
 #. text in the browser extension
 #. heading in the toolbar button's popup over the list of the videos, sounds and streams the current web page has loaded
 #, machine
@@ -7870,56 +7870,56 @@ extension	Media on this page	Бу биттәге медиа
 #. text in the browser extension
 #. the extension's name in the browser's list of extensions and on its toolbar button; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager	Mister Download Manager
+extension	VADM	VADM
 #. text in the browser extension
 #. said briefly in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app didn't answer in time; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager didn't answer in time. Try again.	Mister Download Manager вакытында җавап бирмәде. Кабатлап карагыз.
+extension	VADM didn't answer in time. Try again.	VADM вакытында җавап бирмәде. Кабатлап карагыз.
 #. text in the browser extension
 #. status when the app was started for a download but didn't answer in time; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager didn't start in time	Mister Download Manager вакытында башланмады
+extension	VADM didn't start in time	VADM вакытында башланмады
 #. text in the browser extension
 #. status when the app refuses this copy of the extension (another copy is installed, or it came from another store); keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager doesn't accept this copy of the extension	Mister Download Manager киңәйтмәнең бу күчермәсен кабул итми
+extension	VADM doesn't accept this copy of the extension	VADM киңәйтмәнең бу күчермәсен кабул итми
 #. text in the browser extension
 #. in the menu under the download button over a video: the app is already looking up other videos and can't look this one up now; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager is busy with other videos	Mister Download Manager башка видеолар белән мәшгуль
+extension	VADM is busy with other videos	VADM башка видеолар белән мәшгуль
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app didn't answer in time; keep the name Mister Download Manager as it is
 #. the trailing ... means it is still going on: keep it
 #, machine
-extension	Mister Download Manager is busy. Trying again...	Mister Download Manager мәшгуль. Кабат тырышу...
+extension	VADM is busy. Trying again...	VADM мәшгуль. Кабат тырышу...
 #. text in the browser extension
 #. shown briefly on the download button when the app could not be reached; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't installed or didn't start	Mister Download Manager урнаштырылмаган яки башланмаган
+extension	VADM isn't installed or didn't start	VADM урнаштырылмаган яки башланмаган
 #. text in the browser extension
 #. status when the browser can't find the app's connection; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't installed, or its browser integration isn't set up	Mister Download Manager урнаштырылмаган, яки аның браузер интеграциясе урнаштырылмаган
+extension	VADM isn't installed, or its browser integration isn't set up	VADM урнаштырылмаган, яки аның браузер интеграциясе урнаштырылмаган
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't running	Mister Download Manager эшләми
+extension	VADM isn't running	VADM эшләми
 #. text in the browser extension
 #. said briefly in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't running.	Mister Download Manager эшләми.
+extension	VADM isn't running.	VADM эшләми.
 #. text in the browser extension
 #. in the menu under the download button over a video: the app needs the yt-dlp tool (a program's name, keep it as it is) to find this video's qualities, and it isn't installed; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager needs yt-dlp for this video	Mister Download Manager бу видео өчен yt-dlp кирәк
+extension	VADM needs yt-dlp for this video	VADM бу видео өчен yt-dlp кирәк
 #. text in the browser extension
 #. tooltip of the switch Send downloads through this browser's proxy or VPN extension; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager then downloads through the same proxy as this browser. The browser asks you once to allow it; turning this off takes that back.	Mister Download Manager аннары бу браузер белән бер үк прокси аша йөкләп ала. Браузер сездән моны бер тапкыр рөхсәт итүегезне сораячак; моны сүндерү рөхсәтне кире ала.
+extension	VADM then downloads through the same proxy as this browser. The browser asks you once to allow it; turning this off takes that back.	VADM аннары бу браузер белән бер үк прокси аша йөкләп ала. Браузер сездән моны бер тапкыр рөхсәт итүегезне сораячак; моны сүндерү рөхсәтне кире ала.
 #. text in the browser extension
 #. tooltip of the switch Send downloads through this browser's proxy or VPN extension in Chrome, Edge and the other Chromium browsers (they ask for no permission at the switch); keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager then downloads through the same proxy as this browser. While this is off, the extension doesn't read the browser's proxy.	Mister Download Manager йөкләүләрне бу браузер белән бер үк прокси аша башкара. Бу функция сүндерелгән булса, киңәйтмә браузерның проксиен укымый.
+extension	VADM then downloads through the same proxy as this browser. While this is off, the extension doesn't read the browser's proxy.	VADM йөкләүләрне бу браузер белән бер үк прокси аша башкара. Бу функция сүндерелгән булса, киңәйтмә браузерның проксиен укымый.
 #. text in the browser extension
 #. tooltip of the ⋯ button of a download in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads): opens its menu
 #, machine
@@ -7997,7 +7997,7 @@ extension	Open it	Ачу
 #. text in the browser extension
 #. help under the pairing boxes; Options, Remote and Pair a device are the app's window, tab and button; keep misterdownloadmanager-cli pair as it is
 #, machine
-extension	Open its address once and accept its certificate, then enter a code from its Options, Remote, Pair a device (or misterdownloadmanager-cli pair).	Аның адресын бер тапкыр ачыгыз һәм сертификатын кабул итегез, аннары аның «Параметрлар», «Ерактан» бүлегеннән, «Җайланманы тоташтыру» төймәсеннән (яки misterdownloadmanager-cli pair) код кертегез.
+extension	Open its address once and accept its certificate, then enter a code from its Options, Remote, Pair a device (or vadm-cli pair).	Аның адресын бер тапкыр ачыгыз һәм сертификатын кабул итегез, аннары аның «Параметрлар», «Ерактан» бүлегеннән, «Җайланманы тоташтыру» төймәсеннән (яки vadm-cli pair) код кертегез.
 #. text in the browser extension
 #. button at the foot of the Downloads tab in the toolbar button's popup when downloads go to another Mister Download Manager (a server): opens that server's own web page
 #, machine
@@ -8005,7 +8005,7 @@ extension	Open its page	Аның битен ачу
 #. text in the browser extension
 #. button in the toolbar button's popup; keep the name Mister Download Manager as it is
 #, machine
-extension	Open Mister Download Manager	Mister Download Managerны ачу
+extension	Open VADM	VADMны ачу
 #. text in the browser extension
 #. button on the download button over a video in a feed: opens the post the video belongs to in a new tab; verb; very short
 #, machine
@@ -8021,7 +8021,7 @@ extension	Open {file}	{file} ачу
 #. text in the browser extension
 #. the gear button at the top of in the toolbar button's popup: opens Mister Download Manager's Options window; keep the name Mister Download Manager as it is
 #, machine
-extension	Options in Mister Download Manager	Mister Download Manager көйләүләре
+extension	Options in VADM	VADM көйләүләре
 #. text in the browser extension
 #. button in the toolbar button's popup: open the app's Options
 #. the trailing ... means it is still going on: keep it
@@ -8128,7 +8128,7 @@ extension	Send to Link grabber	Сылтама тотучыга җибәрү
 #. on the download button over a video right after it was clicked, while the download goes to the app; MDM is Mister Download Manager's short name, keep it as it is; short
 #. the trailing ... means it is still going on: keep it
 #, machine
-extension	Sending to MDM...	MDM'га җибәрелә...
+extension	Sending to VADM...	VADM'га җибәрелә...
 #. text in the browser extension
 #. under the extension's name in the toolbar button's popup: downloads go to another Mister Download Manager, a server, at this address; short
 #, machine
@@ -8140,7 +8140,7 @@ extension	Sent to Link grabber: tick the ones to download there.	Сылтама 
 #. text in the browser extension
 #. shown briefly on the download button after it was clicked; keep the name Mister Download Manager as it is
 #, machine
-extension	Sent to Mister Download Manager	Mister Download Manager кушымтасына җибәрелде
+extension	Sent to VADM	VADM кушымтасына җибәрелде
 #. text in the browser extension
 #. the toolbar button's status when the paired server does not answer
 #, machine
@@ -8196,7 +8196,7 @@ extension	Start it to see your downloads here.	Йөкләүләрегезне м
 #. text in the browser extension
 #. button in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Start Mister Download Manager	Mister Download Manager эшләтеп җибәрү
+extension	Start VADM	VADM эшләтеп җибәрү
 #. text in the browser extension
 #. a download's line in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when it has just started and nothing has come yet
 #. the trailing ... means it is still going on: keep it
@@ -8205,7 +8205,7 @@ extension	Starting...	Башлана...
 #. text in the browser extension
 #. link at the foot of the toolbar button's popup to the creator's GitHub Sponsors page (MDM is free; this is an optional donation)
 #, machine
-extension	Support MDM	MDM'ны яклау
+extension	Support VADM	VADM'ны яклау
 #. text in the browser extension
 #. check box in the toolbar button's popup: on, downloads go to the app; off, the browser keeps them
 #, machine
@@ -8233,7 +8233,7 @@ extension	The Chrome Web Store's rules keep this copy of the add-on away from th
 #. text in the browser extension
 #. status when the connection to the app broke off (often security software blocking it); keep the name Mister Download Manager as it is
 #, machine
-extension	The connection to Mister Download Manager failed	Mister Download Manager белән тоташу өзелде
+extension	The connection to VADM failed	VADM белән тоташу өзелде
 #. text in the browser extension
 #. why a download stayed with the browser: the user limited the extension's access to web sites in the browser, so it can't pass the sign-in on
 #, machine
@@ -8245,7 +8245,7 @@ extension	The last download was left to the browser.	Соңгы йөкләнеш
 #. text in the browser extension
 #. under the list in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when there are more downloads than it shows; keep the name Mister Download Manager as it is
 #, machine
-extension	The newest {shown} of {total}. Mister Download Manager lists them all.	{total} йөкләүнең иң яңа {shown}е. Mister Download Manager аларның барысын да күрсәтә.
+extension	The newest {shown} of {total}. VADM lists them all.	{total} йөкләүнең иң яңа {shown}е. VADM аларның барысын да күрсәтә.
 #. text in the browser extension
 #. question in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) before the finished downloads are taken off the list
 #. {count} = a number (keep the braces as they are)
@@ -8254,7 +8254,7 @@ extension	The {count} finished downloads go off the list. Their files stay where
 #. text in the browser extension
 #. note at the top of the list in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when downloads go to another Mister Download Manager (a server): the buttons that need the file on this computer are not offered; keep the name Mister Download Manager as it is
 #, machine
-extension	These are the downloads of the Mister Download Manager at {server}. Open their files there.	Бу {server} серверындагы Mister Download Manager йөкләүләре. Аларның файлларын шунда ачыгыз.
+extension	These are the downloads of the VADM at {server}. Open their files there.	Бу {server} серверындагы VADM йөкләүләре. Аларның файлларын шунда ачыгыз.
 #. text in the browser extension
 #. why a download stayed with the browser: the app's Options don't capture downloads from this browser (its box is unticked in the list of browsers)
 #, machine
@@ -8303,11 +8303,11 @@ extension	Turn on	Кабызу
 #. under the extension's name in the toolbar button's popup: the app is older than the extension; keep the name Mister Download Manager as it is; short
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app is too old to list its downloads here; keep the name Mister Download Manager as it is
 #, machine
-extension	Update Mister Download Manager	Mister Download Manager яңарту
+extension	Update VADM	VADM яңарту
 #. text in the browser extension
 #. status when the app is older than the extension; keep the name Mister Download Manager as it is
 #, machine
-extension	Update Mister Download Manager to use everything this extension offers	Бу киңәйтү тәкъдим иткән бар нәрсәне куллану өчен Mister Download Manager яңартыгыз
+extension	Update VADM to use everything this extension offers	Бу киңәйтү тәкъдим иткән бар нәрсәне куллану өчен VADM яңартыгыз
 #. text in the browser extension
 #. why a download stayed with the browser: the app's setting 'Use advanced browser integration' is off; keep the setting's name as the app shows it
 #, machine
@@ -8327,7 +8327,7 @@ extension	Waiting	Көтү
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app has no downloads; keep the name Mister Download Manager as it is
 #, machine
-extension	What you download with Mister Download Manager shows up here.	Mister Download Manager белән йөкләнгәннәр монда күрсәтелә.
+extension	What you download with VADM shows up here.	VADM белән йөкләнгәннәр монда күрсәтелә.
 #. text in the browser extension
 #. toolbar button's popup, Settings: second line under 'Download button over videos', saying what Reset puts back: the places the user dragged the button to, and the filters chosen in its menu, remembered per web site
 #, machine

@@ -7475,7 +7475,7 @@ column	Upload speed	上傳速度
 #. text in the browser extension
 #. in the menu under the download button over a video: the page is a list of videos (a playlist), whose videos are chosen in the app's window; keep the name Mister Download Manager as it is
 #, machine
-extension	A list of videos: choose them in Mister Download Manager	影片清單：請在 Mister Download Manager 中選擇
+extension	A list of videos: choose them in VADM	影片清單：請在 VADM 中選擇
 #. text in the browser extension
 #. link after popup_by_hand_firefox in the toolbar button's popup: opens the add-on's page on addons.mozilla.org (Firefox's add-ons store), whose copy Firefox keeps and updates; keep addons.mozilla.org as it is
 #, machine
@@ -7487,7 +7487,7 @@ extension	Add it from the Chrome Web Store	從 Chrome Web Store 新增
 #. text in the browser extension
 #. on the download button (green) over a video after the app added and started the download; a quality may follow ('· 1080p') and a 'Show' button; MDM is the app's short name, keep it; short
 #, machine
-extension	Added to MDM	已新增至 MDM
+extension	Added to VADM	已新增至 VADM
 #. text in the browser extension
 #. shown briefly on the download button over a video after a quality was picked: the download was added to the app's download queue, to start later
 #, machine
@@ -7505,7 +7505,7 @@ extension	All qualities and subtitles...	所有畫質和字幕...
 #. text in the browser extension
 #. choice under Send downloads to: an MDM running on another computer of the network, such as a home server; keep the name Mister Download Manager as it is
 #, machine
-extension	Another Mister Download Manager (a server)	另一個 Mister Download Manager (伺服器)
+extension	Another VADM (a server)	另一個 VADM (伺服器)
 #. text in the browser extension
 #. tab above the list of qualities in the menu under the download button over a video: the choices that are sound only (MP3, Opus and the like); short, one word
 #, machine
@@ -7538,11 +7538,11 @@ extension	can't be saved	無法儲存
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the browser can't reach the app (why is said below it); keep the name Mister Download Manager as it is
 #, machine
-extension	Can't reach Mister Download Manager	無法連線到 Mister Download Manager
+extension	Can't reach VADM	無法連線到 VADM
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the other Mister Download Manager (a server) doesn't answer; keep the name Mister Download Manager as it is
 #, machine
-extension	Can't reach the Mister Download Manager at {server}	無法連線到 Mister Download Manager (位於 {server})
+extension	Can't reach the VADM at {server}	無法連線到 VADM (位於 {server})
 #. text in the browser extension
 #. shown briefly on the download button when nothing on the page says which video the player is playing, so nothing was sent
 #, machine
@@ -7578,12 +7578,12 @@ extension	Connected	已連線
 #. text in the browser extension
 #. the toolbar button's status when the browser reaches the app; keep the name Mister Download Manager as it is
 #, machine
-extension	Connected to Mister Download Manager	已連線到 Mister Download Manager
+extension	Connected to VADM	已連線到 VADM
 #. text in the browser extension
 #. the toolbar button's status when the browser reaches the app, with the app's version number; keep the name Mister Download Manager as it is
 #. {version} = a version number (keep the braces as they are)
 #, machine
-extension	Connected to Mister Download Manager {version}	已連線到 Mister Download Manager {version}
+extension	Connected to VADM {version}	已連線到 VADM {version}
 #. text in the browser extension
 #. under the extension's name in the toolbar button's popup: the browser reaches the app; its version follows; short
 #. {version} = a version number (keep the braces as they are)
@@ -7639,7 +7639,7 @@ extension	Download again	再次下載
 #. text in the browser extension
 #. command in the browser's right-click menu on a page: download the links of the whole page; keep the name Mister Download Manager as it is
 #, machine
-extension	Download all links with Mister Download Manager	使用 Mister Download Manager 下載所有連結
+extension	Download all links with VADM	使用 VADM 下載所有連結
 #. text in the browser extension
 #. first line of the list under the download button over a video: downloads the best quality at once; the quality, its file type and size follow on the same line; short
 #, machine
@@ -7651,7 +7651,7 @@ extension	Download button over videos	影片上的下載按鈕
 #. text in the browser extension
 #. command in the browser's right-click menu on selected text: download the links in the selection; keep the name Mister Download Manager as it is
 #, machine
-extension	Download selected links with Mister Download Manager	使用 Mister Download Manager 下載選取的連結
+extension	Download selected links with VADM	使用 VADM 下載選取的連結
 #. text in the browser extension
 #. first line of the tooltip of the download button over a video while the app is still finding its qualities
 #, machine
@@ -7663,7 +7663,7 @@ extension	Download video	下載影片
 #. text in the browser extension
 #. command in the browser's right-click menu on a link, picture, video or sound; keep the name Mister Download Manager as it is
 #, machine
-extension	Download with Mister Download Manager	使用 Mister Download Manager 下載
+extension	Download with VADM	使用 VADM 下載
 #. text in the browser extension
 #. first line of the tooltip of the download button over a video: what one click downloads; $what$ is a quality, a file type and a size, e.g. '1080p MP4 · 412 MB'
 #, machine
@@ -7734,11 +7734,11 @@ extension	Forget	忘記
 #. text in the browser extension
 #. button on the download button over a video when the app didn't answer: opens the app's download page; MDM is the app's short name, keep it; very short
 #, machine
-extension	Get MDM	取得 MDM
+extension	Get VADM	取得 VADM
 #. text in the browser extension
 #. the extension's description in the browser's list of extensions; keep the name Mister Download Manager as it is
 #, machine
-extension	Hands downloads from the browser to Mister Download Manager.	將瀏覽器中的下載交給 Mister Download Manager。
+extension	Hands downloads from the browser to VADM.	將瀏覽器中的下載交給 VADM。
 #. text in the browser extension
 #. link in the toolbar button's popup to the help page
 #, machine
@@ -7778,7 +7778,7 @@ extension	It shows no code now: click Pair a device there first.	它現在沒有
 #. text in the browser extension
 #. why a download stayed with the browser: it is a .torrent file and the app's Torrent settings don't open torrents with Mister Download Manager, so the browser keeps it for the user's own torrent program; keep the setting's name as the app shows it
 #, machine
-extension	It's a torrent, and Open magnet links and .torrent files with Mister Download Manager is off in Torrent settings.	這是 torrent 檔案，且「在 Torrent 設定中以 Mister Download Manager 開啟磁力連結和 .torrent 檔案」已關閉。
+extension	It's a torrent, and Open magnet links and .torrent files with VADM is off in Torrent settings.	這是 torrent 檔案，且「在 Torrent 設定中以 VADM 開啟磁力連結和 .torrent 檔案」已關閉。
 #. text in the browser extension
 #. why a download stayed with the browser: the file is smaller than the app's minimum size setting
 #, machine
@@ -7858,7 +7858,7 @@ extension	Looking up took too long	尋找耗時過久
 #. text in the browser extension
 #. on the download button (red) over a video when the app isn't installed or didn't start; 'Get MDM' and 'Retry' buttons follow; MDM is the app's short name, keep it; short
 #, machine
-extension	MDM didn't answer	MDM 沒有回應
+extension	VADM didn't answer	VADM 沒有回應
 #. text in the browser extension
 #. heading in the toolbar button's popup over the list of the videos, sounds and streams the current web page has loaded
 #, machine
@@ -7866,56 +7866,56 @@ extension	Media on this page	此頁面上的媒體
 #. text in the browser extension
 #. the extension's name in the browser's list of extensions and on its toolbar button; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager	Mister Download Manager
+extension	VADM	VADM
 #. text in the browser extension
 #. said briefly in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app didn't answer in time; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager didn't answer in time. Try again.	Mister Download Manager 未及時回應。請再試一次。
+extension	VADM didn't answer in time. Try again.	VADM 未及時回應。請再試一次。
 #. text in the browser extension
 #. status when the app was started for a download but didn't answer in time; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager didn't start in time	Mister Download Manager 未及時啟動
+extension	VADM didn't start in time	VADM 未及時啟動
 #. text in the browser extension
 #. status when the app refuses this copy of the extension (another copy is installed, or it came from another store); keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager doesn't accept this copy of the extension	Mister Download Manager 不接受此擴充功能副本
+extension	VADM doesn't accept this copy of the extension	VADM 不接受此擴充功能副本
 #. text in the browser extension
 #. in the menu under the download button over a video: the app is already looking up other videos and can't look this one up now; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager is busy with other videos	Mister Download Manager 正忙於處理其他影片
+extension	VADM is busy with other videos	VADM 正忙於處理其他影片
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app didn't answer in time; keep the name Mister Download Manager as it is
 #. the trailing ... means it is still going on: keep it
 #, machine
-extension	Mister Download Manager is busy. Trying again...	Mister Download Manager 忙碌中。正在重試...
+extension	VADM is busy. Trying again...	VADM 忙碌中。正在重試...
 #. text in the browser extension
 #. shown briefly on the download button when the app could not be reached; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't installed or didn't start	Mister Download Manager 未安裝或未啟動
+extension	VADM isn't installed or didn't start	VADM 未安裝或未啟動
 #. text in the browser extension
 #. status when the browser can't find the app's connection; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't installed, or its browser integration isn't set up	Mister Download Manager 未安裝，或其瀏覽器整合未設定
+extension	VADM isn't installed, or its browser integration isn't set up	VADM 未安裝，或其瀏覽器整合未設定
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't running	Mister Download Manager 未執行
+extension	VADM isn't running	VADM 未執行
 #. text in the browser extension
 #. said briefly in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't running.	Mister Download Manager 未執行。
+extension	VADM isn't running.	VADM 未執行。
 #. text in the browser extension
 #. in the menu under the download button over a video: the app needs the yt-dlp tool (a program's name, keep it as it is) to find this video's qualities, and it isn't installed; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager needs yt-dlp for this video	Mister Download Manager 需要 yt-dlp 才能處理此影片
+extension	VADM needs yt-dlp for this video	VADM 需要 yt-dlp 才能處理此影片
 #. text in the browser extension
 #. tooltip of the switch Send downloads through this browser's proxy or VPN extension; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager then downloads through the same proxy as this browser. The browser asks you once to allow it; turning this off takes that back.	Mister Download Manager 會透過此瀏覽器使用的相同 Proxy 進行下載。瀏覽器會要求您允許一次；關閉此選項會撤銷該權限。
+extension	VADM then downloads through the same proxy as this browser. The browser asks you once to allow it; turning this off takes that back.	VADM 會透過此瀏覽器使用的相同 Proxy 進行下載。瀏覽器會要求您允許一次；關閉此選項會撤銷該權限。
 #. text in the browser extension
 #. tooltip of the switch Send downloads through this browser's proxy or VPN extension in Chrome, Edge and the other Chromium browsers (they ask for no permission at the switch); keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager then downloads through the same proxy as this browser. While this is off, the extension doesn't read the browser's proxy.	Mister Download Manager 會透過與此瀏覽器相同的 Proxy 進行下載。關閉此選項時，擴充功能不會讀取瀏覽器的 Proxy。
+extension	VADM then downloads through the same proxy as this browser. While this is off, the extension doesn't read the browser's proxy.	VADM 會透過與此瀏覽器相同的 Proxy 進行下載。關閉此選項時，擴充功能不會讀取瀏覽器的 Proxy。
 #. text in the browser extension
 #. tooltip of the ⋯ button of a download in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads): opens its menu
 #, machine
@@ -7993,7 +7993,7 @@ extension	Open it	開啟它
 #. text in the browser extension
 #. help under the pairing boxes; Options, Remote and Pair a device are the app's window, tab and button; keep misterdownloadmanager-cli pair as it is
 #, machine
-extension	Open its address once and accept its certificate, then enter a code from its Options, Remote, Pair a device (or misterdownloadmanager-cli pair).	開啟其位址一次並接受其憑證，然後從其「選項」、「遠端」、「配對裝置」(或 misterdownloadmanager-cli pair) 輸入代碼。
+extension	Open its address once and accept its certificate, then enter a code from its Options, Remote, Pair a device (or vadm-cli pair).	開啟其位址一次並接受其憑證，然後從其「選項」、「遠端」、「配對裝置」(或 vadm-cli pair) 輸入代碼。
 #. text in the browser extension
 #. button at the foot of the Downloads tab in the toolbar button's popup when downloads go to another Mister Download Manager (a server): opens that server's own web page
 #, machine
@@ -8001,7 +8001,7 @@ extension	Open its page	開啟其頁面
 #. text in the browser extension
 #. button in the toolbar button's popup; keep the name Mister Download Manager as it is
 #, machine
-extension	Open Mister Download Manager	開啟 Mister Download Manager
+extension	Open VADM	開啟 VADM
 #. text in the browser extension
 #. button on the download button over a video in a feed: opens the post the video belongs to in a new tab; verb; very short
 #, machine
@@ -8017,7 +8017,7 @@ extension	Open {file}	開啟 {file}
 #. text in the browser extension
 #. the gear button at the top of in the toolbar button's popup: opens Mister Download Manager's Options window; keep the name Mister Download Manager as it is
 #, machine
-extension	Options in Mister Download Manager	Mister Download Manager 中的選項
+extension	Options in VADM	VADM 中的選項
 #. text in the browser extension
 #. button in the toolbar button's popup: open the app's Options
 #. the trailing ... means it is still going on: keep it
@@ -8124,7 +8124,7 @@ extension	Send to Link grabber	傳送至連結擷取器
 #. on the download button over a video right after it was clicked, while the download goes to the app; MDM is Mister Download Manager's short name, keep it as it is; short
 #. the trailing ... means it is still going on: keep it
 #, machine
-extension	Sending to MDM...	正在傳送至 MDM...
+extension	Sending to VADM...	正在傳送至 VADM...
 #. text in the browser extension
 #. under the extension's name in the toolbar button's popup: downloads go to another Mister Download Manager, a server, at this address; short
 #, machine
@@ -8136,7 +8136,7 @@ extension	Sent to Link grabber: tick the ones to download there.	已傳送至連
 #. text in the browser extension
 #. shown briefly on the download button after it was clicked; keep the name Mister Download Manager as it is
 #, machine
-extension	Sent to Mister Download Manager	已傳送至 Mister Download Manager
+extension	Sent to VADM	已傳送至 VADM
 #. text in the browser extension
 #. the toolbar button's status when the paired server does not answer
 #, machine
@@ -8192,7 +8192,7 @@ extension	Start it to see your downloads here.	啟動它以在此處查看您的
 #. text in the browser extension
 #. button in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Start Mister Download Manager	啟動 Mister Download Manager
+extension	Start VADM	啟動 VADM
 #. text in the browser extension
 #. a download's line in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when it has just started and nothing has come yet
 #. the trailing ... means it is still going on: keep it
@@ -8201,7 +8201,7 @@ extension	Starting...	正在啟動...
 #. text in the browser extension
 #. link at the foot of the toolbar button's popup to the creator's GitHub Sponsors page (MDM is free; this is an optional donation)
 #, machine
-extension	Support MDM	支援 MDM
+extension	Support VADM	支援 VADM
 #. text in the browser extension
 #. check box in the toolbar button's popup: on, downloads go to the app; off, the browser keeps them
 #, machine
@@ -8229,7 +8229,7 @@ extension	The Chrome Web Store's rules keep this copy of the add-on away from th
 #. text in the browser extension
 #. status when the connection to the app broke off (often security software blocking it); keep the name Mister Download Manager as it is
 #, machine
-extension	The connection to Mister Download Manager failed	與 Mister Download Manager 的連線失敗
+extension	The connection to VADM failed	與 VADM 的連線失敗
 #. text in the browser extension
 #. why a download stayed with the browser: the user limited the extension's access to web sites in the browser, so it can't pass the sign-in on
 #, machine
@@ -8241,7 +8241,7 @@ extension	The last download was left to the browser.	上次下載已留給瀏覽
 #. text in the browser extension
 #. under the list in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when there are more downloads than it shows; keep the name Mister Download Manager as it is
 #, machine
-extension	The newest {shown} of {total}. Mister Download Manager lists them all.	最新的 {shown} 個，共 {total} 個。Mister Download Manager 會列出所有項目。
+extension	The newest {shown} of {total}. VADM lists them all.	最新的 {shown} 個，共 {total} 個。VADM 會列出所有項目。
 #. text in the browser extension
 #. question in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) before the finished downloads are taken off the list
 #. {count} = a number (keep the braces as they are)
@@ -8250,7 +8250,7 @@ extension	The {count} finished downloads go off the list. Their files stay where
 #. text in the browser extension
 #. note at the top of the list in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when downloads go to another Mister Download Manager (a server): the buttons that need the file on this computer are not offered; keep the name Mister Download Manager as it is
 #, machine
-extension	These are the downloads of the Mister Download Manager at {server}. Open their files there.	這些是 {server} 上 Mister Download Manager 的下載項目。請在那裡開啟其檔案。
+extension	These are the downloads of the VADM at {server}. Open their files there.	這些是 {server} 上 VADM 的下載項目。請在那裡開啟其檔案。
 #. text in the browser extension
 #. why a download stayed with the browser: the app's Options don't capture downloads from this browser (its box is unticked in the list of browsers)
 #, machine
@@ -8299,11 +8299,11 @@ extension	Turn on	開啟
 #. under the extension's name in the toolbar button's popup: the app is older than the extension; keep the name Mister Download Manager as it is; short
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app is too old to list its downloads here; keep the name Mister Download Manager as it is
 #, machine
-extension	Update Mister Download Manager	更新 Mister Download Manager
+extension	Update VADM	更新 VADM
 #. text in the browser extension
 #. status when the app is older than the extension; keep the name Mister Download Manager as it is
 #, machine
-extension	Update Mister Download Manager to use everything this extension offers	更新 Mister Download Manager 以使用此擴充功能提供的所有功能
+extension	Update VADM to use everything this extension offers	更新 VADM 以使用此擴充功能提供的所有功能
 #. text in the browser extension
 #. why a download stayed with the browser: the app's setting 'Use advanced browser integration' is off; keep the setting's name as the app shows it
 #, machine
@@ -8323,7 +8323,7 @@ extension	Waiting	等候中
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app has no downloads; keep the name Mister Download Manager as it is
 #, machine
-extension	What you download with Mister Download Manager shows up here.	您使用 Mister Download Manager 下載的內容會顯示在這裡。
+extension	What you download with VADM shows up here.	您使用 VADM 下載的內容會顯示在這裡。
 #. text in the browser extension
 #. toolbar button's popup, Settings: second line under 'Download button over videos', saying what Reset puts back: the places the user dragged the button to, and the filters chosen in its menu, remembered per web site
 #, machine

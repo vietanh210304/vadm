@@ -102,9 +102,7 @@ impl Picker {
                     &p,
                     o.x + 12.0,
                     o.y + 20.0,
-                    crate::i18n::t(
-                        "Choose the language VADM shows its windows in:",
-                    ),
+                    crate::i18n::t("Choose the language VADM shows its windows in:"),
                     winui::TEXT(),
                     o.x + W - 12.0,
                     13.0,

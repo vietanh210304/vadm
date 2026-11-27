@@ -6272,10 +6272,7 @@ mod startup_tests {
         // Options before 0.5.0, and the installer's: the program alone, quoted.
         assert!(startup_outdated(&format!("\"{EXE}\""), exe));
         // Written by hand: unquoted, in another case, with other slashes.
-        assert!(startup_outdated(
-            r"c:\program files\vadm\VADM.EXE",
-            exe
-        ));
+        assert!(startup_outdated(r"c:\program files\vadm\VADM.EXE", exe));
         assert!(startup_outdated(
             &format!("\"{}\"", EXE.replace('\\', "/").to_uppercase()),
             exe
@@ -6285,10 +6282,7 @@ mod startup_tests {
         assert!(!startup_outdated(&format!("\"{EXE}\" /startup"), exe));
         assert!(!startup_outdated(&format!("\"{EXE}\" /STARTUP"), exe));
         // Another copy's (a portable one, a build elsewhere).
-        assert!(!startup_outdated(
-            r#""D:\vadm\vadm.exe""#,
-            exe
-        ));
+        assert!(!startup_outdated(r#""D:\vadm\vadm.exe""#, exe));
         assert!(!startup_outdated("", exe));
     }
 
@@ -6296,9 +6290,7 @@ mod startup_tests {
     #[test]
     fn the_installer_writes_the_same_entry() {
         let iss = include_str!("../../../tools/installer/vadm.iss");
-        assert!(iss.contains(
-            r#"ValueName: "VADM"; ValueData: """{app}\{#AppExe}"" /startup""#
-        ));
+        assert!(iss.contains(r#"ValueName: "VADM"; ValueData: """{app}\{#AppExe}"" /startup""#));
     }
 }
 

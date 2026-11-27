@@ -141,7 +141,7 @@ jobs:
         run: cargo clippy --workspace --all-targets ${{ env.TARGET_ARGS }} -- -D warnings
 
       - name: Tests
-        run: cargo test --workspace ${{ env.TARGET_ARGS }}
+        run: cargo test --workspace ${{ env.TARGET_ARGS }} -- --test-threads=4
 
       # Safari's extension (macOS): its native half relays to the helper from inside the
       # sandbox Safari makes it run in. Safari itself isn't needed.
@@ -186,8 +186,8 @@ jobs:
           python3 tools/extension/locales.py
           git diff --exit-code -- extension/_locales
 
-      # Chrome, Edge, Brave, Opera, Vivaldi (mdm-chromium.zip), Firefox (mdm-firefox.xpi) and
-      # the Chrome Web Store's copy (mdm-chrome-store.zip).
+      # Chrome, Edge, Brave, Opera, Vivaldi (vadm-chromium.zip), Firefox (vadm-firefox.xpi) and
+      # the Chrome Web Store's copy (vadm-chrome-store.zip).
       - name: Pack for every browser
         shell: pwsh
         run: ./tools/extension/pack.ps1
@@ -199,6 +199,6 @@ jobs:
         with:
           name: extension
           path: |
-            target/extension/mdm-chromium.zip
-            target/extension/mdm-firefox.xpi
-            target/extension/mdm-chrome-store.zip
+            target/extension/vadm-chromium.zip
+            target/extension/vadm-firefox.xpi
+            target/extension/vadm-chrome-store.zip

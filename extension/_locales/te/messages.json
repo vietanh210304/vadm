@@ -111,7 +111,7 @@
     "message": "సహాయం"
   },
   "popup_support": {
-    "message": "VADMకి మద్దతు ఇవ్వండి"
+    "message": "MDMకి మద్దతు ఇవ్వండి"
   },
   "popup_fix": {
     "message": "దీన్ని ఎలా పరిష్కరించాలి"
@@ -361,10 +361,10 @@
     "message": "ఉత్తమ నాణ్యతను డౌన్‌లోడ్ చేయండి"
   },
   "video_sending": {
-    "message": "VADMకు పంపుతోంది..."
+    "message": "MDMకు పంపుతోంది..."
   },
   "video_added": {
-    "message": "VADMకి జోడించబడింది"
+    "message": "MDMకి జోడించబడింది"
   },
   "video_show": {
     "message": "చూపించు"
@@ -373,7 +373,7 @@
     "message": "VADM స్పందించలేదు"
   },
   "video_get_mdm": {
-    "message": "VADMని పొందండి"
+    "message": "MDMని పొందండి"
   },
   "video_retry": {
     "message": "మళ్ళీ ప్రయత్నించండి"

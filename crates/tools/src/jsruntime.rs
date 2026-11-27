@@ -498,9 +498,7 @@ mod tests {
     fn yt_dlp_is_told_of_one_runtime() {
         let r = Runtime {
             kind: Kind::Node,
-            exe: PathBuf::from(
-                r"C:\Users\A B\AppData\Roaming\vadm\tools\node\26.13.1\node.exe",
-            ),
+            exe: PathBuf::from(r"C:\Users\A B\AppData\Roaming\vadm\tools\node\26.13.1\node.exe"),
             version: Some("26.13.1".into()),
             from: Origin::Own,
         };

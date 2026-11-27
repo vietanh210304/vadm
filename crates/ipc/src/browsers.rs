@@ -1446,10 +1446,7 @@ mod tests {
         // The AppImage's copy of the helper, whose AppImage was deleted.
         #[cfg(unix)]
         {
-            let copy = d
-                .path()
-                .join("browser-host")
-                .join("vadm-nmhost");
+            let copy = d.path().join("browser-host").join("vadm-nmhost");
             program(&copy);
             let image = d.path().join("VADM.AppImage");
             program(&image);

@@ -316,7 +316,10 @@ mod tests {
 
     #[test]
     fn file_names_from_either_kind_of_path() {
-        assert_eq!(super::file_name(r"C:\Program Files\VADM\vadm.exe"), "vadm.exe");
+        assert_eq!(
+            super::file_name(r"C:\Program Files\VADM\vadm.exe"),
+            "vadm.exe"
+        );
         assert_eq!(super::file_name("/usr/lib/libc.so.6"), "libc.so.6");
         assert_eq!(super::file_name("plain"), "plain");
     }

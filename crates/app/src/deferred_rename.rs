@@ -186,9 +186,7 @@ pub fn build_renamed_file_name(current_name: &str, desired_stem: &str, is_dir: b
 /// Whether `item`'s destination stands for a folder (gallery or files picked out of a ZIP) rather
 /// than a single file.
 pub fn is_folder_target(item: &Item) -> bool {
-    item.gallery.is_some()
-        || item.zip.is_some()
-        || item.dest.is_dir()
+    item.gallery.is_some() || item.zip.is_some() || item.dest.is_dir()
 }
 
 /// Whether two paths refer to the same existing file or folder (e.g. a case-only rename on a

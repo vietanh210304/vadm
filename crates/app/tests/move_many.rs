@@ -159,6 +159,8 @@ fn a_selection_moves_to_one_folder() {
         state["dest"].as_str().map(Path::new),
         Some(to.join("partial.bin").as_path())
     );
-    assert!(!dl.join("partial.bin.vadm.part").exists() && !dl.join("partial.bin.vadm.json").exists());
+    assert!(
+        !dl.join("partial.bin.vadm.part").exists() && !dl.join("partial.bin.vadm.json").exists()
+    );
     assert!(!dl.join("done-1.bin").exists());
 }

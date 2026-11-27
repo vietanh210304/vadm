@@ -65,10 +65,7 @@ pub fn main(args: Vec<String>) -> ExitCode {
         return ExitCode::FAILURE;
     }
     let Some(_instance) = mdm_ipc::instance_lock() else {
-        eprintln!(
-            "Another VADM uses the data folder {}.",
-            data.display()
-        );
+        eprintln!("Another VADM uses the data folder {}.", data.display());
         return ExitCode::FAILURE;
     };
     mdm_crash::logs::init(&data, mdm_crash::logs::APP);

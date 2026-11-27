@@ -44,10 +44,7 @@ pub const NEEDS: &[(&str, &str)] = &[
     ("cat-unfinished", "Categories: Unfinished"),
     ("cat-finished", "Categories: Finished"),
     ("cat-queues", "Categories: Queues"),
-    (
-        "cat-folder",
-        "A folder (a category of your own)",
-    ),
+    ("cat-folder", "A folder (a category of your own)"),
     ("cat-folder-open", "An open folder"),
     (
         "misc-emblem-ok",

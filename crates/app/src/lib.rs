@@ -540,11 +540,7 @@ fn app() -> eframe::Result {
     // must reach a logger that exists (#1489).
     if let Some(data) = mdm_ipc::data_dir() {
         mdm_crash::logs::init(&data, mdm_crash::logs::APP);
-        tracing::info!(
-            "VADM {} ({}) starting",
-            help::VERSION,
-            help::COMMIT
-        );
+        tracing::info!("VADM {} ({}) starting", help::VERSION, help::COMMIT);
     }
     // View → Font (#1489): the interface's own font and text size, apart from that zoom.
     theme::init_smooth_text(loaded.settings.smooth_text);

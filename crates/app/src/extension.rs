@@ -1444,14 +1444,8 @@ mod tests {
         let line = refused_line(&chrome);
         let unknown = refused_line(&Refused::default());
         println!("{line}\n{unknown}\n{}", refused_how());
-        assert_eq!(
-            line,
-            "macOS keeps VADM out of Google Chrome's folder."
-        );
-        assert_eq!(
-            unknown,
-            "macOS keeps VADM out of a browser's folder."
-        );
+        assert_eq!(line, "macOS keeps VADM out of Google Chrome's folder.");
+        assert_eq!(unknown, "macOS keeps VADM out of a browser's folder.");
         assert!(refused_how().contains("Privacy & Security → Full Disk Access"));
         let check = refused_check(&chrome);
         assert!(!check.ok && check.why == Some("not-installed") && check.how.is_some());

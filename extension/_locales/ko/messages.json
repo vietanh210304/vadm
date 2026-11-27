@@ -361,16 +361,16 @@
     "message": "최고 화질 다운로드"
   },
   "video_sending": {
-    "message": "VADM으로 보내는 중..."
+    "message": "MDM으로 보내는 중..."
   },
   "video_added": {
-    "message": "VADM에 추가됨"
+    "message": "MDM에 추가됨"
   },
   "video_show": {
     "message": "표시"
   },
   "video_no_answer": {
-    "message": "VADM이 응답하지 않음"
+    "message": "MDM이 응답하지 않음"
   },
   "video_get_mdm": {
     "message": "VADM 받기"

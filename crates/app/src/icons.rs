@@ -465,21 +465,18 @@ pub enum StatusIcon {
     Queued,
     /// Failed, or an archive its test found damaged.
     Error,
-    /// A finished torrent shared with peers.
-    Seeding,
     /// Every byte in, and being checked, joined, extracted or moved.
     Checking,
 }
 
 impl StatusIcon {
     #[cfg(test)]
-    pub const ALL: [StatusIcon; 7] = [
+    pub const ALL: [StatusIcon; 6] = [
         StatusIcon::Complete,
         StatusIcon::Downloading,
         StatusIcon::Paused,
         StatusIcon::Queued,
         StatusIcon::Error,
-        StatusIcon::Seeding,
         StatusIcon::Checking,
     ];
 
@@ -491,25 +488,24 @@ impl StatusIcon {
             StatusIcon::Paused => "st-paused",
             StatusIcon::Queued => "st-queued",
             StatusIcon::Error => "st-error",
-            StatusIcon::Seeding => "st-seeding",
             StatusIcon::Checking => "st-checking",
         }
     }
 
-    /// MDM's own icon's colour in the active theme: done in the success colour, failed in the
+    /// VADM's own icon's colour in the active theme: done in the success colour, failed in the
     /// error colour (as the failed row's text), under way in the accent, stopped and waiting in
     /// the secondary text's grey.
     pub fn ink(self) -> egui::Color32 {
         let c = crate::theme::colors();
         match self {
-            StatusIcon::Complete | StatusIcon::Seeding => c.success,
+            StatusIcon::Complete => c.success,
             StatusIcon::Error => c.error,
             StatusIcon::Downloading | StatusIcon::Checking => c.accent,
             StatusIcon::Paused | StatusIcon::Queued => c.muted,
         }
     }
 
-    /// Lucide's circle-check, circle-arrow-down, circle-pause, clock, circle-x, circle-arrow-up
+    /// Lucide's circle-check, circle-arrow-down, circle-pause, clock, circle-x,
     /// and circle-ellipsis: one family, a circle with what happens inside.
     fn body(self) -> &'static str {
         match self {
@@ -522,9 +518,6 @@ impl StatusIcon {
             }
             StatusIcon::Queued => r#"<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>"#,
             StatusIcon::Error => CIRCLE_X,
-            StatusIcon::Seeding => {
-                r#"<circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4"/><path d="M12 16V8"/>"#
-            }
             StatusIcon::Checking => CIRCLE_ELLIPSIS,
         }
     }

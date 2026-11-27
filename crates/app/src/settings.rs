@@ -561,6 +561,8 @@ pub struct Settings {
     pub cnl_on: bool,
     /// Click'n'Load: the sites asked about, each allowed (true) or blocked, by host.
     pub cnl_sites: Vec<(String, bool)>,
+    /// Options → File types: open downloaded .torrent files automatically with the default torrent client.
+    pub auto_open_torrent: bool,
 }
 
 /// Options → File types defaults (IDM 6.42), shared with the browser host (mdm_ipc::capture).
@@ -730,6 +732,7 @@ impl Default for Settings {
             grabber_types: String::new(),
             cnl_on: false,
             cnl_sites: Vec::new(),
+            auto_open_torrent: true,
         }
     }
 }

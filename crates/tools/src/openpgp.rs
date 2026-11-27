@@ -782,22 +782,23 @@ mod tests {
             .collect()
     }
 
-    /// 2026-11-01, when the pinned keys were checked.
+    /// 2026-11-01, when the upstream pinned keys were checked, and 2026-11-27 for VADM's key.
     const NOV_2026: u32 = 1_793_491_200;
+    const NOV_2026_VADM: u32 = 1_795_800_000;
 
     #[test]
     fn the_pinned_keys_have_the_fingerprints_we_expect() {
-        let fingerprint = |armored| {
-            let keys = signers(armored, NOV_2026);
+        let fingerprint = |armored, when| {
+            let keys = signers(armored, when);
             assert_eq!(keys.len(), 1);
             keys[0].clone()
         };
         assert_eq!(
-            fingerprint(MDM_KEY),
-            "5826D399249DE856EA087D802E293C28E8A69D74"
+            fingerprint(MDM_KEY, NOV_2026_VADM),
+            "A912F4D34D040D79ED0B961D9A41D190B1EE2CEB"
         );
         assert_eq!(
-            fingerprint(YTDLP_KEY),
+            fingerprint(YTDLP_KEY, NOV_2026),
             "AC0CBBE6848D6A873464AF4E57CF65933B5A7581"
         );
     }

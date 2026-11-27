@@ -2968,9 +2968,7 @@ async fn run_resume(
         && (saved.asked_as_own || crate::agent::own_for(&saved.url))
         && let Some(own) = own_agent(&opts, &headers)
     {
-        shared.event(
-            "Going on under VADM's own name, as the site's bot check asked",
-        );
+        shared.event("Going on under VADM's own name, as the site's bot check asked");
         opts = speaking_own(&opts, own);
     }
     // #1660: its host refused the link over one IP family and answered over the other: this
@@ -3906,9 +3904,7 @@ impl FirstAsk<'_> {
             Err(e) if agent_refused(&e) && opts.agent_fallback.is_some() => {
                 // #372: the rest of the download goes as MDM too.
                 opts.user_agent = opts.agent_fallback.take().unwrap_or_default();
-                shared.event(
-                    "The server refused the browser's User-Agent; asking as VADM",
-                );
+                shared.event("The server refused the browser's User-Agent; asking as VADM");
                 let client1 = client(opts, url, self.as_get, self.seen)?;
                 let (first, by) = noting_refuser(first_get(
                     &client1, url, headers, opts, expects, shared, cancel,

@@ -348,23 +348,17 @@ fn explain(answer: Result<String, String>) -> Result<String, String> {
     let answer = answer.map_err(|e| format!("{NOT_RUNNING} ({e})"))?;
     match answer.as_str() {
         "timeout" => {
-            return Err(
-                "VADM didn't answer in time (a dialog may be open \
+            return Err("VADM didn't answer in time (a dialog may be open \
                         in it); try again."
-                    .into(),
-            );
+                .into());
         }
         "denied" => {
-            return Err(
-                "VADM refused the request: its channel file \
+            return Err("VADM refused the request: its channel file \
                         (ipc.json) is from another start. Ask the user to restart the app."
-                    .into(),
-            );
+                .into());
         }
         "gone" => {
-            return Err(
-                "VADM is closing; try again once it has started.".into(),
-            );
+            return Err("VADM is closing; try again once it has started.".into());
         }
         // The channel itself, not an answer: more connections than it takes at once, or a
         // request over its line limit. Neither is a success.

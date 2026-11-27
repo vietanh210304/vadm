@@ -846,7 +846,11 @@ pub(crate) fn spinner(ui: &Ui, center: Pos2, radius: f32) {
         })
         .collect();
     let p = ui.painter();
-    p.circle_stroke(center, radius, Stroke::new(2.0, crate::theme::colors().table_line));
+    p.circle_stroke(
+        center,
+        radius,
+        Stroke::new(2.0, crate::theme::colors().table_line),
+    );
     p.line(points, Stroke::new(2.0, accent()));
     ui.ctx().request_repaint();
 }

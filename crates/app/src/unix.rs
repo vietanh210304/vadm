@@ -3936,11 +3936,7 @@ pub fn mark_downloaded(path: &Path, url: &str, referrer: Option<&str>) {
         let now = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .map_or(0, |d| d.as_secs());
-        set_xattr(
-            path,
-            "com.apple.quarantine",
-            &format!("0081;{now:x};VADM;"),
-        );
+        set_xattr(path, "com.apple.quarantine", &format!("0081;{now:x};VADM;"));
         let _ = url;
     }
     #[cfg(not(target_os = "macos"))]
@@ -5334,8 +5330,7 @@ mod host_copy_tests {
             std::fs::create_dir_all(d).unwrap();
         }
         let write = |dir: &Path, path: &Path| {
-            let json =
-                serde_json::json!({ "name": "com.vadm.host", "path": path });
+            let json = serde_json::json!({ "name": "com.vadm.host", "path": path });
             std::fs::write(dir.join(MANIFEST), json.to_string()).unwrap();
         };
         let dirs = || vec![(a.clone(), Family::Chromium), (b.clone(), Family::Gecko)];
@@ -5601,9 +5596,11 @@ mod startup_tests {
         let desktop = startup_entry(Path::new("/opt/vadm/vadm"), false);
         assert!(desktop.contains("Exec=\"/opt/vadm/vadm\" /startup\n"));
         let plist = startup_entry(Path::new("/opt/vadm/vadm"), true);
-        assert!(plist.contains(
-            "<array><string>/opt/vadm/vadm</string><string>/startup</string></array>"
-        ));
+        assert!(
+            plist.contains(
+                "<array><string>/opt/vadm/vadm</string><string>/startup</string></array>"
+            )
+        );
     }
 
     /// An entry of a version before 0.5.0 for this program is written again; another copy's is not.
@@ -5652,13 +5649,7 @@ mod startup_tests {
     fn a_link_to_this_program_is_this_program() {
         let exe = "/opt/vadm/vadm";
         let text = startup_entry(Path::new("/usr/bin/vadm"), false);
-        let links = |p: &str| {
-            Some(PathBuf::from(if p == "/usr/bin/vadm" {
-                exe
-            } else {
-                p
-            }))
-        };
+        let links = |p: &str| Some(PathBuf::from(if p == "/usr/bin/vadm" { exe } else { p }));
         assert_eq!(
             startup_state(&text, Path::new(exe), false, links),
             StartupState::Ours
@@ -5709,7 +5700,9 @@ mod startup_tests {
     #[test]
     fn a_replaced_programs_path_is_where_its_new_file_is() {
         assert_eq!(
-            present(PathBuf::from(format!("/nowhere/vadm-test-program{DELETED}"))),
+            present(PathBuf::from(format!(
+                "/nowhere/vadm-test-program{DELETED}"
+            ))),
             PathBuf::from("/nowhere/vadm-test-program")
         );
         assert_eq!(
@@ -6187,10 +6180,7 @@ pub fn keep_awake(reason: Option<&str>) -> bool {
             "/org/freedesktop/login1",
             "org.freedesktop.login1.Manager",
         )?;
-        logind.call(
-            "Inhibit",
-            &("sleep", "VADM", reason, "block"),
-        )
+        logind.call("Inhibit", &("sleep", "VADM", reason, "block"))
     };
     match take() {
         Ok(fd) => {

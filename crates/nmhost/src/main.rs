@@ -1237,11 +1237,7 @@ fn deliver(cmd: &mdm_ipc::Command) -> Result<(), Undelivered> {
     // written next to this copy.
     let app = match std::fs::read_to_string(dir.join("app-path")) {
         Ok(path) if !path.trim().is_empty() => PathBuf::from(path.trim()),
-        _ => dir.join(if cfg!(windows) {
-            "vadm.exe"
-        } else {
-            "vadm"
-        }),
+        _ => dir.join(if cfg!(windows) { "vadm.exe" } else { "vadm" }),
     };
     let safari = SAFARI.load(std::sync::atomic::Ordering::Relaxed);
     let mut child = if safari {
@@ -1281,9 +1277,7 @@ fn deliver(cmd: &mdm_ipc::Command) -> Result<(), Undelivered> {
             break;
         }
     }
-    Err(Undelivered::NotRunning(
-        "VADM did not start".into(),
-    ))
+    Err(Undelivered::NotRunning("VADM did not start".into()))
 }
 
 /// Start the app outside the browser's reach: browsers end a host's whole process tree (on
@@ -1798,9 +1792,7 @@ fn main() {
         // Browsers start the host naming the caller: serve only our own extension (the
         // manifests' allowed_origins / allowed_extensions say the same; this is a second check).
         _ if our_caller(&args) => serve().map_err(|e| e.to_string()),
-        _ => Err(format!(
-            "refusing caller {args:?}: not the VADM extension"
-        )),
+        _ => Err(format!("refusing caller {args:?}: not the VADM extension")),
     };
     if let Err(e) = result {
         eprintln!("vadm-nmhost: {e}");
@@ -3069,10 +3061,7 @@ mod tests {
         assert_eq!(c.referer.as_deref(), Some("https://x/"));
         assert_eq!(c.cookies.as_deref(), Some("a=1"));
         assert_eq!(c.user_agent.as_deref(), Some("UA"));
-        assert_eq!(
-            c.name, None,
-            "empty filename means: let VADM decide"
-        );
+        assert_eq!(c.name, None, "empty filename means: let VADM decide");
         assert!(!c.later && !c.silent);
         assert_eq!((c.proxy, c.proxy_pac, c.proxy_login), (None, None, false));
         assert_eq!(c.video_title, None);

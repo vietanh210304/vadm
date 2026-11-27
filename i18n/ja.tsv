@@ -7484,7 +7484,7 @@ column	Upload speed	アップロード速度
 #. text in the browser extension
 #. in the menu under the download button over a video: the page is a list of videos (a playlist), whose videos are chosen in the app's window; keep the name Mister Download Manager as it is
 #, machine
-extension	A list of videos: choose them in Mister Download Manager	動画の一覧: Mister Download Manager で選択してください
+extension	A list of videos: choose them in VADM	動画の一覧: VADM で選択してください
 #. text in the browser extension
 #. link after popup_by_hand_firefox in the toolbar button's popup: opens the add-on's page on addons.mozilla.org (Firefox's add-ons store), whose copy Firefox keeps and updates; keep addons.mozilla.org as it is
 #, machine
@@ -7496,7 +7496,7 @@ extension	Add it from the Chrome Web Store	Chrome Web Store から追加
 #. text in the browser extension
 #. on the download button (green) over a video after the app added and started the download; a quality may follow ('· 1080p') and a 'Show' button; MDM is the app's short name, keep it; short
 #, machine
-extension	Added to MDM	MDM に追加済み
+extension	Added to VADM	VADM に追加済み
 #. text in the browser extension
 #. shown briefly on the download button over a video after a quality was picked: the download was added to the app's download queue, to start later
 #, machine
@@ -7514,7 +7514,7 @@ extension	All qualities and subtitles...	すべての画質と字幕...
 #. text in the browser extension
 #. choice under Send downloads to: an MDM running on another computer of the network, such as a home server; keep the name Mister Download Manager as it is
 #, machine
-extension	Another Mister Download Manager (a server)	別の Mister Download Manager (サーバー)
+extension	Another VADM (a server)	別の VADM (サーバー)
 #. text in the browser extension
 #. tab above the list of qualities in the menu under the download button over a video: the choices that are sound only (MP3, Opus and the like); short, one word
 #, machine
@@ -7547,11 +7547,11 @@ extension	can't be saved	保存できません
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the browser can't reach the app (why is said below it); keep the name Mister Download Manager as it is
 #, machine
-extension	Can't reach Mister Download Manager	Mister Download Manager に到達できません
+extension	Can't reach VADM	VADM に到達できません
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the other Mister Download Manager (a server) doesn't answer; keep the name Mister Download Manager as it is
 #, machine
-extension	Can't reach the Mister Download Manager at {server}	{server} の Mister Download Manager に到達できません
+extension	Can't reach the VADM at {server}	{server} の VADM に到達できません
 #. text in the browser extension
 #. shown briefly on the download button when nothing on the page says which video the player is playing, so nothing was sent
 #, machine
@@ -7587,12 +7587,12 @@ extension	Connected	接続済み
 #. text in the browser extension
 #. the toolbar button's status when the browser reaches the app; keep the name Mister Download Manager as it is
 #, machine
-extension	Connected to Mister Download Manager	Mister Download Manager に接続済み
+extension	Connected to VADM	VADM に接続済み
 #. text in the browser extension
 #. the toolbar button's status when the browser reaches the app, with the app's version number; keep the name Mister Download Manager as it is
 #. {version} = a version number (keep the braces as they are)
 #, machine
-extension	Connected to Mister Download Manager {version}	Mister Download Manager {version} に接続済み
+extension	Connected to VADM {version}	VADM {version} に接続済み
 #. text in the browser extension
 #. under the extension's name in the toolbar button's popup: the browser reaches the app; its version follows; short
 #. {version} = a version number (keep the braces as they are)
@@ -7648,7 +7648,7 @@ extension	Download again	もう一度ダウンロード
 #. text in the browser extension
 #. command in the browser's right-click menu on a page: download the links of the whole page; keep the name Mister Download Manager as it is
 #, machine
-extension	Download all links with Mister Download Manager	Mister Download Manager で全リンクをダウンロード
+extension	Download all links with VADM	VADM で全リンクをダウンロード
 #. text in the browser extension
 #. first line of the list under the download button over a video: downloads the best quality at once; the quality, its file type and size follow on the same line; short
 #, machine
@@ -7660,7 +7660,7 @@ extension	Download button over videos	動画上のダウンロード ボタン
 #. text in the browser extension
 #. command in the browser's right-click menu on selected text: download the links in the selection; keep the name Mister Download Manager as it is
 #, machine
-extension	Download selected links with Mister Download Manager	Mister Download Manager で選択したリンクをダウンロード
+extension	Download selected links with VADM	VADM で選択したリンクをダウンロード
 #. text in the browser extension
 #. first line of the tooltip of the download button over a video while the app is still finding its qualities
 #, machine
@@ -7672,7 +7672,7 @@ extension	Download video	動画をダウンロード
 #. text in the browser extension
 #. command in the browser's right-click menu on a link, picture, video or sound; keep the name Mister Download Manager as it is
 #, machine
-extension	Download with Mister Download Manager	Mister Download Manager でダウンロード
+extension	Download with VADM	VADM でダウンロード
 #. text in the browser extension
 #. first line of the tooltip of the download button over a video: what one click downloads; $what$ is a quality, a file type and a size, e.g. '1080p MP4 · 412 MB'
 #, machine
@@ -7743,11 +7743,11 @@ extension	Forget	削除
 #. text in the browser extension
 #. button on the download button over a video when the app didn't answer: opens the app's download page; MDM is the app's short name, keep it; very short
 #, machine
-extension	Get MDM	MDM を入手
+extension	Get VADM	VADM を入手
 #. text in the browser extension
 #. the extension's description in the browser's list of extensions; keep the name Mister Download Manager as it is
 #, machine
-extension	Hands downloads from the browser to Mister Download Manager.	ブラウザーから Mister Download Manager にダウンロードを渡します。
+extension	Hands downloads from the browser to VADM.	ブラウザーから VADM にダウンロードを渡します。
 #. text in the browser extension
 #. link in the toolbar button's popup to the help page
 #, machine
@@ -7787,7 +7787,7 @@ extension	It shows no code now: click Pair a device there first.	現在コード
 #. text in the browser extension
 #. why a download stayed with the browser: it is a .torrent file and the app's Torrent settings don't open torrents with Mister Download Manager, so the browser keeps it for the user's own torrent program; keep the setting's name as the app shows it
 #, machine
-extension	It's a torrent, and Open magnet links and .torrent files with Mister Download Manager is off in Torrent settings.	これはトレントであり、トレント設定で「マグネット リンクと .torrent ファイルを Mister Download Manager で開く」がオフになっています。
+extension	It's a torrent, and Open magnet links and .torrent files with VADM is off in Torrent settings.	これはトレントであり、トレント設定で「マグネット リンクと .torrent ファイルを VADM で開く」がオフになっています。
 #. text in the browser extension
 #. why a download stayed with the browser: the file is smaller than the app's minimum size setting
 #, machine
@@ -7867,7 +7867,7 @@ extension	Looking up took too long	検索に時間がかかりすぎました
 #. text in the browser extension
 #. on the download button (red) over a video when the app isn't installed or didn't start; 'Get MDM' and 'Retry' buttons follow; MDM is the app's short name, keep it; short
 #, machine
-extension	MDM didn't answer	MDM が応答しません
+extension	VADM didn't answer	VADM が応答しません
 #. text in the browser extension
 #. heading in the toolbar button's popup over the list of the videos, sounds and streams the current web page has loaded
 #, machine
@@ -7875,56 +7875,56 @@ extension	Media on this page	このページのメディア
 #. text in the browser extension
 #. the extension's name in the browser's list of extensions and on its toolbar button; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager	Mister Download Manager
+extension	VADM	VADM
 #. text in the browser extension
 #. said briefly in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app didn't answer in time; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager didn't answer in time. Try again.	Mister Download Manager から時間内に応答がありませんでした。もう一度お試しください。
+extension	VADM didn't answer in time. Try again.	VADM から時間内に応答がありませんでした。もう一度お試しください。
 #. text in the browser extension
 #. status when the app was started for a download but didn't answer in time; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager didn't start in time	Mister Download Manager が時間内に起動しませんでした
+extension	VADM didn't start in time	VADM が時間内に起動しませんでした
 #. text in the browser extension
 #. status when the app refuses this copy of the extension (another copy is installed, or it came from another store); keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager doesn't accept this copy of the extension	Mister Download Manager はこの拡張機能のコピーを受け入れません
+extension	VADM doesn't accept this copy of the extension	VADM はこの拡張機能のコピーを受け入れません
 #. text in the browser extension
 #. in the menu under the download button over a video: the app is already looking up other videos and can't look this one up now; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager is busy with other videos	Mister Download Manager は他の動画の処理中です
+extension	VADM is busy with other videos	VADM は他の動画の処理中です
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app didn't answer in time; keep the name Mister Download Manager as it is
 #. the trailing ... means it is still going on: keep it
 #, machine
-extension	Mister Download Manager is busy. Trying again...	Mister Download Manager は応答していません。再試行しています...
+extension	VADM is busy. Trying again...	VADM は応答していません。再試行しています...
 #. text in the browser extension
 #. shown briefly on the download button when the app could not be reached; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't installed or didn't start	Mister Download Manager がインストールされていないか、起動していません
+extension	VADM isn't installed or didn't start	VADM がインストールされていないか、起動していません
 #. text in the browser extension
 #. status when the browser can't find the app's connection; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't installed, or its browser integration isn't set up	Mister Download Manager がインストールされていないか、ブラウザー統合が設定されていません
+extension	VADM isn't installed, or its browser integration isn't set up	VADM がインストールされていないか、ブラウザー統合が設定されていません
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't running	Mister Download Manager は実行されていません
+extension	VADM isn't running	VADM は実行されていません
 #. text in the browser extension
 #. said briefly in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager isn't running.	Mister Download Manager は実行されていません。
+extension	VADM isn't running.	VADM は実行されていません。
 #. text in the browser extension
 #. in the menu under the download button over a video: the app needs the yt-dlp tool (a program's name, keep it as it is) to find this video's qualities, and it isn't installed; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager needs yt-dlp for this video	この動画には Mister Download Manager に yt-dlp が必要です
+extension	VADM needs yt-dlp for this video	この動画には VADM に yt-dlp が必要です
 #. text in the browser extension
 #. tooltip of the switch Send downloads through this browser's proxy or VPN extension; keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager then downloads through the same proxy as this browser. The browser asks you once to allow it; turning this off takes that back.	Mister Download Manager は、このブラウザーと同じプロキシ経由でダウンロードします。ブラウザーは一度だけ許可を求めます。これをオフにすると、その許可は取り消されます。
+extension	VADM then downloads through the same proxy as this browser. The browser asks you once to allow it; turning this off takes that back.	VADM は、このブラウザーと同じプロキシ経由でダウンロードします。ブラウザーは一度だけ許可を求めます。これをオフにすると、その許可は取り消されます。
 #. text in the browser extension
 #. tooltip of the switch Send downloads through this browser's proxy or VPN extension in Chrome, Edge and the other Chromium browsers (they ask for no permission at the switch); keep the name Mister Download Manager as it is
 #, machine
-extension	Mister Download Manager then downloads through the same proxy as this browser. While this is off, the extension doesn't read the browser's proxy.	Mister Download Manager は、このブラウザーと同じプロキシ経由でダウンロードします。これがオフの場合、拡張機能はブラウザーのプロキシを読み取りません。
+extension	VADM then downloads through the same proxy as this browser. While this is off, the extension doesn't read the browser's proxy.	VADM は、このブラウザーと同じプロキシ経由でダウンロードします。これがオフの場合、拡張機能はブラウザーのプロキシを読み取りません。
 #. text in the browser extension
 #. tooltip of the ⋯ button of a download in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads): opens its menu
 #, machine
@@ -8002,7 +8002,7 @@ extension	Open it	開く
 #. text in the browser extension
 #. help under the pairing boxes; Options, Remote and Pair a device are the app's window, tab and button; keep misterdownloadmanager-cli pair as it is
 #, machine
-extension	Open its address once and accept its certificate, then enter a code from its Options, Remote, Pair a device (or misterdownloadmanager-cli pair).	一度アドレスを開いて証明書を承認し、そのオプション、リモート、デバイスのペアリング (または misterdownloadmanager-cli pair) からコードを入力してください。
+extension	Open its address once and accept its certificate, then enter a code from its Options, Remote, Pair a device (or vadm-cli pair).	一度アドレスを開いて証明書を承認し、そのオプション、リモート、デバイスのペアリング (または vadm-cli pair) からコードを入力してください。
 #. text in the browser extension
 #. button at the foot of the Downloads tab in the toolbar button's popup when downloads go to another Mister Download Manager (a server): opens that server's own web page
 #, machine
@@ -8010,7 +8010,7 @@ extension	Open its page	そのページを開く
 #. text in the browser extension
 #. button in the toolbar button's popup; keep the name Mister Download Manager as it is
 #, machine
-extension	Open Mister Download Manager	Mister Download Manager を開く
+extension	Open VADM	VADM を開く
 #. text in the browser extension
 #. button on the download button over a video in a feed: opens the post the video belongs to in a new tab; verb; very short
 #, machine
@@ -8026,7 +8026,7 @@ extension	Open {file}	{file} を開く
 #. text in the browser extension
 #. the gear button at the top of in the toolbar button's popup: opens Mister Download Manager's Options window; keep the name Mister Download Manager as it is
 #, machine
-extension	Options in Mister Download Manager	Mister Download Manager のオプション
+extension	Options in VADM	VADM のオプション
 #. text in the browser extension
 #. button in the toolbar button's popup: open the app's Options
 #. the trailing ... means it is still going on: keep it
@@ -8133,7 +8133,7 @@ extension	Send to Link grabber	リンク グラバーに送信
 #. on the download button over a video right after it was clicked, while the download goes to the app; MDM is Mister Download Manager's short name, keep it as it is; short
 #. the trailing ... means it is still going on: keep it
 #, machine
-extension	Sending to MDM...	MDM に送信しています...
+extension	Sending to VADM...	VADM に送信しています...
 #. text in the browser extension
 #. under the extension's name in the toolbar button's popup: downloads go to another Mister Download Manager, a server, at this address; short
 #, machine
@@ -8145,7 +8145,7 @@ extension	Sent to Link grabber: tick the ones to download there.	リンク グ�
 #. text in the browser extension
 #. shown briefly on the download button after it was clicked; keep the name Mister Download Manager as it is
 #, machine
-extension	Sent to Mister Download Manager	Mister Download Manager に送信済み
+extension	Sent to VADM	VADM に送信済み
 #. text in the browser extension
 #. the toolbar button's status when the paired server does not answer
 #, machine
@@ -8201,7 +8201,7 @@ extension	Start it to see your downloads here.	ここでダウンロードを確
 #. text in the browser extension
 #. button in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app isn't running; keep the name Mister Download Manager as it is
 #, machine
-extension	Start Mister Download Manager	Mister Download Manager を起動
+extension	Start VADM	VADM を起動
 #. text in the browser extension
 #. a download's line in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when it has just started and nothing has come yet
 #. the trailing ... means it is still going on: keep it
@@ -8210,7 +8210,7 @@ extension	Starting...	開始中...
 #. text in the browser extension
 #. link at the foot of the toolbar button's popup to the creator's GitHub Sponsors page (MDM is free; this is an optional donation)
 #, machine
-extension	Support MDM	MDM をサポート
+extension	Support VADM	VADM をサポート
 #. text in the browser extension
 #. check box in the toolbar button's popup: on, downloads go to the app; off, the browser keeps them
 #, machine
@@ -8238,7 +8238,7 @@ extension	The Chrome Web Store's rules keep this copy of the add-on away from th
 #. text in the browser extension
 #. status when the connection to the app broke off (often security software blocking it); keep the name Mister Download Manager as it is
 #, machine
-extension	The connection to Mister Download Manager failed	Mister Download Manager への接続に失敗しました
+extension	The connection to VADM failed	VADM への接続に失敗しました
 #. text in the browser extension
 #. why a download stayed with the browser: the user limited the extension's access to web sites in the browser, so it can't pass the sign-in on
 #, machine
@@ -8250,7 +8250,7 @@ extension	The last download was left to the browser.	前回のダウンロード
 #. text in the browser extension
 #. under the list in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when there are more downloads than it shows; keep the name Mister Download Manager as it is
 #, machine
-extension	The newest {shown} of {total}. Mister Download Manager lists them all.	{total} 件中 {shown} 件の最新のダウンロード。すべて Mister Download Manager に一覧表示されます。
+extension	The newest {shown} of {total}. VADM lists them all.	{total} 件中 {shown} 件の最新のダウンロード。すべて VADM に一覧表示されます。
 #. text in the browser extension
 #. question in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) before the finished downloads are taken off the list
 #. {count} = a number (keep the braces as they are)
@@ -8259,7 +8259,7 @@ extension	The {count} finished downloads go off the list. Their files stay where
 #. text in the browser extension
 #. note at the top of the list in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when downloads go to another Mister Download Manager (a server): the buttons that need the file on this computer are not offered; keep the name Mister Download Manager as it is
 #, machine
-extension	These are the downloads of the Mister Download Manager at {server}. Open their files there.	これらは {server} にある Mister Download Manager のダウンロードです。ファイルはそちらで開いてください。
+extension	These are the downloads of the VADM at {server}. Open their files there.	これらは {server} にある VADM のダウンロードです。ファイルはそちらで開いてください。
 #. text in the browser extension
 #. why a download stayed with the browser: the app's Options don't capture downloads from this browser (its box is unticked in the list of browsers)
 #, machine
@@ -8308,11 +8308,11 @@ extension	Turn on	オンにする
 #. under the extension's name in the toolbar button's popup: the app is older than the extension; keep the name Mister Download Manager as it is; short
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app is too old to list its downloads here; keep the name Mister Download Manager as it is
 #, machine
-extension	Update Mister Download Manager	Mister Download Manager を更新
+extension	Update VADM	VADM を更新
 #. text in the browser extension
 #. status when the app is older than the extension; keep the name Mister Download Manager as it is
 #, machine
-extension	Update Mister Download Manager to use everything this extension offers	この拡張機能のすべての機能を使用するには、Mister Download Manager を更新してください
+extension	Update VADM to use everything this extension offers	この拡張機能のすべての機能を使用するには、VADM を更新してください
 #. text in the browser extension
 #. why a download stayed with the browser: the app's setting 'Use advanced browser integration' is off; keep the setting's name as the app shows it
 #, machine
@@ -8332,7 +8332,7 @@ extension	Waiting	待機中
 #. text in the browser extension
 #. in the Downloads tab of the toolbar button's popup (the list of Mister Download Manager's newest downloads) when the app has no downloads; keep the name Mister Download Manager as it is
 #, machine
-extension	What you download with Mister Download Manager shows up here.	Mister Download Manager でダウンロードしたものがここに表示されます。
+extension	What you download with VADM shows up here.	VADM でダウンロードしたものがここに表示されます。
 #. text in the browser extension
 #. toolbar button's popup, Settings: second line under 'Download button over videos', saying what Reset puts back: the places the user dragged the button to, and the filters chosen in its menu, remembered per web site
 #, machine

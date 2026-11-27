@@ -611,8 +611,7 @@ impl std::error::Error for Reported {}
 /// Ask the running app (automation API) and print its answer, which is JSON already; an
 /// `{"error"}` answer fails the command.
 fn ask(cmd: mdm_ipc::Command) -> anyhow::Result<()> {
-    let answer = mdm_ipc::request(&cmd)
-        .map_err(|e| anyhow::anyhow!("VADM isn't running ({e})"))?;
+    let answer = mdm_ipc::request(&cmd).map_err(|e| anyhow::anyhow!("VADM isn't running ({e})"))?;
     println!("{answer}");
     if serde_json::from_str::<mdm_ipc::api::ErrorAnswer>(&answer).is_ok() {
         return Err(Reported.into());
@@ -3239,8 +3238,7 @@ mod tests {
         assert!(matches!(cli.cmd, Cmd::Pair));
         assert!(!cli.json);
 
-        let cli_json =
-            Cli::try_parse_from(["vadm-cli", "--json", "pair"]).unwrap();
+        let cli_json = Cli::try_parse_from(["vadm-cli", "--json", "pair"]).unwrap();
         assert!(matches!(cli_json.cmd, Cmd::Pair));
         assert!(cli_json.json);
     }

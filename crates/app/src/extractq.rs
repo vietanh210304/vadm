@@ -148,9 +148,7 @@ impl Extracts {
     /// Right-click → Extract (or a download finishing): queue `item`'s archive. Extract
     /// (`by_hand`) tries again an archive already extracted.
     pub fn offer(&mut self, item: &Item, items: &[Item], settings: &Settings, by_hand: bool) {
-        if item.status != Status::Complete
-            || item.video.is_some()
-            || !archive_name(&item.file_name)
+        if item.status != Status::Complete || item.video.is_some() || !archive_name(&item.file_name)
         {
             return;
         }

@@ -694,17 +694,12 @@ Connection: close
 
     #[test]
     fn bundles_on_a_mac() {
-        let exe = Path::new(
-            "/Applications/VADM.app/Contents/MacOS/vadm",
-        );
+        let exe = Path::new("/Applications/VADM.app/Contents/MacOS/vadm");
         assert_eq!(
             app_bundle(exe).as_deref(),
             Some(Path::new("/Applications/VADM.app"))
         );
-        assert_eq!(
-            app_bundle(Path::new("/usr/bin/vadm")),
-            None
-        );
+        assert_eq!(app_bundle(Path::new("/usr/bin/vadm")), None);
     }
 
     #[test]
@@ -747,8 +742,7 @@ Connection: close
         let zip_path = root.path().join("r.zip");
         let mut w = zip::ZipWriter::new(std::fs::File::create(&zip_path).unwrap());
         let opts = zip::write::SimpleFileOptions::default();
-        w.start_file("VADM-9.9.9-x64/vadm.exe", opts)
-            .unwrap();
+        w.start_file("VADM-9.9.9-x64/vadm.exe", opts).unwrap();
         w.write_all(b"exe").unwrap();
         w.start_file("../escape.txt", opts).unwrap();
         w.write_all(b"no").unwrap();
