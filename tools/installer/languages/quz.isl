@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Quechua: tools/installer/languages.py
+﻿; VADM's installer in Quechua: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 hurquchkan.
 
 [CustomMessages]
 TaskBrowser=Wamp'aq &mask'ay (Chrome, Edge, Brave, Firefox) t'ikrayta churay
-TaskStartup=&Windows qallariptin Mister Download Managerta qallariy
+TaskStartup=&Windows qallariptin VADMta qallariy
 TaskGroupOther=Huk:
-Launch=Mister Download Managerta qallariy
+Launch=VADMta qallariy
 KeepData=Chaymanta urayk'uchisqa willk'ana listaykita chaymanta churaykunata pichayta munankichu?%n%nUrayk'uchisqa willk'anakunaqa manam imatapas llamk'achisqachu.

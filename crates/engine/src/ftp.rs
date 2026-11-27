@@ -129,7 +129,7 @@ impl Site {
             header_login(headers).unwrap_or_default()
         };
         let (user, pass) = match user.as_str() {
-            "" | "anonymous" | "ftp" if pass.is_empty() => ("anonymous".into(), "mdm@".into()),
+            "" | "anonymous" | "ftp" if pass.is_empty() => ("anonymous".into(), "vadm@".into()),
             _ => (user, pass),
         };
         let tls = match security {
@@ -941,7 +941,7 @@ mod tests {
         let s = site("ftp://ftp.example.com/pub/a%20b.iso;type=i", &none);
         assert_eq!((s.host.as_str(), s.port), ("ftp.example.com", 21));
         assert_eq!(s.path, "pub/a b.iso");
-        assert_eq!((s.user.as_str(), s.pass.as_str()), ("anonymous", "mdm@"));
+        assert_eq!((s.user.as_str(), s.pass.as_str()), ("anonymous", "vadm@"));
         let s = site("ftps://me:p%40ss@[::1]/%2Fabs/x", &none);
         assert_eq!(
             (s.host.as_str(), s.port, s.security),

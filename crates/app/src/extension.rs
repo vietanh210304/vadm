@@ -186,7 +186,7 @@ impl Extension {
             ctx,
             "extension",
             // i18n: title of the window that offers the browser extension
-            "Add Mister Download Manager to your browser",
+            "Add VADM to your browser",
             [W, h + extra],
             false,
             winui::BG(),
@@ -379,7 +379,7 @@ impl Extension {
             let why = match &refused {
                 Some(refused) => format!("{} {}", refused_line(refused), refused_how()),
                 None => crate::i18n::t(
-                    "Browser integration isn't set up on this computer, so no browser can reach Mister Download Manager yet.",
+                    "Browser integration isn't set up on this computer, so no browser can reach VADM yet.",
                 )
                 .to_owned(),
             };
@@ -642,7 +642,7 @@ const STEPS: [&str; 8] = [
     // i18n: step 7 of turning on the Safari extension; the quoted tab name is what Safari's settings show in this language: use Apple's own word for it, or keep the English name when unsure
     "Switch to the \"Extensions\" tab (the puzzle piece).",
     // i18n: step 8 of turning on the Safari extension
-    "Turn on \"Mister Download Manager\" and allow it on all websites.",
+    "Turn on \"VADM\" and allow it on all websites.",
 ];
 
 /// The browsers whose extension reached the app, by Options' names.
@@ -779,11 +779,11 @@ fn refused_now(registration: &Registration) -> Option<Refused> {
 fn refused_line(refused: &Refused) -> String {
     if refused.browser.is_empty() {
         // i18n: a check of Test browser integration, and the browser extension's window (macOS): macOS refused to let MDM read or write a browser's folder (where the browser finds MDM's helper)
-        crate::i18n::t("macOS keeps Mister Download Manager out of a browser's folder.").to_owned()
+        crate::i18n::t("macOS keeps VADM out of a browser's folder.").to_owned()
     } else {
         crate::i18n::fmt(
             // i18n: a check of Test browser integration, and the browser extension's window (macOS): macOS refused to let MDM read or write {browser}'s folder (where the browser finds MDM's helper); {browser} is a browser's name
-            crate::i18n::t("macOS keeps Mister Download Manager out of {browser}'s folder."),
+            crate::i18n::t("macOS keeps VADM out of {browser}'s folder."),
             &[("browser", &refused.browser)],
         )
     }
@@ -796,7 +796,7 @@ fn refused_line(refused: &Refused) -> String {
 fn refused_how() -> &'static str {
     // i18n: under "macOS keeps Mister Download Manager out of …'s folder" (Test browser integration, the browser extension's window): how to allow it. The quoted words and System Settings → Privacy & Security → Full Disk Access are macOS's own: use Apple's words in this language, or keep the English ones when unsure
     crate::i18n::t(
-        "If macOS asks whether it may access data from other apps, allow it. Or turn on Mister Download Manager in System Settings → Privacy & Security → Full Disk Access. Then press Set it up.",
+        "If macOS asks whether it may access data from other apps, allow it. Or turn on VADM in System Settings → Privacy & Security → Full Disk Access. Then press Set it up.",
     )
 }
 
@@ -925,7 +925,7 @@ pub fn set_up(ctx: &egui::Context) {
                     .map_err(|e| e.to_string())
                     .and_then(|exe| {
                         run_host(
-                            &exe.with_file_name("misterdownloadmanager-nmhost.exe"),
+                            &exe.with_file_name("vadm-nmhost.exe"),
                             "--register",
                             SET_UP_LIMIT,
                         )
@@ -1032,7 +1032,7 @@ pub fn checks(advanced: bool) -> Vec<Check> {
         Registration::Ready | Registration::Missing => check(
             registration == Registration::Ready,
             // i18n: a check of Test browser integration: the browsers find MDM's helper program
-            "The browsers can find Mister Download Manager",
+            "The browsers can find VADM",
             Some("not-installed"),
         ),
         Registration::NoBrowser => check(
@@ -1295,9 +1295,9 @@ mod tests {
     fn a_folder_macos_refused_is_named_with_its_browser() {
         let chrome = "/Users/a b/Library/Application Support/Google/Chrome/NativeMessagingHosts";
         let error = format!(
-            "/Applications/Mister Download Manager.app/Contents/MacOS/misterdownloadmanager-nmhost \
-             --repair: exit status: 1: registered com.misterdownloadmanager.host in /Users/a b/\
-             Library/Application Support/Vivaldi/NativeMessagingHosts misterdownloadmanager-nmhost: \
+            "/Applications/VADM.app/Contents/MacOS/vadm-nmhost \
+             --repair: exit status: 1: registered com.vadm.host in /Users/a b/\
+             Library/Application Support/Vivaldi/NativeMessagingHosts vadm-nmhost: \
              {chrome}: Operation not permitted (os error 1)"
         );
         let refused = refused_in(&error, true).unwrap();
@@ -1365,11 +1365,11 @@ mod tests {
         println!("{line}\n{unknown}\n{}", refused_how());
         assert_eq!(
             line,
-            "macOS keeps Mister Download Manager out of Google Chrome's folder."
+            "macOS keeps VADM out of Google Chrome's folder."
         );
         assert_eq!(
             unknown,
-            "macOS keeps Mister Download Manager out of a browser's folder."
+            "macOS keeps VADM out of a browser's folder."
         );
         assert!(refused_how().contains("Privacy & Security → Full Disk Access"));
         let check = refused_check(&chrome);

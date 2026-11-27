@@ -11,7 +11,7 @@ use std::path::Path;
 use std::process::Command;
 use std::time::{Duration, Instant};
 
-const APP: &str = env!("CARGO_BIN_EXE_misterdownloadmanager");
+const APP: &str = env!("CARGO_BIN_EXE_vadm");
 
 fn item(id: u64, name: &str, status: &str, downloaded: u64, dir: &Path) -> serde_json::Value {
     serde_json::json!({
@@ -23,7 +23,7 @@ fn item(id: u64, name: &str, status: &str, downloaded: u64, dir: &Path) -> serde
 }
 
 fn log(data: &Path) -> String {
-    std::fs::read_to_string(data.join("logs").join("mdm.log")).unwrap_or_default()
+    std::fs::read_to_string(data.join("logs").join("vadm.log")).unwrap_or_default()
 }
 
 fn second_launch(data: &Path, downloads: &Path, what: &str) {
@@ -73,13 +73,13 @@ fn a_selection_moves_to_one_folder() {
         std::fs::write(dl.join(name), [b'x'; 1000]).unwrap();
     }
     // Stopped at 300 of 1000 bytes: its part file and resume state.
-    std::fs::write(dl.join("partial.bin.mdm.part"), [b'p'; 1000]).unwrap();
+    std::fs::write(dl.join("partial.bin.vadm.part"), [b'p'; 1000]).unwrap();
     let state = serde_json::json!({
         "version": 1, "url": "https://files.example/partial.bin",
         "final_url": "https://files.example/partial.bin", "dest": dl.join("partial.bin"),
         "size": 1000, "segments": [{ "start": 0, "cursor": 300, "end": 1000 }],
     });
-    std::fs::write(dl.join("partial.bin.mdm.json"), state.to_string()).unwrap();
+    std::fs::write(dl.join("partial.bin.vadm.json"), state.to_string()).unwrap();
     let items = [
         item(1, "waiting.zip", "Queued", 0, &dl),
         item(2, "same.zip", "Queued", 0, &dl),
@@ -117,7 +117,7 @@ fn a_selection_moves_to_one_folder() {
         wait_for("finished files in the new folder", &data, || {
             to.join("done-1.bin").exists()
                 && to.join("done-2.bin").exists()
-                && to.join("partial.bin.mdm.json").exists()
+                && to.join("partial.bin.vadm.json").exists()
         });
         // Saved within a second or so of the change: every row in the new folder, none still
         // moving (a part-way download's move saves the list as it begins, before the finished
@@ -150,15 +150,15 @@ fn a_selection_moves_to_one_folder() {
         "part-way: it goes too"
     );
     assert_eq!(
-        std::fs::read(to.join("partial.bin.mdm.part")).unwrap(),
+        std::fs::read(to.join("partial.bin.vadm.part")).unwrap(),
         [b'p'; 1000]
     );
     let state: serde_json::Value =
-        serde_json::from_slice(&std::fs::read(to.join("partial.bin.mdm.json")).unwrap()).unwrap();
+        serde_json::from_slice(&std::fs::read(to.join("partial.bin.vadm.json")).unwrap()).unwrap();
     assert_eq!(
         state["dest"].as_str().map(Path::new),
         Some(to.join("partial.bin").as_path())
     );
-    assert!(!dl.join("partial.bin.mdm.part").exists() && !dl.join("partial.bin.mdm.json").exists());
+    assert!(!dl.join("partial.bin.vadm.part").exists() && !dl.join("partial.bin.vadm.json").exists());
     assert!(!dl.join("done-1.bin").exists());
 }

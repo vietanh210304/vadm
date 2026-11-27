@@ -1,10 +1,10 @@
 # Builds the Windows release for one processor into target/dist/ (-Arch x64, the default; arm64;
 # x86). The x64 files keep the names they had before there were others, so every copy installed
 # before finds its update (crates/tools/src/update.rs Install::assets_on):
-#   MisterDownloadManager-<version>-setup.exe        the installer (tools/installer/mdm.iss)
-#   MisterDownloadManager-<version>-portable.zip     the same programs with a `data` folder (portable
+#   VADM-<version>-setup.exe        the installer (tools/installer/vadm.iss)
+#   VADM-<version>-portable.zip     the same programs with a `data` folder (portable
 #                                                    mode: settings beside the exe, no registry)
-#   MisterDownloadManager-<version>-x64.zip          the same programs, data in %APPDATA% as installed
+#   VADM-<version>-x64.zip          the same programs, data in %APPDATA% as installed
 #   ...-setup-arm64.exe, ...-portable-arm64.zip, ...-arm64.zip   Windows on ARM (-Arch arm64)
 #   ...-setup-x86.exe, ...-portable-x86.zip, ...-x86.zip         32-bit Windows (-Arch x86)
 #   SHA256SUMS.txt
@@ -57,7 +57,7 @@ if (-not $iscc) { throw "Inno Setup 6 (ISCC.exe) not found" }
 New-Item -ItemType Directory -Force $dist | Out-Null
 $isccArgs = @("/Qp", "/DAppVersion=$version", "/DArch=$Arch", "/DBin=$bin")
 if ($SignCommand) { $isccArgs += @("/DSign", "/Smdmsign=$SignCommand") }
-& $iscc @isccArgs (Join-Path $PSScriptRoot "mdm.iss")
+& $iscc @isccArgs (Join-Path $PSScriptRoot "vadm.iss")
 if ($LASTEXITCODE) { throw "ISCC failed" }
 
 # The zips: the same programs; the portable one adds a `data` folder next to the exe, which
@@ -66,7 +66,7 @@ function New-Zip([string]$name, [bool]$portable) {
   $stage = Join-Path $dist "stage\$name"
   if (Test-Path $stage) { Remove-Item -LiteralPath $stage -Recurse -Force }
   New-Item -ItemType Directory -Force $stage | Out-Null
-  foreach ($exe in "misterdownloadmanager.exe", "misterdownloadmanager-nmhost.exe", "misterdownloadmanager-cli.exe", "misterdownloadmanager-mcp.exe") {
+  foreach ($exe in "vadm.exe", "vadm-nmhost.exe", "vadm-cli.exe", "vadm-mcp.exe") {
     Copy-Item (Join-Path $bin $exe) $stage
   }
   New-Item -ItemType Directory -Force (Join-Path $stage "extension") | Out-Null
@@ -77,7 +77,7 @@ function New-Zip([string]$name, [bool]$portable) {
   if ($portable) {
     New-Item -ItemType Directory -Force (Join-Path $stage "data") | Out-Null
     Set-Content -Encoding utf8 (Join-Path $stage "data\README.txt") @"
-This folder makes Mister Download Manager portable: the download list and settings are kept
+This folder makes VADM portable: the download list and settings are kept
 here instead of in your profile, and nothing is written to the registry. Delete the folder to
 use the profile instead. Browser integration needs the installer.
 "@
@@ -107,11 +107,11 @@ use the profile instead. Browser integration needs the installer.
   }
 }
 Add-Type -AssemblyName System.IO.Compression, System.IO.Compression.FileSystem
-New-Zip "MisterDownloadManager-$version-portable$suffix" $true
-New-Zip "MisterDownloadManager-$version-$Arch" $false
+New-Zip "VADM-$version-portable$suffix" $true
+New-Zip "VADM-$version-$Arch" $false
 Remove-Item -LiteralPath (Join-Path $dist "stage") -Recurse -Force
 
-$files = Get-ChildItem $dist -File | Where-Object { $_.Name -like "MisterDownloadManager-$version-*" }
+$files = Get-ChildItem $dist -File | Where-Object { $_.Name -like "VADM-$version-*" }
 $files | ForEach-Object { "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLower(), $_.Name } |
   Set-Content -Encoding ascii (Join-Path $dist "SHA256SUMS.txt")
 $files | ForEach-Object { "{0}  {1:N1} MB" -f $_.Name, ($_.Length / 1MB) }

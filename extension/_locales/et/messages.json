@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Annab allalaadimised brauserist rakendusele Mister Download Manager."
+    "message": "Annab allalaadimised brauserist rakendusele VADM."
   },
   "menu": {
-    "message": "Laadi alla rakendusega Mister Download Manager"
+    "message": "Laadi alla rakendusega VADM"
   },
   "video_download": {
     "message": "Laadi video alla"
@@ -30,19 +30,19 @@
     "message": "Nupu sätted..."
   },
   "video_sent": {
-    "message": "Saadetud rakendusse Mister Download Manager"
+    "message": "Saadetud rakendusse VADM"
   },
   "menu_selected": {
-    "message": "Laadi valitud lingid alla rakendusega Mister Download Manager"
+    "message": "Laadi valitud lingid alla rakendusega VADM"
   },
   "menu_all": {
-    "message": "Laadi kõik lingid alla rakendusega Mister Download Manager"
+    "message": "Laadi kõik lingid alla rakendusega VADM"
   },
   "status_connected": {
-    "message": "Ühendatud rakendusega Mister Download Manager"
+    "message": "Ühendatud rakendusega VADM"
   },
   "status_connected_version": {
-    "message": "Ühendatud rakendusega Mister Download Manager $version$",
+    "message": "Ühendatud rakendusega VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Peatatud: allalaadimised jäävad brauserisse"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager pole installitud või selle brauseri integreerimine pole seadistatud"
+    "message": "VADM pole installitud või selle brauseri integreerimine pole seadistatud"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager ei aktsepteeri seda laienduse koopiat"
+    "message": "VADM ei aktsepteeri seda laienduse koopiat"
   },
   "status_not_running": {
-    "message": "Mister Download Manager ei käivitunud õigel ajal"
+    "message": "VADM ei käivitunud õigel ajal"
   },
   "status_host_failed": {
-    "message": "Ühenduse loomine rakendusega Mister Download Manager nurjus"
+    "message": "Ühenduse loomine rakendusega VADM nurjus"
   },
   "status_too_large": {
     "message": "Selle allalaadimise üksikasjad olid edastamiseks liiga suured"
   },
   "status_update_app": {
-    "message": "Värskendage rakendust Mister Download Manager, et kasutada kõiki laienduse võimalusi"
+    "message": "Värskendage rakendust VADM, et kasutada kõiki laienduse võimalusi"
   },
   "popup_take": {
     "message": "Suuna allalaadimised sellest brauserist rakendusse"
@@ -78,10 +78,10 @@
     "message": "Suuna allalaadimised selle brauseri puhverserveri või VPN-laienduse kaudu"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager laadib seejärel alla sama puhverserveri kaudu, mida see brauser kasutab. Brauser küsib teilt selleks ühe korra luba; selle väljalülitamisel luba tühistatakse."
+    "message": "VADM laadib seejärel alla sama puhverserveri kaudu, mida see brauser kasutab. Brauser küsib teilt selleks ühe korra luba; selle väljalülitamisel luba tühistatakse."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager laadib seejärel alla sama puhverserveri kaudu, mida see brauser kasutab. Kui see on välja lülitatud, ei loe laiendus brauseri puhverserverit."
+    "message": "VADM laadib seejärel alla sama puhverserveri kaudu, mida see brauser kasutab. Kui see on välja lülitatud, ei loe laiendus brauseri puhverserverit."
   },
   "popup_exclude_site": {
     "message": "Ära võta enam allalaadimisi saidilt $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Ava Mister Download Manager"
+    "message": "Ava VADM"
   },
   "popup_options": {
     "message": "Suvandid..."
@@ -111,7 +111,7 @@
     "message": "Abi"
   },
   "popup_support": {
-    "message": "Toeta MDM-i"
+    "message": "Toeta VADM-i"
   },
   "popup_fix": {
     "message": "Kuidas seda parandada"
@@ -201,16 +201,16 @@
     "message": "Siin pole allalaaditavat videot"
   },
   "video_playlist": {
-    "message": "Videode loend: valige need rakenduses Mister Download Manager"
+    "message": "Videode loend: valige need rakenduses VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager vajab selle video jaoks programmi yt-dlp"
+    "message": "VADM vajab selle video jaoks programmi yt-dlp"
   },
   "video_too_long": {
     "message": "Otsimine võttis liiga kaua aega"
   },
   "video_busy": {
-    "message": "Mister Download Manager on teiste videotega hõivatud"
+    "message": "VADM on teiste videotega hõivatud"
   },
   "video_queued": {
     "message": "Lisatud järjekorda"
@@ -234,7 +234,7 @@
     "message": "See arvuti"
   },
   "popup_send_remote": {
-    "message": "Muu Mister Download Manager (server)"
+    "message": "Muu VADM (server)"
   },
   "popup_remote_code": {
     "message": "Sidumiskood"
@@ -246,7 +246,7 @@
     "message": "Seo"
   },
   "popup_remote_help": {
-    "message": "Avage selle aadress üks kord ja aktsepteerige selle sertifikaat, seejärel sisestage kood selle valikutest Options, Remote, Pair a device (või misterdownloadmanager-cli pair)."
+    "message": "Avage selle aadress üks kord ja aktsepteerige selle sertifikaat, seejärel sisestage kood selle valikutest Options, Remote, Pair a device (või vadm-cli pair)."
   },
   "status_remote": {
     "message": "Allalaadimised lähevad asukohta $address$",
@@ -361,19 +361,19 @@
     "message": "Laadi alla parim kvaliteet"
   },
   "video_sending": {
-    "message": "Saadan MDM-i..."
+    "message": "Saadan VADM-i..."
   },
   "video_added": {
-    "message": "MDM-i lisatud"
+    "message": "VADM-i lisatud"
   },
   "video_show": {
     "message": "Näita"
   },
   "video_no_answer": {
-    "message": "MDM ei vastanud"
+    "message": "VADM ei vastanud"
   },
   "video_get_mdm": {
-    "message": "Hangi MDM"
+    "message": "Hangi VADM"
   },
   "video_retry": {
     "message": "Proovi uuesti"
@@ -391,7 +391,7 @@
     "message": "Laadi osa siit alla..."
   },
   "video_failed": {
-    "message": "Mister Download Manager pole installitud või ei käivitunud"
+    "message": "VADM pole installitud või ei käivitunud"
   },
   "video_download_best": {
     "message": "Laadi parim alla"
@@ -412,7 +412,7 @@
     "message": "Unusta"
   },
   "popup_gear": {
-    "message": "Valikud rakenduses Mister Download Manager"
+    "message": "Valikud rakenduses VADM"
   },
   "popup_tabs": {
     "message": "Hüpikakna jaotised"
@@ -445,7 +445,7 @@
     "message": "Peatatud"
   },
   "popup_conn_update": {
-    "message": "Värskenda rakendust Mister Download Manager"
+    "message": "Värskenda rakendust VADM"
   },
   "popup_conn_remote": {
     "message": "Saadetakse serverisse $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Need on rakenduse Mister Download Manager allalaadimised serveris $server$. Ava nende failid seal.",
+    "message": "Need on rakenduse VADM allalaadimised serveris $server$. Ava nende failid seal.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Kuvatakse $total$ allalaadimisest uusimat $shown$. Mister Download Manager loetleb need kõik.",
+    "message": "Kuvatakse $total$ allalaadimisest uusimat $shown$. VADM loetleb need kõik.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Allalaadimisi pole veel"
   },
   "popup_dl_none_text": {
-    "message": "See, mida rakendusega Mister Download Manager alla laadid, kuvatakse siin."
+    "message": "See, mida rakendusega VADM alla laadid, kuvatakse siin."
   },
   "popup_dl_no_match": {
     "message": "Midagi ei sobi"
@@ -594,28 +594,28 @@
     "message": "Näita kõiki allalaadimisi"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager ei tööta"
+    "message": "VADM ei tööta"
   },
   "popup_list_off_text": {
     "message": "Allalaadimiste nägemiseks käivita see."
   },
   "popup_list_start": {
-    "message": "Käivita Mister Download Manager"
+    "message": "Käivita VADM"
   },
   "popup_list_old": {
-    "message": "Värskenda rakendust Mister Download Manager"
+    "message": "Värskenda rakendust VADM"
   },
   "popup_list_old_text": {
     "message": "See versioon ei saa veel oma allalaadimisi siin loetleda."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager on hõivatud. Proovin uuesti..."
+    "message": "VADM on hõivatud. Proovin uuesti..."
   },
   "popup_list_unreached": {
-    "message": "Rakendusega Mister Download Manager ei saa ühendust"
+    "message": "Rakendusega VADM ei saa ühendust"
   },
   "popup_list_remote_unreachable": {
-    "message": "Rakendusega Mister Download Manager serveris $server$ ei saa ühendust",
+    "message": "Rakendusega VADM serveris $server$ ei saa ühendust",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "See süsteem ei saa seda teha."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager ei tööta."
+    "message": "VADM ei tööta."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager ei vastanud õigel ajal. Proovi uuesti."
+    "message": "VADM ei vastanud õigel ajal. Proovi uuesti."
   },
   "popup_act_failed": {
     "message": "See ei õnnestunud. Proovi uuesti."

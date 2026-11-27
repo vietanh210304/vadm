@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Menyerahkan muat turun daripada pelayar kepada Mister Download Manager."
+    "message": "Menyerahkan muat turun daripada pelayar kepada VADM."
   },
   "menu": {
-    "message": "Muat turun dengan Mister Download Manager"
+    "message": "Muat turun dengan VADM"
   },
   "video_download": {
     "message": "Muat turun video"
@@ -30,19 +30,19 @@
     "message": "Tetapan butang..."
   },
   "video_sent": {
-    "message": "Dihantar ke Mister Download Manager"
+    "message": "Dihantar ke VADM"
   },
   "menu_selected": {
-    "message": "Muat turun pautan terpilih dengan Mister Download Manager"
+    "message": "Muat turun pautan terpilih dengan VADM"
   },
   "menu_all": {
-    "message": "Muat turun semua pautan dengan Mister Download Manager"
+    "message": "Muat turun semua pautan dengan VADM"
   },
   "status_connected": {
-    "message": "Bersambung ke Mister Download Manager"
+    "message": "Bersambung ke VADM"
   },
   "status_connected_version": {
-    "message": "Bersambung ke Mister Download Manager $version$",
+    "message": "Bersambung ke VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Dijeda: muat turun kekal bersama penyemak imbas"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager tidak dipasang, atau penyepaduan penyemak imbasnya tidak disediakan"
+    "message": "VADM tidak dipasang, atau penyepaduan penyemak imbasnya tidak disediakan"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager tidak menerima salinan sambungan ini"
+    "message": "VADM tidak menerima salinan sambungan ini"
   },
   "status_not_running": {
-    "message": "Mister Download Manager tidak bermula tepat pada masanya"
+    "message": "VADM tidak bermula tepat pada masanya"
   },
   "status_host_failed": {
-    "message": "Sambungan ke Mister Download Manager gagal"
+    "message": "Sambungan ke VADM gagal"
   },
   "status_too_large": {
     "message": "Butiran muat turun ini terlalu besar untuk diserahkan"
   },
   "status_update_app": {
-    "message": "Kemas kini Mister Download Manager untuk menggunakan semua yang ditawarkan oleh sambungan ini"
+    "message": "Kemas kini VADM untuk menggunakan semua yang ditawarkan oleh sambungan ini"
   },
   "popup_take": {
     "message": "Ambil muat turun daripada penyemak imbas ini"
@@ -78,10 +78,10 @@
     "message": "Hantar muat turun melalui proksi atau sambungan VPN pelayar ini"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager kemudian memuat turun melalui proksi yang sama seperti pelayar ini. Pelayar meminta anda sekali untuk membenarkannya; mematikan ini akan menarik balik kebenaran itu."
+    "message": "VADM kemudian memuat turun melalui proksi yang sama seperti pelayar ini. Pelayar meminta anda sekali untuk membenarkannya; mematikan ini akan menarik balik kebenaran itu."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager kemudian memuat turun melalui proksi yang sama dengan pelayar ini. Apabila pilihan ini dimatikan, sambungan tidak membaca proksi pelayar."
+    "message": "VADM kemudian memuat turun melalui proksi yang sama dengan pelayar ini. Apabila pilihan ini dimatikan, sambungan tidak membaca proksi pelayar."
   },
   "popup_exclude_site": {
     "message": "Jangan sekali-kali mengambil muat turun daripada $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Buka Mister Download Manager"
+    "message": "Buka VADM"
   },
   "popup_options": {
     "message": "Pilihan..."
@@ -111,7 +111,7 @@
     "message": "Bantuan"
   },
   "popup_support": {
-    "message": "Sokong MDM"
+    "message": "Sokong VADM"
   },
   "popup_fix": {
     "message": "Cara membetulkannya"
@@ -201,16 +201,16 @@
     "message": "Tiada video untuk dimuat turun di sini"
   },
   "video_playlist": {
-    "message": "Senarai video: pilih video dalam Mister Download Manager"
+    "message": "Senarai video: pilih video dalam VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager memerlukan yt-dlp untuk video ini"
+    "message": "VADM memerlukan yt-dlp untuk video ini"
   },
   "video_too_long": {
     "message": "Pencarian mengambil masa terlalu lama"
   },
   "video_busy": {
-    "message": "Mister Download Manager sedang sibuk dengan video lain"
+    "message": "VADM sedang sibuk dengan video lain"
   },
   "video_queued": {
     "message": "Ditambah pada baris gilir"
@@ -234,7 +234,7 @@
     "message": "Komputer ini"
   },
   "popup_send_remote": {
-    "message": "Mister Download Manager lain (pelayan)"
+    "message": "VADM lain (pelayan)"
   },
   "popup_remote_code": {
     "message": "Kod pasangan"
@@ -246,7 +246,7 @@
     "message": "Pasangkan"
   },
   "popup_remote_help": {
-    "message": "Buka alamatnya sekali dan terima sijilnya, kemudian masukkan kod dari Pilihannya, Jauh, Pasangkan peranti (atau misterdownloadmanager-cli pair)."
+    "message": "Buka alamatnya sekali dan terima sijilnya, kemudian masukkan kod dari Pilihannya, Jauh, Pasangkan peranti (atau vadm-cli pair)."
   },
   "status_remote": {
     "message": "Muat turun pergi ke $address$",
@@ -361,19 +361,19 @@
     "message": "Muat turun kualiti terbaik"
   },
   "video_sending": {
-    "message": "Menghantar ke MDM..."
+    "message": "Menghantar ke VADM..."
   },
   "video_added": {
-    "message": "Ditambah ke MDM"
+    "message": "Ditambah ke VADM"
   },
   "video_show": {
     "message": "Tunjuk"
   },
   "video_no_answer": {
-    "message": "MDM tidak menjawab"
+    "message": "VADM tidak menjawab"
   },
   "video_get_mdm": {
-    "message": "Dapatkan MDM"
+    "message": "Dapatkan VADM"
   },
   "video_retry": {
     "message": "Cuba lagi"
@@ -391,7 +391,7 @@
     "message": "Muat turun sebahagian dari sini..."
   },
   "video_failed": {
-    "message": "Mister Download Manager tidak dipasang atau tidak bermula"
+    "message": "VADM tidak dipasang atau tidak bermula"
   },
   "video_download_best": {
     "message": "Muat turun terbaik"
@@ -412,7 +412,7 @@
     "message": "Lupakan"
   },
   "popup_gear": {
-    "message": "Pilihan dalam Mister Download Manager"
+    "message": "Pilihan dalam VADM"
   },
   "popup_tabs": {
     "message": "Bahagian tetingkap timbul"
@@ -445,7 +445,7 @@
     "message": "Dijeda"
   },
   "popup_conn_update": {
-    "message": "Kemas kini Mister Download Manager"
+    "message": "Kemas kini VADM"
   },
   "popup_conn_remote": {
     "message": "Menghantar ke $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Ini ialah muat turun Mister Download Manager di $server$. Buka failnya di sana.",
+    "message": "Ini ialah muat turun VADM di $server$. Buka failnya di sana.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "$shown$ yang terbaharu daripada $total$. Mister Download Manager menyenaraikan kesemuanya.",
+    "message": "$shown$ yang terbaharu daripada $total$. VADM menyenaraikan kesemuanya.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Belum ada muat turun"
   },
   "popup_dl_none_text": {
-    "message": "Apa-apa yang anda muat turun dengan Mister Download Manager akan muncul di sini."
+    "message": "Apa-apa yang anda muat turun dengan VADM akan muncul di sini."
   },
   "popup_dl_no_match": {
     "message": "Tiada padanan"
@@ -594,28 +594,28 @@
     "message": "Tunjukkan semua muat turun"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager tidak berjalan"
+    "message": "VADM tidak berjalan"
   },
   "popup_list_off_text": {
     "message": "Mulakan aplikasi untuk melihat muat turun anda di sini."
   },
   "popup_list_start": {
-    "message": "Mulakan Mister Download Manager"
+    "message": "Mulakan VADM"
   },
   "popup_list_old": {
-    "message": "Kemas kini Mister Download Manager"
+    "message": "Kemas kini VADM"
   },
   "popup_list_old_text": {
     "message": "Versi ini belum dapat menyenaraikan muat turunnya di sini."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager sibuk. Mencuba lagi..."
+    "message": "VADM sibuk. Mencuba lagi..."
   },
   "popup_list_unreached": {
-    "message": "Tidak dapat mencapai Mister Download Manager"
+    "message": "Tidak dapat mencapai VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Tidak dapat mencapai Mister Download Manager di $server$",
+    "message": "Tidak dapat mencapai VADM di $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Sistem ini tidak dapat melakukan itu."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager tidak berjalan."
+    "message": "VADM tidak berjalan."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager tidak menjawab tepat pada masanya. Cuba lagi."
+    "message": "VADM tidak menjawab tepat pada masanya. Cuba lagi."
   },
   "popup_act_failed": {
     "message": "Itu tidak berjaya. Cuba lagi."

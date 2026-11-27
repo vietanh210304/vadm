@@ -10,10 +10,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if let Some(arg) = std::env::args().nth(1) {
         match arg.as_str() {
             "--version" | "-V" => {
-                println!("misterdownloadmanager-mcp {}", env!("CARGO_PKG_VERSION"))
+                println!("vadm-mcp {}", env!("CARGO_PKG_VERSION"))
             }
             _ => println!(
-                "misterdownloadmanager-mcp: Mister Download Manager's MCP server, for AI \
+                "vadm-mcp: VADM's MCP server, for AI \
                  assistants. The assistant starts it (no arguments) and talks to it on stdin and \
                  stdout. Setup: \
                  https://misterdownloadmanager.com/help/ai-assistants.html"

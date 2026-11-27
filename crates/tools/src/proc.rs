@@ -1546,7 +1546,7 @@ pub fn spawn(mut cmd: Command, name: &str) -> Result<Spawned, ProcError> {
     if running.ended {
         return Err(ProcError::Start(
             name.to_owned(),
-            std::io::Error::other("Mister Download Manager is closing"),
+            std::io::Error::other("VADM is closing"),
         ));
     }
     let mut child = cmd

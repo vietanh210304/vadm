@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Khmer: tools/installer/languages.py
+﻿; VADM's installer in Khmer: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=កំពុងលុបការដំឡើ
 
 [CustomMessages]
 TaskBrowser=រៀបចំការរួមបញ្ចូល&កម្មវិធីរុករក (Chrome, Edge, Brave, Firefox)
-TaskStartup=ចាប់ផ្ដើម Mister Download Manager នៅពេល &Windows ចាប់ផ្ដើម
+TaskStartup=ចាប់ផ្ដើម VADM នៅពេល &Windows ចាប់ផ្ដើម
 TaskGroupOther=ផ្សេងៗ:
-Launch=ចាប់ផ្ដើម Mister Download Manager
+Launch=ចាប់ផ្ដើម VADM
 KeepData=លុបបញ្ជីទាញយក និងការកំណត់របស់អ្នកដែរឬទេ?%n%nឯកសារដែលបានទាញយករបស់អ្នកមិនត្រូវបានប៉ះពាល់ឡើយ។

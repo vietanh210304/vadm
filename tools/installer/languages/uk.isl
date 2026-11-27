@@ -1,9 +1,9 @@
-﻿; Mister Download Manager's installer in Ukrainian: tools/installer/languages.py
+﻿; VADM's installer in Ukrainian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [CustomMessages]
 TaskBrowser=Налаштувати інтеграцію з &браузером (Chrome, Edge, Brave, Firefox)
-TaskStartup=Запускати Mister Download Manager під час запуску &Windows
+TaskStartup=Запускати VADM під час запуску &Windows
 TaskGroupOther=Інше:
-Launch=Запустити Mister Download Manager
+Launch=Запустити VADM
 KeepData=Видалити також список завантажень і налаштування?%n%nВаші завантажені файли не будуть змінені в будь-якому випадку.

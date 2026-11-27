@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Maori: tools/installer/languages.py
+﻿; VADM's installer in Maori: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=E tango ana i a %1.
 
 [CustomMessages]
 TaskBrowser=Whakaritea te whakauru &pūtirotiro (Chrome, Edge, Brave, Firefox)
-TaskStartup=Tīmatahia te Mister Download Manager ina tīmata a &Windows
+TaskStartup=Tīmatahia te VADM ina tīmata a &Windows
 TaskGroupOther=Ētahi atu:
-Launch=Tīmatahia te Mister Download Manager
+Launch=Tīmatahia te VADM
 KeepData=Mukua hoki tō rārangi tikiake me ngā tautuhinga?%n%nKāore ō kōnae i tikiakehia e pā ki tēnā.

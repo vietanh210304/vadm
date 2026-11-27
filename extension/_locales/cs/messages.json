@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Předává stahování z prohlížeče do Mister Download Manager."
+    "message": "Předává stahování z prohlížeče do VADM."
   },
   "menu": {
-    "message": "Stáhnout pomocí Mister Download Manager"
+    "message": "Stáhnout pomocí VADM"
   },
   "video_download": {
     "message": "Stáhnout video"
@@ -30,19 +30,19 @@
     "message": "Nastavení tlačítka..."
   },
   "video_sent": {
-    "message": "Odesláno do Mister Download Manager"
+    "message": "Odesláno do VADM"
   },
   "menu_selected": {
-    "message": "Stáhnout vybrané odkazy pomocí Mister Download Manager"
+    "message": "Stáhnout vybrané odkazy pomocí VADM"
   },
   "menu_all": {
-    "message": "Stáhnout všechny odkazy pomocí Mister Download Manager"
+    "message": "Stáhnout všechny odkazy pomocí VADM"
   },
   "status_connected": {
-    "message": "Připojeno k Mister Download Manager"
+    "message": "Připojeno k VADM"
   },
   "status_connected_version": {
-    "message": "Připojeno k Mister Download Manager $version$",
+    "message": "Připojeno k VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Pozastaveno: stahování zůstává v prohlížeči"
   },
   "status_not_installed": {
-    "message": "Aplikace Mister Download Manager není nainstalovaná nebo není nastavená její integrace s prohlížečem"
+    "message": "Aplikace VADM není nainstalovaná nebo není nastavená její integrace s prohlížečem"
   },
   "status_forbidden": {
-    "message": "Aplikace Mister Download Manager tuto kopii rozšíření nepřijímá"
+    "message": "Aplikace VADM tuto kopii rozšíření nepřijímá"
   },
   "status_not_running": {
-    "message": "Mister Download Manager se nespustil včas"
+    "message": "VADM se nespustil včas"
   },
   "status_host_failed": {
-    "message": "Připojení k Mister Download Manager selhalo"
+    "message": "Připojení k VADM selhalo"
   },
   "status_too_large": {
     "message": "Podrobnosti tohoto stahování byly příliš velké na předání"
   },
   "status_update_app": {
-    "message": "Aktualizujte Mister Download Manager, abyste mohli používat vše, co toto rozšíření nabízí"
+    "message": "Aktualizujte VADM, abyste mohli používat vše, co toto rozšíření nabízí"
   },
   "popup_take": {
     "message": "Přebírat stahování z tohoto prohlížeče"
@@ -78,10 +78,10 @@
     "message": "Předávat stahování přes proxy server nebo rozšíření VPN tohoto prohlížeče"
   },
   "popup_proxy_title": {
-    "message": "Aplikace Mister Download Manager pak stahuje přes stejný proxy server jako tento prohlížeč. Prohlížeč vás jednou požádá o povolení; vypnutím této možnosti toto povolení zrušíte."
+    "message": "Aplikace VADM pak stahuje přes stejný proxy server jako tento prohlížeč. Prohlížeč vás jednou požádá o povolení; vypnutím této možnosti toto povolení zrušíte."
   },
   "popup_proxy_title_chromium": {
-    "message": "Aplikace Mister Download Manager pak stahuje přes stejný proxy server jako tento prohlížeč. Pokud je tato možnost vypnutá, rozšíření proxy server prohlížeče nenačítá."
+    "message": "Aplikace VADM pak stahuje přes stejný proxy server jako tento prohlížeč. Pokud je tato možnost vypnutá, rozšíření proxy server prohlížeče nenačítá."
   },
   "popup_exclude_site": {
     "message": "Nikdy nepřebírat stahování z webu $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Otevřít Mister Download Manager"
+    "message": "Otevřít VADM"
   },
   "popup_options": {
     "message": "Možnosti..."
@@ -111,7 +111,7 @@
     "message": "Nápověda"
   },
   "popup_support": {
-    "message": "Podpořte MDM"
+    "message": "Podpořte VADM"
   },
   "popup_fix": {
     "message": "Jak to opravit"
@@ -201,16 +201,16 @@
     "message": "Tady není žádné video ke stažení"
   },
   "video_playlist": {
-    "message": "Seznam videí: vyberte je v Mister Download Manager"
+    "message": "Seznam videí: vyberte je v VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager potřebuje pro toto video yt-dlp"
+    "message": "VADM potřebuje pro toto video yt-dlp"
   },
   "video_too_long": {
     "message": "Vyhledávání trvalo příliš dlouho"
   },
   "video_busy": {
-    "message": "Mister Download Manager je zaneprázdněn jinými videi"
+    "message": "VADM je zaneprázdněn jinými videi"
   },
   "video_queued": {
     "message": "Přidáno do fronty"
@@ -234,7 +234,7 @@
     "message": "Tento počítač"
   },
   "popup_send_remote": {
-    "message": "Jiný Mister Download Manager (server)"
+    "message": "Jiný VADM (server)"
   },
   "popup_remote_code": {
     "message": "Párovací kód"
@@ -246,7 +246,7 @@
     "message": "Spárovat"
   },
   "popup_remote_help": {
-    "message": "Otevřete jeho adresu jednou a přijměte jeho certifikát, poté zadejte kód z jeho Možnosti, Vzdálené, Spárovat zařízení (nebo misterdownloadmanager-cli pair)."
+    "message": "Otevřete jeho adresu jednou a přijměte jeho certifikát, poté zadejte kód z jeho Možnosti, Vzdálené, Spárovat zařízení (nebo vadm-cli pair)."
   },
   "status_remote": {
     "message": "Stahování jde na $address$",
@@ -361,19 +361,19 @@
     "message": "Stáhnout nejlepší kvalitu"
   },
   "video_sending": {
-    "message": "Odesílání do MDM..."
+    "message": "Odesílání do VADM..."
   },
   "video_added": {
-    "message": "Přidáno do MDM"
+    "message": "Přidáno do VADM"
   },
   "video_show": {
     "message": "Zobrazit"
   },
   "video_no_answer": {
-    "message": "MDM neodpověděl"
+    "message": "VADM neodpověděl"
   },
   "video_get_mdm": {
-    "message": "Získat MDM"
+    "message": "Získat VADM"
   },
   "video_retry": {
     "message": "Zkusit znovu"
@@ -391,7 +391,7 @@
     "message": "Stáhnout část odsud..."
   },
   "video_failed": {
-    "message": "Aplikace Mister Download Manager není nainstalovaná nebo se nespustila"
+    "message": "Aplikace VADM není nainstalovaná nebo se nespustila"
   },
   "video_download_best": {
     "message": "Stáhnout nejlepší"
@@ -412,7 +412,7 @@
     "message": "Zapomenout"
   },
   "popup_gear": {
-    "message": "Možnosti v Mister Download Manager"
+    "message": "Možnosti v VADM"
   },
   "popup_tabs": {
     "message": "Sekce vyskakovacího okna"
@@ -445,7 +445,7 @@
     "message": "Pozastaveno"
   },
   "popup_conn_update": {
-    "message": "Aktualizovat Mister Download Manager"
+    "message": "Aktualizovat VADM"
   },
   "popup_conn_remote": {
     "message": "Odesílá se na $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Toto jsou stahování aplikace Mister Download Manager na serveru $server$. Otevřete jejich soubory tam.",
+    "message": "Toto jsou stahování aplikace VADM na serveru $server$. Otevřete jejich soubory tam.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Nejnovějších $shown$ z $total$. Mister Download Manager uvádí všechna.",
+    "message": "Nejnovějších $shown$ z $total$. VADM uvádí všechna.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Zatím žádná stahování"
   },
   "popup_dl_none_text": {
-    "message": "Zde se zobrazí, co stahujete pomocí Mister Download Manager."
+    "message": "Zde se zobrazí, co stahujete pomocí VADM."
   },
   "popup_dl_no_match": {
     "message": "Nic neodpovídá"
@@ -594,28 +594,28 @@
     "message": "Zobrazit všechna stahování"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager není spuštěný"
+    "message": "VADM není spuštěný"
   },
   "popup_list_off_text": {
     "message": "Spusťte ho, abyste zde viděli svá stahování."
   },
   "popup_list_start": {
-    "message": "Spustit Mister Download Manager"
+    "message": "Spustit VADM"
   },
   "popup_list_old": {
-    "message": "Aktualizovat Mister Download Manager"
+    "message": "Aktualizovat VADM"
   },
   "popup_list_old_text": {
     "message": "Tato verze zde zatím nemůže zobrazit svá stahování."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager je zaneprázdněn. Zkouším to znovu..."
+    "message": "VADM je zaneprázdněn. Zkouším to znovu..."
   },
   "popup_list_unreached": {
-    "message": "Nelze se připojit k Mister Download Manager"
+    "message": "Nelze se připojit k VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Nelze se připojit k Mister Download Manager na $server$",
+    "message": "Nelze se připojit k VADM na $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Tento systém to nedokáže."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager není spuštěný."
+    "message": "VADM není spuštěný."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager neodpověděl včas. Zkuste to znovu."
+    "message": "VADM neodpověděl včas. Zkuste to znovu."
   },
   "popup_act_failed": {
     "message": "To se nepodařilo. Zkuste to znovu."

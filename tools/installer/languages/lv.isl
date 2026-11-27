@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Latvian: tools/installer/languages.py
+﻿; VADM's installer in Latvian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Atinstalē %1.
 
 [CustomMessages]
 TaskBrowser=Iestatīt pārlūkprogrammas &integrāciju (Chrome, Edge, Brave, Firefox)
-TaskStartup=Sākt Mister Download Manager, kad startējas &Windows
+TaskStartup=Sākt VADM, kad startējas &Windows
 TaskGroupOther=Cits:
-Launch=Startēt Mister Download Manager
+Launch=Startēt VADM
 KeepData=Vai dzēst arī lejupielāžu sarakstu un iestatījumus?%n%nJūsu lejupielādētie faili netiek skarti.

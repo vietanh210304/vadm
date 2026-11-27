@@ -33,7 +33,7 @@ pub fn dir(data: &Path) -> PathBuf {
 }
 
 /// The app's log; the monitor's is "monitor".
-pub const APP: &str = "mdm";
+pub const APP: &str = "vadm";
 pub const MONITOR: &str = "monitor";
 
 fn current(dir: &Path, name: &str) -> PathBuf {
@@ -353,7 +353,7 @@ pub fn init(data: &Path, name: &'static str) -> bool {
     let filter = std::env::var("MDM_LOG")
         .ok()
         .and_then(|f| EnvFilter::try_new(f).ok())
-        .unwrap_or_else(|| EnvFilter::new("warn,minidump=error,minidump_processor=error,minidump_unwind=error,breakpad_symbols=error,mdm=info,mdm_app=info,misterdownloadmanager=info,mdm_engine=info,mdm_crash=info,mdm_tools=info,mdm_ipc=info"));
+        .unwrap_or_else(|| EnvFilter::new("warn,minidump=error,minidump_processor=error,minidump_unwind=error,breakpad_symbols=error,mdm=info,mdm_app=info,vadm=info,mdm_engine=info,mdm_crash=info,mdm_tools=info,mdm_ipc=info"));
     tracing_subscriber::fmt()
         .with_writer(writer)
         .with_ansi(false)
@@ -615,7 +615,7 @@ mod tests {
 
     /// The count of lines in a "… dropped" line of the log's own.
     fn dropped_in(line: &str) -> Option<usize> {
-        let (_, said) = line.split_once("  WARN mdm log mdm_crash::logs: ")?;
+        let (_, said) = line.split_once("  WARN vadm log mdm_crash::logs: ")?;
         if said == "1 log line was dropped while the disk didn't answer" {
             return Some(1);
         }

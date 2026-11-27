@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Kazakh: tools/installer/languages.py
+﻿; VADM's installer in Kazakh: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 жойылуда.
 
 [CustomMessages]
 TaskBrowser=Шолушы интеграциясын орнату (&Chrome, Edge, Brave, Firefox)
-TaskStartup=&Windows іске қосылғанда Mister Download Manager іске қосу
+TaskStartup=&Windows іске қосылғанда VADM іске қосу
 TaskGroupOther=Басқа:
-Launch=Mister Download Manager іске қосу
+Launch=VADM іске қосу
 KeepData=Жүктеп алу тізіміңіз бен параметрлеріңізді де жою керек пе?%n%nЖүктеп алынған файлдарыңызға ешқандай жағдайда қол тигізілмейді.

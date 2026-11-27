@@ -40,7 +40,7 @@ const SORRY: &[&str] = &[
 pub fn text(input: &Input, home: Option<&Path>) -> String {
     let kind = input.kind.unwrap_or(Kind::Crash);
     let mut s = String::new();
-    let _ = writeln!(s, "---- Mister Download Manager crash report ----");
+    let _ = writeln!(s, "---- VADM crash report ----");
     let n = input.time.bytes().map(usize::from).sum::<usize>();
     let _ = writeln!(s, "// {}", SORRY[n % SORRY.len()]);
     let _ = writeln!(s);
@@ -109,7 +109,7 @@ pub fn text(input: &Input, home: Option<&Path>) -> String {
                             secs(b.wall_ms)
                         ),
                         (Some(Stuck::Starved), Some(b)) => format!(
-                            ". Its thread ran only {} of {} s, and not in a wait: the computer was too busy to run MDM, or slow to load it from disk{}. Most likely not a bug in MDM.",
+                            ". Its thread ran only {} of {} s, and not in a wait: the computer was too busy to run VADM, or slow to load it from disk{}. Most likely not a bug in VADM.",
                             secs(b.cpu_ms),
                             secs(b.wall_ms),
                             b.faults
@@ -132,7 +132,7 @@ pub fn text(input: &Input, home: Option<&Path>) -> String {
                 _ => {
                     let _ = writeln!(
                         s,
-                        "A dump asked for while MDM was running (a freeze or a panic): the window thread first."
+                        "A dump asked for while VADM was running (a freeze or a panic): the window thread first."
                     );
                 }
             }
@@ -142,7 +142,7 @@ pub fn text(input: &Input, home: Option<&Path>) -> String {
             if let Some(n) = input.notes.freeze.as_ref().and_then(|f| f.busy?.pageins) {
                 let _ = writeln!(
                     s,
-                    "{n} page-ins during the freeze (pages of MDM read from disk: its code or its memory)."
+                    "{n} page-ins during the freeze (pages of VADM read from disk: its code or its memory)."
                 );
             }
             // Where the frame was when the watchdog saw the freeze: what held it, when the
@@ -171,7 +171,7 @@ pub fn text(input: &Input, home: Option<&Path>) -> String {
         Kind::Exit => {
             let _ = writeln!(
                 s,
-                "MDM ended without closing normally, and no crash was caught (it may have been ended from outside, or the system stopped it)."
+                "VADM ended without closing normally, and no crash was caught (it may have been ended from outside, or the system stopped it)."
             );
         }
     }
@@ -202,9 +202,9 @@ pub fn text(input: &Input, home: Option<&Path>) -> String {
         let _ = writeln!(s);
     }
 
-    // What MDM was doing.
+    // What VADM was doing.
     if !input.log_tail.is_empty() {
-        let _ = writeln!(s, "-- What MDM was doing (its log) --");
+        let _ = writeln!(s, "-- What VADM was doing (its log) --");
         for l in &input.log_tail {
             let _ = writeln!(s, "{l}");
         }
@@ -214,7 +214,7 @@ pub fn text(input: &Input, home: Option<&Path>) -> String {
     // The system.
     let _ = writeln!(s, "-- System details --");
     if let Some(ss) = &input.notes.session {
-        let _ = writeln!(s, "MDM: {} ({})", ss.version, ss.commit);
+        let _ = writeln!(s, "VADM: {} ({})", ss.version, ss.commit);
         let _ = writeln!(s, "Installed with: {}", ss.install);
         let _ = writeln!(s, "System: {} ({})", ss.os_version, ss.arch);
         let _ = writeln!(s, "Language: {}", ss.language);
@@ -389,11 +389,11 @@ pub fn make(
 /// The kind in a sentence.
 pub fn description(kind: Kind, notes: &Notes) -> &'static str {
     match kind {
-        Kind::Crash => "MDM crashed",
-        Kind::Panic => "MDM hit an internal error and closed",
+        Kind::Crash => "VADM crashed",
+        Kind::Panic => "VADM hit an internal error and closed",
         Kind::Freeze if notes.recovered => "The window stopped responding (it recovered)",
         Kind::Freeze => "The window stopped responding",
-        Kind::Exit => "MDM closed unexpectedly",
+        Kind::Exit => "VADM closed unexpectedly",
     }
 }
 
@@ -613,7 +613,7 @@ fn in_sleep_after_a_frame(frames: &[Frame]) -> bool {
 fn first_own_frame(frames: &[Frame], main_module: Option<&str>) -> Option<String> {
     let own_crate = main_module
         .map(|m| m.split('.').next().unwrap_or(m).replace('-', "_"))
-        .unwrap_or_else(|| "misterdownloadmanager".to_owned());
+        .unwrap_or_else(|| "vadm".to_owned());
     let paths: Vec<String> = frames
         .iter()
         .filter(|f| main_module.is_none_or(|m| f.module.as_deref() == Some(m)))
@@ -764,7 +764,7 @@ mod tests {
             function: Some(f.to_owned()),
             file: Some(r"D:\build\mdm\crates\app\src\winui.rs".to_owned()),
             line: Some(2088),
-            module: Some("misterdownloadmanager.exe".to_owned()),
+            module: Some("vadm.exe".to_owned()),
             offset: 0x1234,
         }
     }
@@ -779,8 +779,8 @@ mod tests {
                     frames: vec![
                         frame("parking_lot::raw_rwlock::RawRwLock::lock_exclusive_slow"),
                         frame("egui::context::Context::write<egui::memory::Memory>"),
-                        frame("misterdownloadmanager::winui::combo_edit::{{closure}}"),
-                        frame("misterdownloadmanager::dialogs::AddUrl::show"),
+                        frame("vadm::winui::combo_edit::{{closure}}"),
+                        frame("vadm::dialogs::AddUrl::show"),
                     ],
                 },
                 Thread {
@@ -809,7 +809,7 @@ mod tests {
                 }),
                 session: Some(Session {
                     version: "0.2.3".into(),
-                    exe: r"C:\Users\Someone\AppData\Local\MDM\mdm.exe".into(),
+                    exe: r"C:\Users\Someone\AppData\Local\VADM\vadm.exe".into(),
                     started: 1_793_505_000,
                     ..Default::default()
                 }),
@@ -820,12 +820,12 @@ mod tests {
         };
         assert_eq!(
             signature(Kind::Freeze, &input),
-            "freeze in misterdownloadmanager::winui::combo_edit"
+            "freeze in vadm::winui::combo_edit"
         );
         let t = text(&input, Some(Path::new(r"C:\Users\Someone")));
         assert!(t.contains("-- Window thread (frozen): main (1) --"));
         assert!(t.contains("at crates/app/src/winui.rs:2088"));
-        assert!(t.contains(r"Program: ~\AppData\Local\MDM\mdm.exe"));
+        assert!(t.contains(r"Program: ~\AppData\Local\VADM\vadm.exe"));
         assert!(!t.contains("Someone"));
         // The watchdog's thread is listed among the others.
         assert!(t.contains("-- Thread watchdog (2) --"));
@@ -916,8 +916,8 @@ mod tests {
     fn stopped_in_own_code() -> Analysis {
         let mut a = frozen();
         a.threads[0].frames = vec![
-            frame("misterdownloadmanager::app::App::dialogs"),
-            frame("misterdownloadmanager::app::impl$2::ui"),
+            frame("vadm::app::App::dialogs"),
+            frame("vadm::app::impl$2::ui"),
         ];
         a
     }
@@ -933,16 +933,16 @@ mod tests {
         let t = text(&input, None);
         assert!(t.contains("Its thread ran only 0.4 of 7.5 s, and not in a wait"));
         assert!(t.contains("(12000 page faults meanwhile)"));
-        assert!(t.contains("Most likely not a bug in MDM."));
-        // Without symbols, MDM's own module counts as ordinary code, a system one as a wait.
+        assert!(t.contains("Most likely not a bug in VADM."));
+        // Without symbols, VADM's own module counts as ordinary code, a system one as a wait.
         let mut bare = stopped_in_own_code();
         bare.modules = vec![crate::analyze::ModuleInfo {
-            name: "misterdownloadmanager.exe".into(),
+            name: "vadm.exe".into(),
             ..Default::default()
         }];
         bare.threads[0].frames[0].function = None;
         let f = freeze_with(&bare, 400).notes.freeze.unwrap();
-        let main = Some("misterdownloadmanager.exe");
+        let main = Some("vadm.exe");
         assert_eq!(
             stuck(&f, bare.threads[0].frames.first(), main),
             Some(Stuck::Starved)
@@ -991,7 +991,7 @@ mod tests {
         assert!(
             t.contains(
                 "
-812 page-ins during the freeze (pages of MDM read from disk: its code or its memory).
+812 page-ins during the freeze (pages of VADM read from disk: its code or its memory).
 "
             ),
             "{t}"
@@ -1040,8 +1040,8 @@ mod tests {
                 "winit::platform_impl::windows::event_loop::EventLoop::wait_for_messages<enum2$<eframe::native::winit_integration::UserEvent> >",
             ),
             frame("eframe::run_native"),
-            frame("misterdownloadmanager::app"),
-            frame("misterdownloadmanager::main"),
+            frame("vadm::app"),
+            frame("vadm::main"),
         ];
         let input = freeze_with(&a, 0);
         assert_eq!(
@@ -1084,8 +1084,8 @@ mod tests {
                 "eframe::native::run::impl$1::new_events<eframe::native::wgpu_integration::WgpuWinitApp>()",
             ),
             frame("eframe::run_native()"),
-            frame("misterdownloadmanager::app()"),
-            frame("misterdownloadmanager::main()"),
+            frame("vadm::app()"),
+            frame("vadm::main()"),
         ];
         let mut input = freeze_with(&a, 0);
         input.notes.freeze.as_mut().unwrap().step = "the tray icon".into();
@@ -1113,15 +1113,15 @@ mod tests {
             "freeze over before the snapshot"
         );
 
-        // A sleep of MDM's own, inside a frame, is the frame's: still a freeze in MDM.
+        // A sleep of VADM's own, inside a frame, is the frame's: still a freeze in VADM.
         a.threads[0].frames = vec![
             frame("std::thread::functions::sleep()"),
-            frame("misterdownloadmanager::app::App::tick()"),
+            frame("vadm::app::App::tick()"),
             frame("eframe::native::wgpu_integration::impl$3::run_ui_and_paint()"),
         ];
         assert_eq!(
             signature(Kind::Freeze, &freeze_with(&a, 0)),
-            "freeze in misterdownloadmanager::app::App::tick"
+            "freeze in vadm::app::App::tick"
         );
     }
 
@@ -1131,7 +1131,7 @@ mod tests {
         let input = freeze_with(&a, 10);
         assert_eq!(
             signature(Kind::Freeze, &input),
-            "freeze in misterdownloadmanager::winui::combo_edit"
+            "freeze in vadm::winui::combo_edit"
         );
         assert!(
             text(&input, None).contains("Its thread was waiting (it ran 0.0 of 7.5 s): a deadlock")
@@ -1144,7 +1144,7 @@ mod tests {
         let input = freeze_with(&a, 7_300);
         assert_eq!(
             signature(Kind::Freeze, &input),
-            "freeze in misterdownloadmanager::app::App::dialogs"
+            "freeze in vadm::app::App::dialogs"
         );
         assert!(
             text(&input, None)
@@ -1187,8 +1187,8 @@ mod tests {
     #[test]
     fn function_names_lose_generics_and_closures() {
         assert_eq!(
-            trim_function("misterdownloadmanager::winui::combo_edit::{{closure}}"),
-            "misterdownloadmanager::winui::combo_edit"
+            trim_function("vadm::winui::combo_edit::{{closure}}"),
+            "vadm::winui::combo_edit"
         );
         assert_eq!(
             trim_function("mdm_engine::job::Job<alloc::string::String>::run"),

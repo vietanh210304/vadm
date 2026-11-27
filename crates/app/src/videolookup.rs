@@ -1329,7 +1329,7 @@ mod tests {
         assert_eq!(add.page.as_str(), SRC);
         assert_eq!(
             add.selector, "hls-2500/b[height=720][vcodec^=avc1]/b[height=720]",
-            "MDM's own, never the browser's"
+            "VADM's own, never the browser's"
         );
         assert_eq!(add.dest, folder.join("A talk_ in Lisbon.mp4"));
         assert_eq!(add.size, Some(60 * 2500 * 125));

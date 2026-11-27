@@ -1,6 +1,6 @@
 {
-  "name": "Mister Download Manager",
-  "short_name": "MDM",
+  "name": "VADM",
+  "short_name": "VADM",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

@@ -26,12 +26,12 @@ fn main() {
         println!("cargo:rerun-if-changed=assets/icons/app/mdm.ico");
         let mut res = winresource::WindowsResource::new();
         res.set_icon("assets/icons/app/mdm.ico")
-            .set("ProductName", "Mister Download Manager")
-            .set("FileDescription", "Mister Download Manager")
-            .set("CompanyName", "Ahmed Nefzaoui")
+            .set("ProductName", "VADM")
+            .set("FileDescription", "VADM")
+            .set("CompanyName", "VADM")
             .set(
                 "LegalCopyright",
-                "Copyright (C) 2026 Ahmed Nefzaoui. GPL-3.0-or-later.",
+                "Copyright (C) 2026 Ahmed Nefzaoui & VADM contributors. GPL-3.0-or-later.",
             );
         if let Err(e) = res.compile() {
             // A missing resource compiler must not break the build; the window still sets

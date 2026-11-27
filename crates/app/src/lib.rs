@@ -106,7 +106,7 @@ mod zippreview;
 /// `StartupWMClass=` names it (tools/installer/build-linux.sh, in the AppImage and the packages),
 /// so a window pinned to the taskbar or the dock is the launcher's, whatever name an AppImage
 /// manager gave the entry (#940). Also the entry's own name and the program's.
-pub const APP_ID: &str = "misterdownloadmanager";
+pub const APP_ID: &str = "vadm";
 
 /// A new window's builder: every window of ours starts from it, so each carries [`APP_ID`]
 /// (eframe gives the main window its app name, a dialog nothing). Without it a dialog had no
@@ -118,7 +118,7 @@ pub fn window_builder() -> egui::ViewportBuilder {
 }
 
 /// The main window's title (dialogs find their owner by it).
-pub const MAIN_TITLE: &str = concat!("Mister Download Manager ", env!("CARGO_PKG_VERSION"));
+pub const MAIN_TITLE: &str = concat!("VADM ", env!("CARGO_PKG_VERSION"));
 
 /// The app icon (art/, made with ChatGPT; sizes by tools/icon/build_icon.py), for windows that
 /// show one as IDM's do: the 256 px size, which the system scales down for the title bar, the
@@ -243,7 +243,7 @@ const CLIPBOARD_WAIT: std::time::Duration = std::time::Duration::from_millis(500
 fn clipboard_lock() -> Option<egui_winit::clipboard::SystemClipboardLock> {
     let lock = egui_winit::clipboard::lock_system_clipboard(CLIPBOARD_WAIT);
     if lock.is_none() {
-        tracing::warn!("clipboard: still in use elsewhere in MDM, not read or written");
+        tracing::warn!("clipboard: still in use elsewhere in VADM, not read or written");
     }
     lock
 }
@@ -539,7 +539,7 @@ fn app() -> eframe::Result {
     if let Some(data) = mdm_ipc::data_dir() {
         mdm_crash::logs::init(&data, mdm_crash::logs::APP);
         tracing::info!(
-            "Mister Download Manager {} ({}) starting",
+            "VADM {} ({}) starting",
             help::VERSION,
             help::COMMIT
         );

@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Galician: tools/installer/languages.py
+﻿; VADM's installer in Galician: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Desinstalando %1.
 
 [CustomMessages]
 TaskBrowser=Configurar a integración co &navegador (Chrome, Edge, Brave, Firefox)
-TaskStartup=Iniciar Mister Download Manager cando se inicia &Windows
+TaskStartup=Iniciar VADM cando se inicia &Windows
 TaskGroupOther=Outros:
-Launch=Iniciar Mister Download Manager
+Launch=Iniciar VADM
 KeepData=Queres eliminar tamén a túa lista de descargas e a configuración?%n%nOs teus ficheiros descargados non se tocarán de ningún xeito.

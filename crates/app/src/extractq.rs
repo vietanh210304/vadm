@@ -586,7 +586,7 @@ pub(crate) fn reason(name: &str, e: &Error) -> String {
             ],
         ),
         // i18n: why an archive wasn't extracted (after "Couldn't extract {name}: ")
-        Error::Unsupported => crate::i18n::t("it is not an archive MDM extracts").to_owned(),
+        Error::Unsupported => crate::i18n::t("it is not an archive VADM extracts").to_owned(),
         // i18n: why an archive wasn't extracted (after "Couldn't extract {name}: ")
         Error::Cancelled => crate::i18n::t("it was stopped").to_owned(),
         Error::Io(e) => crate::errors::describe(&mdm_engine::Error::Io(Arc::new(
@@ -682,7 +682,7 @@ impl ToolDialog {
                 let line = crate::i18n::fmt(
                     // i18n: in the "7-Zip needed" window: {name} is the archive's file name; 7-Zip is a program's name
                     crate::i18n::t(
-                        "{name} is a 7z or RAR archive. MDM extracts those with 7-Zip, which isn't installed.",
+                        "{name} is a 7z or RAR archive. VADM extracts those with 7-Zip, which isn't installed.",
                     ),
                     &[("name", &crate::i18n::isolate(&self.name))],
                 );

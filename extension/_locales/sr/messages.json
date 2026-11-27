@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Предаје преузимања из прегледача програму Mister Download Manager."
+    "message": "Предаје преузимања из прегледача програму VADM."
   },
   "menu": {
-    "message": "Преузми помоћу Mister Download Manager"
+    "message": "Преузми помоћу VADM"
   },
   "video_download": {
     "message": "Преузми видео"
@@ -30,19 +30,19 @@
     "message": "Подешавања дугмета..."
   },
   "video_sent": {
-    "message": "Послато апликацији Mister Download Manager"
+    "message": "Послато апликацији VADM"
   },
   "menu_selected": {
-    "message": "Преузми изабране везе помоћу Mister Download Manager"
+    "message": "Преузми изабране везе помоћу VADM"
   },
   "menu_all": {
-    "message": "Преузми све везе помоћу Mister Download Manager"
+    "message": "Преузми све везе помоћу VADM"
   },
   "status_connected": {
-    "message": "Повезано са Mister Download Manager"
+    "message": "Повезано са VADM"
   },
   "status_connected_version": {
-    "message": "Повезано са Mister Download Manager $version$",
+    "message": "Повезано са VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Паузирано: преузимања остају у прегледачу"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager није инсталиран, или његова интеграција прегледача није подешена"
+    "message": "VADM није инсталиран, или његова интеграција прегледача није подешена"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager не прихвата ову копију проширења"
+    "message": "VADM не прихвата ову копију проширења"
   },
   "status_not_running": {
-    "message": "Mister Download Manager није покренут на време"
+    "message": "VADM није покренут на време"
   },
   "status_host_failed": {
-    "message": "Веза са апликацијом Mister Download Manager није успела"
+    "message": "Веза са апликацијом VADM није успела"
   },
   "status_too_large": {
     "message": "Детаљи овог преузимања били су превелики за прослеђивање"
   },
   "status_update_app": {
-    "message": "Ажурирајте Mister Download Manager да бисте користили све што ова екстензија нуди"
+    "message": "Ажурирајте VADM да бисте користили све што ова екстензија нуди"
   },
   "popup_take": {
     "message": "Преузимајте помоћу ове апликације"
@@ -78,10 +78,10 @@
     "message": "Шаљите преузимања преко проксија или VPN проширења овог прегледача"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager затим преузима датотеке преко истог проксија као и овај прегледач. Прегледач ће вас једном питати да ли то дозвољавате; искључивањем ове опције повлачите дозволу."
+    "message": "VADM затим преузима датотеке преко истог проксија као и овај прегледач. Прегледач ће вас једном питати да ли то дозвољавате; искључивањем ове опције повлачите дозволу."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager тада преузима преко истог проксија као и овај прегледач. Док је ово искључено, проширење не чита прокси прегледача."
+    "message": "VADM тада преузима преко истог проксија као и овај прегледач. Док је ово искључено, проширење не чита прокси прегледача."
   },
   "popup_exclude_site": {
     "message": "Никада не преузимај са $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Отвори Mister Download Manager"
+    "message": "Отвори VADM"
   },
   "popup_options": {
     "message": "Опције..."
@@ -111,7 +111,7 @@
     "message": "Помоћ"
   },
   "popup_support": {
-    "message": "Подржите MDM"
+    "message": "Подржите VADM"
   },
   "popup_fix": {
     "message": "Како да решите проблем"
@@ -201,16 +201,16 @@
     "message": "Овде нема видео снимка за преузимање"
   },
   "video_playlist": {
-    "message": "Листа видео снимака: изаберите их у Mister Download Manager"
+    "message": "Листа видео снимака: изаберите их у VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager треба yt-dlp за овај видео снимак"
+    "message": "VADM треба yt-dlp за овај видео снимак"
   },
   "video_too_long": {
     "message": "Тражење је трајало предуго"
   },
   "video_busy": {
-    "message": "Mister Download Manager је заузет другим видео снимцима"
+    "message": "VADM је заузет другим видео снимцима"
   },
   "video_queued": {
     "message": "Додато у ред"
@@ -234,7 +234,7 @@
     "message": "Овај рачунар"
   },
   "popup_send_remote": {
-    "message": "Други Mister Download Manager (сервер)"
+    "message": "Други VADM (сервер)"
   },
   "popup_remote_code": {
     "message": "Кôд за упаривање"
@@ -246,7 +246,7 @@
     "message": "Упари"
   },
   "popup_remote_help": {
-    "message": "Отворите његову адресу једном и прихватите његов сертификат, па унесите кôд из његових Опција, Удаљено, Упари уређај (или misterdownloadmanager-cli pair)."
+    "message": "Отворите његову адресу једном и прихватите његов сертификат, па унесите кôд из његових Опција, Удаљено, Упари уређај (или vadm-cli pair)."
   },
   "status_remote": {
     "message": "Преузимања иду на $address$",
@@ -361,19 +361,19 @@
     "message": "Преузми најбољи квалитет"
   },
   "video_sending": {
-    "message": "Шаље се у MDM..."
+    "message": "Шаље се у VADM..."
   },
   "video_added": {
-    "message": "Додато у MDM"
+    "message": "Додато у VADM"
   },
   "video_show": {
     "message": "Прикажи"
   },
   "video_no_answer": {
-    "message": "MDM није одговорио"
+    "message": "VADM није одговорио"
   },
   "video_get_mdm": {
-    "message": "Преузми MDM"
+    "message": "Преузми VADM"
   },
   "video_retry": {
     "message": "Покушај поново"
@@ -391,7 +391,7 @@
     "message": "Преузми део одавде..."
   },
   "video_failed": {
-    "message": "Mister Download Manager није инсталиран или није покренут"
+    "message": "VADM није инсталиран или није покренут"
   },
   "video_download_best": {
     "message": "Преузми најбоље"
@@ -412,7 +412,7 @@
     "message": "Заборави"
   },
   "popup_gear": {
-    "message": "Опције у програму Mister Download Manager"
+    "message": "Опције у програму VADM"
   },
   "popup_tabs": {
     "message": "Одељци искачућег прозора"
@@ -445,7 +445,7 @@
     "message": "Паузирано"
   },
   "popup_conn_update": {
-    "message": "Ажурирај Mister Download Manager"
+    "message": "Ажурирај VADM"
   },
   "popup_conn_remote": {
     "message": "Шаље се на $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Ово су преузимања програма Mister Download Manager на $server$. Отворите њихове датотеке тамо.",
+    "message": "Ово су преузимања програма VADM на $server$. Отворите њихове датотеке тамо.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Најновијих $shown$ од $total$. Mister Download Manager их све наводи.",
+    "message": "Најновијих $shown$ од $total$. VADM их све наводи.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Још нема преузимања"
   },
   "popup_dl_none_text": {
-    "message": "Овде се приказује оно што преузмете помоћу програма Mister Download Manager."
+    "message": "Овде се приказује оно што преузмете помоћу програма VADM."
   },
   "popup_dl_no_match": {
     "message": "Ништа се не подудара"
@@ -594,28 +594,28 @@
     "message": "Прикажи сва преузимања"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager није покренут"
+    "message": "VADM није покренут"
   },
   "popup_list_off_text": {
     "message": "Покрените га да бисте овде видели своја преузимања."
   },
   "popup_list_start": {
-    "message": "Покрени Mister Download Manager"
+    "message": "Покрени VADM"
   },
   "popup_list_old": {
-    "message": "Ажурирај Mister Download Manager"
+    "message": "Ажурирај VADM"
   },
   "popup_list_old_text": {
     "message": "Ова верзија још не може да прикаже своја преузимања овде."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager је заузет. Покушавам поново..."
+    "message": "VADM је заузет. Покушавам поново..."
   },
   "popup_list_unreached": {
-    "message": "Није могуће досегнути Mister Download Manager"
+    "message": "Није могуће досегнути VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Није могуће досегнути Mister Download Manager на $server$",
+    "message": "Није могуће досегнути VADM на $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Овај систем то не може да уради."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager није покренут."
+    "message": "VADM није покренут."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager није одговорио на време. Покушајте поново."
+    "message": "VADM није одговорио на време. Покушајте поново."
   },
   "popup_act_failed": {
     "message": "То није успело. Покушајте поново."

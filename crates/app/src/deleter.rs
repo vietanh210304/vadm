@@ -538,7 +538,7 @@ mod tests {
     fn a_rewrite_goes_in_turn_and_holds_its_folders_starts() {
         let dir = tempfile::tempdir().unwrap();
         let d = dir.path();
-        let (gone, state) = (d.join("gone.bin"), d.join("kept.bin.mdm.json"));
+        let (gone, state) = (d.join("gone.bin"), d.join("kept.bin.vadm.json"));
         std::fs::write(&gone, b"x").unwrap();
         std::fs::write(&state, b"old").unwrap();
         let gate = Arc::new(Mutex::new(()));

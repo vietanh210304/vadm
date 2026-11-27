@@ -316,7 +316,7 @@ impl Helpers {
                     .to_owned()
                 } else {
                     crate::i18n::t(
-                        "Sites send their best quality as separate video and audio, and ffmpeg joins them. On this system MDM uses yours: install ffmpeg with your package manager.",
+                        "Sites send their best quality as separate video and audio, and ffmpeg joins them. On this system VADM uses yours: install ffmpeg with your package manager.",
                     )
                     .to_owned()
                 },
@@ -339,11 +339,11 @@ impl Helpers {
             "Free, official and checked",
             (if self.node {
                 crate::i18n::t(
-                    "All three are open source. MDM gets them from their official releases with its own downloader and checks each file's signature before it runs. About 140 MB, once.",
+                    "All three are open source. VADM gets them from their official releases with its own downloader and checks each file's signature before it runs. About 140 MB, once.",
                 )
             } else {
                 crate::i18n::t(
-                    "Both are open source. MDM gets them from their official releases with its own downloader and checks each file's signature before it runs. About 100 MB, once.",
+                    "Both are open source. VADM gets them from their official releases with its own downloader and checks each file's signature before it runs. About 100 MB, once.",
                 )
             })
             .to_owned(),
@@ -707,7 +707,7 @@ impl OwnButton {
     fn label(self, t: Tool) -> &'static str {
         if self != (OwnButton::Install { first: true }) {
             // i18n: Video helpers: button: go back to the copy MDM downloads and checks itself
-            return crate::i18n::mark("Use MDM's own copy");
+            return crate::i18n::mark("Use VADM's own copy");
         }
         match t {
             // i18n: button: download and install the yt-dlp program
@@ -732,11 +732,11 @@ fn downloading_own(dir: Option<&std::path::Path>, tool: Tool) -> String {
     {
         Some(f) => fmt(
             // i18n: Helpers: MDM's own copy of a helper is being downloaded (where there was none, or in place of the system's); {percent} = how far, a number
-            t("Downloading MDM's own copy... {percent}%"),
+            t("Downloading VADM's own copy... {percent}%"),
             &[("percent", &format!("{:.0}", f * 100.0))],
         ),
         // i18n: Video helpers: MDM's own yt-dlp is being downloaded
-        None => t("Downloading MDM's own copy...").to_owned(),
+        None => t("Downloading VADM's own copy...").to_owned(),
     }
 }
 
@@ -1071,7 +1071,7 @@ impl Programs {
         }
         if state.failed.is_some() {
             // i18n: Helpers: the last update check failed (no network...); MDM checks again later by itself
-            return Some(t("Couldn't check for updates: MDM tries again later").to_owned());
+            return Some(t("Couldn't check for updates: VADM tries again later").to_owned());
         }
         match &state.latest {
             Some(latest) if mdm_tools::autoupdate::is_newer(latest, &current.version) => {
@@ -1135,7 +1135,7 @@ impl Programs {
                 (Some(old), _) => crate::i18n::fmt(
                     // i18n: Video helpers: the person's own gallery-dl is too old and not used; {version} = its version, {oldest} = the oldest MDM can use
                     crate::i18n::t(
-                        "Your own program ({version}) is too old: MDM needs {oldest} or newer",
+                        "Your own program ({version}) is too old: VADM needs {oldest} or newer",
                     ),
                     &[
                         ("version", &old.version),
@@ -1157,7 +1157,7 @@ impl Programs {
                 ),
                 (None, Some(i)) => crate::i18n::fmt(
                     // i18n: Video helpers: {version} = the version of MDM's own copy
-                    crate::i18n::t("Mister Download Manager's own copy, version {version}"),
+                    crate::i18n::t("VADM's own copy, version {version}"),
                     &[("version", &i.version)],
                 ),
                 // Linux and macOS as before: there the system's package manager (or Homebrew)
@@ -1168,7 +1168,7 @@ impl Programs {
                 }
                 // i18n: Video helpers: MDM can't download this helper on this Windows (ffmpeg on 32-bit Windows); "Use another program" is the button below
                 (None, None) => crate::i18n::t(
-                    "MDM has no copy for this system: install it, or use another program",
+                    "VADM has no copy for this system: install it, or use another program",
                 )
                 .to_owned(),
             };
@@ -1252,12 +1252,12 @@ impl Programs {
             );
             // "Use MDM's own copy" on every row: said with its helper's name (#1407); the
             // Install labels already carry it.
-            if own_label == "Use MDM's own copy" {
+            if own_label == "Use VADM's own copy" {
                 winui::name(
                     &own_b,
                     &crate::i18n::fmt(
                         // i18n: Helpers: the "Use MDM's own copy" button's name for a screen reader; {name} = the helper (yt-dlp, ffmpeg, gallery-dl)
-                        crate::i18n::t("Use MDM's own copy of {name}"),
+                        crate::i18n::t("Use VADM's own copy of {name}"),
                         &[("name", h.name())],
                     ),
                 );
@@ -1294,7 +1294,7 @@ impl Programs {
             o + egui::vec2(14.0, 332.0),
             &mut auto,
             // i18n: Helpers: checkbox: MDM checks for and installs newer versions of its own yt-dlp, ffmpeg, gallery-dl and Node.js by itself
-            "Keep MDM's helpers up to date automatically",
+            "Keep VADM's helpers up to date automatically",
             enabled,
         );
         if auto != self.updates.auto
@@ -1586,7 +1586,7 @@ impl Programs {
                 (Origin::Own, Kind::Node) => {
                     let own = crate::i18n::fmt(
                         // i18n: Video helpers: MDM's own Node.js is the JavaScript runtime; {runtime} = "Node.js" and its version
-                        crate::i18n::t("{runtime}, Mister Download Manager's own copy"),
+                        crate::i18n::t("{runtime}, VADM's own copy"),
                         &[("runtime", &named(r))],
                     );
                     match &updates {
@@ -1597,7 +1597,7 @@ impl Programs {
                 (Origin::Own, _) => crate::i18n::fmt(
                     // i18n: Video helpers: the Deno an earlier version of MDM installed, still used until MDM's own Node.js replaces it (by the next update, or Use MDM's own copy); {runtime} = "Deno" and its version
                     crate::i18n::t(
-                        "{runtime}, MDM's earlier copy: Node.js takes its place at the next update",
+                        "{runtime}, VADM's earlier copy: Node.js takes its place at the next update",
                     ),
                     &[("runtime", &named(r))],
                 ),
@@ -1607,7 +1607,7 @@ impl Programs {
         } else {
             // i18n: Video helpers: MDM can't download Node.js on this system (an unusual processor); Node.js and Deno are program names; "Use another program" is the button below
             crate::i18n::t(
-                "MDM has no copy for this system: install Node.js or Deno, or use another program",
+                "VADM has no copy for this system: install Node.js or Deno, or use another program",
             )
             .to_owned()
         };
@@ -1691,12 +1691,12 @@ impl Programs {
         );
         // "Use MDM's own copy" on every row: said with its helper's name (#1407); the
         // Install labels already carry it.
-        if own_label == "Use MDM's own copy" {
+        if own_label == "Use VADM's own copy" {
             winui::name(
                 &own_b,
                 &crate::i18n::fmt(
                     // i18n: Helpers: the "Use MDM's own copy" button's name for a screen reader; {name} = the helper (Node.js)
-                    crate::i18n::t("Use MDM's own copy of {name}"),
+                    crate::i18n::t("Use VADM's own copy of {name}"),
                     &[("name", Kind::Node.label())],
                 ),
             );
@@ -1834,7 +1834,7 @@ mod tests {
         assert_eq!(install.label(Tool::Ffmpeg), "Install ffmpeg");
         assert_eq!(install.label(Tool::Node), "Install Node.js");
         for b in [Install { first: false }, Forget, Off] {
-            assert_eq!(b.label(Tool::GalleryDl), "Use MDM's own copy");
+            assert_eq!(b.label(Tool::GalleryDl), "Use VADM's own copy");
         }
     }
 
@@ -1845,11 +1845,11 @@ mod tests {
         let dir = tempfile::tempdir().unwrap();
         assert_eq!(
             downloading_own(Some(dir.path()), Tool::GalleryDl),
-            "Downloading MDM's own copy..."
+            "Downloading VADM's own copy..."
         );
         assert_eq!(
             downloading_own(None, Tool::Node),
-            "Downloading MDM's own copy..."
+            "Downloading VADM's own copy..."
         );
     }
 }

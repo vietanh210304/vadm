@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "將瀏覽器中的下載交給 Mister Download Manager。"
+    "message": "將瀏覽器中的下載交給 VADM。"
   },
   "menu": {
-    "message": "使用 Mister Download Manager 下載"
+    "message": "使用 VADM 下載"
   },
   "video_download": {
     "message": "下載影片"
@@ -30,19 +30,19 @@
     "message": "按鈕設定..."
   },
   "video_sent": {
-    "message": "已傳送至 Mister Download Manager"
+    "message": "已傳送至 VADM"
   },
   "menu_selected": {
-    "message": "使用 Mister Download Manager 下載選取的連結"
+    "message": "使用 VADM 下載選取的連結"
   },
   "menu_all": {
-    "message": "使用 Mister Download Manager 下載所有連結"
+    "message": "使用 VADM 下載所有連結"
   },
   "status_connected": {
-    "message": "已連線到 Mister Download Manager"
+    "message": "已連線到 VADM"
   },
   "status_connected_version": {
-    "message": "已連線到 Mister Download Manager $version$",
+    "message": "已連線到 VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "已暫停：下載仍由瀏覽器處理"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager 未安裝，或其瀏覽器整合未設定"
+    "message": "VADM 未安裝，或其瀏覽器整合未設定"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager 不接受此擴充功能副本"
+    "message": "VADM 不接受此擴充功能副本"
   },
   "status_not_running": {
-    "message": "Mister Download Manager 未及時啟動"
+    "message": "VADM 未及時啟動"
   },
   "status_host_failed": {
-    "message": "與 Mister Download Manager 的連線失敗"
+    "message": "與 VADM 的連線失敗"
   },
   "status_too_large": {
     "message": "此下載的詳細資料過大，無法移交"
   },
   "status_update_app": {
-    "message": "更新 Mister Download Manager 以使用此擴充功能提供的所有功能"
+    "message": "更新 VADM 以使用此擴充功能提供的所有功能"
   },
   "popup_take": {
     "message": "從此瀏覽器接管下載"
@@ -78,10 +78,10 @@
     "message": "透過此瀏覽器的 Proxy 或 VPN 擴充功能傳送下載"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager 會透過此瀏覽器使用的相同 Proxy 進行下載。瀏覽器會要求您允許一次；關閉此選項會撤銷該權限。"
+    "message": "VADM 會透過此瀏覽器使用的相同 Proxy 進行下載。瀏覽器會要求您允許一次；關閉此選項會撤銷該權限。"
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager 會透過與此瀏覽器相同的 Proxy 進行下載。關閉此選項時，擴充功能不會讀取瀏覽器的 Proxy。"
+    "message": "VADM 會透過與此瀏覽器相同的 Proxy 進行下載。關閉此選項時，擴充功能不會讀取瀏覽器的 Proxy。"
   },
   "popup_exclude_site": {
     "message": "永不從 $site$ 下載",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "開啟 Mister Download Manager"
+    "message": "開啟 VADM"
   },
   "popup_options": {
     "message": "選項..."
@@ -111,7 +111,7 @@
     "message": "說明"
   },
   "popup_support": {
-    "message": "支援 MDM"
+    "message": "支援 VADM"
   },
   "popup_fix": {
     "message": "如何修正"
@@ -201,16 +201,16 @@
     "message": "此處沒有可下載的影片"
   },
   "video_playlist": {
-    "message": "影片清單：請在 Mister Download Manager 中選擇"
+    "message": "影片清單：請在 VADM 中選擇"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager 需要 yt-dlp 才能處理此影片"
+    "message": "VADM 需要 yt-dlp 才能處理此影片"
   },
   "video_too_long": {
     "message": "尋找耗時過久"
   },
   "video_busy": {
-    "message": "Mister Download Manager 正忙於處理其他影片"
+    "message": "VADM 正忙於處理其他影片"
   },
   "video_queued": {
     "message": "已新增至佇列"
@@ -234,7 +234,7 @@
     "message": "這部電腦"
   },
   "popup_send_remote": {
-    "message": "另一個 Mister Download Manager (伺服器)"
+    "message": "另一個 VADM (伺服器)"
   },
   "popup_remote_code": {
     "message": "配對代碼"
@@ -246,7 +246,7 @@
     "message": "配對"
   },
   "popup_remote_help": {
-    "message": "開啟其位址一次並接受其憑證，然後從其「選項」、「遠端」、「配對裝置」(或 misterdownloadmanager-cli pair) 輸入代碼。"
+    "message": "開啟其位址一次並接受其憑證，然後從其「選項」、「遠端」、「配對裝置」(或 vadm-cli pair) 輸入代碼。"
   },
   "status_remote": {
     "message": "下載項目傳送至 $address$",
@@ -361,19 +361,19 @@
     "message": "下載最佳品質"
   },
   "video_sending": {
-    "message": "正在傳送至 MDM..."
+    "message": "正在傳送至 VADM..."
   },
   "video_added": {
-    "message": "已新增至 MDM"
+    "message": "已新增至 VADM"
   },
   "video_show": {
     "message": "顯示"
   },
   "video_no_answer": {
-    "message": "MDM 沒有回應"
+    "message": "VADM 沒有回應"
   },
   "video_get_mdm": {
-    "message": "取得 MDM"
+    "message": "取得 VADM"
   },
   "video_retry": {
     "message": "重試"
@@ -391,7 +391,7 @@
     "message": "從這裡下載部分內容..."
   },
   "video_failed": {
-    "message": "Mister Download Manager 未安裝或未啟動"
+    "message": "VADM 未安裝或未啟動"
   },
   "video_download_best": {
     "message": "下載最佳品質"
@@ -412,7 +412,7 @@
     "message": "忘記"
   },
   "popup_gear": {
-    "message": "Mister Download Manager 中的選項"
+    "message": "VADM 中的選項"
   },
   "popup_tabs": {
     "message": "快顯區段"
@@ -445,7 +445,7 @@
     "message": "已暫停"
   },
   "popup_conn_update": {
-    "message": "更新 Mister Download Manager"
+    "message": "更新 VADM"
   },
   "popup_conn_remote": {
     "message": "傳送至 $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "這些是 $server$ 上 Mister Download Manager 的下載項目。請在那裡開啟其檔案。",
+    "message": "這些是 $server$ 上 VADM 的下載項目。請在那裡開啟其檔案。",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "最新的 $shown$ 個，共 $total$ 個。Mister Download Manager 會列出所有項目。",
+    "message": "最新的 $shown$ 個，共 $total$ 個。VADM 會列出所有項目。",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "尚無下載項目"
   },
   "popup_dl_none_text": {
-    "message": "您使用 Mister Download Manager 下載的內容會顯示在這裡。"
+    "message": "您使用 VADM 下載的內容會顯示在這裡。"
   },
   "popup_dl_no_match": {
     "message": "無相符項目"
@@ -594,28 +594,28 @@
     "message": "顯示所有下載項目"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager 未執行"
+    "message": "VADM 未執行"
   },
   "popup_list_off_text": {
     "message": "啟動它以在此處查看您的下載項目。"
   },
   "popup_list_start": {
-    "message": "啟動 Mister Download Manager"
+    "message": "啟動 VADM"
   },
   "popup_list_old": {
-    "message": "更新 Mister Download Manager"
+    "message": "更新 VADM"
   },
   "popup_list_old_text": {
     "message": "此版本尚無法在此處列出其下載項目。"
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager 忙碌中。正在重試..."
+    "message": "VADM 忙碌中。正在重試..."
   },
   "popup_list_unreached": {
-    "message": "無法連線到 Mister Download Manager"
+    "message": "無法連線到 VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "無法連線到 Mister Download Manager (位於 $server$)",
+    "message": "無法連線到 VADM (位於 $server$)",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "此系統無法執行該動作。"
   },
   "popup_act_off": {
-    "message": "Mister Download Manager 未執行。"
+    "message": "VADM 未執行。"
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager 未及時回應。請再試一次。"
+    "message": "VADM 未及時回應。請再試一次。"
   },
   "popup_act_failed": {
     "message": "失敗。請再試一次。"

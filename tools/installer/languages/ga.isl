@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Irish: tools/installer/languages.py
+﻿; VADM's installer in Irish: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Ag díshuiteáil %1.
 
 [CustomMessages]
 TaskBrowser=Cumasaigh comhtháthú &brabhsálaí (Chrome, Edge, Brave, Firefox)
-TaskStartup=Tosaigh Mister Download Manager nuair a thosaíonn &Windows
+TaskStartup=Tosaigh VADM nuair a thosaíonn &Windows
 TaskGroupOther=Eile:
-Launch=Tosaigh Mister Download Manager
+Launch=Tosaigh VADM
 KeepData=Scrios do liosta íoslódálacha agus socruithe freisin?%n%nNí dhéantar teagmháil le do chuid comhad íoslódáilte ar aon nós.

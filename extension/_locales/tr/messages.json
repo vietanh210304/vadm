@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "İndirmeleri tarayıcıdan Mister Download Manager uygulamasına aktarır."
+    "message": "İndirmeleri tarayıcıdan VADM uygulamasına aktarır."
   },
   "menu": {
-    "message": "Mister Download Manager ile İndir"
+    "message": "VADM ile İndir"
   },
   "video_download": {
     "message": "Videoyu indir"
@@ -30,19 +30,19 @@
     "message": "Düğme ayarları..."
   },
   "video_sent": {
-    "message": "Mister Download Manager uygulamasına gönderildi"
+    "message": "VADM uygulamasına gönderildi"
   },
   "menu_selected": {
-    "message": "Seçili bağlantıları Mister Download Manager ile indir"
+    "message": "Seçili bağlantıları VADM ile indir"
   },
   "menu_all": {
-    "message": "Tüm bağlantıları Mister Download Manager ile indir"
+    "message": "Tüm bağlantıları VADM ile indir"
   },
   "status_connected": {
-    "message": "Mister Download Manager uygulamasına bağlandı"
+    "message": "VADM uygulamasına bağlandı"
   },
   "status_connected_version": {
-    "message": "Mister Download Manager $version$ uygulamasına bağlandı",
+    "message": "VADM $version$ uygulamasına bağlandı",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Duraklatıldı: indirmeler tarayıcıda kalır"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager yüklü değil veya tarayıcı entegrasyonu ayarlanmadı"
+    "message": "VADM yüklü değil veya tarayıcı entegrasyonu ayarlanmadı"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager uzantının bu kopyasını kabul etmiyor"
+    "message": "VADM uzantının bu kopyasını kabul etmiyor"
   },
   "status_not_running": {
-    "message": "Mister Download Manager zamanında başlatılamadı"
+    "message": "VADM zamanında başlatılamadı"
   },
   "status_host_failed": {
-    "message": "Mister Download Manager ile bağlantı kurulamadı"
+    "message": "VADM ile bağlantı kurulamadı"
   },
   "status_too_large": {
     "message": "Bu indirmenin ayrıntıları aktarılamayacak kadar büyüktü"
   },
   "status_update_app": {
-    "message": "Bu uzantının sunduğu tüm özellikleri kullanmak için Mister Download Manager uygulamasını güncelle"
+    "message": "Bu uzantının sunduğu tüm özellikleri kullanmak için VADM uygulamasını güncelle"
   },
   "popup_take": {
     "message": "İndirmeleri bu tarayıcıdan al"
@@ -78,10 +78,10 @@
     "message": "İndirmeleri bu tarayıcının proxy veya VPN uzantısı üzerinden gönder"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager daha sonra bu tarayıcıyla aynı proxy üzerinden indirme yapar. Tarayıcı bir kez izin vermenizi ister; bu seçeneği kapatmak verilen izni geri alır."
+    "message": "VADM daha sonra bu tarayıcıyla aynı proxy üzerinden indirme yapar. Tarayıcı bir kez izin vermenizi ister; bu seçeneği kapatmak verilen izni geri alır."
   },
   "popup_proxy_title_chromium": {
-    "message": "Bu özellik açıkken Mister Download Manager, bu tarayıcıyla aynı proxy üzerinden indirme yapar. Kapalıyken uzantı, tarayıcının proxy ayarlarını okumaz."
+    "message": "Bu özellik açıkken VADM, bu tarayıcıyla aynı proxy üzerinden indirme yapar. Kapalıyken uzantı, tarayıcının proxy ayarlarını okumaz."
   },
   "popup_exclude_site": {
     "message": "$site$ sitesindeki indirmeleri artık alma",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Mister Download Manager uygulamasını aç"
+    "message": "VADM uygulamasını aç"
   },
   "popup_options": {
     "message": "Seçenekler..."
@@ -111,7 +111,7 @@
     "message": "Yardım"
   },
   "popup_support": {
-    "message": "MDM'yi Destekleyin"
+    "message": "VADM'yi Destekleyin"
   },
   "popup_fix": {
     "message": "Nasıl düzeltilir"
@@ -201,16 +201,16 @@
     "message": "Burada indirilecek video yok"
   },
   "video_playlist": {
-    "message": "Bir video listesi: videoları Mister Download Manager uygulamasında seçin"
+    "message": "Bir video listesi: videoları VADM uygulamasında seçin"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager uygulamasının bu video için yt-dlp'ye ihtiyacı var"
+    "message": "VADM uygulamasının bu video için yt-dlp'ye ihtiyacı var"
   },
   "video_too_long": {
     "message": "Arama çok uzun sürdü"
   },
   "video_busy": {
-    "message": "Mister Download Manager diğer videolarla meşgul"
+    "message": "VADM diğer videolarla meşgul"
   },
   "video_queued": {
     "message": "Sıraya eklendi"
@@ -234,7 +234,7 @@
     "message": "Bu bilgisayar"
   },
   "popup_send_remote": {
-    "message": "Başka bir Mister Download Manager (bir sunucu)"
+    "message": "Başka bir VADM (bir sunucu)"
   },
   "popup_remote_code": {
     "message": "Eşleme kodu"
@@ -246,7 +246,7 @@
     "message": "Eşle"
   },
   "popup_remote_help": {
-    "message": "Adresini bir kez açın ve sertifikasını kabul edin, sonra Seçenekler, Uzak, Bir cihazı eşle'den (veya misterdownloadmanager-cli pair) bir kod girin."
+    "message": "Adresini bir kez açın ve sertifikasını kabul edin, sonra Seçenekler, Uzak, Bir cihazı eşle'den (veya vadm-cli pair) bir kod girin."
   },
   "status_remote": {
     "message": "İndirmeler $address$ adresine gidiyor",
@@ -361,19 +361,19 @@
     "message": "En iyi kaliteyi indir"
   },
   "video_sending": {
-    "message": "MDM'ye gönderiliyor..."
+    "message": "VADM'ye gönderiliyor..."
   },
   "video_added": {
-    "message": "MDM'ye eklendi"
+    "message": "VADM'ye eklendi"
   },
   "video_show": {
     "message": "Göster"
   },
   "video_no_answer": {
-    "message": "MDM yanıt vermedi"
+    "message": "VADM yanıt vermedi"
   },
   "video_get_mdm": {
-    "message": "MDM'yi yükle"
+    "message": "VADM'yi yükle"
   },
   "video_retry": {
     "message": "Tekrar dene"
@@ -391,7 +391,7 @@
     "message": "Buradan bir bölüm indir..."
   },
   "video_failed": {
-    "message": "Mister Download Manager yüklü değil veya başlatılamadı"
+    "message": "VADM yüklü değil veya başlatılamadı"
   },
   "video_download_best": {
     "message": "En iyi kaliteyi indir"
@@ -412,7 +412,7 @@
     "message": "Unut"
   },
   "popup_gear": {
-    "message": "Mister Download Manager Seçenekleri"
+    "message": "VADM Seçenekleri"
   },
   "popup_tabs": {
     "message": "Açılır pencere bölümleri"
@@ -445,7 +445,7 @@
     "message": "Duraklatıldı"
   },
   "popup_conn_update": {
-    "message": "Mister Download Manager uygulamasını güncelle"
+    "message": "VADM uygulamasını güncelle"
   },
   "popup_conn_remote": {
     "message": "$server$ adresine gönderiliyor",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Bunlar, $server$ adresindeki Mister Download Manager indirmeleridir. Dosyalarını orada açın.",
+    "message": "Bunlar, $server$ adresindeki VADM indirmeleridir. Dosyalarını orada açın.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "En yeni $shown$ indirme, toplam $total$ indirme arasından gösteriliyor. Mister Download Manager hepsini listeler.",
+    "message": "En yeni $shown$ indirme, toplam $total$ indirme arasından gösteriliyor. VADM hepsini listeler.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Henüz indirme yok"
   },
   "popup_dl_none_text": {
-    "message": "Mister Download Manager ile indirdiğiniz her şey burada görünür."
+    "message": "VADM ile indirdiğiniz her şey burada görünür."
   },
   "popup_dl_no_match": {
     "message": "Hiçbir şey eşleşmiyor"
@@ -594,28 +594,28 @@
     "message": "Tüm indirmeleri göster"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager çalışmıyor"
+    "message": "VADM çalışmıyor"
   },
   "popup_list_off_text": {
     "message": "İndirmelerinizi burada görmek için başlatın."
   },
   "popup_list_start": {
-    "message": "Mister Download Manager uygulamasını başlat"
+    "message": "VADM uygulamasını başlat"
   },
   "popup_list_old": {
-    "message": "Mister Download Manager uygulamasını güncelle"
+    "message": "VADM uygulamasını güncelle"
   },
   "popup_list_old_text": {
     "message": "Bu sürümün indirmeleri henüz burada listelenemiyor."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager meşgul. Tekrar deneniyor..."
+    "message": "VADM meşgul. Tekrar deneniyor..."
   },
   "popup_list_unreached": {
-    "message": "Mister Download Manager uygulamasına ulaşılamıyor"
+    "message": "VADM uygulamasına ulaşılamıyor"
   },
   "popup_list_remote_unreachable": {
-    "message": "Mister Download Manager uygulamasına $server$ adresinde ulaşılamıyor",
+    "message": "VADM uygulamasına $server$ adresinde ulaşılamıyor",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Bu sistem bunu yapamaz."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager çalışmıyor."
+    "message": "VADM çalışmıyor."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager zamanında yanıt vermedi. Tekrar deneyin."
+    "message": "VADM zamanında yanıt vermedi. Tekrar deneyin."
   },
   "popup_act_failed": {
     "message": "İşlem başarısız oldu. Yeniden deneyin."

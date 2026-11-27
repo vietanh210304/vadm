@@ -9,7 +9,7 @@ use std::process::{Command, Stdio};
 use std::sync::mpsc;
 use std::time::Duration;
 
-const HOST: &str = env!("CARGO_BIN_EXE_misterdownloadmanager-nmhost");
+const HOST: &str = env!("CARGO_BIN_EXE_vadm-nmhost");
 const CALLER: &str = "chrome-extension://oogbclbbninliongijffeeggalppliok/";
 const UA: &str = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/141.0.0.0 Safari/537.36";
 
@@ -194,7 +194,7 @@ fn what_is_left_to_the_browser_is_logged() {
     let dir = data_dir("logged", serde_json::json!({ "auto_types": "ZIP" }));
     let app = fake_app(&dir, "ok");
     std::fs::create_dir_all(dir.join("logs")).unwrap();
-    std::fs::write(dir.join("logs").join("mdm.log"), "an earlier line\n").unwrap();
+    std::fs::write(dir.join("logs").join("vadm.log"), "an earlier line\n").unwrap();
     let (replies, ok) = run(
         &dir,
         CALLER,
@@ -221,7 +221,7 @@ fn what_is_left_to_the_browser_is_logged() {
         app.recv_timeout(Duration::from_millis(500)).is_err(),
         "nothing reached the app"
     );
-    let log = std::fs::read_to_string(dir.join("logs").join("mdm.log")).unwrap();
+    let log = std::fs::read_to_string(dir.join("logs").join("vadm.log")).unwrap();
     let lines: Vec<&str> = log.lines().collect();
     assert_eq!(lines.len(), 5, "{log}");
     assert_eq!(lines[0], "an earlier line");
@@ -300,7 +300,7 @@ fn zen_and_helium_alone_are_registered() {
     };
     host("--register");
     let manifest = |dir: &std::path::Path| -> serde_json::Value {
-        let file = dir.join("com.misterdownloadmanager.host.json");
+        let file = dir.join("com.vadm.host.json");
         serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap()
     };
     assert!(manifest(&mozilla_hosts)["allowed_extensions"].is_array());
@@ -324,7 +324,7 @@ fn zen_and_helium_alone_are_registered() {
     );
     host("--unregister");
     for dir in [&mozilla_hosts, &helium_hosts] {
-        assert!(!dir.join("com.misterdownloadmanager.host.json").exists());
+        assert!(!dir.join("com.vadm.host.json").exists());
     }
     assert!(!offer.exists());
     let _ = std::fs::remove_dir_all(&home);
@@ -359,7 +359,7 @@ fn brave_origin_alone_is_registered() {
         .output()
         .unwrap();
     assert!(out.status.success(), "{out:?}");
-    let file = hosts.join("com.misterdownloadmanager.host.json");
+    let file = hosts.join("com.vadm.host.json");
     let manifest: serde_json::Value =
         serde_json::from_str(&std::fs::read_to_string(&file).unwrap()).unwrap();
     assert_eq!(
@@ -389,7 +389,7 @@ fn a_host_inside_an_appimage_mount_is_not_registered() {
     assert!(String::from_utf8_lossy(&out.stderr).contains("AppImage"));
     assert!(
         !home
-            .join(".config/google-chrome/NativeMessagingHosts/com.misterdownloadmanager.host.json")
+            .join(".config/google-chrome/NativeMessagingHosts/com.vadm.host.json")
             .exists()
     );
     let _ = std::fs::remove_dir_all(&home);
@@ -417,9 +417,9 @@ fn a_host_in_a_temporary_folder_is_not_registered() {
     let home = data_dir("temporary", serde_json::json!({}));
     let (chrome, hosts) = chrome_dirs(&home);
     std::fs::create_dir_all(&chrome).unwrap();
-    let extracted = home.join("Rar$EXa34720.17029.rartemp/MisterDownloadManager");
+    let extracted = home.join("Rar$EXa34720.17029.rartemp/VADM");
     std::fs::create_dir_all(&extracted).unwrap();
-    let copy = extracted.join("misterdownloadmanager-nmhost");
+    let copy = extracted.join("vadm-nmhost");
     std::fs::copy(HOST, &copy).unwrap();
     std::fs::set_permissions(&copy, std::fs::Permissions::from_mode(0o755)).unwrap();
     for arg in ["--register", "--repair"] {
@@ -462,13 +462,13 @@ fn a_start_takes_only_a_registration_that_leads_nowhere() {
     let home = data_dir("repair", serde_json::json!({}));
     let (_, hosts) = chrome_dirs(&home);
     std::fs::create_dir_all(&hosts).unwrap();
-    let file = hosts.join("com.misterdownloadmanager.host.json");
-    let other = home.join("other-copy/misterdownloadmanager-nmhost");
+    let file = hosts.join("com.vadm.host.json");
+    let other = home.join("other-copy/vadm-nmhost");
     std::fs::create_dir_all(other.parent().unwrap()).unwrap();
     std::fs::write(&other, b"#!/bin/sh\n").unwrap();
     std::fs::set_permissions(&other, std::fs::Permissions::from_mode(0o755)).unwrap();
     let theirs = serde_json::json!({
-        "name": "com.misterdownloadmanager.host",
+        "name": "com.vadm.host",
         "path": other,
         "type": "stdio",
         "allowed_origins": [],

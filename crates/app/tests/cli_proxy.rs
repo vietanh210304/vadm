@@ -8,7 +8,7 @@ use std::process::{Command, Output};
 
 use mdm_labserver::{Config, LabServer};
 
-const APP: &str = env!("CARGO_BIN_EXE_misterdownloadmanager");
+const APP: &str = env!("CARGO_BIN_EXE_vadm");
 /// A host nothing on this computer can look up: only through the proxy can it be reached.
 const SITE: &str = "mdm-test.invalid";
 

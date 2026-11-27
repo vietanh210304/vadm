@@ -1608,7 +1608,7 @@ fn popup_level<C: Clone>(
         // Where the submenu is, for its menu's next pass (`heading_into`, #579).
         ctx.data_mut(|d| d.insert_temp(sub_key.with("sub-rect"), screen));
     }
-    let title = format!("misterdownloadmanager menu {depth}"); // not translated: an id
+    let title = format!("vadm menu {depth}"); // not translated: an id
     let builder = popup_viewport(&title)
         .with_active(false)
         .with_position(screen.min)

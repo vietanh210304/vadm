@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Uzbek: tools/installer/languages.py
+﻿; VADM's installer in Uzbek: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 oʻchirilmoqda.
 
 [CustomMessages]
 TaskBrowser=Brauzer integratsiyasini sozlash (&Chrome, Edge, Brave, Firefox)
-TaskStartup=&Windows ishga tushganda Mister Download Managerni ishga tushirish
+TaskStartup=&Windows ishga tushganda VADMni ishga tushirish
 TaskGroupOther=Boshqa:
-Launch=Mister Download Managerni ishga tushirish
+Launch=VADMni ishga tushirish
 KeepData=Yuklab olish roʻyxati va sozlamalaringizni ham oʻchirib tashlaysizmi?%n%nYuklab olingan fayllaringizga hech qanday holatda tegmaydi.

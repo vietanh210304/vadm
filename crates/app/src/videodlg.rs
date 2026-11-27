@@ -843,7 +843,7 @@ impl VideoDialog {
                 "",
                 // i18n: in Download video, on 32-bit Windows (no button: no ffmpeg build MDM can check exists for it); Helpers... is the button below
                 crate::i18n::t(
-                    "The best qualities, MP3, Opus and FLAC need ffmpeg, which MDM has no copy of for 32-bit Windows: choose your own with Helpers...",
+                    "The best qualities, MP3, Opus and FLAC need ffmpeg, which VADM has no copy of for 32-bit Windows: choose your own with Helpers...",
                 ),
             )),
             (Some(_), None) => Some((
@@ -2722,7 +2722,7 @@ mod tests {
             })
         );
         assert_eq!(add.size, Some(3050), "half of 6100");
-        assert!(!add.named, "MDM's name, with the part's words");
+        assert!(!add.named, "VADM's name, with the part's words");
         assert!(add.subs.langs.is_empty());
         assert!(add.dest.ends_with("A talk (15s-45s).mp4"));
         // The times change: the name follows.

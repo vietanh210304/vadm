@@ -31,7 +31,7 @@ impl SnoozeFor {
         // i18n: Snooze menu of the Download complete window: show no Download complete window for this long
         crate::i18n::mark("For 8 hours"),
         // i18n: Snooze menu of the Download complete window: show no Download complete window until MDM is started again
-        crate::i18n::mark("Until MDM restarts"),
+        crate::i18n::mark("Until VADM restarts"),
     ];
 
     /// Its length in seconds; none for `Restart`.

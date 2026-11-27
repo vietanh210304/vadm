@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Передает загрузки из браузера в Mister Download Manager."
+    "message": "Передает загрузки из браузера в VADM."
   },
   "menu": {
-    "message": "Загрузить с помощью Mister Download Manager"
+    "message": "Загрузить с помощью VADM"
   },
   "video_download": {
     "message": "Скачать видео"
@@ -30,19 +30,19 @@
     "message": "Настройки кнопки..."
   },
   "video_sent": {
-    "message": "Отправлено в Mister Download Manager"
+    "message": "Отправлено в VADM"
   },
   "menu_selected": {
-    "message": "Загрузить выбранные ссылки с Mister Download Manager"
+    "message": "Загрузить выбранные ссылки с VADM"
   },
   "menu_all": {
-    "message": "Загрузить все ссылки с Mister Download Manager"
+    "message": "Загрузить все ссылки с VADM"
   },
   "status_connected": {
-    "message": "Подключено к Mister Download Manager"
+    "message": "Подключено к VADM"
   },
   "status_connected_version": {
-    "message": "Подключено к Mister Download Manager $version$",
+    "message": "Подключено к VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Приостановлено: загрузки остаются в браузере"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager не установлен или его интеграция с браузером не настроена"
+    "message": "VADM не установлен или его интеграция с браузером не настроена"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager не принимает эту копию расширения"
+    "message": "VADM не принимает эту копию расширения"
   },
   "status_not_running": {
-    "message": "Mister Download Manager не запустился вовремя"
+    "message": "VADM не запустился вовремя"
   },
   "status_host_failed": {
-    "message": "Не удалось подключиться к Mister Download Manager"
+    "message": "Не удалось подключиться к VADM"
   },
   "status_too_large": {
     "message": "Сведения об этой загрузке были слишком велики для передачи"
   },
   "status_update_app": {
-    "message": "Обновите Mister Download Manager, чтобы использовать все возможности этого расширения"
+    "message": "Обновите VADM, чтобы использовать все возможности этого расширения"
   },
   "popup_take": {
     "message": "Перехватывать загрузки из этого браузера"
@@ -78,10 +78,10 @@
     "message": "Отправлять загрузки через прокси-сервер или расширение VPN этого браузера"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager загружает файлы через тот же прокси-сервер, что и этот браузер. Браузер один раз запросит у вас разрешение; отключение этой функции отменяет это разрешение."
+    "message": "VADM загружает файлы через тот же прокси-сервер, что и этот браузер. Браузер один раз запросит у вас разрешение; отключение этой функции отменяет это разрешение."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager будет загружать файлы через тот же прокси-сервер, что и этот браузер. Если этот параметр отключен, расширение не будет считывать прокси-сервер браузера."
+    "message": "VADM будет загружать файлы через тот же прокси-сервер, что и этот браузер. Если этот параметр отключен, расширение не будет считывать прокси-сервер браузера."
   },
   "popup_exclude_site": {
     "message": "Никогда не загружать с $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Открыть Mister Download Manager"
+    "message": "Открыть VADM"
   },
   "popup_options": {
     "message": "Параметры..."
@@ -111,7 +111,7 @@
     "message": "Справка"
   },
   "popup_support": {
-    "message": "Поддержать MDM"
+    "message": "Поддержать VADM"
   },
   "popup_fix": {
     "message": "Как исправить"
@@ -201,16 +201,16 @@
     "message": "Здесь нет видео для скачивания"
   },
   "video_playlist": {
-    "message": "Список видео: выберите их в Mister Download Manager"
+    "message": "Список видео: выберите их в VADM"
   },
   "video_no_ytdlp": {
-    "message": "Для этого видео Mister Download Manager нужен yt-dlp"
+    "message": "Для этого видео VADM нужен yt-dlp"
   },
   "video_too_long": {
     "message": "Поиск занял слишком много времени"
   },
   "video_busy": {
-    "message": "Mister Download Manager занят другими видео"
+    "message": "VADM занят другими видео"
   },
   "video_queued": {
     "message": "Добавлено в очередь"
@@ -234,7 +234,7 @@
     "message": "Этот компьютер"
   },
   "popup_send_remote": {
-    "message": "Другой Mister Download Manager (сервер)"
+    "message": "Другой VADM (сервер)"
   },
   "popup_remote_code": {
     "message": "Код сопряжения"
@@ -246,7 +246,7 @@
     "message": "Сопрячь"
   },
   "popup_remote_help": {
-    "message": "Откройте его адрес один раз и примите его сертификат, затем введите код из его «Параметров», «Удаленного доступа», «Сопрячь устройство» (или misterdownloadmanager-cli pair)."
+    "message": "Откройте его адрес один раз и примите его сертификат, затем введите код из его «Параметров», «Удаленного доступа», «Сопрячь устройство» (или vadm-cli pair)."
   },
   "status_remote": {
     "message": "Загрузки отправляются на $address$",
@@ -361,19 +361,19 @@
     "message": "Скачать в лучшем качестве"
   },
   "video_sending": {
-    "message": "Отправка в MDM..."
+    "message": "Отправка в VADM..."
   },
   "video_added": {
-    "message": "Добавлено в MDM"
+    "message": "Добавлено в VADM"
   },
   "video_show": {
     "message": "Показать"
   },
   "video_no_answer": {
-    "message": "MDM не отвечает"
+    "message": "VADM не отвечает"
   },
   "video_get_mdm": {
-    "message": "Получить MDM"
+    "message": "Получить VADM"
   },
   "video_retry": {
     "message": "Повторить"
@@ -391,7 +391,7 @@
     "message": "Загрузить часть отсюда..."
   },
   "video_failed": {
-    "message": "Mister Download Manager не установлен или не запустился"
+    "message": "VADM не установлен или не запустился"
   },
   "video_download_best": {
     "message": "Скачать лучшее"
@@ -412,7 +412,7 @@
     "message": "Забыть"
   },
   "popup_gear": {
-    "message": "Параметры в Mister Download Manager"
+    "message": "Параметры в VADM"
   },
   "popup_tabs": {
     "message": "Разделы всплывающего окна"
@@ -445,7 +445,7 @@
     "message": "Приостановлено"
   },
   "popup_conn_update": {
-    "message": "Обновить Mister Download Manager"
+    "message": "Обновить VADM"
   },
   "popup_conn_remote": {
     "message": "Отправка на $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Это загрузки Mister Download Manager на $server$. Откройте их файлы там.",
+    "message": "Это загрузки VADM на $server$. Откройте их файлы там.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Показаны $shown$ из $total$ новейших. Mister Download Manager перечисляет их все.",
+    "message": "Показаны $shown$ из $total$ новейших. VADM перечисляет их все.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Загрузок пока нет"
   },
   "popup_dl_none_text": {
-    "message": "То, что вы загружаете с помощью Mister Download Manager, отображается здесь."
+    "message": "То, что вы загружаете с помощью VADM, отображается здесь."
   },
   "popup_dl_no_match": {
     "message": "Ничего не найдено"
@@ -594,28 +594,28 @@
     "message": "Показать все загрузки"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager не запущен"
+    "message": "VADM не запущен"
   },
   "popup_list_off_text": {
     "message": "Запустите, чтобы увидеть здесь свои загрузки."
   },
   "popup_list_start": {
-    "message": "Запустить Mister Download Manager"
+    "message": "Запустить VADM"
   },
   "popup_list_old": {
-    "message": "Обновить Mister Download Manager"
+    "message": "Обновить VADM"
   },
   "popup_list_old_text": {
     "message": "Эта версия пока не может отображать здесь свои загрузки."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager занят. Повторная попытка..."
+    "message": "VADM занят. Повторная попытка..."
   },
   "popup_list_unreached": {
-    "message": "Не удаётся подключиться к Mister Download Manager"
+    "message": "Не удаётся подключиться к VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Не удаётся подключиться к Mister Download Manager на сервере $server$",
+    "message": "Не удаётся подключиться к VADM на сервере $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Эта система не может этого сделать."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager не запущен."
+    "message": "VADM не запущен."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager не ответил вовремя. Повторите попытку."
+    "message": "VADM не ответил вовремя. Повторите попытку."
   },
   "popup_act_failed": {
     "message": "Не удалось. Повторите попытку."

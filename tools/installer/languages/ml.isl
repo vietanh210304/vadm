@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Malayalam: tools/installer/languages.py
+﻿; VADM's installer in Malayalam: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 അൺഇൻസ്റ്റാൾ ചെ�
 
 [CustomMessages]
 TaskBrowser=ബ്രൗസർ സംയോജനം (&B) സജ്ജീകരിക്കുക (Chrome, Edge, Brave, Firefox)
-TaskStartup=&Windows ആരംഭിക്കുമ്പോൾ Mister Download Manager ആരംഭിക്കുക
+TaskStartup=&Windows ആരംഭിക്കുമ്പോൾ VADM ആരംഭിക്കുക
 TaskGroupOther=മറ്റുള്ളവ:
-Launch=Mister Download Manager ആരംഭിക്കുക
+Launch=VADM ആരംഭിക്കുക
 KeepData=നിങ്ങളുടെ ഡൗൺലോഡ് ലിസ്റ്റും ക്രമീകരണങ്ങളും ഇല്ലാതാക്കണോ?%n%nനിങ്ങൾ ഡൗൺലോഡ് ചെയ്ത ഫയലുകൾ ഒരു തരത്തിലും സ്പർശിക്കില്ല.

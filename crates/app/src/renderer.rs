@@ -299,7 +299,7 @@ impl Because {
             Because::Chosen => "chosen in View → Draw with".into(),
             Because::Default => "the default here".into(),
             Because::Override => "the testing override (/renderer, MDM_RENDERER)".into(),
-            Because::OpenGlUnfit => format!("OpenGL can't draw MDM here: {}", said(Way::OpenGl)),
+            Because::OpenGlUnfit => format!("OpenGL can't draw VADM here: {}", said(Way::OpenGl)),
             Because::FailedBefore => format!("{api} failed here before: {}", said(Way::Card)),
         }
     }
@@ -1317,8 +1317,8 @@ pub fn remember_gl_crashed(module: &str) {
     if !WATCH_GL {
         return;
     }
-    let details = format!("MDM crashed inside {module} as OpenGL drew");
-    tracing::warn!("OpenGL can't draw MDM here: {details}; passed over from the next start");
+    let details = format!("VADM crashed inside {module} as OpenGL drew");
+    tracing::warn!("OpenGL can't draw VADM here: {details}; passed over from the next start");
     remember_failure(Way::OpenGl, Why::CrashedInDriver, &details);
 }
 
@@ -1330,7 +1330,7 @@ pub fn remember_gl_froze(module: &str, seconds: u64) {
         return;
     }
     let details = format!("the window froze for {seconds} s inside {module} as OpenGL drew");
-    tracing::warn!("OpenGL can't draw MDM here: {details}; passed over from the next start");
+    tracing::warn!("OpenGL can't draw VADM here: {details}; passed over from the next start");
     remember_failure(Way::OpenGl, Why::FrozeInDriver, &details);
 }
 
@@ -1373,7 +1373,7 @@ fn crash_test() {
     {
         return;
     }
-    tracing::warn!("testing: MDM crashes while OpenGL draws");
+    tracing::warn!("testing: VADM crashes while OpenGL draws");
     // WATCH_GL is Windows' only (above): no other system gets here.
     #[cfg(windows)]
     crate::win32::crash_now();
@@ -1422,7 +1422,7 @@ fn check_gl(gl: &eframe::glow::Context, checked: bool, driver: &str) {
     };
     let known = GL_FAILED_WHY.lock().is_ok_and(|u| u.is_some());
     if known || !checked || GPU.is_none() {
-        tracing::warn!("{why}: it may draw MDM wrong, but nothing else could start");
+        tracing::warn!("{why}: it may draw VADM wrong, but nothing else could start");
         return;
     }
     let details = format!("{why} ({driver})");
@@ -1432,7 +1432,7 @@ fn check_gl(gl: &eframe::glow::Context, checked: bool, driver: &str) {
         let _ = std::fs::remove_file(starting);
     }
     #[cfg(gpu)]
-    start_again(&format!("OpenGL can't draw MDM here: {details}"));
+    start_again(&format!("OpenGL can't draw VADM here: {details}"));
 }
 
 /// A test's failure asked for (`name`=1), honoured only by off-screen test copies.
@@ -1635,7 +1635,7 @@ fn gl_paint_failed(main: bool, error: &str, in_a_row: u32, failing_for: std::tim
             tracing::error!("{details}: not started again (it would draw with OpenGL again)");
             return;
         }
-        tracing::warn!("OpenGL can't draw MDM here: {details}; passed over from the next start");
+        tracing::warn!("OpenGL can't draw VADM here: {details}; passed over from the next start");
         remember_failure(Way::OpenGl, Why::LostTwice, &details);
     } else if let Some(f) = &file {
         let _ = std::fs::write(f, now.to_string());
@@ -1646,7 +1646,7 @@ fn gl_paint_failed(main: bool, error: &str, in_a_row: u32, failing_for: std::tim
 /// End this copy and start MDM again: the new one waits for this one to be gone (as after
 /// an update), and draws as the failure markers now say.
 fn start_again(why: &str) {
-    tracing::warn!("{why}: starting MDM again");
+    tracing::warn!("{why}: starting VADM again");
     // The AppImage file itself on Linux (this program sits in its temporary mount).
     #[cfg(windows)]
     let program = std::env::current_exe().ok();
@@ -1661,7 +1661,7 @@ fn start_again(why: &str) {
             .ok()
     });
     if started.is_none() {
-        tracing::error!("MDM couldn't start again");
+        tracing::error!("VADM couldn't start again");
     }
     crate::crash::clean_exit();
     // The window thread may be stuck in the driver: end at once, without unwinding.
@@ -1703,11 +1703,11 @@ fn pacing_known(cc: &eframe::CreationContext<'_>) {
     };
     if gl && swaps == Swaps::MainOnly {
         tracing::info!(
-            "frame pacing ({vendor}, {system}): only the main window waits for the screen's refresh, while it's shown; while it isn't, MDM spaces the frames itself, {at_most} a second at most"
+            "frame pacing ({vendor}, {system}): only the main window waits for the screen's refresh, while it's shown; while it isn't, VADM spaces the frames itself, {at_most} a second at most"
         );
     } else {
         tracing::info!(
-            "frame pacing ({vendor}, {system}): frames don't wait for the screen's refresh; MDM spaces them itself, {at_most} a second at most"
+            "frame pacing ({vendor}, {system}): frames don't wait for the screen's refresh; VADM spaces them itself, {at_most} a second at most"
         );
     }
 }
@@ -2259,7 +2259,7 @@ mod gpu {
             }
         }));
         setup.device_descriptor = Arc::new(|_adapter| wgpu::DeviceDescriptor {
-            label: Some("MDM"),
+            label: Some("VADM"),
             required_limits: wgpu::Limits {
                 // As eframe asks: windows as large as 4K and more.
                 max_texture_dimension_2d: 8192,
@@ -2663,7 +2663,7 @@ mod tests {
     #[test]
     fn a_freeze_inside_an_opengl_driver() {
         let at = |modules: &[&'static str]| modules.iter().map(|m| Some(*m)).collect::<Vec<_>>();
-        let mdm = "misterdownloadmanager.exe";
+        let mdm = "vadm.exe";
         // Intel HD 5500 (#871), AMD (#860), Windows' own OpenGL showing a frame, NVIDIA: above
         // MDM's own code.
         for (stack, driver) in [
@@ -2715,7 +2715,7 @@ mod tests {
     /// anywhere else.
     #[test]
     fn a_crash_inside_an_opengl_driver() {
-        let mdm = "misterdownloadmanager.exe";
+        let mdm = "vadm.exe";
         let at = |modules: &[&'static str]| {
             modules
                 .iter()

@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Transferă descărcările din browser către Mister Download Manager."
+    "message": "Transferă descărcările din browser către VADM."
   },
   "menu": {
-    "message": "Descărcați cu Mister Download Manager"
+    "message": "Descărcați cu VADM"
   },
   "video_download": {
     "message": "Descărcați videoclipul"
@@ -30,19 +30,19 @@
     "message": "Setări buton..."
   },
   "video_sent": {
-    "message": "Trimis la Mister Download Manager"
+    "message": "Trimis la VADM"
   },
   "menu_selected": {
-    "message": "Descărcați linkurile selectate cu Mister Download Manager"
+    "message": "Descărcați linkurile selectate cu VADM"
   },
   "menu_all": {
-    "message": "Descărcați toate linkurile cu Mister Download Manager"
+    "message": "Descărcați toate linkurile cu VADM"
   },
   "status_connected": {
-    "message": "Conectat la Mister Download Manager"
+    "message": "Conectat la VADM"
   },
   "status_connected_version": {
-    "message": "Conectat la Mister Download Manager $version$",
+    "message": "Conectat la VADM $version$",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Întrerupt: descărcările rămân în browser"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager nu este instalat sau integrarea browserului nu este configurată"
+    "message": "VADM nu este instalat sau integrarea browserului nu este configurată"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager nu acceptă această copie a extensiei"
+    "message": "VADM nu acceptă această copie a extensiei"
   },
   "status_not_running": {
-    "message": "Mister Download Manager nu a pornit la timp"
+    "message": "VADM nu a pornit la timp"
   },
   "status_host_failed": {
-    "message": "Conexiunea la Mister Download Manager a eșuat"
+    "message": "Conexiunea la VADM a eșuat"
   },
   "status_too_large": {
     "message": "Detaliile acestei descărcări au fost prea mari pentru a fi transferate"
   },
   "status_update_app": {
-    "message": "Actualizați Mister Download Manager pentru a utiliza tot ce oferă această extensie"
+    "message": "Actualizați VADM pentru a utiliza tot ce oferă această extensie"
   },
   "popup_take": {
     "message": "Preluare descărcări din acest browser"
@@ -78,10 +78,10 @@
     "message": "Trimiteți descărcările prin proxy-ul sau extensia VPN a acestui browser"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager descarcă apoi prin același proxy ca și acest browser. Browserul vă va cere o singură dată să permiteți acest lucru; dezactivarea acestei opțiuni anulează permisiunea."
+    "message": "VADM descarcă apoi prin același proxy ca și acest browser. Browserul vă va cere o singură dată să permiteți acest lucru; dezactivarea acestei opțiuni anulează permisiunea."
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager descarcă apoi prin același proxy ca acest browser. Cât timp această opțiune este dezactivată, extensia nu citește setările proxy ale browserului."
+    "message": "VADM descarcă apoi prin același proxy ca acest browser. Cât timp această opțiune este dezactivată, extensia nu citește setările proxy ale browserului."
   },
   "popup_exclude_site": {
     "message": "Nu preluați niciodată descărcări de pe $site$",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Deschideți Mister Download Manager"
+    "message": "Deschideți VADM"
   },
   "popup_options": {
     "message": "Opțiuni..."
@@ -111,7 +111,7 @@
     "message": "Ajutor"
   },
   "popup_support": {
-    "message": "Susține MDM"
+    "message": "Susține VADM"
   },
   "popup_fix": {
     "message": "Cum se remediază"
@@ -201,16 +201,16 @@
     "message": "Nu există niciun videoclip de descărcat aici"
   },
   "video_playlist": {
-    "message": "O listă de videoclipuri: alegeți-le în Mister Download Manager"
+    "message": "O listă de videoclipuri: alegeți-le în VADM"
   },
   "video_no_ytdlp": {
-    "message": "Mister Download Manager are nevoie de yt-dlp pentru acest videoclip"
+    "message": "VADM are nevoie de yt-dlp pentru acest videoclip"
   },
   "video_too_long": {
     "message": "Căutarea a durat prea mult"
   },
   "video_busy": {
-    "message": "Mister Download Manager este ocupat cu alte videoclipuri"
+    "message": "VADM este ocupat cu alte videoclipuri"
   },
   "video_queued": {
     "message": "Adăugat la coadă"
@@ -234,7 +234,7 @@
     "message": "Acest computer"
   },
   "popup_send_remote": {
-    "message": "Alt Mister Download Manager (un server)"
+    "message": "Alt VADM (un server)"
   },
   "popup_remote_code": {
     "message": "Cod de asociere"
@@ -246,7 +246,7 @@
     "message": "Asociați"
   },
   "popup_remote_help": {
-    "message": "Deschideți adresa o dată și acceptați certificatul, apoi introduceți un cod din Opțiuni, la distanță, Asociați un dispozitiv (sau misterdownloadmanager-cli pair)."
+    "message": "Deschideți adresa o dată și acceptați certificatul, apoi introduceți un cod din Opțiuni, la distanță, Asociați un dispozitiv (sau vadm-cli pair)."
   },
   "status_remote": {
     "message": "Descărcările merg la $address$",
@@ -361,19 +361,19 @@
     "message": "Descărcați cea mai bună calitate"
   },
   "video_sending": {
-    "message": "Se trimite către MDM..."
+    "message": "Se trimite către VADM..."
   },
   "video_added": {
-    "message": "Adăugat la MDM"
+    "message": "Adăugat la VADM"
   },
   "video_show": {
     "message": "Afișați"
   },
   "video_no_answer": {
-    "message": "MDM nu a răspuns"
+    "message": "VADM nu a răspuns"
   },
   "video_get_mdm": {
-    "message": "Obțineți MDM"
+    "message": "Obțineți VADM"
   },
   "video_retry": {
     "message": "Reîncercați"
@@ -391,7 +391,7 @@
     "message": "Descărcați o parte de aici..."
   },
   "video_failed": {
-    "message": "Mister Download Manager nu este instalat sau nu a pornit"
+    "message": "VADM nu este instalat sau nu a pornit"
   },
   "video_download_best": {
     "message": "Descărcați cea mai bună calitate"
@@ -412,7 +412,7 @@
     "message": "Uită"
   },
   "popup_gear": {
-    "message": "Opțiuni în Mister Download Manager"
+    "message": "Opțiuni în VADM"
   },
   "popup_tabs": {
     "message": "Secțiuni pop-up"
@@ -445,7 +445,7 @@
     "message": "În pauză"
   },
   "popup_conn_update": {
-    "message": "Actualizați Mister Download Manager"
+    "message": "Actualizați VADM"
   },
   "popup_conn_remote": {
     "message": "Se trimite la $server$",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Acestea sunt descărcările aplicației Mister Download Manager de pe $server$. Deschideți fișierele acolo.",
+    "message": "Acestea sunt descărcările aplicației VADM de pe $server$. Deschideți fișierele acolo.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "Se afișează cele mai noi $shown$ din $total$. Mister Download Manager le afișează pe toate.",
+    "message": "Se afișează cele mai noi $shown$ din $total$. VADM le afișează pe toate.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Nicio descărcare încă"
   },
   "popup_dl_none_text": {
-    "message": "Ceea ce descărcați cu Mister Download Manager apare aici."
+    "message": "Ceea ce descărcați cu VADM apare aici."
   },
   "popup_dl_no_match": {
     "message": "Nimic nu se potrivește"
@@ -594,28 +594,28 @@
     "message": "Afișați toate descărcările"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager nu rulează"
+    "message": "VADM nu rulează"
   },
   "popup_list_off_text": {
     "message": "Porniți-l pentru a vedea descărcările aici."
   },
   "popup_list_start": {
-    "message": "Porniți Mister Download Manager"
+    "message": "Porniți VADM"
   },
   "popup_list_old": {
-    "message": "Actualizați Mister Download Manager"
+    "message": "Actualizați VADM"
   },
   "popup_list_old_text": {
     "message": "Această versiune nu poate lista încă descărcările aici."
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager este ocupat. Se încearcă din nou..."
+    "message": "VADM este ocupat. Se încearcă din nou..."
   },
   "popup_list_unreached": {
-    "message": "Nu se poate accesa Mister Download Manager"
+    "message": "Nu se poate accesa VADM"
   },
   "popup_list_remote_unreachable": {
-    "message": "Nu se poate accesa Mister Download Manager la $server$",
+    "message": "Nu se poate accesa VADM la $server$",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Acest sistem nu poate face asta."
   },
   "popup_act_off": {
-    "message": "Mister Download Manager nu rulează."
+    "message": "VADM nu rulează."
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager nu a răspuns la timp. Încercați din nou."
+    "message": "VADM nu a răspuns la timp. Încercați din nou."
   },
   "popup_act_failed": {
     "message": "Nu a funcționat. Încercați din nou."

@@ -1,6 +1,6 @@
 [package]
 name = "mdm-cli"
-description = "Mister Download Manager, headless command line (in the app's program) and its launcher"
+description = "VADM, headless command line (in the app's program) and its launcher"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -14,7 +14,7 @@ path = "src/lib.rs"
 
 # The launcher: starts the app's program for them (std only, but for Ctrl+C on Windows).
 [[bin]]
-name = "misterdownloadmanager-cli"
+name = "vadm-cli"
 path = "src/main.rs"
 
 [dependencies]

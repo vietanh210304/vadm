@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Scottish Gaelic: tools/installer/languages.py
+﻿; VADM's installer in Scottish Gaelic: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=A' dì-stàladh %1.
 
 [CustomMessages]
 TaskBrowser=Suidhich amalachadh a' bhrabhsair (&browser integration) (Chrome, Edge, Brave, Firefox)
-TaskStartup=Tòisich Mister Download Manager nuair a thòisicheas &Windows
+TaskStartup=Tòisich VADM nuair a thòisicheas &Windows
 TaskGroupOther=Eile:
-Launch=Tòisich Mister Download Manager
+Launch=Tòisich VADM
 KeepData=Sguab às an liosta luchdachadh sìos agus na roghainnean agad cuideachd?%n%nCha tèid suathadh air na faidhlichean a luchdaich thu sìos co-dhiù.

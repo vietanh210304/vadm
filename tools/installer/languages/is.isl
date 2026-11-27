@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Icelandic: tools/installer/languages.py
+﻿; VADM's installer in Icelandic: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Afskrái %1.
 
 [CustomMessages]
 TaskBrowser=Setja upp samþættingu við &vafra (Chrome, Edge, Brave, Firefox)
-TaskStartup=Ræsa Mister Download Manager þegar &Windows ræsir
+TaskStartup=Ræsa VADM þegar &Windows ræsir
 TaskGroupOther=Annað:
-Launch=Ræsa Mister Download Manager
+Launch=Ræsa VADM
 KeepData=Eyða líka niðurhalslistanum þínum og stillingum?%n%nNiðurhalaðar skrár þínar verða ekki snertar hvort sem er.

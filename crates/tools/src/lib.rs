@@ -98,8 +98,8 @@ pub enum Error {
     /// Another install of the same helper is under way (here or in another copy of MDM).
     #[error("{0} is being installed or updated already")]
     Busy(String),
-    /// MDM's list of the ffmpeg builds it checked let none in (`ffmpeg`).
-    #[error("MDM's list of checked ffmpeg builds: {0}")]
+    /// VADM's list of the ffmpeg builds it checked let none in (`ffmpeg`).
+    #[error("VADM's list of checked ffmpeg builds: {0}")]
     FfmpegList(ffmpeg::ListError),
 }
 
@@ -238,8 +238,8 @@ pub(crate) async fn signed_list(
     Ok(String::from_utf8_lossy(&sums).into_owned())
 }
 
-/// MDM's own name, sent when it fetches its helpers and its updates.
-pub const USER_AGENT: &str = concat!("MisterDownloadManager/", env!("CARGO_PKG_VERSION"));
+/// VADM's own name, sent when it fetches its helpers and its updates.
+pub const USER_AGENT: &str = concat!("VADM/", env!("CARGO_PKG_VERSION"));
 
 /// How MDM downloads its helpers and its updates: through its own engine (several connections,
 /// resumable), as MDM itself, through `proxy` (Options → Proxy / Socks).

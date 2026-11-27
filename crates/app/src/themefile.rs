@@ -297,7 +297,7 @@ fn load_in(
         } else {
             loaded
                 .warnings
-                .push("icons: no icon MDM knows in the folder".into());
+                .push("icons: no icon VADM knows in the folder".into());
         }
     }
     Ok(loaded)
@@ -337,7 +337,7 @@ fn read_value(path: &Path, text: &str) -> Result<(Value, Vec<String>), String> {
 /// has that name; the same file already there is used as it is. The copy must load (with the
 /// themes it inherits, beside it), or it is taken out again. Returns the theme's id.
 pub fn add(source: &Path) -> Result<String, String> {
-    let folder = dir().ok_or("MDM has no data folder")?;
+    let folder = dir().ok_or("VADM has no data folder")?;
     add_in(&folder, source)
 }
 

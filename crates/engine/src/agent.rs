@@ -25,7 +25,7 @@ pub const IE11_USER_AGENT: &str = "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:
 /// bot check refused the browser's User-Agent and the browser-like connection too
 /// (`Options::own_agent`). SourceForge's lets programs that say what they are through, and
 /// refuses those that claim to be a browser without connecting like one.
-pub const OWN_USER_AGENT: &str = concat!("MisterDownloadManager/", env!("CARGO_PKG_VERSION"));
+pub const OWN_USER_AGENT: &str = concat!("VADM/", env!("CARGO_PKG_VERSION"));
 
 /// The sites (host and port) whose bot check let only MDM's own name through, this session.
 static OWN_HOSTS: Mutex<Option<HashSet<String>>> = Mutex::new(None);
@@ -360,7 +360,7 @@ mod tests {
     #[test]
     fn own_name_is_remembered_per_site() {
         let at = |u: &str| url::Url::parse(u).unwrap();
-        assert!(OWN_USER_AGENT.starts_with("MisterDownloadManager/"));
+        assert!(OWN_USER_AGENT.starts_with("VADM/"));
         assert!(!own_for(&at("https://own-test.example/a")));
         remember_own(&at("https://OWN-test.example/project/x.zip"));
         assert!(own_for(&at("https://own-test.example/other?ts=1")));

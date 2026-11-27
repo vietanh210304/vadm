@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "Átadja a letöltéseket a böngészőből a(z) Mister Download Manager alkalmazásnak."
+    "message": "Átadja a letöltéseket a böngészőből a(z) VADM alkalmazásnak."
   },
   "menu": {
-    "message": "Letöltés a(z) Mister Download Manager alkalmazással"
+    "message": "Letöltés a(z) VADM alkalmazással"
   },
   "video_download": {
     "message": "Videó letöltése"
@@ -30,19 +30,19 @@
     "message": "Gombbeállítások..."
   },
   "video_sent": {
-    "message": "Elküldve a következőnek: Mister Download Manager"
+    "message": "Elküldve a következőnek: VADM"
   },
   "menu_selected": {
-    "message": "Kijelölt hivatkozások letöltése az Mister Download Manager alkalmazással"
+    "message": "Kijelölt hivatkozások letöltése az VADM alkalmazással"
   },
   "menu_all": {
-    "message": "Összes hivatkozás letöltése az Mister Download Manager alkalmazással"
+    "message": "Összes hivatkozás letöltése az VADM alkalmazással"
   },
   "status_connected": {
-    "message": "Csatlakoztatva az Mister Download Manager alkalmazáshoz"
+    "message": "Csatlakoztatva az VADM alkalmazáshoz"
   },
   "status_connected_version": {
-    "message": "Csatlakoztatva az Mister Download Manager $version$ alkalmazáshoz",
+    "message": "Csatlakoztatva az VADM $version$ alkalmazáshoz",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "Szüneteltetve: a letöltések a böngészőben maradnak"
   },
   "status_not_installed": {
-    "message": "Az Mister Download Manager nincs telepítve, vagy a böngészőintegrációja nincs beállítva"
+    "message": "Az VADM nincs telepítve, vagy a böngészőintegrációja nincs beállítva"
   },
   "status_forbidden": {
-    "message": "Az Mister Download Manager nem fogadja el a bővítmény ezen másolatát"
+    "message": "Az VADM nem fogadja el a bővítmény ezen másolatát"
   },
   "status_not_running": {
-    "message": "Az Mister Download Manager nem indult el időben"
+    "message": "Az VADM nem indult el időben"
   },
   "status_host_failed": {
-    "message": "Nem sikerült csatlakozni az Mister Download Manager alkalmazáshoz"
+    "message": "Nem sikerült csatlakozni az VADM alkalmazáshoz"
   },
   "status_too_large": {
     "message": "A letöltés részletei túl nagyok voltak az átadáshoz"
   },
   "status_update_app": {
-    "message": "Frissítse a(z) Mister Download Manager alkalmazást, hogy használhassa a bővítmény összes funkcióját"
+    "message": "Frissítse a(z) VADM alkalmazást, hogy használhassa a bővítmény összes funkcióját"
   },
   "popup_take": {
     "message": "Letöltések átvétele ebből a böngészőből"
@@ -78,10 +78,10 @@
     "message": "Letöltések küldése a böngésző proxy- vagy VPN-bővítményén keresztül"
   },
   "popup_proxy_title": {
-    "message": "Az Mister Download Manager ezután ugyanazon a proxyn keresztül tölt le, mint ez a böngésző. A böngésző egyszer engedélyt kér erre; ennek kikapcsolásával visszavonhatja az engedélyt."
+    "message": "Az VADM ezután ugyanazon a proxyn keresztül tölt le, mint ez a böngésző. A böngésző egyszer engedélyt kér erre; ennek kikapcsolásával visszavonhatja az engedélyt."
   },
   "popup_proxy_title_chromium": {
-    "message": "Ekkor a(z) Mister Download Manager ugyanazon a proxyn keresztül tölt le, mint ez a böngésző. Ha ez ki van kapcsolva, a bővítmény nem olvassa be a böngésző proxyját."
+    "message": "Ekkor a(z) VADM ugyanazon a proxyn keresztül tölt le, mint ez a böngésző. Ha ez ki van kapcsolva, a bővítmény nem olvassa be a böngésző proxyját."
   },
   "popup_exclude_site": {
     "message": "Soha ne töltsön le fájlokat a(z) $site$ webhelyről",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Megnyitás: Mister Download Manager"
+    "message": "Megnyitás: VADM"
   },
   "popup_options": {
     "message": "Beállítások..."
@@ -111,7 +111,7 @@
     "message": "Súgó"
   },
   "popup_support": {
-    "message": "MDM támogatása"
+    "message": "VADM támogatása"
   },
   "popup_fix": {
     "message": "Hogyan javítható"
@@ -201,16 +201,16 @@
     "message": "Itt nincs letölthető videó"
   },
   "video_playlist": {
-    "message": "Videók listája: válassza ki őket a Mister Download Manager alkalmazásban"
+    "message": "Videók listája: válassza ki őket a VADM alkalmazásban"
   },
   "video_no_ytdlp": {
-    "message": "A Mister Download Manager alkalmazásnak szüksége van a yt-dlp eszközre ehhez a videóhoz"
+    "message": "A VADM alkalmazásnak szüksége van a yt-dlp eszközre ehhez a videóhoz"
   },
   "video_too_long": {
     "message": "A keresés túl sokáig tartott"
   },
   "video_busy": {
-    "message": "A Mister Download Manager alkalmazás más videókkal van elfoglalva"
+    "message": "A VADM alkalmazás más videókkal van elfoglalva"
   },
   "video_queued": {
     "message": "Hozzáadva a sorhoz"
@@ -234,7 +234,7 @@
     "message": "Ez a számítógép"
   },
   "popup_send_remote": {
-    "message": "Másik Mister Download Manager (kiszolgáló)"
+    "message": "Másik VADM (kiszolgáló)"
   },
   "popup_remote_code": {
     "message": "Párosítási kód"
@@ -246,7 +246,7 @@
     "message": "Párosítás"
   },
   "popup_remote_help": {
-    "message": "Nyissa meg egyszer a címét, és fogadja el a tanúsítványát, majd adja meg a kódot a Beállítások, Távoli, Eszköz párosítása (vagy misterdownloadmanager-cli pair) menüpontból."
+    "message": "Nyissa meg egyszer a címét, és fogadja el a tanúsítványát, majd adja meg a kódot a Beállítások, Távoli, Eszköz párosítása (vagy vadm-cli pair) menüpontból."
   },
   "status_remote": {
     "message": "A letöltések ide mennek: $address$",
@@ -361,19 +361,19 @@
     "message": "A legjobb minőség letöltése"
   },
   "video_sending": {
-    "message": "Küldés az MDM-nek..."
+    "message": "Küldés az VADM-nek..."
   },
   "video_added": {
-    "message": "Hozzáadva az MDM-hez"
+    "message": "Hozzáadva az VADM-hez"
   },
   "video_show": {
     "message": "Megjelenítés"
   },
   "video_no_answer": {
-    "message": "Az MDM nem válaszolt"
+    "message": "Az VADM nem válaszolt"
   },
   "video_get_mdm": {
-    "message": "MDM beszerzése"
+    "message": "VADM beszerzése"
   },
   "video_retry": {
     "message": "Újra"
@@ -391,7 +391,7 @@
     "message": "Rész letöltése innen..."
   },
   "video_failed": {
-    "message": "Az Mister Download Manager nincs telepítve, vagy nem indult el"
+    "message": "Az VADM nincs telepítve, vagy nem indult el"
   },
   "video_download_best": {
     "message": "Legjobb letöltése"
@@ -412,7 +412,7 @@
     "message": "Elfelejtés"
   },
   "popup_gear": {
-    "message": "Beállítások – Mister Download Manager"
+    "message": "Beállítások – VADM"
   },
   "popup_tabs": {
     "message": "Előugró ablak szakaszai"
@@ -445,7 +445,7 @@
     "message": "Szünetel"
   },
   "popup_conn_update": {
-    "message": "Mister Download Manager frissítése"
+    "message": "VADM frissítése"
   },
   "popup_conn_remote": {
     "message": "Küldés a(z) $server$ szerverre",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "Ezek a(z) Mister Download Manager letöltései a(z) $server$ szerveren. Nyissa meg a fájlokat ott.",
+    "message": "Ezek a(z) VADM letöltései a(z) $server$ szerveren. Nyissa meg a fájlokat ott.",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "A(z) $total$ letöltésből a(z) $shown$ legújabb. A(z) Mister Download Manager az összeset listázza.",
+    "message": "A(z) $total$ letöltésből a(z) $shown$ legújabb. A(z) VADM az összeset listázza.",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "Még nincsenek letöltések"
   },
   "popup_dl_none_text": {
-    "message": "A(z) Mister Download Manager alkalmazással letöltött fájlok itt jelennek meg."
+    "message": "A(z) VADM alkalmazással letöltött fájlok itt jelennek meg."
   },
   "popup_dl_no_match": {
     "message": "Nincs egyezés"
@@ -594,28 +594,28 @@
     "message": "Összes letöltés megjelenítése"
   },
   "popup_list_off": {
-    "message": "A(z) Mister Download Manager nem fut"
+    "message": "A(z) VADM nem fut"
   },
   "popup_list_off_text": {
     "message": "Indítsa el, hogy itt láthassa a letöltéseket."
   },
   "popup_list_start": {
-    "message": "Mister Download Manager indítása"
+    "message": "VADM indítása"
   },
   "popup_list_old": {
-    "message": "Mister Download Manager frissítése"
+    "message": "VADM frissítése"
   },
   "popup_list_old_text": {
     "message": "Ez a verzió még nem tudja listázni a letöltéseit."
   },
   "popup_list_busy": {
-    "message": "A(z) Mister Download Manager foglalt. Újrapróbálkozás..."
+    "message": "A(z) VADM foglalt. Újrapróbálkozás..."
   },
   "popup_list_unreached": {
-    "message": "A(z) Mister Download Manager nem érhető el"
+    "message": "A(z) VADM nem érhető el"
   },
   "popup_list_remote_unreachable": {
-    "message": "A(z) Mister Download Manager nem érhető el a(z) $server$ címen",
+    "message": "A(z) VADM nem érhető el a(z) $server$ címen",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "Ez a rendszer nem tudja ezt megtenni."
   },
   "popup_act_off": {
-    "message": "A(z) Mister Download Manager nem fut."
+    "message": "A(z) VADM nem fut."
   },
   "popup_act_busy": {
-    "message": "A(z) Mister Download Manager nem válaszolt időben. Próbálja újra."
+    "message": "A(z) VADM nem válaszolt időben. Próbálja újra."
   },
   "popup_act_failed": {
     "message": "Nem sikerült. Próbálja újra."

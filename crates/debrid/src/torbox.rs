@@ -106,7 +106,7 @@ fn read(status: u16, body: &[u8], retry: Option<u64>) -> Result<Value, Fault> {
         return Err(Fault::Service(if status >= 500 {
             F::ServiceDown
         } else {
-            F::Other("an answer MDM can't read".into())
+            F::Other("an answer VADM can't read".into())
         }));
     };
     match e.error.filter(|c| !c.is_empty()) {
@@ -119,7 +119,7 @@ fn read(status: u16, body: &[u8], retry: Option<u64>) -> Result<Value, Fault> {
 fn data<T: serde::de::DeserializeOwned>(v: Value) -> Result<T, Fault> {
     serde_json::from_value(v).map_err(|_| {
         Fault::Service(mdm_engine::ServiceFault::Other(
-            "an answer MDM can't read".into(),
+            "an answer VADM can't read".into(),
         ))
     })
 }
@@ -169,7 +169,7 @@ pub(crate) async fn device_start(http: &Http) -> Result<DeviceCode, Fault> {
     let mut u = url(http, "user/auth/device/start");
     // Letters and digits only, as the docs ask: shown on TorBox's page.
     u.query_pairs_mut()
-        .append_pair("app", "MisterDownloadManager");
+        .append_pair("app", "VADM");
     data(call(http, http.get(&u)).await?)
 }
 
@@ -351,7 +351,7 @@ pub(crate) async fn link(
     let d = call(http, http.get(&u)).await?;
     d.as_str().and_then(|l| Url::parse(l).ok()).ok_or_else(|| {
         Fault::Service(mdm_engine::ServiceFault::Other(
-            "the service gave a link MDM can't read".into(),
+            "the service gave a link VADM can't read".into(),
         ))
     })
 }

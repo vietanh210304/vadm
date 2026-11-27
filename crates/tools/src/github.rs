@@ -285,7 +285,7 @@ mod tests {
     fn the_tag_is_read_from_the_release_page_address() {
         // As github.com redirects today (checked 2026-11-17).
         assert_eq!(
-            tag_from("https://github.com/anefzaoui/misterdownloadmanager/releases/tag/v0.5.2"),
+            tag_from("https://github.com/vietanh210304/vadm/releases/tag/v0.5.2"),
             Some("v0.5.2".into())
         );
         assert_eq!(
@@ -334,11 +334,11 @@ mod tests {
         assert_eq!(
             download_url(
                 WEB,
-                "anefzaoui/misterdownloadmanager",
+                "vietanh210304/vadm",
                 "v0.6.0",
-                "MisterDownloadManager-0.6.0-setup-arm64.exe"
+                "VADM-0.6.0-setup-arm64.exe"
             ),
-            "https://github.com/anefzaoui/misterdownloadmanager/releases/download/v0.6.0/MisterDownloadManager-0.6.0-setup-arm64.exe"
+            "https://github.com/vietanh210304/vadm/releases/download/v0.6.0/VADM-0.6.0-setup-arm64.exe"
         );
         assert_eq!(
             download_url(

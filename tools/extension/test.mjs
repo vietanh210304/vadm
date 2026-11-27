@@ -236,7 +236,7 @@ function fakeApi({
       onClicked: event("menu"),
     },
     // The browser's language: German here.
-    i18n: { getMessage: (key) => ({ menu: "Mit Mister Download Manager herunterladen" })[key] ?? "" },
+    i18n: { getMessage: (key) => ({ menu: "Mit VADM herunterladen" })[key] ?? "" },
   };
   if (nativePort) {
     api.runtime.connectNative = (name) => {
@@ -367,7 +367,7 @@ const ok = (what) => {
   const cookies = calls.find((c) => c[0] === "cookies");
   assert.deepEqual(cookies[1], { url: "https://x/a.zip", storeId: "firefox-container-2" });
   const native = calls.find((c) => c[0] === "native");
-  assert.equal(native[1], "com.misterdownloadmanager.host");
+  assert.equal(native[1], "com.vadm.host");
   const m = native[2];
   assert.deepEqual(
     [m.url, m.referrer, m.cookies, m.filename, m.size, m.mime, m.userAgent, m.v],
@@ -1352,7 +1352,7 @@ const ok = (what) => {
     await ask(listeners, { type: "open-post", url: "https://news.test/p/1" }, from);
     assert.deepEqual(await ask(listeners, { type: "open-post", url: "https://elsewhere.test/p/1" }, from), { ok: false }, "a post on this page's site only");
     assert.deepEqual(opened, [
-      { url: "https://misterdownloadmanager.com/download", openerTabId: 5, index: 3 },
+      { url: "https://github.com/vietanh210304/vadm/releases/latest", openerTabId: 5, index: 3 },
       { url: "https://news.test/p/1", openerTabId: 5, index: 3 },
     ]);
     // A plain file: `direct` with it, and `show` back for "Show".
@@ -3695,7 +3695,7 @@ function videoButton({ stored = {}, location, iframes, videos, subframe = false 
   load(api, false);
   await listeners.installed({ reason: "update" });
   const item = calls.find((c) => c[0] === "menu-item")[1];
-  assert.equal(item.title, "Mit Mister Download Manager herunterladen");
+  assert.equal(item.title, "Mit VADM herunterladen");
   const dir = new URL("../../extension/_locales/", import.meta.url);
   const english = JSON.parse(readText(new URL("en/messages.json", dir)));
   for (const locale of readdirSync(dir)) {

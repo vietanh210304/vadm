@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Filipino: tools/installer/languages.py
+﻿; VADM's installer in Filipino: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Ina-uninstall ang %1.
 
 [CustomMessages]
 TaskBrowser=I-set up ang pagsasama ng &browser (Chrome, Edge, Brave, Firefox)
-TaskStartup=Simulan ang Mister Download Manager kapag nagsimula ang &Windows
+TaskStartup=Simulan ang VADM kapag nagsimula ang &Windows
 TaskGroupOther=Iba pa:
-Launch=Simulan ang Mister Download Manager
+Launch=Simulan ang VADM
 KeepData=Burahin din ang iyong listahan ng download at mga setting?%n%nAng iyong mga na-download na file ay hindi maaapektuhan.

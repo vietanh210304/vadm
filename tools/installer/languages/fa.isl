@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Persian: tools/installer/languages.py
+﻿; VADM's installer in Persian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -292,7 +292,7 @@ ShutdownBlockReasonUninstallingApp=در حال حذف نصب %1.
 
 [CustomMessages]
 TaskBrowser=ادغام &مرورگر را تنظیم کنید (Chrome, Edge, Brave, Firefox)
-TaskStartup=اجرای Mister Download Manager هنگام راه‌اندازی &Windows
+TaskStartup=اجرای VADM هنگام راه‌اندازی &Windows
 TaskGroupOther=سایر:
-Launch=اجرای Mister Download Manager
+Launch=اجرای VADM
 KeepData=آیا فهرست دانلود و تنظیمات شما نیز حذف شود؟%n%nفایل‌های دانلود شده شما در هر صورت دست‌نخورده باقی می‌مانند.

@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Uyghur: tools/installer/languages.py
+﻿; VADM's installer in Uyghur: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -292,7 +292,7 @@ ShutdownBlockReasonUninstallingApp=%1 چىقىرىۋاتىدۇ.
 
 [CustomMessages]
 TaskBrowser=كۆ&رسەتكۈچ بىر گەۋدىلەشتۈرۈش (Chrome, Edge, Brave, Firefox) تەڭشەش
-TaskStartup=Windows ئى&جرا بولغاندا Mister Download Manager نى قوزغىتىڭ
+TaskStartup=Windows ئى&جرا بولغاندا VADM نى قوزغىتىڭ
 TaskGroupOther=باشقىلار:
-Launch=Mister Download Manager نى قوزغىتىش
+Launch=VADM نى قوزغىتىش
 KeepData=چۈشۈرۈش تىزىملىكىڭىز ۋە تەڭشەكلىرىڭىزنىمۇ ئۆچۈرەمسىز؟%n%nچۈشۈرۈلگەن ھۆججەتلىرىڭىزگە ھېچقانداق تەسىر يەتمەيدۇ.

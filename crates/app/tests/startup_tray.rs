@@ -14,9 +14,9 @@ use std::path::Path;
 use std::process::{Child, Command};
 use std::time::{Duration, Instant};
 
-const APP: &str = env!("CARGO_BIN_EXE_misterdownloadmanager");
+const APP: &str = env!("CARGO_BIN_EXE_vadm");
 /// The main window's title (main.rs MAIN_TITLE).
-const MAIN: &str = concat!("Mister Download Manager ", env!("CARGO_PKG_VERSION"));
+const MAIN: &str = concat!("VADM ", env!("CARGO_PKG_VERSION"));
 
 /// The app's log so far (every file of `logs/`).
 fn log(data: &Path) -> String {
@@ -80,7 +80,7 @@ impl Startup {
     fn old(_dir: &Path) -> Startup {
         #[cfg(windows)]
         {
-            let name = format!("MisterDownloadManagerTest{}", std::process::id());
+            let name = format!("VADMTest{}", std::process::id());
             let status = Command::new("reg")
                 .args(["add", RUN, "/v", &name, "/t", "REG_SZ", "/f", "/d"])
                 .arg(format!("\"{APP}\""))
@@ -95,10 +95,10 @@ impl Startup {
             let auto = config.join("autostart");
             std::fs::create_dir_all(&auto).unwrap();
             std::fs::write(
-                auto.join("misterdownloadmanager.desktop"),
+                auto.join("vadm.desktop"),
                 format!(
-                    "[Desktop Entry]\nType=Application\nName=Mister Download Manager\n\
-                     Exec=\"{APP}\"\nIcon=misterdownloadmanager\nTerminal=false\n\
+                    "[Desktop Entry]\nType=Application\nName=VADM\n\
+                     Exec=\"{APP}\"\nIcon=vadm\nTerminal=false\n\
                      X-GNOME-Autostart-enabled=true\n"
                 ),
             )
@@ -121,7 +121,7 @@ impl Startup {
                 .unwrap_or_default()
         }
         #[cfg(unix)]
-        std::fs::read_to_string(self.config.join("autostart/misterdownloadmanager.desktop"))
+        std::fs::read_to_string(self.config.join("autostart/vadm.desktop"))
             .unwrap_or_default()
     }
 }

@@ -66,7 +66,7 @@ pub fn main(args: Vec<String>) -> ExitCode {
     }
     let Some(_instance) = mdm_ipc::instance_lock() else {
         eprintln!(
-            "Another Mister Download Manager uses the data folder {}.",
+            "Another VADM uses the data folder {}.",
             data.display()
         );
         return ExitCode::FAILURE;
@@ -76,7 +76,7 @@ pub fn main(args: Vec<String>) -> ExitCode {
     // the one links added by hand go with (#668).
     crate::defaultbrowser::start();
     tracing::info!(
-        "Mister Download Manager {} ({}) starting without a window",
+        "VADM {} ({}) starting without a window",
         crate::help::VERSION,
         crate::help::COMMIT
     );
@@ -223,7 +223,7 @@ fn tell(app: &mut crate::app::App) -> bool {
                     serde_json::from_str(&app.pair_answer());
                 if let Ok(a) = answer {
                     println!(
-                        "No device is paired yet. Open the address (or scan this) and enter the code {} {} (it works for {} minutes; `misterdownloadmanager-cli pair` shows a new one):\n{}",
+                        "No device is paired yet. Open the address (or scan this) and enter the code {} {} (it works for {} minutes; `vadm-cli pair` shows a new one):\n{}",
                         &a.code[..4],
                         &a.code[4..],
                         a.minutes,

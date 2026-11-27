@@ -40,13 +40,13 @@ fn spawn(cmd: &mut Command) {
 fn startup_file() -> Option<PathBuf> {
     let home = PathBuf::from(std::env::var_os("HOME")?);
     if cfg!(target_os = "macos") {
-        Some(home.join("Library/LaunchAgents/io.github.anefzaoui.misterdownloadmanager.plist"))
+        Some(home.join("Library/LaunchAgents/io.github.vietanh210304.vadm.plist"))
     } else {
         let config = std::env::var_os("XDG_CONFIG_HOME")
             .map(PathBuf::from)
             .filter(|p| p.is_absolute())
             .unwrap_or_else(|| home.join(".config"));
-        Some(config.join("autostart/misterdownloadmanager.desktop"))
+        Some(config.join("autostart/vadm.desktop"))
     }
 }
 
@@ -534,7 +534,7 @@ fn startup_entry(exe: &Path, macos: bool) -> String {
              <!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \
              \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n\
              <plist version=\"1.0\">\n<dict>\n\
-             \x20 <key>Label</key><string>io.github.anefzaoui.misterdownloadmanager</string>\n\
+             \x20 <key>Label</key><string>io.github.vietanh210304.vadm</string>\n\
              \x20 <key>ProgramArguments</key><array><string>{exe}</string>\
              <string>{arg}</string></array>\n\
              \x20 <key>RunAtLoad</key><true/>\n\
@@ -550,8 +550,8 @@ fn startup_entry(exe: &Path, macos: bool) -> String {
             })
             .collect();
         format!(
-            "[Desktop Entry]\nType=Application\nName=Mister Download Manager\n\
-             Exec=\"{quoted}\" {arg}\nIcon=misterdownloadmanager\nTerminal=false\n\
+            "[Desktop Entry]\nType=Application\nName=VADM\n\
+             Exec=\"{quoted}\" {arg}\nIcon=vadm\nTerminal=false\n\
              X-GNOME-Autostart-enabled=true\n"
         )
     }
@@ -630,9 +630,9 @@ pub fn update_run_at_startup() {
     }
 }
 /// The browsers' helper program (crates/nmhost), beside this one.
-const HOST: &str = "misterdownloadmanager-nmhost";
+const HOST: &str = "vadm-nmhost";
 /// The manifest it writes in each browser's folder.
-const MANIFEST: &str = "com.misterdownloadmanager.host.json";
+const MANIFEST: &str = "com.vadm.host.json";
 /// How long the helper's `--repair` has at a start (it writes a few small files).
 const REGISTER_LIMIT: std::time::Duration = std::time::Duration::from_secs(20);
 
@@ -2410,11 +2410,11 @@ pub fn missing_text(libs: &[&WindowLib], opening: bool) -> String {
     let names = ltr(&names.join(", "));
     let what = if opening {
         // i18n: Linux, at start, on the terminal and in a message box: a library the window needs isn't installed; {libraries} = its file names (libxkbcommon-x11.so.0…), left as they are
-        t("Mister Download Manager can't open its window: this system lacks {libraries}.")
+        t("VADM can't open its window: this system lacks {libraries}.")
     } else {
         // i18n: Linux, at start, on the terminal: the libraries an X11 window needs aren't installed, so the window opens through Wayland instead, where menus can't be placed under what was clicked; {libraries} = their file names, left as they are
         t(
-            "Mister Download Manager's X11 window needs {libraries}, which this system lacks: it opens on Wayland instead, where its menus may open away from their titles.",
+            "VADM's X11 window needs {libraries}, which this system lacks: it opens on Wayland instead, where its menus may open away from their titles.",
         )
     };
     let what = fmt(what, &[("libraries", &names)]);
@@ -2437,7 +2437,7 @@ pub fn missing_text(libs: &[&WindowLib], opening: bool) -> String {
 pub fn tell_window_failed(text: &str) {
     eprintln!("{text}");
     tracing::error!("{text}");
-    let title = "Mister Download Manager";
+    let title = "VADM";
     // A program of the desktop's draws it: without isolates (#919).
     let text = &crate::i18n::os_text(text);
     let boxes: [(&str, Vec<&str>); 2] = [
@@ -2663,7 +2663,7 @@ fn launcher_entry_loop(rx: &std::sync::mpsc::Receiver<Option<u32>>) -> zbus::Res
         .collect();
         conn.emit_signal(
             None::<&str>,
-            "/com/canonical/unity/launcherentry/misterdownloadmanager",
+            "/com/canonical/unity/launcherentry/vadm",
             "com.canonical.Unity.LauncherEntry",
             "Update",
             &(uri.as_str(), properties),
@@ -3820,7 +3820,7 @@ pub fn mark_downloaded(path: &Path, url: &str, referrer: Option<&str>) {
         set_xattr(
             path,
             "com.apple.quarantine",
-            &format!("0081;{now:x};Mister Download Manager;"),
+            &format!("0081;{now:x};VADM;"),
         );
         let _ = url;
     }
@@ -5216,7 +5216,7 @@ mod host_copy_tests {
         }
         let write = |dir: &Path, path: &Path| {
             let json =
-                serde_json::json!({ "name": "com.misterdownloadmanager.host", "path": path });
+                serde_json::json!({ "name": "com.vadm.host", "path": path });
             std::fs::write(dir.join(MANIFEST), json.to_string()).unwrap();
         };
         let dirs = || vec![(a.clone(), Family::Chromium), (b.clone(), Family::Gecko)];
@@ -5235,7 +5235,7 @@ mod host_copy_tests {
         );
         write(&b, &helper);
         assert_eq!(registration_in(dirs(), false), Registration::Ready);
-        let gone = t.path().join("gone/misterdownloadmanager-nmhost");
+        let gone = t.path().join("gone/vadm-nmhost");
         write(&b, &gone);
         assert_eq!(
             registration_in(dirs(), false),
@@ -5253,7 +5253,7 @@ mod host_copy_tests {
         let helper = program(t.path(), HOST, "true");
         let (a, b) = (t.path().join("a"), t.path().join("b"));
         std::fs::create_dir_all(&a).unwrap();
-        let json = serde_json::json!({ "name": "com.misterdownloadmanager.host", "path": helper });
+        let json = serde_json::json!({ "name": "com.vadm.host", "path": helper });
         std::fs::write(a.join(MANIFEST), json.to_string()).unwrap();
         let dirs = || vec![(a.clone(), Family::Chromium), (b.clone(), Family::Chromium)];
         let refuses_b = |d: &Path| d == b;
@@ -5467,9 +5467,9 @@ mod startup_tests {
     #[test]
     fn the_startup_entries_start_mdm_in_the_tray() {
         for exe in [
-            "/home/ana/Apps/Mister Download Manager.AppImage",
-            "/opt/mdm/misterdownloadmanager",
-            "/Applications/Mister Download Manager.app/Contents/MacOS/misterdownloadmanager",
+            "/home/ana/Apps/VADM.AppImage",
+            "/opt/vadm/vadm",
+            "/Applications/VADM.app/Contents/MacOS/vadm",
             "/home/a\"b$c/m&d<m>",
         ] {
             for macos in [false, true] {
@@ -5479,25 +5479,25 @@ mod startup_tests {
                 assert_eq!(state(&text, exe, macos), StartupState::Ours, "{text}");
             }
         }
-        let desktop = startup_entry(Path::new("/opt/mdm/misterdownloadmanager"), false);
-        assert!(desktop.contains("Exec=\"/opt/mdm/misterdownloadmanager\" /startup\n"));
-        let plist = startup_entry(Path::new("/opt/mdm/misterdownloadmanager"), true);
+        let desktop = startup_entry(Path::new("/opt/vadm/vadm"), false);
+        assert!(desktop.contains("Exec=\"/opt/vadm/vadm\" /startup\n"));
+        let plist = startup_entry(Path::new("/opt/vadm/vadm"), true);
         assert!(plist.contains(
-            "<array><string>/opt/mdm/misterdownloadmanager</string><string>/startup</string></array>"
+            "<array><string>/opt/vadm/vadm</string><string>/startup</string></array>"
         ));
     }
 
     /// An entry of a version before 0.5.0 for this program is written again; another copy's is not.
     #[test]
     fn old_startup_entries_are_rewritten() {
-        let exe = "/home/ana/Apps/Mister Download Manager.AppImage";
+        let exe = "/home/ana/Apps/VADM.AppImage";
         for macos in [false, true] {
             assert_eq!(
                 state(&old_entry(exe, macos), exe, macos),
                 StartupState::Outdated
             );
             assert_eq!(
-                state(&old_entry("/elsewhere/mdm.AppImage", macos), exe, macos),
+                state(&old_entry("/elsewhere/vadm.AppImage", macos), exe, macos),
                 StartupState::Other
             );
         }
@@ -5508,11 +5508,11 @@ mod startup_tests {
     /// again at the next start, or when Options turns it on); so is one naming no program.
     #[test]
     fn an_entry_naming_a_program_that_is_gone_is_stale() {
-        let exe = "/usr/bin/misterdownloadmanager";
+        let exe = "/usr/bin/vadm";
         let replaced = format!("{exe}{DELETED}");
         let text = startup_entry(Path::new(&replaced), false);
         assert_eq!(state(&text, exe, false), StartupState::Stale, "{text}");
-        let moved = "/home/ana/Apps/MDM-0.5.1.AppImage";
+        let moved = "/home/ana/Apps/VADM-0.5.1.AppImage";
         let gone = |p: &str| (p != moved).then(|| PathBuf::from(p));
         for macos in [false, true] {
             let text = startup_entry(Path::new(moved), macos);
@@ -5531,10 +5531,10 @@ mod startup_tests {
     /// The program named through a link (/usr/bin to /opt) is this one all the same.
     #[test]
     fn a_link_to_this_program_is_this_program() {
-        let exe = "/opt/mdm/misterdownloadmanager";
-        let text = startup_entry(Path::new("/usr/bin/misterdownloadmanager"), false);
+        let exe = "/opt/vadm/vadm";
+        let text = startup_entry(Path::new("/usr/bin/vadm"), false);
         let links = |p: &str| {
-            Some(PathBuf::from(if p == "/usr/bin/misterdownloadmanager" {
+            Some(PathBuf::from(if p == "/usr/bin/vadm" {
                 exe
             } else {
                 p
@@ -5551,7 +5551,7 @@ mod startup_tests {
     /// off, whatever it starts; only the [Desktop Entry] group counts.
     #[test]
     fn an_entry_turned_off_in_the_desktops_settings_is_off() {
-        let exe = "/usr/bin/misterdownloadmanager";
+        let exe = "/usr/bin/vadm";
         let on = startup_entry(Path::new(exe), false);
         assert!(on.contains("X-GNOME-Autostart-enabled=true"));
         let off = on.replace(
@@ -5590,12 +5590,12 @@ mod startup_tests {
     #[test]
     fn a_replaced_programs_path_is_where_its_new_file_is() {
         assert_eq!(
-            present(PathBuf::from(format!("/nowhere/mdm-test-program{DELETED}"))),
-            PathBuf::from("/nowhere/mdm-test-program")
+            present(PathBuf::from(format!("/nowhere/vadm-test-program{DELETED}"))),
+            PathBuf::from("/nowhere/vadm-test-program")
         );
         assert_eq!(
-            present(PathBuf::from("/usr/bin/misterdownloadmanager")),
-            PathBuf::from("/usr/bin/misterdownloadmanager")
+            present(PathBuf::from("/usr/bin/vadm")),
+            PathBuf::from("/usr/bin/vadm")
         );
         // A file that really is named so stays as it is.
         let dir = tempfile::tempdir().unwrap();
@@ -5647,7 +5647,7 @@ mod secret_service {
     const ITEM: &str = "org.freedesktop.Secret.Item";
     const SESSION: &str = "org.freedesktop.Secret.Session";
     /// Groups MDM's entries in Seahorse and the like.
-    const SCHEMA: &str = "io.github.anefzaoui.misterdownloadmanager.Secret";
+    const SCHEMA: &str = "io.github.vietanh210304.vadm.Secret";
 
     /// The D-Bus error's kind; its text (the service's own words) is never kept.
     fn fault(e: zbus::Error) -> Fault {
@@ -6070,7 +6070,7 @@ pub fn keep_awake(reason: Option<&str>) -> bool {
         )?;
         logind.call(
             "Inhibit",
-            &("sleep", "Mister Download Manager", reason, "block"),
+            &("sleep", "VADM", reason, "block"),
         )
     };
     match take() {

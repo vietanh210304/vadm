@@ -1,12 +1,12 @@
 {
   "name": {
-    "message": "Mister Download Manager"
+    "message": "VADM"
   },
   "description": {
-    "message": "ব্রাউজার থেকে Mister Download Manager-এ ডাউনলোড হস্তান্তর করে।"
+    "message": "ব্রাউজার থেকে VADM-এ ডাউনলোড হস্তান্তর করে।"
   },
   "menu": {
-    "message": "Mister Download Manager দিয়ে ডাউনলোড করুন"
+    "message": "VADM দিয়ে ডাউনলোড করুন"
   },
   "video_download": {
     "message": "ভিডিও ডাউনলোড করুন"
@@ -30,19 +30,19 @@
     "message": "বোতামের সেটিংস..."
   },
   "video_sent": {
-    "message": "Mister Download Manager-এ পাঠানো হয়েছে"
+    "message": "VADM-এ পাঠানো হয়েছে"
   },
   "menu_selected": {
-    "message": "Mister Download Manager দিয়ে নির্বাচিত লিংকগুলো ডাউনলোড করুন"
+    "message": "VADM দিয়ে নির্বাচিত লিংকগুলো ডাউনলোড করুন"
   },
   "menu_all": {
-    "message": "Mister Download Manager দিয়ে সব লিংক ডাউনলোড করুন"
+    "message": "VADM দিয়ে সব লিংক ডাউনলোড করুন"
   },
   "status_connected": {
-    "message": "Mister Download Manager-এর সাথে সংযুক্ত"
+    "message": "VADM-এর সাথে সংযুক্ত"
   },
   "status_connected_version": {
-    "message": "Mister Download Manager $version$-এর সাথে সংযুক্ত",
+    "message": "VADM $version$-এর সাথে সংযুক্ত",
     "placeholders": {
       "version": {
         "content": "$1",
@@ -54,22 +54,22 @@
     "message": "বিরত আছে: ডাউনলোডগুলো ব্রাউজারের সাথে থাকে"
   },
   "status_not_installed": {
-    "message": "Mister Download Manager ইনস্টল করা নেই, অথবা এর ব্রাউজার ইন্টিগ্রেশন সেট আপ করা নেই"
+    "message": "VADM ইনস্টল করা নেই, অথবা এর ব্রাউজার ইন্টিগ্রেশন সেট আপ করা নেই"
   },
   "status_forbidden": {
-    "message": "Mister Download Manager এক্সটেনশনের এই কপি গ্রহণ করে না"
+    "message": "VADM এক্সটেনশনের এই কপি গ্রহণ করে না"
   },
   "status_not_running": {
-    "message": "Mister Download Manager সময়মতো চালু হয়নি"
+    "message": "VADM সময়মতো চালু হয়নি"
   },
   "status_host_failed": {
-    "message": "Mister Download Manager-এর সঙ্গে সংযোগ ব্যর্থ হয়েছে"
+    "message": "VADM-এর সঙ্গে সংযোগ ব্যর্থ হয়েছে"
   },
   "status_too_large": {
     "message": "এই ডাউনলোডের বিস্তারিত হস্তান্তর করার জন্য খুব বড় ছিল"
   },
   "status_update_app": {
-    "message": "এই এক্সটেনশনের সব সুবিধা ব্যবহার করতে Mister Download Manager আপডেট করুন"
+    "message": "এই এক্সটেনশনের সব সুবিধা ব্যবহার করতে VADM আপডেট করুন"
   },
   "popup_take": {
     "message": "এই ব্রাউজার থেকে ডাউনলোড নিন"
@@ -78,10 +78,10 @@
     "message": "এই ব্রাউজারের প্রক্সি বা VPN এক্সটেনশনের মাধ্যমে ডাউনলোড পাঠান"
   },
   "popup_proxy_title": {
-    "message": "Mister Download Manager তারপর এই ব্রাউজারের মতো একই প্রক্সির মাধ্যমে ডাউনলোড করে। ব্রাউজার আপনাকে একবার এটি অনুমতি দিতে বলবে; এটি বন্ধ করলে সেই অনুমতি বাতিল হয়ে যাবে।"
+    "message": "VADM তারপর এই ব্রাউজারের মতো একই প্রক্সির মাধ্যমে ডাউনলোড করে। ব্রাউজার আপনাকে একবার এটি অনুমতি দিতে বলবে; এটি বন্ধ করলে সেই অনুমতি বাতিল হয়ে যাবে।"
   },
   "popup_proxy_title_chromium": {
-    "message": "Mister Download Manager এই ব্রাউজারের মতো একই প্রক্সির মাধ্যমে ডাউনলোড করে। এটি বন্ধ থাকলে, এক্সটেনশনটি ব্রাউজারের প্রক্সি পড়ে না।"
+    "message": "VADM এই ব্রাউজারের মতো একই প্রক্সির মাধ্যমে ডাউনলোড করে। এটি বন্ধ থাকলে, এক্সটেনশনটি ব্রাউজারের প্রক্সি পড়ে না।"
   },
   "popup_exclude_site": {
     "message": "$site$ থেকে আর ডাউনলোড নেবেন না",
@@ -102,7 +102,7 @@
     }
   },
   "popup_open": {
-    "message": "Mister Download Manager খুলুন"
+    "message": "VADM খুলুন"
   },
   "popup_options": {
     "message": "বিকল্প..."
@@ -111,7 +111,7 @@
     "message": "সহায়তা"
   },
   "popup_support": {
-    "message": "MDM-কে সহায়তা করুন"
+    "message": "VADM-কে সহায়তা করুন"
   },
   "popup_fix": {
     "message": "কীভাবে ঠিক করবেন"
@@ -201,16 +201,16 @@
     "message": "এখানে ডাউনলোড করার মতো কোনো ভিডিও নেই"
   },
   "video_playlist": {
-    "message": "ভিডিওর তালিকা: Mister Download Manager-এ বেছে নিন"
+    "message": "ভিডিওর তালিকা: VADM-এ বেছে নিন"
   },
   "video_no_ytdlp": {
-    "message": "এই ভিডিওর জন্য Mister Download Manager-এর yt-dlp দরকার"
+    "message": "এই ভিডিওর জন্য VADM-এর yt-dlp দরকার"
   },
   "video_too_long": {
     "message": "খুঁজতে অনেক বেশি সময় লেগেছে"
   },
   "video_busy": {
-    "message": "Mister Download Manager অন্য ভিডিওর কাজে ব্যস্ত"
+    "message": "VADM অন্য ভিডিওর কাজে ব্যস্ত"
   },
   "video_queued": {
     "message": "সারিতে যোগ করা হয়েছে"
@@ -234,7 +234,7 @@
     "message": "এই কম্পিউটার"
   },
   "popup_send_remote": {
-    "message": "অন্য একটি Mister Download Manager (একটি সার্ভার)"
+    "message": "অন্য একটি VADM (একটি সার্ভার)"
   },
   "popup_remote_code": {
     "message": "পেয়ারিং কোড"
@@ -246,7 +246,7 @@
     "message": "পেয়ার করুন"
   },
   "popup_remote_help": {
-    "message": "এর ঠিকানা একবার খুলুন এবং এর সার্টিফিকেট গ্রহণ করুন, তারপর এর বিকল্প, রিমোট, পেয়ার এ ডিভাইস (অথবা misterdownloadmanager-cli pair) থেকে একটি কোড লিখুন।"
+    "message": "এর ঠিকানা একবার খুলুন এবং এর সার্টিফিকেট গ্রহণ করুন, তারপর এর বিকল্প, রিমোট, পেয়ার এ ডিভাইস (অথবা vadm-cli pair) থেকে একটি কোড লিখুন।"
   },
   "status_remote": {
     "message": "ডাউনলোডগুলো $address$-এ যায়",
@@ -361,19 +361,19 @@
     "message": "সেরা মান ডাউনলোড করুন"
   },
   "video_sending": {
-    "message": "MDM-এ পাঠানো হচ্ছে..."
+    "message": "VADM-এ পাঠানো হচ্ছে..."
   },
   "video_added": {
-    "message": "MDM-এ যোগ করা হয়েছে"
+    "message": "VADM-এ যোগ করা হয়েছে"
   },
   "video_show": {
     "message": "দেখান"
   },
   "video_no_answer": {
-    "message": "MDM সাড়া দেয়নি"
+    "message": "VADM সাড়া দেয়নি"
   },
   "video_get_mdm": {
-    "message": "MDM পান"
+    "message": "VADM পান"
   },
   "video_retry": {
     "message": "পুনরায় চেষ্টা করুন"
@@ -391,7 +391,7 @@
     "message": "এখান থেকে একটি অংশ ডাউনলোড করুন..."
   },
   "video_failed": {
-    "message": "Mister Download Manager ইনস্টল করা নেই বা চালু হয়নি"
+    "message": "VADM ইনস্টল করা নেই বা চালু হয়নি"
   },
   "video_download_best": {
     "message": "সেরাটি ডাউনলোড করুন"
@@ -412,7 +412,7 @@
     "message": "ভুলে যান"
   },
   "popup_gear": {
-    "message": "Mister Download Manager-এর বিকল্প"
+    "message": "VADM-এর বিকল্প"
   },
   "popup_tabs": {
     "message": "পপআপ বিভাগগুলো"
@@ -445,7 +445,7 @@
     "message": "বিরতি দেওয়া হয়েছে"
   },
   "popup_conn_update": {
-    "message": "Mister Download Manager আপডেট করুন"
+    "message": "VADM আপডেট করুন"
   },
   "popup_conn_remote": {
     "message": "$server$-এ পাঠানো হচ্ছে",
@@ -496,7 +496,7 @@
     }
   },
   "popup_dl_remote": {
-    "message": "এগুলো $server$-এর Mister Download Manager-এর ডাউনলোড। সেগুলোর ফাইল সেখানে খুলুন।",
+    "message": "এগুলো $server$-এর VADM-এর ডাউনলোড। সেগুলোর ফাইল সেখানে খুলুন।",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -505,7 +505,7 @@
     }
   },
   "popup_dl_more": {
-    "message": "$total$টির মধ্যে নতুন $shown$টি। Mister Download Manager সব তালিকাভুক্ত করে।",
+    "message": "$total$টির মধ্যে নতুন $shown$টি। VADM সব তালিকাভুক্ত করে।",
     "placeholders": {
       "shown": {
         "content": "$1",
@@ -576,7 +576,7 @@
     "message": "এখনো কোনো ডাউনলোড নেই"
   },
   "popup_dl_none_text": {
-    "message": "Mister Download Manager দিয়ে আপনি যা ডাউনলোড করেন তা এখানে দেখা যায়।"
+    "message": "VADM দিয়ে আপনি যা ডাউনলোড করেন তা এখানে দেখা যায়।"
   },
   "popup_dl_no_match": {
     "message": "কোনো মিল পাওয়া যায়নি"
@@ -594,28 +594,28 @@
     "message": "সব ডাউনলোড দেখান"
   },
   "popup_list_off": {
-    "message": "Mister Download Manager চলছে না"
+    "message": "VADM চলছে না"
   },
   "popup_list_off_text": {
     "message": "এখানে আপনার ডাউনলোডগুলো দেখতে এটি শুরু করুন।"
   },
   "popup_list_start": {
-    "message": "Mister Download Manager শুরু করুন"
+    "message": "VADM শুরু করুন"
   },
   "popup_list_old": {
-    "message": "Mister Download Manager আপডেট করুন"
+    "message": "VADM আপডেট করুন"
   },
   "popup_list_old_text": {
     "message": "এই সংস্করণটি এখনো এর ডাউনলোডগুলো এখানে তালিকাভুক্ত করতে পারে না।"
   },
   "popup_list_busy": {
-    "message": "Mister Download Manager ব্যস্ত আছে। আবার চেষ্টা করা হচ্ছে..."
+    "message": "VADM ব্যস্ত আছে। আবার চেষ্টা করা হচ্ছে..."
   },
   "popup_list_unreached": {
-    "message": "Mister Download Manager-এর সাথে যোগাযোগ করা যাচ্ছে না"
+    "message": "VADM-এর সাথে যোগাযোগ করা যাচ্ছে না"
   },
   "popup_list_remote_unreachable": {
-    "message": "$server$-এ Mister Download Manager-এর সাথে যোগাযোগ করা যাচ্ছে না",
+    "message": "$server$-এ VADM-এর সাথে যোগাযোগ করা যাচ্ছে না",
     "placeholders": {
       "server": {
         "content": "$1",
@@ -798,10 +798,10 @@
     "message": "এই সিস্টেমটি তা করতে পারে না।"
   },
   "popup_act_off": {
-    "message": "Mister Download Manager চলছে না।"
+    "message": "VADM চলছে না।"
   },
   "popup_act_busy": {
-    "message": "Mister Download Manager সময়মতো উত্তর দেয়নি। আবার চেষ্টা করুন।"
+    "message": "VADM সময়মতো উত্তর দেয়নি। আবার চেষ্টা করুন।"
   },
   "popup_act_failed": {
     "message": "এটি কাজ করেনি। আবার চেষ্টা করুন।"

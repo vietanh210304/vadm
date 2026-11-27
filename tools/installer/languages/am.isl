@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Amharic: tools/installer/languages.py
+﻿; VADM's installer in Amharic: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=%1 እየተራገፈ ነው።
 
 [CustomMessages]
 TaskBrowser=የ&አሳሽ ውህደትን ያዋቅሩ (Chrome, Edge, Brave, Firefox)
-TaskStartup=Start Mister Download Manager when &Windows starts
+TaskStartup=Start VADM when &Windows starts
 TaskGroupOther=ሌላ:
-Launch=Mister Download Managerን ያስጀምሩ
+Launch=VADMን ያስጀምሩ
 KeepData=የእርስዎን የማውረድ ዝርዝር እና ቅንብሮችም መሰረዝ ይፈልጋሉ?%n%nየወረዱ ፋይሎችዎ በማንኛውም መንገድ አይነኩም።

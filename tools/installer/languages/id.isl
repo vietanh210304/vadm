@@ -1,4 +1,4 @@
-﻿; Mister Download Manager's installer in Indonesian: tools/installer/languages.py
+﻿; VADM's installer in Indonesian: tools/installer/languages.py
 ; (machine-translated; a native speaker may correct any line).
 
 [LangOptions]
@@ -291,7 +291,7 @@ ShutdownBlockReasonUninstallingApp=Menghapus instalasi %1.
 
 [CustomMessages]
 TaskBrowser=Siapkan integrasi &browser (Chrome, Edge, Brave, Firefox)
-TaskStartup=Mulai Mister Download Manager saat &Windows dimulai
+TaskStartup=Mulai VADM saat &Windows dimulai
 TaskGroupOther=Lainnya:
-Launch=Mulai Mister Download Manager
+Launch=Mulai VADM
 KeepData=Hapus juga daftar unduhan dan pengaturan Anda?%n%nFile yang Anda unduh tidak akan tersentuh.

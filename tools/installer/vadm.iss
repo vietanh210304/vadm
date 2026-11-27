@@ -1,4 +1,4 @@
-; Mister Download Manager's Windows installer (Inno Setup 6). Built by tools/installer/build.ps1,
+; VADM's Windows installer (Inno Setup 6). Built by tools/installer/build.ps1,
 ; which passes /DAppVersion=..., /DArch=... and /DBin=... and, when a certificate is set up,
 ; /DSign with /Smdmsign=...
 ;
@@ -7,14 +7,14 @@
 ; for Chrome, Edge, Brave and Firefox), start with Windows, a desktop shortcut. A running MDM is
 ; asked to save and quit first (/exit). Uninstalling asks
 ; whether to keep the download list and settings; removing them also removes MDM's sign-ins from
-; Windows Credential Manager (misterdownloadmanager --forget-sign-ins).
+; Windows Credential Manager (vadm --forget-sign-ins).
 
 #ifndef AppVersion
   #define AppVersion "0.5.2"
 #endif
-#define AppName "Mister Download Manager"
-#define AppExe "misterdownloadmanager.exe"
-#define HostExe "misterdownloadmanager-nmhost.exe"
+#define AppName "VADM"
+#define AppExe "vadm.exe"
+#define HostExe "vadm-nmhost.exe"
 #define Root "..\.."
 ; The processor (build.ps1 -Arch): x64, arm64 or x86, an installer each; and the folder its
 ; programs were built in (target\<Rust's target>\release).
@@ -27,14 +27,14 @@
 
 [Setup]
 ; Never change AppId: upgrades and the uninstaller find the installation by it.
-AppId={{667DB4D8-32C2-4487-A0E5-5825BF29778C}
+AppId={{9FD7CC57-AE8F-4890-9FEB-BA4C2B77A90C}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppVerName={#AppName} {#AppVersion}
 AppPublisher=Ahmed Nefzaoui
-AppPublisherURL=https://github.com/anefzaoui/misterdownloadmanager
-AppSupportURL=https://github.com/anefzaoui/misterdownloadmanager/issues
-AppUpdatesURL=https://github.com/anefzaoui/misterdownloadmanager/releases
+AppPublisherURL=https://github.com/vietanh210304/vadm
+AppSupportURL=https://github.com/vietanh210304/vadm/issues
+AppUpdatesURL=https://github.com/vietanh210304/vadm/releases
 AppCopyright=Copyright (C) 2026 Ahmed Nefzaoui
 DefaultDirName={autopf}\{#AppName}
 DisableProgramGroupPage=yes
@@ -65,16 +65,16 @@ UninstallDisplayName={#AppName}
 OutputDir={#Root}\target\dist
 ; x64's keeps the name it had before there were others: MDM's Update now looks for it by name.
 #if Arch == "x64"
-OutputBaseFilename=MisterDownloadManager-{#AppVersion}-setup
+OutputBaseFilename=VADM-{#AppVersion}-setup
 #else
-OutputBaseFilename=MisterDownloadManager-{#AppVersion}-setup-{#Arch}
+OutputBaseFilename=VADM-{#AppVersion}-setup-{#Arch}
 #endif
 ; A 64 MB dictionary (#25): an 8 MB one (lzma2/max) only finds what repeats close by in the
 ; solid archive. A few MB smaller; building needs about 750 MB of memory, installing 64 MB.
 Compression=lzma2/ultra64
 SolidCompression=yes
 ChangesAssociations=yes
-; A running MDM is asked to quit by [Code] (it holds the mutex MisterDownloadManager.Running);
+; A running MDM is asked to quit by [Code] (it holds the mutex VADM.Running);
 ; AppMutex isn't used because it would refuse to start before that. Restart Manager is the
 ; fallback for anything else holding the files (a browser running the host).
 CloseApplications=yes
@@ -105,7 +105,7 @@ lang_en.KeepData=Also delete your download list and settings?%n%nYour downloaded
 ; languages show Setup's own message, that this Windows isn't supported.
 #if Arch == "x86"
 [Messages]
-lang_en.WindowsVersionNotSupported=This is the setup for 32-bit Windows, and this computer runs 64-bit Windows. Download MisterDownloadManager-{#AppVersion}-setup.exe instead (or MisterDownloadManager-{#AppVersion}-setup-arm64.exe on a Windows on ARM PC).
+lang_en.WindowsVersionNotSupported=This is the setup for 32-bit Windows, and this computer runs 64-bit Windows. Download VADM-{#AppVersion}-setup.exe instead (or VADM-{#AppVersion}-setup-arm64.exe on a Windows on ARM PC).
 #endif
 
 [Tasks]
@@ -116,8 +116,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "{#Bin}\{#AppExe}"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag}
 Source: "{#Bin}\{#HostExe}"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag}
-Source: "{#Bin}\misterdownloadmanager-cli.exe"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag}
-Source: "{#Bin}\misterdownloadmanager-mcp.exe"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag}
+Source: "{#Bin}\vadm-cli.exe"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag}
+Source: "{#Bin}\vadm-mcp.exe"; DestDir: "{app}"; Flags: ignoreversion {#SignFlag}
 ; The extension, for "Load unpacked" (Chromium) and about:debugging (Firefox) until it is in
 ; the stores.
 Source: "{#Root}\target\extension\chromium\*"; DestDir: "{app}\extension\chromium"; Flags: ignoreversion recursesubdirs
@@ -133,10 +133,10 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopico
 ; The language chosen in the wizard ({language}: "lang_" + a languages.tsv code with "_" for "-",
 ; see languages.py inno_name). The app
 ; takes it on its first start, when it has no language setting yet (settings.rs), then deletes it.
-Root: HKCU; Subkey: "Software\MisterDownloadManager"; ValueType: string; ValueName: "InstallLanguage"; ValueData: "{language}"; Flags: uninsdeletevalue uninsdeletekeyifempty
+Root: HKCU; Subkey: "Software\VADM"; ValueType: string; ValueName: "InstallLanguage"; ValueData: "{language}"; Flags: uninsdeletevalue uninsdeletekeyifempty
 ; Start with Windows: the same value Options -> "Launch on startup" writes and reads, with the
 ; argument that starts MDM in the notification area (#226; win32.rs startup_command).
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "MisterDownloadManager"; ValueData: """{app}\{#AppExe}"" /startup"; Flags: uninsdeletevalue; Tasks: startup
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "VADM"; ValueData: """{app}\{#AppExe}"" /startup"; Flags: uninsdeletevalue; Tasks: startup
 
 [Run]
 Filename: "{app}\{#HostExe}"; Parameters: "--register"; Flags: runhidden; Tasks: browser; Check: not IsAdminInstallMode
@@ -151,11 +151,11 @@ Filename: "{app}\{#HostExe}"; Parameters: "--unregister"; Flags: runhidden; RunO
 Filename: "{app}\{#HostExe}"; Parameters: "--unregister --all-users"; Flags: runhidden; RunOnceId: "UnregisterAll"; Check: IsAdminInstallMode
 
 [UninstallDelete]
-Type: files; Name: "{app}\com.misterdownloadmanager.host*.json"
+Type: files; Name: "{app}\com.vadm.host*.json"
 
 [Code]
 const
-  RunningMutex = 'MisterDownloadManager.Running';
+  RunningMutex = 'VADM.Running';
 
 { /relaunch=1 on the command line (MDM's Update now): start MDM again after installing. }
 function Relaunch: Boolean;
@@ -202,7 +202,7 @@ var
   Data: String;
   Code: Integer;
 begin
-  Data := ExpandConstant('{userappdata}\misterdownloadmanager');
+  Data := ExpandConstant('{userappdata}\vadm');
   if CurUninstallStep = usUninstall then
   begin
     RemoveData := False;

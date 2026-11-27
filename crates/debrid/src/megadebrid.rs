@@ -66,14 +66,14 @@ fn read<T: serde::de::DeserializeOwned>(
         return Err(Fault::Service(if status >= 500 {
             F::ServiceDown
         } else {
-            F::Other("an answer MDM can't read".into())
+            F::Other("an answer VADM can't read".into())
         }));
     };
     if s.response_code != "ok" {
         return Err(fault_of(&s.response_code, &s.response_text));
     }
     serde_json::from_slice(body)
-        .map_err(|_| Fault::Service(F::Other("an answer MDM can't read".into())))
+        .map_err(|_| Fault::Service(F::Other("an answer VADM can't read".into())))
 }
 
 async fn call<T: serde::de::DeserializeOwned>(

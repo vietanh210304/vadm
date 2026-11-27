@@ -12,14 +12,14 @@ use crate::dialogs::{Outcome, window};
 use crate::winui::{self, ButtonKind, r};
 
 /// The repository: problem reports, releases, source, licences.
-pub const REPO: &str = "https://github.com/anefzaoui/misterdownloadmanager";
-/// The creator's GitHub Sponsors page: Help → Support MDM, About's last line. The website, the
+pub const REPO: &str = "https://github.com/vietanh210304/vadm";
+/// The creator's GitHub Sponsors page: Help → Support VADM, About's last line. The website, the
 /// extension's popup and the repository's Sponsor button (.github/FUNDING.yml) point there too.
 pub const SPONSORS: &str = "https://github.com/sponsors/anefzaoui";
-const LATEST: &str = "https://api.github.com/repos/anefzaoui/misterdownloadmanager/releases/latest";
+const LATEST: &str = "https://api.github.com/repos/vietanh210304/vadm/releases/latest";
 /// The repository on GitHub (`owner/name`): its release pages when GitHub's API refuses for its
 /// rate limit (#1337).
-const REPO_PATH: &str = "anefzaoui/misterdownloadmanager";
+const REPO_PATH: &str = "vietanh210304/vadm";
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const COMMIT: &str = env!("MDM_COMMIT");
 /// While MDM runs, the automatic check comes again this often (it also checks at every start).
@@ -202,7 +202,7 @@ pub fn check(rt: &tokio::runtime::Handle, ctx: &egui::Context) -> Slot {
 fn settled(joined: Result<Result<Found, String>, tokio::task::JoinError>) -> Result<Found, String> {
     joined.unwrap_or_else(|e| {
         tracing::warn!("the update check stopped: {e}");
-        Err(crate::i18n::t("Mister Download Manager hit an internal error").to_owned())
+        Err(crate::i18n::t("VADM hit an internal error").to_owned())
     })
 }
 
@@ -543,7 +543,7 @@ impl Updates {
                     Some(Ok(Found::Latest)) => {
                         let line = crate::i18n::fmt(
                             crate::i18n::t(
-                                "You have the latest version of Mister Download Manager ({version}).",
+                                "You have the latest version of VADM ({version}).",
                             ),
                             &[("version", VERSION)],
                         );
@@ -565,7 +565,7 @@ impl Updates {
                     Some(Ok(Found::Newer(rel))) => {
                         let line = crate::i18n::fmt(
                             crate::i18n::t(
-                                "Mister Download Manager {version} is available (released {date}).",
+                                "VADM {version} is available (released {date}).",
                             ),
                             &[("version", &rel.version), ("date", &rel.date)],
                         );
@@ -903,7 +903,7 @@ impl About {
         window(
             ctx,
             "about",
-            "About Mister Download Manager",
+            "About VADM",
             [420.0, 236.0 + extra],
             false,
             winui::BG(),
@@ -919,14 +919,14 @@ impl About {
                     &p,
                     o.x + 80.0,
                     o.y + 28.0,
-                    crate::i18n::t("Mister Download Manager"),
+                    crate::i18n::t("VADM"),
                     ink,
                 );
                 spoken_line(
                     ui,
                     r(o, 80.0, 14.0, 324.0, 18.0),
                     "about-name",
-                    crate::i18n::t("Mister Download Manager"),
+                    crate::i18n::t("VADM"),
                 );
                 let version = crate::i18n::fmt(
                     crate::i18n::t("Version {version} ({commit})"),
@@ -942,7 +942,7 @@ impl About {
                     &version,
                 );
                 let about = crate::i18n::t(
-                    "The download manager you already know, rebuilt to be faster. Free and open source under the GNU GPL, version 3 or later. Videos are found by yt-dlp.",
+                    "VADM (forked from anefzaoui/misterdownloadmanager). Free and open source under the GNU GPL, version 3 or later. Videos are found by yt-dlp.",
                 );
                 let lines =
                     winui::paragraph(&p, o.x + 80.0, o.y + 72.0, about, ink, o.x + 404.0, 13.0);
@@ -1000,7 +1000,7 @@ impl About {
                     &p,
                     o.x + 80.0,
                     y,
-                    "Support MDM on GitHub Sponsors",
+                    "Support VADM on GitHub Sponsors",
                     "support",
                 ) {
                     support();
@@ -1224,7 +1224,7 @@ impl TellFriend {
     fn message() -> String {
         crate::i18n::fmt(
             crate::i18n::t(
-                "I download with Mister Download Manager: fast, free, and it looks like the download manager you already know. {link}",
+                "I download with VADM: fast, free, and it looks like the download manager you already know. {link}",
             ),
             &[("link", SITE)],
         )
@@ -1350,7 +1350,7 @@ impl TellFriend {
                             .collect::<String>()
                             .replace('+', "%20")
                     };
-                    let subject = crate::i18n::t("Mister Download Manager");
+                    let subject = crate::i18n::t("VADM");
                     let opened = open::that_detached(format!(
                         "mailto:?subject={}&body={}",
                         enc(subject),

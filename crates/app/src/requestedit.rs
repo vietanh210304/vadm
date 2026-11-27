@@ -430,7 +430,7 @@ fn header_error(e: &HeaderError) -> String {
         HeaderError::Reserved(n, name) => {
             return crate::i18n::fmt(
                 // i18n: Site rule / a download's Connection settings: a header MDM sets itself for each request (Range, Host…) can't be typed; {line} is the line's number, {name} the header's name
-                crate::i18n::t("Line {line}: Mister Download Manager sets {name} itself"),
+                crate::i18n::t("Line {line}: VADM sets {name} itself"),
                 &[("line", &n.to_string()), ("name", name)],
             );
         }
